@@ -1,5 +1,5 @@
 import express from "express";
-import SaleRouter from './Sale.js';
+import SaleRouter from './Sale/Sale.js';
 
 const routes = express.Router();
 

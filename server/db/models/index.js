@@ -81,8 +81,9 @@ ProjectsImagesModel.belongsTo(ProjectsModel);
 CustomersModel.hasMany(RentalAgreementModel);
 RentalAgreementModel.belongsTo(CustomersModel);
 
-RentalAgreementModel.hasOne(RentalAgreementListModel);
-RentalAgreementListModel.belongsTo(RentalAgreementModel);
+RentalProductsModel.belongsToMany(RentalAgreementModel, {
+  through: RentalAgreementListModel
+});
 
 RentalProductsModel.hasOne(ServiceBookModel);
 ServiceBookModel.belongsTo(RentalProductsModel);
@@ -90,9 +91,6 @@ ServiceBookModel.belongsTo(RentalProductsModel);
 ServiceBookModel.hasMany(ServiceReportsModel);
 ServiceReportsModel.belongsTo(ServiceBookModel);
 
-// ServiceReportsModel.hasMany(SparePartsModel, {
-//   through: PartsChangedModel
-// });
 SparePartsModel.belongsToMany(ServiceReportsModel, {
   through: PartsChangedModel
 });
