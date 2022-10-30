@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
@@ -39,7 +38,7 @@ const Home = () => {
   </div>
   <div className='py-10 mx-auto flex flex-col items-center' dir='rtl'>
     <h2 className='text-4xl font-bold text-green-600'>מכירת ציוד לבניין</h2>
-    <p className='text-xl w-full sm:w-2/4 text-center'>
+    <p className='text-2xl w-full sm:w-2/4 text-center'>
         בין שירותי חברת נמרם אנו עוסקים ביבוא ושיווק ציוד וכלים לבנייה, נמרם דוגלת במכירת ציוד מתקדם ואיכותי, בין מדפי החברה תוכלו למצוא מוצרים מהחברות המובליות בתחום כמו גם את המותג הפרטי שלנו.
         בנוסף אנו נותנים שירות לכל מוצר היוצא מסף דלתינו.
     </p>
