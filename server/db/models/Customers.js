@@ -1,34 +1,38 @@
 'use strict';
+
 import { Model } from 'sequelize';
 
-const Categories = (sequelize, DataTypes) => {
-    class Categories extends Model {
+const Customers = (sequelize, DataTypes) => {
+    class Customers extends Model {
         static associations(models) {
 
         }
     }
 
-    Categories.init({
+    Customers.init({
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true
-        }, 
-        Name: {
+        },
+        FullName: {
             type: DataTypes.STRING
         },
-        Type: {
+        PhoneNumber: {
             type: DataTypes.STRING
         },
-        Image: {
+        IdNumber: {
             type: DataTypes.STRING
-        }
+        },
+        CompanyName: {
+            type: DataTypes.STRING
+        },
     }, {
         sequelize,
-        modelName: "Categories"
+        modelName: "Customers"
     });
 
-    return Categories;
+    return Customers;
 };
 
-export default Categories;
+export default Customers;

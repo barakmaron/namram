@@ -23,6 +23,12 @@ const SpareParts = (sequelize, DataTypes) => {
         },
         NameHebrew: {
             type: DataTypes.STRING
+        },
+        Price: {
+            type: DataTypes.STRING
+        },
+        Count: {
+            type: DataTypes.INTEGER
         }
     }, {
         sequelize,
