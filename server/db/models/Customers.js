@@ -1,40 +1,38 @@
 'use strict';
 
-import { Model } from "sequelize";
+import { Model } from 'sequelize';
 
-const SpareParts = (sequelize, DataTypes) => {
-    class SpareParts extends Model {
+const Customers = (sequelize, DataTypes) => {
+    class Customers extends Model {
         static associations(models) {
 
         }
     }
 
-    SpareParts.init({
+    Customers.init({
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true
         },
-        SerialNumber: {
+        FullName: {
             type: DataTypes.STRING
         },
-        NameEnglish: {
+        PhoneNumber: {
             type: DataTypes.STRING
         },
-        NameHebrew: {
+        IdNumber: {
             type: DataTypes.STRING
         },
-        Price: {
+        CompanyName: {
             type: DataTypes.STRING
         },
-        Count: {
-            type: DataTypes.INTEGER
-        }
     }, {
         sequelize,
-        modelName: "SpareParts"
+        modelName: "Customers"
     });
-    return SpareParts;
+
+    return Customers;
 };
 
-export default SpareParts;
+export default Customers;
