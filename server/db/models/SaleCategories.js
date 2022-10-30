@@ -1,14 +1,14 @@
 'use strict';
 import { Model } from 'sequelize';
 
-const Categories = (sequelize, DataTypes) => {
-    class Categories extends Model {
+const SaleCategories = (sequelize, DataTypes) => {
+    class SaleCategories extends Model {
         static associations(models) {
 
         }
     }
 
-    Categories.init({
+    SaleCategories.init({
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
@@ -17,18 +17,15 @@ const Categories = (sequelize, DataTypes) => {
         Name: {
             type: DataTypes.STRING
         },
-        Type: {
-            type: DataTypes.STRING
-        },
         Image: {
             type: DataTypes.STRING
         }
     }, {
         sequelize,
-        modelName: "Categories"
+        modelName: "SaleCategories"
     });
 
-    return Categories;
+    return SaleCategories;
 };
 
-export default Categories;
+export default SaleCategories;

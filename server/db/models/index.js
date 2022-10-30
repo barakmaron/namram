@@ -1,5 +1,5 @@
 import Sequelize from 'sequelize';
-import Categories from './Categories.js';
+import SaleCategories from './SaleCategories.js';
 import Products from './Products.js';
 import ProductsImages from './ProductsImages.js';
 import ProductProps from './ProductProps.js';
@@ -17,6 +17,7 @@ import PartsChanged from './PartsChanged.js';
 import RentalAgreement from './RentalAgreement.js';
 import RentalAgreementList from './RentalAgreementList.js';
 import Customers from './Customers.js';
+import RentCategories from './RentCategories.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -30,7 +31,8 @@ export const sequelize = new Sequelize(
   }
 );
 
-export const CategoriesModel = Categories(sequelize, Sequelize.DataTypes);
+export const SaleCategoriesModel = SaleCategories(sequelize, Sequelize.DataTypes);
+export const RentCategoriesModel = RentCategories(sequelize, Sequelize.DataTypes);
 export const ProductsModel = Products(sequelize, Sequelize.DataTypes);
 export const RentalProductsModel = RentalProducts(sequelize, Sequelize.DataTypes);
 export const SaleProductsModel = SaleProducts(sequelize, Sequelize.DataTypes);
@@ -49,8 +51,11 @@ export const BlogsModel = Blogs(sequelize, Sequelize.DataTypes);
 export const ProjectsModel = Projects(sequelize, Sequelize.DataTypes);
 export const ProjectsImagesModel = ProjectsImages(sequelize, Sequelize.DataTypes);
 
-CategoriesModel.hasMany(ProductsModel);
-ProductsModel.belongsTo(CategoriesModel);
+SaleCategoriesModel.hasMany(SaleProductsModel);
+SaleProductsModel.belongsTo(SaleCategoriesModel);
+
+RentCategoriesModel.hasMany(RentalProductsModel);
+RentalProductsModel.belongsTo(RentCategoriesModel);
 
 ProductsModel.hasOne(RentalProductsModel);
 RentalProductsModel.belongsTo(ProductsModel);
