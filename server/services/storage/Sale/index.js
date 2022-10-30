@@ -1,6 +1,6 @@
-import { SaleCategoriesModel, ProductPropsModel, ProductsImagesModel, ProductsModel, SaleProductsModel } from "../../db/models/index.js";
+import { SaleCategoriesModel, ProductPropsModel, ProductsImagesModel, ProductsModel, SaleProductsModel } from "../../../db/models/index.js";
 
-async function GetCategoriesWithProducts() {
+async function GetAllWithNested() {
     return SaleCategoriesModel.findAll({
         include: [{
             model: SaleProductsModel,
@@ -13,7 +13,7 @@ async function GetCategoriesWithProducts() {
 }
 
 const SaleDB = {
-    GetCategoriesWithProducts
+    GetAllWithNested
 };
 
 export default SaleDB;
