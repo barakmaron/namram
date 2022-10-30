@@ -15,13 +15,13 @@ const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
 
-Promise.resolve(sequelize.sync());
+Promise.resolve(sequelize.sync({force: true}));
 
 const app = express();
-app.use([cookieParser, morgan("common"), cors({ origin:true, credentials: true }), express.json()]);
+app.use(cookieParser());
+app.use([morgan("common"), cors({ origin:true, credentials: true }), express.json()]);
 
-app.use(routes);
-
+app.use('/', routes);
 app.use(ValidationErrorMiddleware);
 app.use(ErrorHandler);
 
