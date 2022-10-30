@@ -10,3 +10,29 @@
 body {
     font-family: main, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+
+@layer components {
+    .counter_reset {
+        counter-reset: my-counter;
+    }
+    .counter {
+        counter-increment: my-counter;
+        @apply relative;
+    }
+    .counter_before {
+        @apply content-[counter(my-counter)];
+        @apply text-green-600;
+        @apply bg-slate-700;
+        @apply h-10;
+        @apply w-10;
+        @apply text-center;
+        @apply flex;
+        @apply items-center;
+        @apply justify-center;
+        @apply rounded-full;
+        @apply absolute;
+        @apply right-0;
+        @apply font-bold;
+        @apply text-2xl;
+    }
+}
