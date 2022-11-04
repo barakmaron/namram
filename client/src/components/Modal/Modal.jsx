@@ -9,7 +9,7 @@ export default function Modal({
 }) {
     return(
         <div className={style.modal_wrapper} onClick={() => setClose()}>
-            <div className={`${style.modal_inner} w-3/4 `} onClick={e => e.stopPropagation()}>
+            <div className={`${style.modal_inner} w-fit max-w-3/4 max-w-3xl overflow-y-scroll h-4/6`} onClick={e => e.stopPropagation()}>
                 <div className={style.close_button} onClick={() => setClose()}>
                     <FaTimes></FaTimes>
                 </div>
