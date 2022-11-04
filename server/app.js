@@ -19,7 +19,7 @@ Promise.resolve(sequelize.sync({}));
 
 const app = express();
 app.use(cookieParser());
-app.use([morgan("common"), cors({ origin:true, credentials: true }), express.json()]);
+app.use([morgan("common"), cors({ origin:true, credentials: true }), express.json(), express.urlencoded()]);
 
 app.use('/', routes);
 app.use(ValidationErrorMiddleware);
