@@ -18,16 +18,6 @@ const API_METHODS = {
     PATCH: "patch",
     DELETE: "delete"
   };
-  
-const INPUTS_TYPES = {
-    TEXT: "text",
-    PASSWORD: "password",
-    TEXT_AREA: "textarea",
-    FILE: "file",
-    NUMBER: "number",
-    EMAIL: "email",
-    TEL: "tel"
-};
 
   
 const routes = [{
@@ -175,42 +165,10 @@ const lists = {
     }
 };
 
-const contact_inputs = [{
-    type: INPUTS_TYPES.TEXT,
-    name: "full_name",
-    place_holder: "שם מלא"
-}, {
-    type: INPUTS_TYPES.TEXT,
-    name: "company_name",
-    place_holder: "שם החברה"
-}, {
-    type: INPUTS_TYPES.TEL,
-    name: "phone_number",
-    place_holder: "טלפון"
-}, {
-    type: INPUTS_TYPES.EMAIL,
-    name: "email",
-    place_holder: "אימייל"
-}, {
-    type: INPUTS_TYPES.TEXT_AREA,
-    name: "text",
-    place_holder: "מהות הפנייה"
-}];
-
 const maps = {
     ashdod: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3389.793685021669!2d34.67930828445996!3d31.83061108126808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502bce8c97c0863%3A0x63b3a097fc3ce025!2z16DXnteo150g15TXqdeb16jXqiDXpteZ15XXkyDXkdeiIteeINeg15nXodeV16gg15HXmNeV158g16fXmdeT15XXlyDXkdeY15XXnyDXkdeZ15TXnNeV150g16fXkdec158g15TXqNeZ16HXlA!5e0!3m2!1siw!2sil!4v1667131948310!5m2!1siw!2sil",
     eilat: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d216.89833395611618!2d34.959266949398284!3d29.563738702595106!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15006f84bd8ec259%3A0x3112f3dc38309150!2z16DXnteo150g15HXmdem15XXoiDXkdeiIteeINeU16nXm9eo16og16bXmdeV15Mg15XXm9ec15nXnSDXnNeR16DXmdeZ15Q!5e0!3m2!1siw!2sil!4v1667132620931!5m2!1siw!2sil"
 };
-
-const login_inputs = [{
-    type: INPUTS_TYPES.EMAIL,
-    name: "email",
-    place_holder: "email"
-}, {
-    type: INPUTS_TYPES.PASSWORD,
-    name: "password",
-    place_holder: "password"
-}];
 
 const Constants = {
     routes,
@@ -218,11 +176,8 @@ const Constants = {
     contact_info,
     lists,
     API_METHODS,
-    INPUTS_TYPES,
-    contact_inputs,
     maps,
-    login_inputs,
-    admin_routes
+    admin_routes,
 };
 
 export default Constants;
