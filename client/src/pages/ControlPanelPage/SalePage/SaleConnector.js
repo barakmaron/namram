@@ -1,7 +1,7 @@
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import Sale from "./Sale";
-import { GetSaleAction } from "../../../redux/actions/saleActions";
+import { GetSaleAction } from "../../../redux/actions/SaleActions/saleActions";
 import { getCategories } from "../../../redux/selectors/saleSelector";
 
 const maStateToProps = (state, ownProps) => {
@@ -11,7 +11,7 @@ const maStateToProps = (state, ownProps) => {
 
 const mapActionToProps = (dispatch) => {
     return bindActionCreators({
-        GetSaleAction
+        GetSaleAction,
     }, dispatch);
 };
 
