@@ -3,6 +3,20 @@ module.exports = {
   content: ["./src/**/*.{js,jsx}"],
   theme: {
     extend: {
+      colors: {
+        'forest-green': {
+          '50': '#f1fcf1',
+          '100': '#ddfbdf',
+          '200': '#bef4c3',
+          '300': '#8bea95',
+          '400': '#51d760',
+          '500': '#29be3b',
+          '600': '#1c9d2c',
+          '700': '#187223',
+          '800': '#1a6123',
+          '900': '#175020',
+        }
+      },
       backgroundImage: {
         'home': "url('/src/images/home_pic.webp')",
         'rent': "url('/src/images/RentPic.webp')",
