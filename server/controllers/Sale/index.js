@@ -1,5 +1,6 @@
 import SaleService from "../../services/SaleService/index.js";
-import Categories from './Categories.js';
+import Categories from './CategoriesController.js';
+import Products from './ProductsController.js';
 
 async function GetAllWithNested(req, res) {
     try {
@@ -12,7 +13,8 @@ async function GetAllWithNested(req, res) {
 
 const SaleController = {
     GetAllWithNested,
-    Categories
+    Categories,
+    Products
 };
 
 export default SaleController;
