@@ -1,5 +1,5 @@
 const ACTIONS = {
-    GET_SALE: "GET_SALE"
+    PATCH_PRODUCT_PROP: "PATCH_PRODUCT_PROP"
 };
 
 export default ACTIONS;
