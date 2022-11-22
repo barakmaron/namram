@@ -31,11 +31,16 @@ async function CreateRentalProductPdf(product) {
     return await CreatePdf('rent_product', product);
 }
 
+async function CreateRentalCategoryPdf(rental_category) {
+    return await CreatePdf('rent_category', rental_category);
+}
+
 const PdfService = {
     CreatePdf,
     CreateAgreementPdf,
     CreateServiceReportPdf,
-    CreateRentalProductPdf
+    CreateRentalProductPdf,
+    CreateRentalCategoryPdf
 };
 
 export default PdfService;

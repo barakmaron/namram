@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            רווח/הפסד עבור {{ data.Name }}
+        </title>
+        <style>
+            {{ css }}
+        </style>
+    </head>
+    <body dir="rtl" onload="window.print()">
+        {{#each data.RentProducts as | Product |}}
+        <div class="page">
+            <h1 class="main_title">{{ Product.Product.Name }} | {{ Product.Product.SerialNumber }}</h1>
+            <div class="service_report_data">
+                <div class="info">
+                    <div class="dynamic_info">
+                        <p>{{ Product.Product.Name }}</p>
+                        <p>{{ Product.Product.SerialNumber }}</p>
+                        <p>{{ Product.HourClock }}</p>
+                    </div>
+                    <div class="label">
+                        <p>שם הכלי</p>
+                        <p>מספר סידורי</p>
+                        <p>שעון שעות</p>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>מספר תיקון</th>
+                            <th>מחיר</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each Product.ServiceReports as | report |}}
+                            <tr>
+                                <td>{{ report.id }}</td>
+                                <td>{{ report.SumParts }} ₪</td>
+                            </tr>
+                        {{/each}}
+                        <tr>
+                            <th>סהכ תחזוקה</th>
+                            <th style="color:red">{{ Product.ServicePrice }} ₪</th>
+                        </tr>
+                        <tr>
+                            <th>ימי שכירות</th>
+                            <th>{{ Product.SumRentalDays }}</th>
+                        </tr>
+                        <tr>
+                            <th>הכנסה משכירות</th>
+                            <th style="color:green">{{ Product.SumRentalIncome }} ₪</th>
+                        </tr>
+                        <tr>
+                            <th>נטו</th>
+                            <th dir="ltr">₪ {{ Product.SumNetIncome }}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {{/each}}
+        <div class="page">
+            <h1>סיכום</h1>
+            <div class="info">
+                <div class="dynamic_info">
+                    <p style="color: red;">{{ data.SumService }} ₪</p>
+                    <p style="color: green">{{ data.SumIncome }} ₪</p>
+                    <p>{{ data.SumNetIncome }} ₪</p>
+                </div>
+                <div class="label">
+                    <p>סהכ עלות אחזקה</p>
+                    <p>סהכ הכנסה</p>
+                    <p>נטו</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
