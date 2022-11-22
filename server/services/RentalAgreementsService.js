@@ -32,11 +32,17 @@ async function DeleteAgreement(id) {
 }
 
 async function GetAgreement(id) {
-    return await RentAgreementsDb.GetAgreement(id);
+    return await RentAgreementsDb.GetRentalAgreementById(id);
 }
 
-async function GetAgreementPdf(id) {
-    const agreement = await GetAgreement(id);
+async function SearchAgreements(SerialNumber, StartDate, EndDate) {
+    if(SerialNumber)
+        return [await RentAgreementsDb.GetAgreementBySerialNumber(SerialNumber)];
+    else
+        return await RentAgreementsDb.GetAllAgreementsByDateRange(StartDate, EndDate);
+}
+
+function ParseAgreementForPdf(agreement) {
     const parsed_object_from_db = agreement.toJSON();
     const end_date = moment(parsed_object_from_db.EndDate);
     const start_date = moment(parsed_object_from_db.StartDate);
@@ -44,8 +50,13 @@ async function GetAgreementPdf(id) {
     parsed_object_from_db.EndDate = parsed_object_from_db.EndDate && end_date.locale('he').format(Constants.TIME_DATE_FORMAT);
     parsed_object_from_db.RentToolsList = parsed_object_from_db.RentalAgreementLists.flatMap(list => list.RentProduct);
     parsed_object_from_db.SumDays = end_date.diff(start_date, 'days') + 1;
-    const pdf = await PdfService.CreateAgreementPdf(parsed_object_from_db);
-    return pdf;
+    return parsed_object_from_db;
+}
+
+async function GetAgreementPdf(agreements, title) {
+    const parsed_object_from_db = agreements.map(agreement => ParseAgreementForPdf(agreement));
+    parsed_object_from_db.title = title;
+    return await PdfService.CreateAgreementPdf(parsed_object_from_db);
 }
 
 const RentalAgreementsService = {
@@ -55,7 +66,8 @@ const RentalAgreementsService = {
     CloseAgreement,
     DeleteAgreement,
     GetAgreementPdf,
-    GetAgreement    
+    GetAgreement,
+    SearchAgreements    
 };
 
 export default RentalAgreementsService;

@@ -2,8 +2,17 @@ import RentalAgreementsService from "../services/RentalAgreementsService.js";
 
 async function GetAgreements(req, res) {
     try {
-        const { customer, close } = req.query;
-        const agreements = await RentalAgreementsService.GetAllAgreements(close, customer);
+        const { customer, close, SerialNumber, StartDate, EndDate, pdf } = req.query;
+        let agreements;
+        if(SerialNumber || (StartDate && EndDate))
+            agreements = await RentalAgreementsService.SearchAgreements(SerialNumber, StartDate, EndDate);
+        else
+            agreements = await RentalAgreementsService.GetAllAgreements(close, customer);
+        agreements = pdf ? await RentalAgreementsService.GetAgreementPdf(agreements, "חיפוש הסכמים") : agreements;
+        if(pdf) {
+            res.set('Content-Type', 'text/html');
+            return res.send(agreements);
+        }
         return res.status(200).json(agreements);
     } catch (err) {
         console.log(err)
@@ -14,7 +23,8 @@ async function GetRentalAgreement(req, res) {
     try {
         const { id } = req.params;
         const { pdf } = req.query;
-        const agreement = pdf ? await RentalAgreementsService.GetAgreementPdf(id) : await RentalAgreementsService.GetAgreement(id);
+        let agreement = await RentalAgreementsService.GetAgreement(id);
+        agreement = pdf ? await RentalAgreementsService.GetAgreementPdf([agreement], agreement.SerialNumber) : agreement;
         if(pdf) {
             res.set('Content-Type', 'text/html');
             return res.send(agreement);
