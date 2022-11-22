@@ -22,3 +22,8 @@ export async function StaticFileLoader(file_name, type) {
         throw err;
     }
 }
+
+export function GetImageUrl(image) {
+    const base_url = process.env.REACT_APP_API_BASE_URL;
+    return `${base_url}/images/${image}`;
+}

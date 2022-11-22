@@ -14,7 +14,7 @@ const useImageLoader = (Image, TempUrl) => {
 
     useEffect(() => {        
         image_loader();
-    }, []);
+    }, [Image, TempUrl]);
 
 
     return [isLoading, image_obj];

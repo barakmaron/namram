@@ -1,8 +1,8 @@
 import { ProductPropsModel } from "../../../db/models/index.js";
 
-async function PatchName(id, value) {
+async function PatchProp(id, field_name, value) {
     return await ProductPropsModel.update({
-        PropName: value
+        [field_name]: value
     }, {
         where: {
             id: id
@@ -10,10 +10,14 @@ async function PatchName(id, value) {
     });
 }
 
-async function PatchValue(id, value) {
-    return await ProductPropsModel.update({
-        Value: value
-    }, {
+async function AddProp(product_id) {
+    return await ProductPropsModel.create({
+        ProductId: product_id
+    });
+}
+
+async function DeleteProp(id) {
+    return await ProductPropsModel.destroy({
         where: {
             id: id
         }
@@ -21,8 +25,9 @@ async function PatchValue(id, value) {
 }
 
 const Props = {
-    PatchName,
-    PatchValue
+    PatchProp,
+    AddProp,
+    DeleteProp
 };
 
 export default Props;
