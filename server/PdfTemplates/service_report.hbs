@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            כרטיס תיקון עבור {{ data.Product.Name }} | {{ data.Product.SerialNumber }}
+        </title>
+        <style>
+            {{ css }}
+        </style>
+    </head>
+    <body dir="rtl" onload="window.print()">
+        <main>
+            <h1 class="main_title">{{ data.Product.Name }} | {{ data.Product.SerialNumber }}</h1>
+            <div class="service_report_data">
+                <div class="info">
+                    <div class="dynamic_info">
+                        <p>{{ data.Product.Name }}</p>
+                        <p>{{ data.Product.SerialNumber }}</p>
+                        <p>{{ data.HourClock }}</p>
+                    </div>
+                    <div class="label">
+                        <p>שם הכלי</p>
+                        <p>מספר סידורי</p>
+                        <p>שעון שעות</p>
+                    </div>
+                </div>
+                {{#each data.ServiceReports as | report |}}
+                <h2>{{ report.id }}</h2>
+                <div class="info">
+                    <div class="dynamic_info">
+                        <p>{{ report.Problem }}</p>
+                    </div>
+                    <div class="label">
+                        <p>תאור הבעיה</p>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="dynamic_info">
+                        <p>{{ report.Update }}</p>
+                    </div>
+                    <div class="label">
+                        <p>עדכון לאחר בדיקה ראשונית</p>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="dynamic_info">
+                        <p>{{ report.StartDate }}</p>
+                        {{#if report.EndDate}}
+                            <p>{{ report.EndDate }}</p>
+                        {{/if }}
+                    </div>
+                    <div class="label">
+                        <p>תאריך התחלה</p>
+                        {{#if report.EndDate }}
+                            <p>תאריך סיום</p>
+                        {{/if }}
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>מספר חלק</th>
+                            <th>שם בעברית</th>
+                            <th>שם באנגלית</th>
+                            <th>דיאגרמה</th>
+                            <th>מחיר</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each report.PartsChangeds as | part |}}
+                            <tr>
+                                <td>{{ part.SparePart.SerialNumber }}</td>
+                                <td>{{ part.SparePart.NameHebrew }}</td>
+                                <td>{{ part.SparePart.NameEnglish }}</td>
+                                <td>{{ part.SparePart.ProductPartsDiagram.ModelName }}</td>
+                                <td>{{ part.SparePart.Price }}</td>
+                            </tr>
+                        {{/each}}
+                        <tr>
+                            <td colspan="3"></td>
+                            <th>סהכ</th>
+                            <th>{{ report.SumParts }}</th>
+                        </tr>
+                    </tbody>
+                </table>
+                {{/each}}
+            </div>
+        </main>
+    </body>
+</html>

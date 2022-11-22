@@ -1,21 +1,29 @@
+import React from 'react';
 import { useCallback, useRef, useState } from 'react';
-import { Button, TextareaAutosize, TextField, Select, MenuItem } from '@mui/material';
+import { Button, TextareaAutosize, TextField } from '@mui/material';
 import style from './Form.module.css';
 import { useEffect } from 'react';
 import FORMS from './Forms';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Dropdown } from 'monday-ui-react-core';
+import RentalToolsSelectorConnector from './RentToolsSelector/RentToolsSelectorConnector';
+import SignatureCapture from './SignatureCapture/SignatureCapture';
+import Checkbox from './CheckBox/CheckBox';
+
 export default function Form({ 
     inputs, 
     controller,
     action,
     reset,
     failed,
-    message 
+    message,
+    className
 }){
     const form_ref = useRef(null);
     const [images, setObjectUrl] = useState([]);
     const [dynamic_inputs, setDynamicInputs] = useState([]);
+    const [tools, setTools] = useState([]);
+    const [signature, setSignature] = useState(undefined);
 
     const uploadToClient = useCallback(event => {
         if(event.target.files) {
@@ -30,9 +38,10 @@ export default function Form({
     const submit_action = useCallback((event) => {
         event.preventDefault();
         const form_data = new FormData(form_ref?.current);
-        const formatted_form = images.length ? form_data : Object.fromEntries(form_data);
+        const formatted_form = images.length || signature ? form_data : Object.fromEntries(form_data);
+        signature && formatted_form.append("Signature", signature);
         action(event, formatted_form, images);
-    }, [form_ref, action, images]);
+    }, [form_ref, action, images, signature]);
 
     useEffect(() => {
         if(reset)
@@ -53,7 +62,7 @@ export default function Form({
         setDynamicInputs(inputs => inputs.filter(input => input.id !== id));
     }, []);
 
-    return <form className={style.container} ref={form_ref} dir="rtl">
+    return <form className={`${className || style.container}`} ref={form_ref} key={`form`} dir="rtl">
         {inputs.map(({ name, type, place_holder }, index) => {
             switch(type){
                 case FORMS.INPUTS_TYPES.FILE: {
@@ -94,7 +103,7 @@ export default function Form({
                     options={controller[index].list} 
                     onChange={controller[index].onChange}
                     name={name}
-                    className={`w-60 z-[10 * ${inputs.length - index}]`} />
+                    className={`w-60 z-${10 * (index % 5 + 1)}`} />
                 }
                 case FORMS.INPUTS_TYPES.DYNAMIC_INPUTS: {
                     return  <div key={`dynamic-inputs-${name}-button`} className="flex flex-col gap-5 justify-center items-center"> 
@@ -125,6 +134,28 @@ export default function Form({
                         </Button>
                     </div>;
                 }
+                case FORMS.INPUTS_TYPES.RENT_TOOLS_SELECTOR: {
+                    return <React.Fragment key={`rent-tools-selector-${name}`} ><RentalToolsSelectorConnector
+                    setData={setTools}/>
+                    <input 
+                    readOnly
+                    hidden={true} value={JSON.stringify(tools)} name={name} />
+                    </React.Fragment>;
+                }
+                case FORMS.INPUTS_TYPES.SIGNATURE_FIELD: {
+                    return <div className='w-full flex justify-center'
+                    key={`signature-${name}`}>
+                        <SignatureCapture
+                        name={name}
+                        setSignature={setSignature} />
+                    </div>;
+                }
+                case FORMS.INPUTS_TYPES.CHECK_BOX: {
+                    return <Checkbox
+                        key={`checkbox-${name}`}    
+                        name={name}                    
+                        place_holder={place_holder}/>;
+                }
                 default: {
                     return <TextField 
                     name={name} 
@@ -134,7 +165,9 @@ export default function Form({
                 }
             }    
         })}
-        <Button variant="contained" id="submit" type="submit" onClick={submit_action}>Submit</Button>
+        <div>
+            <Button variant="contained" id="submit" type="submit" onClick={submit_action}>Submit</Button>
+        </div>
         { failed && <div className='bg-red-400 text-white border-red-500 py-2 px-4 text-lg rounded-xl'>{message}</div>}
     </form>
 }
