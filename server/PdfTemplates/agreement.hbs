@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>הסכם {{data.SerialNumber}}</title>
+        <style>
+            {{css}}
+        </style>
+    </head>
+    <body dir="rtl" onload="window.print()">
+        <header>
+            <div class="head">
+                <img class="logo" src="/images/logo.webp"/>
+                <div class="header_title">
+                    <div class="main_title">
+                        <div>
+                            <h1>נמרם</h1>
+                            <h2>השכרת ציוד בע"מ</h2>
+                        </div>
+                        <p>{{data.SerialNumber}}</p>
+                    </div>
+                    <div class="address_title">
+                        <p>
+                            האשלג 29, אזור התעשייה הצפוני, אשדוד ת.ד 12806, 7761300 טל: 08-8560399 פקס: 08-8523896
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="customer_data">
+                <div class="info">
+                    <div class="dynamic_info">
+                        <p>{{data.Customer.FullName}}</p>
+                        <p>{{data.Customer.IdNumber}}</p>
+                        <p>{{data.Customer.PhoneNumber}}</p>
+                    </div>
+                    <div class="label">
+                        <p>שם פרטי + משפחה</p>
+                        <p>ת.ז</p>
+                        <p>נייד</p>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="dynamic_info">
+                        <p>{{data.Customer.Address}}</p>
+                        <p>{{data.Customer.HomePhoneNumber}}</p>
+                    </div>
+                    <div class="label">
+                        <p>כתובת פרטית</p>
+                        <p>טל בבית</p>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="dynamic_info">
+                        <p>{{data.Customer.CompanyName}}</p>
+                        <p>{{data.Customer.FaxNumber}}</p>
+                    </div>
+                    <div class="label">
+                        <p>שם החברה</p>
+                        <p>פקס</p>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="dynamic_info">
+                        <p>{{data.Location}}</p>
+                    </div>
+                    <div class="label">
+                        <p>מקום עבודת הציוד</p>
+                    </div>
+                </div>
+            </div>
+            <div class="rental_text_announcement">
+                <p>יום העבודה 7:30 עד 16:30. החזרת ציוד לאחר השעה 7:30 בבוקר בדיוק תגרור חיוב של יום נוסף.</p>
+                <p>במקרה של תקלה מכל סיבה, יחליף השוכר את הציוד במחסן נמרם. לא יבוציו החלפות ו/או תיקונים בשטח.</p>
+            </div>
+            <div class="tables_div">
+                <table class="rental_tools_table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">תאור הציוד</th>
+                            <th rowspan="2">מס סידורי</th>
+                            <th colspan="3">דימי שכרות בשקלים שלמים לפני מע"מ</th>
+                        </tr>
+                        <tr>
+                            <th>ליום</th>
+                            <th>לשבוע</th>
+                            <th>לחודש</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each data.RentToolsList as | tool |}}
+                            <tr class="rent_tool_row">
+                                <td>{{tool.Product.Name}}</td>
+                                <td>{{tool.Product.SerialNumber}}</td>
+                                <td>{{tool.DayPrice}}</td>
+                                <td>{{tool.WeekPrice}}</td>
+                                <td>{{tool.MonthPrice}}</td>
+                            </tr>
+                        {{/each}}                    
+                    </tbody>
+                </table>
+                <div class="props_table_container">
+                    <table class="rental_agreement_props_table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>סולר</th>
+                                <th>מחיר סולר</th>
+                                <th>הובלה</th>
+                                <th>מחיר הובלה</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>יציאה</th>
+                                <td>{{data.StartFuelCount}}</td>
+                                <td>{{data.StartFuelPrice}}</td>
+                                <td>{{data.StartTransportCount}}</td>
+                                <td>{{data.StartTransportPrice}}</td>
+                            </tr>
+                            <tr>
+                                <th>החזרה</th>
+                                <td>{{data.EndFuelCount}}</td>
+                                <td>{{data.EndFuelPrice}}</td>
+                                <td>{{data.EndTransportCount}}</td>
+                                <td>{{data.EndTransportPrice}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="props_table_announcement">
+                        <p>השוכר אחראי לשמירת הציוד וביטוחו עד החזרתו או תשלום תמורתו</p>
+                    </div>
+                </div>
+            </div>
+            <div class="date_info">
+                <div>
+                    <p class="title">תאריך הוצאת הציוד</p>
+                    <p>{{data.StartDate}}</p>
+                    <p>
+                        חתימה 
+                        <img
+                        class="signature" 
+                        src="/images/{{data.StartSignature}}" />
+                    </p>
+                </div>
+                {{#if data.EndDate}}
+                    <div>
+                        <p class="title">תאריך החזרת הציוד</p>
+                        <p>{{data.EndDate}}</p>
+                        <p>
+                            חתימה 
+                            <img 
+                            class="signature"
+                            src="/images/{{data.EndSignature}}" />
+                        </p>
+                    </div>
+                    <div>
+                        <p class="title">סה'כ ימי שכירות: </p>
+                        <p>{{data.SumDays}}</p>
+                    </div>
+                {{/if}}
+            </div>
+            <div>
+                <p>נמרם השכרת ציוד בע"מ לא תהיה אחראית לכל נזק שיגרם לשוכר עקב אי תקינות ו/או אי יכולת להפעלת הציוד השכור למעט דמי השכירות בגין פרק הזמן שלא הופעל הציוד בפועל.</p>
+                <p>אני מאשר כי על ידי חתימתי בלקיחת הציוד כי קראתי את התנאים הנוספים גם מעבר לדף המהווים חלק בלתי נפרד של חוזה השכירות הנ"ל הבנתי אותם ואני מאשר בחמתימתי הסכמתי להם.</p>
+            </div>
+        </main>
+    </body>
+</html>

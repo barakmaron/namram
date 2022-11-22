@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body  {
+    width: 21cm;
+    margin: auto;
+}
+
+.head {
+   display: flex;
+   width: 100%;
+   gap: 0px;
+   align-items: flex-end;
+}
+
+.logo {
+   width: 232px;
+   height: 120px;
+}
+
+.header_title {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+}
+
+.main_title {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 1px solid #000;
+}
+
+.main_title div{
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.address_title p {
+    font-size: 13.5px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.customer_data {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+}
+
+.dynamic_info, .label{
+    display: flex;
+    width: 100%;
+}
+
+.dynamic_info {
+    justify-content: space-between;
+}
+
+.label {
+    justify-content: space-around;
+    border-top: 1px solid #000;
+}
+
+.rental_text_announcement {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.rental_tools_table, .rental_agreement_props_table {
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.rental_tools_table, td, th {
+    border: 1px solid #000;
+}
+
+.rental_agreement_props_table {
+    width: 50%;
+}
+.rental_agreement_props_table thead tr th, .rental_agreement_props_table thead tr {
+    border-top: 0;
+}
+
+.props_table_container {
+    width: 100%;
+    display: flex;
+}
+
+.tables_div {
+    display: flex;
+    flex-direction: column;
+}
+
+.props_table_announcement {
+    font-weight: bold;
+    display: flex;
+    font-size: 16px;
+    text-align: center;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.date_info div {
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid #000;
+}
+
+.date_info .title {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.signature {
+    width: 150px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.rent_tool_row {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+.rent_tool_row td {
+    padding: 2px;
+}
+
+.rental_agreement_props_table tbody tr td {
+    padding: 2px;
+    font-size: 14px;
+    text-align: center;
+}
