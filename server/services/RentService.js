@@ -35,24 +35,32 @@ async function GetRentalProduct(id) {
     return await RentDB.GetRentalProduct(id);
 }
 
-async function CreateRentalProductReport(parse_product_from_db) {
-    parse_product_from_db.RentalAgreementLists = parse_product_from_db.RentalAgreementLists.map(agreement => ({
+async function CreateRentalProductReport(product) {
+    const parse_product_from_db = ParseRentalProductForPdf(product);
+    return await PdfService.CreateRentalProductPdf(parse_product_from_db);
+}
+
+async function ParseRentalProductForPdf(product) {
+    const temp_product = {...product};
+    temp_product.RentalAgreementLists = temp_product.RentalAgreementLists.map(agreement => ({
         RentalAgreement: RentalAgreementsService.ParseAgreementForPdf(agreement.RentalAgreement),
         ...agreement
     }));
-    parse_product_from_db.SumRentalDays = parse_product_from_db.RentalAgreementLists.reduce((accumulator, agreement) => accumulator + agreement.RentalAgreement.SumDays, 0);
-    parse_product_from_db.SumRentalIncome = parse_product_from_db.SumRentalDays * parse_product_from_db.DayPrice;
-    parse_product_from_db.ServiceReports = ServiceReportsService.ParseServiceReportData(parse_product_from_db.ServiceReports);
-    parse_product_from_db.ServicePrice = parse_product_from_db.ServiceReports.reduce((accumulator, report) => accumulator + report.SumParts, 0);
-    parse_product_from_db.SumNetIncome = parse_product_from_db.SumRentalIncome - parse_product_from_db.ServicePrice;
-    return await PdfService.CreateRentalProductPdf(parse_product_from_db);
+    temp_product.SumRentalDays = temp_product.RentalAgreementLists.reduce((accumulator, agreement) => accumulator + agreement.RentalAgreement.SumDays, 0);
+    temp_product.SumRentalIncome = temp_product.SumRentalDays * temp_product.DayPrice;
+    temp_product.ServiceReports = ServiceReportsService.ParseServiceReportData(temp_product.ServiceReports);
+    temp_product.ServicePrice = temp_product.ServiceReports.reduce((accumulator, report) => accumulator + report.SumParts, 0);
+    temp_product.SumNetIncome = temp_product.SumRentalIncome - temp_product.ServicePrice;
+    return temp_product;
 }
+
 
 const RentService = {
     GetAll,
     GetAllAvailable,
     GetRentalProduct, 
-    CreateRentalProductReport
+    CreateRentalProductReport,
+    ParseRentalProductForPdf
 };
 
 export default RentService;

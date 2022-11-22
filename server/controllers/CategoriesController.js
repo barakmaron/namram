@@ -35,10 +35,34 @@ async function EditCategory(req, res) {
     }
 }
 
+async function GetCategory(req, res) {
+    try {
+        const { id } = req.params;
+        const { pdf, income } = req.query;
+        let category, html_file;
+        if(pdf) {
+            res.set('Content-Type', 'text/html');
+            if(income) {
+                category = await CategoriesService.GetRentCategory(id);
+                html_file = await CategoriesService.CreateRentalIncomeCategoryReport(category.toJSON());
+                return res.send(html_file);
+            }
+            category = await CategoriesService.GetCategory(id);
+            html_file = await CategoriesService.CreateCategoryReport(category.toJSON());            
+            return res.send(html_file);
+        }
+        category = await CategoriesService.GetCategory(id);
+        return res.status(200).json(category);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 const Categories = {
     AddCategory,
     DeleteCategory,
-    EditCategory
+    EditCategory,
+    GetCategory
 };
 
 export default Categories;

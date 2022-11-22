@@ -52,6 +52,11 @@ const CreateReportsPage = ({
     window.open(`${process.env.REACT_APP_API_BASE_URL}/rent/products/${selected_product}?pdf=true`); 
   }, [selected_product]);
 
+  const open_rent_category_report = useCallback((event) => {
+    event.preventDefault();
+    window.open(`${process.env.REACT_APP_API_BASE_URL}/rent/categories/${selected_category}?pdf=true&income=true`); 
+  }, [selected_category]);
+
   return <>
     <div className='flex mx-auto flex-col flex-wrap gap-12 justify-center w-fit'>
       <SearchRentalAgreements/>
@@ -68,7 +73,7 @@ const CreateReportsPage = ({
           { form_controller.length !== 0 && <Form
           inputs={CreateReportsForms.category_gain_loss_form}
           controller={form_controller}
-          action={open_rent_product_report}/>}
+          action={open_rent_category_report}/>}
         </fieldset>
       </div>
     </div>
