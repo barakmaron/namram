@@ -27,10 +27,15 @@ async function CreateServiceReportPdf(service_report) {
     return await CreatePdf('service_report', service_report);
 }
 
+async function CreateRentalProductPdf(product) {
+    return await CreatePdf('rent_product', product);
+}
+
 const PdfService = {
     CreatePdf,
     CreateAgreementPdf,
-    CreateServiceReportPdf
+    CreateServiceReportPdf,
+    CreateRentalProductPdf
 };
 
 export default PdfService;

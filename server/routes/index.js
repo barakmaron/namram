@@ -17,6 +17,4 @@ routes.use('/rental_agreements', RentalAgreementsRouter);
 routes.use('/customers', CustomersRouter);
 routes.use('/service_reports', ServiceReportsRouter);
 
-console.log(routes)
-
 export default routes;

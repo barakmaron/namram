@@ -8,7 +8,7 @@ import CreateReportsForms from '../FormsConstants';
 
 const SearchRentalAgreements = () => {
 
-    const [start_date, setStartDate] = useState();
+  const [start_date, setStartDate] = useState();
   const [end_date, setEndDate] = useState();
   const [agreement_serial_number, setAgreementSerialNumber] = useState();
   const [error, setError] = useState({

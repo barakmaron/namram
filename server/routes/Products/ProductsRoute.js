@@ -8,6 +8,8 @@ import UploadImageMiddleware from '../../middleware/UploadImageMiddleware.js';
 
 const router = express.Router();
 
+router.get('/:id', ProductsController.GetProduct);
+
 router.post('/', UploadImageMiddleware.array('product_images', 10), ProductsController.AddProduct);
 router.delete('/:id', ProductsController.DeleteSaleProduct);
 router.patch('/:id', ProductsController.PatchProduct);
