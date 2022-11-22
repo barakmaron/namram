@@ -34,12 +34,12 @@ async function GetServiceReportPdf(id) {
 async function GetServiceBook(product_id) {
     const service_book = await GetServiceReportsByProductId(product_id);
     const parsed_object_from_db = service_book.toJSON();
-    parsed_object_from_db.ServiceReports = ParseServiceReportData(parsed_object_from_db);    
+    parsed_object_from_db.ServiceReports = ParseServiceReportData(parsed_object_from_db.ServiceReports);    
     return await PdfService.CreateServiceReportPdf(parsed_object_from_db);
 }
 
-function ParseServiceReportData(data) {
-    return data.ServiceReports.map(report => {
+function ParseServiceReportData(ServiceReports) {
+    return ServiceReports.map(report => {
         const temp_report = {...report};
         temp_report.StartDate = moment(report.StartDate).locale('he').format(Constants.TIME_DATE_FORMAT);
         temp_report.EndDate = report.EndDate ? moment(report.EndDate).locale('he').format(Constants.TIME_DATE_FORMAT) : null;
@@ -59,6 +59,7 @@ const ServiceReportsService = {
     GetServiceReportPdf,
     GetServiceBook,
     PatchServiceReport,
+    ParseServiceReportData,
     ChangedPartsService
 };
 
