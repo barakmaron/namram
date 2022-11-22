@@ -8,6 +8,10 @@ body  {
     margin: auto;
 }
 
+.page {
+    min-height: 29.48cm;
+}
+
 .head {
    display: flex;
    width: 100%;
@@ -44,7 +48,7 @@ body  {
     font-size: 13.5px;
 }
 
-main {
+.main {
     display: flex;
     flex-direction: column;
     gap: 10px;
