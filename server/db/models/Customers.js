@@ -18,6 +18,9 @@ const Customers = (sequelize, DataTypes) => {
         FullName: {
             type: DataTypes.STRING
         },
+        Address: {
+            type: DataTypes.STRING
+        },
         PhoneNumber: {
             type: DataTypes.STRING
         },
@@ -27,6 +30,12 @@ const Customers = (sequelize, DataTypes) => {
         CompanyName: {
             type: DataTypes.STRING
         },
+        HomePhoneNumber: {
+            type: DataTypes.STRING
+        },
+        FaxNumber: {
+            type: DataTypes.STRING
+        }
     }, {
         sequelize,
         modelName: "Customers"

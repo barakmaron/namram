@@ -1,8 +1,11 @@
 import AirHammers from "./pages/AirHammers/AirHammers";
 import CableCutting from "./pages/CableCuting/CableCuting";
 import Contact from "./pages/ContactPage/Contact";
-import ControlPanel from "./pages/ControlPanelPage/ControlPanel";
-import SaleConnector from "./pages/ControlPanelPage/SalePage/SaleConnector";
+import ControlPanel from "./pages/ControlPanel/ControlPanel";
+import CustomersPageConnector from "./pages/ControlPanel/CustomersPage/CustomersPageConnector";
+import RentalControlPanelConnector from "./pages/ControlPanel/RentalPage/RentalControlPanelConnector";
+import ServicePageConnector from "./pages/ControlPanel/ServicePage/ServicePageConnector";
+import ToolsPageConnector from "./pages/ControlPanel/ToolsPage/ToolsPageConnector";
 import Cut from "./pages/CutPage/Cut";
 import Drill from "./pages/DrillPage/DrillPage";
 import Eilat from "./pages/EilatPage/Eilat";
@@ -17,8 +20,17 @@ const API_METHODS = {
     PUT: "put",
     PATCH: "patch",
     DELETE: "delete"
-  };
+};
 
+const API_PRODUCT_TYPE = {
+    SALE: "sale",
+    RENT: "rent"
+};
+
+const PRODUCT_TYPE = {
+    SaleProducts: "SaleProducts",
+    RentProducts: "RentProducts"
+};
   
 const routes = [{
     label: "דף הבית",
@@ -77,11 +89,34 @@ const admin_routes = [{
 }, {
     label: "השכרת ציוד",
     location: "/control_panel/rent",
-    element: Rent
+    element: RentalControlPanelConnector,
+    sub_nav: [{
+        label: "השכרות",
+        location: "/control_panel/rent",
+        element: RentalControlPanelConnector
+    }, {
+        label: "כלים",
+        location: "/control_panel/rent/tools",
+        element: ToolsPageConnector,
+        props: { product_type: API_PRODUCT_TYPE.RENT }
+    }, {
+        label: "לקוחות",
+        location: "/control_panel/rent/customers",
+        element: CustomersPageConnector,
+    }, {
+        label: "תיקונים",
+        location: "/control_panel/rent/service",
+        element: ServicePageConnector,
+    }, {
+        label: "הפקת דוחות",
+        location: "/control_panel/rent/reports",
+        element: Rent,
+    }]
 }, {
     label: "מכירת ציוד",
     location: "/control_panel/sale",
-    element: SaleConnector
+    element: ToolsPageConnector,
+    props: { product_type: API_PRODUCT_TYPE.SALE }
 }, {
     label: "בלוג",
     location: "/control_panel/blogs",
@@ -176,6 +211,8 @@ const Constants = {
     contact_info,
     lists,
     API_METHODS,
+    API_PRODUCT_TYPE,
+    PRODUCT_TYPE,
     maps,
     admin_routes,
 };

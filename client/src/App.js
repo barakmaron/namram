@@ -28,9 +28,9 @@ function App({ logged_in }) {
       <Routes>      
         {Constants.admin_routes.map((route, index) => {
           return route.sub_nav ? route.sub_nav.map((sub_route, sub_index) => {
-            return <Route key={`route-${sub_route.location}-${index}-sub-${sub_index}`} path={sub_route.location} element={<sub_route.element></sub_route.element>}/>;
+            return <Route key={`route-${sub_route.location}-${index}-sub-${sub_index}`} path={sub_route.location} element={<sub_route.element {...sub_route.props}></sub_route.element>}/>;
           }) :
-        <Route key={`route-${route.location}-${index}`} path={route.location} element={<route.element></route.element>}/>;
+        <Route key={`route-${route.location}-${index}`} path={route.location} element={<route.element {...route.props}></route.element>}/>;
         })}
       </Routes>
     </div>

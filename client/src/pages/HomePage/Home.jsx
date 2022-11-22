@@ -8,9 +8,9 @@ const Home = () => {
   return (<>
   <div className='flex justify-center bg-home bg-fixed bg-cover py-16 shadow-inner bg-center'>    
     <div className='text-center my-5 w-full lg:w-1/3 bg-white shadow-lg rounded-l-2xl relative transition-all group cursor-pointer '
-    onClick={() => navigate(`/cut`)}>
+    onClick={() => navigate(`/rent`)}>
         <h2 className='text-4xl bg-amber-500 py-2 text-white font-bold rounded-tl-2xl transition-all group-hover:text-amber-600 group-hover:bg-white'>
-            נמרם ביצוע בע"מ
+            נמרם השכרת ציוד בע"מ    
         </h2>
         <h3 className='text-3xl bg-green-600 text-white font-bold py-2 transition-all group-hover:text-green-600 group-hover:bg-white'>
             השכרת ציוד מכני לבניין
@@ -21,9 +21,9 @@ const Home = () => {
         </p>
     </div>
     <div className='text-center my-5 w-full lg:w-1/3 bg-white shadow-lg rounded-r-2xl relative transition-all group cursor-pointer'
-    onClick={() => navigate(`/rent`)}>
+    onClick={() => navigate(`/cut`)}>
         <h2 className='text-4xl bg-amber-500 py-2 text-white font-bold rounded-tr-2xl transition-all group-hover:text-amber-600 group-hover:bg-white'>
-            נמרם השכרת ציוד בע"מ
+            נמרם ביצוע בע"מ
         </h2>
         <h3 className='text-3xl bg-green-600 text-white font-bold py-2 transition-all group-hover:text-green-600 group-hover:bg-white'>
             ניסור וקידוח בבטון

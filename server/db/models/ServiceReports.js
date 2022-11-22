@@ -15,10 +15,10 @@ const ServiceReports = (sequelize, DataTypes) => {
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true
         },
-        Description: {
+        Problem: {
             type: DataTypes.STRING
         },
-        Problem: {
+        Update: {
             type: DataTypes.STRING
         },
         StartDate: {
@@ -28,8 +28,11 @@ const ServiceReports = (sequelize, DataTypes) => {
         },
         EndDate: {
             type: DataTypes.DATE,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
             allowNull: true
+        },
+        ManHours: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
         }
     }, {
         sequelize,
