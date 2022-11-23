@@ -24,6 +24,12 @@ const CustomToolbar = () => (
         <option value="#d0d1d2" />
         <option selected />
       </select>
+      <select className='ql-align'>
+        <option value="right" />
+        <option value="center" />
+        <option value="justify" />
+      </select>
+      <button className='ql-direction' value="rtl" />
     </div>
   );
 
@@ -52,14 +58,16 @@ const formats = [
     "indent",
     "link",
     "image",
-    "color"
+    "color",
+    "align",
+    "direction"
   ];
   
   const RichTextArea = ({
     value,
     setValue
   }) => {
-    return (<>
+    return (<div dir="ltr">
           <CustomToolbar />
           <ReactQuill
             onChange={setValue}
@@ -67,7 +75,7 @@ const formats = [
             modules={modules}
             formats={formats}
             theme={"snow"} />
-       </>);
+       </div>);
   }
   
   export default RichTextArea;
