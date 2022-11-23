@@ -2,8 +2,11 @@ import React from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-const CustomToolbar = () => (
-    <div id="toolbar">
+const CustomToolbar = ({
+  id
+}) => (
+    <>
+    { id && <div id={`toolbar_${id}`}>
       <select className="ql-header" defaultValue={""} onChange={e => e.persist()}>
         <option value="2" />
         <option value="3" />
@@ -12,7 +15,6 @@ const CustomToolbar = () => (
       </select>
       <button className="ql-bold" />
       <button className="ql-italic" />
-      <button className='ql-stroke' />
       <button className='ql-list' value="ordered" />
       <button className='ql-list' value="bullet" />
       <select className="ql-color">
@@ -30,52 +32,67 @@ const CustomToolbar = () => (
         <option value="justify" />
       </select>
       <button className='ql-direction' value="rtl" />
-    </div>
+    </div>}
+    </>
   );
 
-
-const modules = {
-    toolbar: {
-      container: "#toolbar",
-    },
-    clipboard: {
-      matchVisual: false,
-    }
-  };
-  
-  
-const formats = [
-    "header",
-    "font",
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-    "color",
-    "align",
-    "direction"
-  ];
   
   const RichTextArea = ({
     value,
     setValue
   }) => {
+
+    const toolbarOptions = [
+      { 
+        'header': [2, 3, 4, 5, 6, false] 
+      }, 
+      'bold', 
+      'italic',
+      { 
+        'direction': 'rtl' 
+      }, { 
+        'align': [] 
+      }, { 
+        'list': 'ordered'
+      }, { 
+        'list': 'bullet' 
+      },
+    ];
+    const modules = {
+      toolbar: toolbarOptions,
+      clipboard: {
+        matchVisual: false,
+      }
+    };
+    
+    
+  const formats = [
+      "header",
+      "font",
+      "size",
+      "bold",
+      "italic",
+      "underline",
+      "strike",
+      "blockquote",
+      "list",
+      "bullet",
+      "indent",
+      "link",
+      "image",
+      "color",
+      "align",
+      "direction"
+    ];
+    
     return (<div dir="ltr">
-          <CustomToolbar />
-          <ReactQuill
-            onChange={setValue}
-            value={value}
-            modules={modules}
-            formats={formats}
-            theme={"snow"} />
-       </div>);
+      <ReactQuill
+      onChange={setValue}
+      defaultValue={value}            
+      modules={modules}
+      formats={formats}
+      theme={"snow"} />
+    </div>);
   }
   
   export default RichTextArea;
