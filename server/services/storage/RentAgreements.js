@@ -1,4 +1,5 @@
 import { CustomersModel, ProductsModel, RentalAgreementListModel, RentalAgreementModel, RentalProductsModel, sequelize } from "../../db/models/index.js";
+import { Op } from 'sequelize';
 
 async function GetAllOpenAgreements() {
     return await RentalAgreementModel.findAll({
@@ -112,10 +113,33 @@ async function DeleteAgreement(id) {
     return await Promise.all([delete_rental_tools_list, delete_rental_agreement]);
 }
 
-async function GetAgreement(id) {
+async function GetAgreementBySerialNumber(SerialNumber) {
     return await RentalAgreementModel.findOne({
         where: {
-            id: id
+            SerialNumber: SerialNumber
+        }, 
+        include: [CustomersModel, {
+            model: RentalAgreementListModel,
+            include: {
+                model: RentalProductsModel,
+                include: ProductsModel
+            }
+        }]
+    });
+}
+
+async function GetAllAgreementsByDateRange(StartDate, EndDate) {
+    return await RentalAgreementModel.findAll({
+        where: {
+            [Op.or]: [{
+                StartDate: {
+                    [Op.between]: [StartDate, EndDate]
+                }
+            }, {
+                EndDate: {
+                    [Op.between]: [StartDate, EndDate]
+                }
+            }]
         }, 
         include: [CustomersModel, {
             model: RentalAgreementListModel,
@@ -131,10 +155,12 @@ const RentAgreementsDb = {
     GetAllOpenAgreements,
     GetAllCloseAgreements,
     GetAllAgreementsByCustomer,
+    GetRentalAgreementById,
+    GetAgreementBySerialNumber,
+    GetAllAgreementsByDateRange,
     AddAgreement,
     CloseAgreement,
-    DeleteAgreement,
-    GetAgreement
+    DeleteAgreement
 };
 
 export default RentAgreementsDb;

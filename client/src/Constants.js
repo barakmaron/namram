@@ -2,6 +2,7 @@ import AirHammers from "./pages/AirHammers/AirHammers";
 import CableCutting from "./pages/CableCuting/CableCuting";
 import Contact from "./pages/ContactPage/Contact";
 import ControlPanel from "./pages/ControlPanel/ControlPanel";
+import CreateReportsPageConnector from "./pages/ControlPanel/CreateReportsPage/CreateReportsPageConnector";
 import CustomersPageConnector from "./pages/ControlPanel/CustomersPage/CustomersPageConnector";
 import RentalControlPanelConnector from "./pages/ControlPanel/RentalPage/RentalControlPanelConnector";
 import ServicePageConnector from "./pages/ControlPanel/ServicePage/ServicePageConnector";
@@ -110,7 +111,7 @@ const admin_routes = [{
     }, {
         label: "הפקת דוחות",
         location: "/control_panel/rent/reports",
-        element: Rent,
+        element: CreateReportsPageConnector,
     }]
 }, {
     label: "מכירת ציוד",

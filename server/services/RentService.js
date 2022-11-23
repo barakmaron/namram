@@ -1,3 +1,6 @@
+import PdfService from "./PdfServices/index.js";
+import RentalAgreementsService from "./RentalAgreementsService.js";
+import ServiceReportsService from "./ServiceReports/ServiceReportsService.js";
 import RentDB from "./storage/Rent.js";
 import RentAgreementsDb from "./storage/RentAgreements.js";
 import ServiceReportsDb from "./storage/ServiceReports/ServiceReports.js";
@@ -28,9 +31,36 @@ async function GetAllAvailable() {
     });
 }
 
+async function GetRentalProduct(id) {
+    return await RentDB.GetRentalProduct(id);
+}
+
+async function CreateRentalProductReport(product) {
+    const parse_product_from_db = ParseRentalProductForPdf(product);
+    return await PdfService.CreateRentalProductPdf(parse_product_from_db);
+}
+
+async function ParseRentalProductForPdf(product) {
+    const temp_product = {...product};
+    temp_product.RentalAgreementLists = temp_product.RentalAgreementLists.map(agreement => ({
+        RentalAgreement: RentalAgreementsService.ParseAgreementForPdf(agreement.RentalAgreement),
+        ...agreement
+    }));
+    temp_product.SumRentalDays = temp_product.RentalAgreementLists.reduce((accumulator, agreement) => accumulator + agreement.RentalAgreement.SumDays, 0);
+    temp_product.SumRentalIncome = temp_product.SumRentalDays * temp_product.DayPrice;
+    temp_product.ServiceReports = ServiceReportsService.ParseServiceReportData(temp_product.ServiceReports);
+    temp_product.ServicePrice = temp_product.ServiceReports.reduce((accumulator, report) => accumulator + report.SumParts, 0);
+    temp_product.SumNetIncome = temp_product.SumRentalIncome - temp_product.ServicePrice;
+    return temp_product;
+}
+
+
 const RentService = {
     GetAll,
-    GetAllAvailable
+    GetAllAvailable,
+    GetRentalProduct, 
+    CreateRentalProductReport,
+    ParseRentalProductForPdf
 };
 
 export default RentService;

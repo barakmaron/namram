@@ -1,4 +1,5 @@
-import { CategoriesModel, ProductPropsModel, ProductsImagesModel, ProductsModel, RentalProductsModel, ProductPartsDiagramModel, SparePartsModel, RentalAgreementListModel, RentalAgreementModel } from "../../db/models/index.js";
+import { Op } from "sequelize";
+import { CategoriesModel, ProductPropsModel, ProductsImagesModel, ProductsModel, RentalProductsModel, ProductPartsDiagramModel, SparePartsModel, RentalAgreementListModel, RentalAgreementModel, ServiceReportsModel, PartsChangedModel } from "../../db/models/index.js";
 
 async function GetAllCategoriesNested() {
     return await CategoriesModel.findAll({
@@ -18,9 +19,43 @@ async function GetAllCategoriesNested() {
     });
 }
 
+async function GetRentalProduct(id) {
+    return await RentalProductsModel.findOne({
+        where: {
+            id: id
+        },
+        include: [{
+            model: ProductsModel,
+            include: [ProductPropsModel, ProductsImagesModel, {
+                model: ProductPartsDiagramModel,
+                include: SparePartsModel
+            }]
+        }, {
+            model: RentalAgreementListModel,
+            include: {
+                model: RentalAgreementModel,
+                where: {
+                    EndDate: {
+                        [Op.ne]: null
+                    }
+                }
+            }
+        }, {
+            model: ServiceReportsModel,
+            include: {
+                model: PartsChangedModel,
+                include: {
+                    model: SparePartsModel
+                }
+            }
+        }]
+    });
+}
+
 
 const RentDB = {
-    GetAllCategoriesNested
+    GetAllCategoriesNested,
+    GetRentalProduct
 };
 
 export default RentDB;
