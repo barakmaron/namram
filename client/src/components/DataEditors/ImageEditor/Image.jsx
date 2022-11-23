@@ -1,5 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
-import { FaTimes, FaTrash } from 'react-icons/fa';
+import { FaTimes, FaExchangeAlt } from 'react-icons/fa';
 import useImageLoader from '../../../hooks/useImageLoader';
 
 function cn(...classes) {
@@ -8,7 +7,7 @@ function cn(...classes) {
 
 const Image = ({ 
     image, 
-    delete_image_action
+    delete_image_action = null
 }) => {
    const [isLoading, image_obj] = useImageLoader(image.Image, image.TempUrl);
 
@@ -23,11 +22,11 @@ const Image = ({
                 : 'grayscale-0 blur-0 scale-100'
             )} />}
             
-            <div 
+            { delete_image_action && <div 
             onClick={delete_image_action}
             className="absolute flex gap-4 h-fit w-fit px-3 py-3 cursor-pointer bg-red-500 text-white rounded-full left-72 -top-4 hover:bg-white hover:text-red-500 text-xl">
                 <FaTimes></FaTimes>
-            </div>
+            </div> }
         </div>;
 }
 
