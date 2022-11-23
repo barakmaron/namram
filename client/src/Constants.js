@@ -1,6 +1,7 @@
 import AirHammers from "./pages/AirHammers/AirHammers";
 import CableCutting from "./pages/CableCuting/CableCuting";
 import Contact from "./pages/ContactPage/Contact";
+import BlogEditorPageConnector from "./pages/ControlPanel/BlogEditorPage/BlogEditorPageConnector";
 import ControlPanel from "./pages/ControlPanel/ControlPanel";
 import CreateReportsPageConnector from "./pages/ControlPanel/CreateReportsPage/CreateReportsPageConnector";
 import CustomersPageConnector from "./pages/ControlPanel/CustomersPage/CustomersPageConnector";
@@ -121,7 +122,7 @@ const admin_routes = [{
 }, {
     label: "בלוג",
     location: "/control_panel/blogs",
-    element: Rent
+    element: BlogEditorPageConnector
 }, {
     label: "פרוייקטים",
     location: "/control_panel/projects",

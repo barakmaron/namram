@@ -6,6 +6,7 @@ import ImagesRouter from './ImagesRoute.js';
 import RentalAgreementsRouter from './RentalAgreementsRoute.js';
 import CustomersRouter from './CustomersRouter.js';
 import ServiceReportsRouter from './ServiceReportsRoutes/ServiceReportsRoute.js';
+import BlogsRouter from './BlogsRouter.js';
 
 const routes = express.Router();
 
@@ -16,5 +17,6 @@ routes.use('/images', ImagesRouter);
 routes.use('/rental_agreements', RentalAgreementsRouter);
 routes.use('/customers', CustomersRouter);
 routes.use('/service_reports', ServiceReportsRouter);
+routes.use('/blogs', BlogsRouter);
 
 export default routes;
