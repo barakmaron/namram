@@ -22,6 +22,7 @@ const ServicePage = ({
     const [selected_category, setSelectedCategory] = useState(null);
     const [selected_product, setSelectedProduct] = useState(null);
     const [add_form_controller, setAddFormController] = useState([]);
+    const [missing_spare_parts, setMissingSpareParts] = useState([]);
 
     useEffect(() => {
         GetServiceReportsAction();
@@ -74,6 +75,14 @@ const ServicePage = ({
         תיקונים
     </h2>
     <div className='flex flex-row gap-5 flex-wrap w-fit mx-auto'>
+    <ControlPanelBlock
+        number={service_reports.length}
+        actions={[{
+            label: "הוסף כלי לתיקון",
+            value: () => setOpenToolToService(true)
+        }]}>
+            כלים בתיקון
+        </ControlPanelBlock>
         <ControlPanelBlock
         number={service_reports.length}
         actions={[{
