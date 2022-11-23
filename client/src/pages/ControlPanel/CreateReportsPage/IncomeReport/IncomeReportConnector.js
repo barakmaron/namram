@@ -1,8 +1,8 @@
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
-import CreateReportsPage from "./CreateReportsPage";
-import { getCategories } from "../../../redux/selectors/categoriesSelector";
-import { GetRentAction } from "../../../redux/actions/RentActions/RentActions";
+import { getCategories } from "../../../../redux/selectors/categoriesSelector";
+import { GetRentAction } from "../../../../redux/actions/RentActions/RentActions";
+import IncomeReport from "./IncomeReport";
 
 const maStateToProps = (state, ownProps) => {
     const rent_categories = getCategories(state);
@@ -18,4 +18,4 @@ const mapActionToProps = (dispatch) => {
     }, dispatch);
 };
 
-export default connect(maStateToProps, mapActionToProps)(CreateReportsPage);
+export default connect(maStateToProps, mapActionToProps)(IncomeReport);

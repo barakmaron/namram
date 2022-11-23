@@ -88,6 +88,7 @@ RentalAgreementModel.belongsTo(CustomersModel, relational_options);
 RentalAgreementModel.hasMany(RentalAgreementListModel, relational_options);
 RentalProductsModel.hasMany(RentalAgreementListModel, relational_options);
 RentalAgreementListModel.belongsTo(RentalProductsModel, relational_options);
+RentalAgreementListModel.belongsTo(RentalAgreementModel, relational_options);
 
 RentalProductsModel.hasMany(ServiceReportsModel, relational_options);
 ServiceReportsModel.belongsTo(RentalProductsModel, relational_options);

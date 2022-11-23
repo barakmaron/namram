@@ -1,6 +1,7 @@
+import { Op } from "sequelize";
 import Constants from "../../Constants.js";
 import DbConstants from "../../db/DbConstants.js";
-import { RentalProductsModel, SaleProductsModel, ProductPropsModel, ProductsModel, ProductsImagesModel, CategoriesModel } from "../../db/models/index.js";
+import { RentalProductsModel, SaleProductsModel, ProductPropsModel, ProductsModel, ProductsImagesModel, CategoriesModel, ProductPartsDiagramModel, SparePartsModel, RentalAgreementListModel, RentalAgreementModel, ServiceReportsModel, PartsChangedModel } from "../../db/models/index.js";
 
 async function GetCategoryById(id, product_type) {
     const type_condition = product_type.includes(Constants.PRODUCT_TYPE.SALE);
@@ -15,6 +16,42 @@ async function GetCategoryById(id, product_type) {
                 include: [ProductPropsModel, ProductsImagesModel]
             }
         }]
+    });
+}
+
+async function GetRentCategory(id) {
+    return await CategoriesModel.findOne({
+        where: {
+            id: id
+        }, 
+        include: {
+            model: RentalProductsModel,
+            include: [{
+                model: ProductsModel,
+                include: [ProductPropsModel, ProductsImagesModel, {
+                    model: ProductPartsDiagramModel,
+                    include: SparePartsModel
+                }]
+            }, {
+                model: RentalAgreementListModel,
+                include: {
+                    model: RentalAgreementModel,
+                    where: {
+                        EndDate: {
+                            [Op.ne]: null
+                        }
+                    }
+                }
+            }, {
+                model: ServiceReportsModel,
+                include: {
+                    model: PartsChangedModel,
+                    include: {
+                        model: SparePartsModel
+                    }
+                }
+            }]
+        }
     });
 }
 
@@ -59,7 +96,9 @@ const SaleCategoriesDB = {
     AddCategory,
     DeleteCategory,
     EditCategory,
-    GetOnlyCategoryById
+    GetOnlyCategoryById,
+    GetCategoryById,
+    GetRentCategory
 };
 
 export default SaleCategoriesDB;
