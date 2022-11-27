@@ -23,7 +23,6 @@ const Projects = (sequelize, DataTypes) => {
         },
         Date: {
             type: DataTypes.DATE,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
             allowNull: false
         }
     }, {

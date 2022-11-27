@@ -5,8 +5,8 @@ import { useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import Form from '../../Form/Form';
 import Modal from '../../Modal/Modal';
+import SingleAccordion from '../SingleAccordion/SingleAccordion';
 import BlogsForms from './FormsConstants';
-import SingleBlogAccordion from './SingleBlogAccordion';
 
 const BlogsEditor = ({
     blogs,
@@ -40,10 +40,10 @@ const BlogsEditor = ({
     </Button>
     <div className='w-1/2'>
         {blogs.map((blog, index) => {
-            return <SingleBlogAccordion 
+            return <SingleAccordion 
             key={`blogs-editor-${index}`}
-            blog={blog}
-            DeleteBlogAction={delete_blog}
+            object={blog}
+            DeleteAction={delete_blog}
             SaveEditAction={edit_blog}/>;
         })}
     </div>
