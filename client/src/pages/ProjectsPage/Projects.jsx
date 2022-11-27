@@ -1,7 +1,9 @@
+import moment from 'moment';
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import Image from '../../components/DataEditors/ImageEditor/Image';
+import Constants from '../../Constants';
 import hexStyle from '../../hexagons.module.css';
 
 const Projects = ({
@@ -36,7 +38,7 @@ const Projects = ({
               no_style={true}
               alt={project.Title}
               image={project.ProjectsImages[0]} />
-              <p></p>
+              <p>{moment(project.Date).format(Constants.DateFormat)}</p>
             </Link>
           </div>          
         </li>;

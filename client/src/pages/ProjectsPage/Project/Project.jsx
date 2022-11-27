@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react'
 import { useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import Image from '../../../components/DataEditors/ImageEditor/Image';
+import TextParser from '../../../components/RichTextArea/TextParser';
 import { GetImageUrl } from '../../../services/ApiService';
 
 const Project = ({
@@ -28,9 +29,11 @@ const Project = ({
             <h2
             className='w-fit text-3xl text-forest-green-600 font-bold mx-auto my-14'
             >{project.Title}</h2>
-            <p 
-            className='mx-auto w-fit max-w-96 text-xl'
-            >{project.Text}</p>
+            <div
+            className='mx-auto w-fit'
+            >
+                <TextParser body={project.Text}/>
+            </div>
             <ImageList
             className='mx-12 my-10'
             cols={2}
