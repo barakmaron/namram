@@ -139,7 +139,7 @@
     width: 25%; /* = 100 / 4 */
   }
   .hex:nth-child(7n+5){ /* first hexagon of even rows */
-    margin-left:12.5%;  /* = width of .hex / 2  to indent even rows */
+    margin-right:12.5%;  /* = width of .hex / 2  to indent even rows */
   }
 }
 
@@ -151,7 +151,7 @@
     width: 33.333%; /* = 100 / 3 */
   }
   .hex:nth-child(5n+4){ /* first hexagon of even rows */
-    margin-left:16.666%;  /* = width of .hex / 2  to indent even rows */
+    margin-right:16.666%;  /* = width of .hex / 2  to indent even rows */
   }
 }
 
@@ -163,7 +163,7 @@
     width: 50%; /* = 100 / 3 */
   }
   .hex:nth-child(3n+3){ /* first hexagon of even rows */
-    margin-left:25%;  /* = width of .hex / 2  to indent even rows */
+    margin-right:25%;  /* = width of .hex / 2  to indent even rows */
   }
 }
 
