@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<main>
+    <h1 class="main_title">חלקים חסרים במלאי</h1>    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>מספר חלק</th>
+                <th>שם בעברית</th>
+                <th>שם באנגלית</th>
+                <th>דיאגרמה</th>
+                <th>שם הכלי</th>
+                <th>מספר הכלי</th>
+                <th>מחיר</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each data as | part |}}
+                <tr>
+                    <td>{{ part.SerialNumber }}</td>
+                    <td>{{ part.NameHebrew }}</td>
+                    <td>{{ part.NameEnglish }}</td>
+                    <td>{{ part.ProductPartsDiagram.ModelName }}</td>
+                    <td>{{ part.ProductPartsDiagram.Product.Name }}</td>
+                    <td>{{ part.ProductPartsDiagram.Product.SerialNumber }}</td>
+                    <td>{{ part.Price }}</td>
+                </tr>
+            {{/each}}           
+        </tbody>
+    </table>
+    </div>
+</main>
