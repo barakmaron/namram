@@ -8,6 +8,7 @@ import CustomersRouter from './CustomersRouter.js';
 import ServiceReportsRouter from './ServiceReportsRoutes/ServiceReportsRoute.js';
 import BlogsRouter from './BlogsRouter.js';
 import ProjectsRouter from './ProjectsRoutes/ProjectsRouter.js';
+import AuthRouter from './AuthRoute.js';
 
 const routes = express.Router();
 
@@ -20,5 +21,6 @@ routes.use('/customers', CustomersRouter);
 routes.use('/service_reports', ServiceReportsRouter);
 routes.use('/blogs', BlogsRouter);
 routes.use('/projects', ProjectsRouter);
+routes.use('/auth', AuthRouter);
 
 export default routes;
