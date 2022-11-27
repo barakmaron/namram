@@ -1,3 +1,5 @@
+import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 import AirHammers from "./pages/AirHammers/AirHammers";
 import BlogConnector from "./pages/BlogsPage/Blog/BlogConnector";
 import BlogsPageConnector from "./pages/BlogsPage/BlogsPageConnector";
@@ -7,6 +9,7 @@ import BlogEditorPageConnector from "./pages/ControlPanel/BlogEditorPage/BlogEdi
 import ControlPanel from "./pages/ControlPanel/ControlPanel";
 import CreateReportsPageConnector from "./pages/ControlPanel/CreateReportsPage/CreateReportsPageConnector";
 import CustomersPageConnector from "./pages/ControlPanel/CustomersPage/CustomersPageConnector";
+import LoginConnector from "./pages/ControlPanel/LoginPage/LoginConnector";
 import ProjectsEditorPageConnector from "./pages/ControlPanel/ProjectsEditorPage/ProjectsEditorPageConnector";
 import RentalControlPanelConnector from "./pages/ControlPanel/RentalPage/RentalControlPanelConnector";
 import ServicePageConnector from "./pages/ControlPanel/ServicePage/ServicePageConnector";
@@ -19,6 +22,7 @@ import ProjectConnector from "./pages/ProjectsPage/Project/ProjectConnector";
 import ProjectsConnector from "./pages/ProjectsPage/ProjectsConnector";
 import Rent from "./pages/RentPage/Rent";
 import Shop from "./pages/ShopPage/Shop";
+import { LogoutAction } from "./redux/actions/UserActions";
 
 const API_METHODS = {
     POST: "post",
@@ -142,6 +146,13 @@ const admin_routes = [{
     label: "פרוייקטים",
     location: "/control_panel/projects",
     element: ProjectsEditorPageConnector
+}, {
+    label: "התנתק",
+    location: "/logout",
+    element: LoginConnector,
+    props: {
+        logout: true
+    }
 }]
 
 const contact_nav = {
