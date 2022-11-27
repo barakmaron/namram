@@ -12,10 +12,15 @@ async function PatchPart(id, field_name, value) {
    return await ProductsDB.SpareParts.PatchPart(id, field_name, value);
 }
 
+async function GetOutOfStockParts() {
+    return await ProductsDB.SpareParts.GetOutOfStock();
+}
+
 const SparePartsService = {
     AddPart,
     DeletePart,
-    PatchPart
+    PatchPart,
+    GetOutOfStockParts
 };
 
 export default SparePartsService;
