@@ -12,6 +12,7 @@ import cacheManager from 'cache-manager';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import RunSeed from './db/seeders/users_seed.js'
+import CronJobsController from './controllers/CronJobsController.js';
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -22,6 +23,8 @@ Promise.resolve(sequelize.sync({  })).then(() => {
   const queryInterface = sequelize.getQueryInterface();
   RunSeed(queryInterface, sequelize);
 });
+
+Promise.resolve(CronJobsController.ScheduleOutOfStock());
 
 const cacheMiddleware = new ExpressCache(
   cacheManager.caching({

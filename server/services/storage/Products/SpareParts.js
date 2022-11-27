@@ -1,4 +1,4 @@
-import { SparePartsModel } from "../../../db/models/index.js";
+import { ProductPartsDiagramModel, ProductsModel, SparePartsModel } from "../../../db/models/index.js";
 
 async function GetSparePartById(part_id) {
     return await SparePartsModel.findOne({
@@ -47,12 +47,26 @@ async function IncrementPartInInventory(part_id) {
     return await part.increment('Count');
 }
 
+async function GetOutOfStock() {
+    return await SparePartsModel.findAll({
+        where: {
+            Count: 0
+        },
+        include: {
+            model: ProductPartsDiagramModel,
+            attributes: ["ModelName"],
+            include: ProductsModel
+        }
+    });
+}
+
 const SparePartsDB = {
     AddPart,
     DeletePart,
     PatchPart,
     DecrementPartInInventory,
-    IncrementPartInInventory
+    IncrementPartInInventory,
+    GetOutOfStock
 };
 
 export default SparePartsDB;

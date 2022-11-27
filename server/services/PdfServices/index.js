@@ -15,6 +15,10 @@ async function CompileTemplate(template_name, data) {
     return doc;
 }
 
+async function ParseDbObject(object) {
+    return object.toJSON();
+}
+
 async function CreatePdf(template_name, data) {
     return await CompileTemplate(template_name, data);
 }
@@ -35,12 +39,18 @@ async function CreateRentalCategoryPdf(rental_category) {
     return await CreatePdf('rent_category', rental_category);
 }
 
+async function CreateSparePartOutOfStockHtml(parts) {
+    return await CreatePdf('out_of_stock_spare_parts', parts);
+}
+
 const PdfService = {
     CreatePdf,
+    ParseDbObject,
     CreateAgreementPdf,
     CreateServiceReportPdf,
     CreateRentalProductPdf,
-    CreateRentalCategoryPdf
+    CreateRentalCategoryPdf,
+    CreateSparePartOutOfStockHtml
 };
 
 export default PdfService;
