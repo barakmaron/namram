@@ -10,7 +10,8 @@ const INPUTS_TYPES = {
     DYNAMIC_INPUTS: "dynamic_inputs",
     RENT_TOOLS_SELECTOR: "rent_tools_selector",
     SIGNATURE_FIELD: "SIGNATURE_FIELD",
-    CHECK_BOX: "CHECK_BOX"
+    CHECK_BOX: "CHECK_BOX",
+    DATE: "DATE"
 };
 
 

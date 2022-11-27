@@ -5,20 +5,22 @@ import Image from '../ImageEditor/Image';
 import RichTextArea from '../../RichTextArea/RichTextArea';
 import { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
+import ImageEditor from '../ImageEditor/ImageEditor';
 
-const SingleBlogAccordion = ({
-    blog,
+const SingleAccordion = ({
+    object,
     SaveEditAction,
-    DeleteBlogAction
+    DeleteAction,
+    ImagesActions
 }) => {
 
-    const [title, setTitle] = useState(blog.Title);
-    const [text, setText] = useState(blog.Text);
+    const [title, setTitle] = useState(object.Title);
+    const [text, setText] = useState(object.Text);
 
     useEffect(() => {
-      setTitle(blog.Title);
-      setText(blog.Text);
-    }, [blog]);
+      setTitle(object.Title);
+      setText(object.Text);
+    }, [object]);
 
   return <Accordion>
       <AccordionSummary
@@ -34,7 +36,7 @@ const SingleBlogAccordion = ({
           type="text" />
           <div className='flex gap-4'>
             <Button
-            onClick={(event) => SaveEditAction(event, blog.id, title, text)}
+            onClick={(event) => SaveEditAction(event, object.id, title, text)}
             variant="outlined">
               save
             </Button>
@@ -42,16 +44,24 @@ const SingleBlogAccordion = ({
             className=''
             color='error'
             variant="outlined"
-            onClick={(event) => DeleteBlogAction(event, blog.id)}>
+            onClick={(event) => DeleteAction(event, object.id)}>
               <FaTimes/>
             </Button>
           </div>
         </div>
       </AccordionSummary>
       <AccordionDetails>
+        { ImagesActions ? 
+          <ImageEditor
+          images={object.ProjectsImages}
+          AddImagesAction={ImagesActions.AddImagesAction} 
+          DeleteImageAction={ImagesActions.DeleteImageAction}
+          meta_data={{
+            id: object.id
+          }} /> :
           <Image
-          image={blog}
-          />
+          image={object}
+          />}
           <RichTextArea
           value={text}
           setValue={setText}/>          
@@ -59,4 +69,4 @@ const SingleBlogAccordion = ({
   </Accordion>;
 }
 
-export default SingleBlogAccordion;
+export default SingleAccordion;

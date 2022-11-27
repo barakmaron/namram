@@ -32,7 +32,7 @@ const UpdatedImages = (category_id, product_id, images, product_type) => ({
     }
 });
 
-export const DeleteImageAction = (category_id, product_id, image_id, product_type) => {
+export const DeleteImageAction = (category_id, product_id, product_type, image_id) => {
     return async (dispatch) => {
         try {
             dispatch(DeleteImage(category_id, product_id, image_id, product_type));
@@ -43,7 +43,7 @@ export const DeleteImageAction = (category_id, product_id, image_id, product_typ
     }
 };
 
-export const AddImagesAction = (category_id, product_id, images, temp_urls, product_type) => {
+export const AddImagesAction = (category_id, product_id, product_type, images, temp_urls) => {
     return async (dispatch) => {
         try {
             dispatch(AddImages(category_id, product_id, temp_urls, product_type));

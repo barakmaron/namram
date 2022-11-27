@@ -213,9 +213,12 @@ const ProductsTable = ({
     {edit_images && <Modal setClose={() => setEditImages(false)}>
         <ImageEditorConnector 
         images={selected_product.Product.ProductsImages}
-        category_id={selected_product.CategoryId}
-        product_id={selected_product.Product.id}
-        product_type={type}/>
+        meta_data={{
+            category_id: selected_product.CategoryId,
+            product_id: selected_product.Product.id,
+            product_type: type
+        }}
+        />
     </Modal>}
     {edit_text && <Modal setClose={() => setEditText(false)}>
         <TextEditorConnector 

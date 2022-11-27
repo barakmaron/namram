@@ -7,6 +7,8 @@ import routes from './routes/index.js';
 import ErrorHandler from './middleware/ErrorHandler.js';
 import ValidationErrorMiddleware from './middleware/ValidationErrorMiddleware.js';
 import { sequelize } from './db/models/index.js';
+import ExpressCache from 'express-cache-middleware';
+import cacheManager from 'cache-manager';
 import path from 'path';
 import { fileURLToPath } from 'url';
 dotenv.config();
@@ -15,7 +17,15 @@ const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
 
-Promise.resolve(sequelize.sync({ }));
+Promise.resolve(sequelize.sync({  }));
+
+const cacheMiddleware = new ExpressCache(
+  cacheManager.caching({
+    store: 'memory', 
+    max: 10000, 
+    ttl: 3600
+  })
+);
 
 const app = express();
 app.use(cookieParser());
