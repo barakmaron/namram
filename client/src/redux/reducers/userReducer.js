@@ -1,5 +1,5 @@
 const initState = {
-    logged_in: true
+    logged_in: false
 };
 
 const reducer = (state = initState, action) => {

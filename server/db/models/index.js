@@ -10,7 +10,6 @@ import Projects from './Projects.js';
 import ProjectsImages from './ProjectsImages.js';
 import RentalProducts from './RentProducts.js';
 import SaleProducts from './SaleProducts.js';
-import ServiceBook from './ServiceBook.js';
 import ServiceReports from './ServiceReports.js';
 import PartsChanged from './PartsChanged.js';
 import RentalAgreement from './RentalAgreement.js';
@@ -37,7 +36,6 @@ export const ProductsImagesModel = ProductsImages(sequelize, Sequelize.DataTypes
 export const ProductPropsModel = ProductProps(sequelize, Sequelize.DataTypes);
 export const ProductPartsDiagramModel = ProductPartsDiagram(sequelize, Sequelize.DataTypes);
 export const SparePartsModel = SpareParts(sequelize, Sequelize.DataTypes);
-export const ServiceBookModel = ServiceBook(sequelize, Sequelize.DataTypes);
 export const ServiceReportsModel = ServiceReports(sequelize, Sequelize.DataTypes);
 export const PartsChangedModel = PartsChanged(sequelize, Sequelize.DataTypes);
 export const RentalAgreementModel = RentalAgreement(sequelize, Sequelize.DataTypes);
@@ -92,9 +90,6 @@ RentalAgreementListModel.belongsTo(RentalAgreementModel, relational_options);
 
 RentalProductsModel.hasMany(ServiceReportsModel, relational_options);
 ServiceReportsModel.belongsTo(RentalProductsModel, relational_options);
-
-// ServiceBookModel.hasMany(ServiceReportsModel, relational_options);
-// ServiceReportsModel.belongsTo(ServiceBookModel, relational_options);
 
 SparePartsModel.hasMany(PartsChangedModel, relational_options);
 PartsChangedModel.belongsTo(SparePartsModel, relational_options);

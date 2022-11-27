@@ -5,6 +5,7 @@ import BlogEditorPageConnector from "./pages/ControlPanel/BlogEditorPage/BlogEdi
 import ControlPanel from "./pages/ControlPanel/ControlPanel";
 import CreateReportsPageConnector from "./pages/ControlPanel/CreateReportsPage/CreateReportsPageConnector";
 import CustomersPageConnector from "./pages/ControlPanel/CustomersPage/CustomersPageConnector";
+import ProjectsEditorPageConnector from "./pages/ControlPanel/ProjectsEditorPage/ProjectsEditorPageConnector";
 import RentalControlPanelConnector from "./pages/ControlPanel/RentalPage/RentalControlPanelConnector";
 import ServicePageConnector from "./pages/ControlPanel/ServicePage/ServicePageConnector";
 import ToolsPageConnector from "./pages/ControlPanel/ToolsPage/ToolsPageConnector";
@@ -12,7 +13,8 @@ import Cut from "./pages/CutPage/Cut";
 import Drill from "./pages/DrillPage/DrillPage";
 import Eilat from "./pages/EilatPage/Eilat";
 import Home from "./pages/HomePage/Home";
-import Projects from "./pages/ProjectsPage/Projects";
+import ProjectConnector from "./pages/ProjectsPage/Project/ProjectConnector";
+import ProjectsConnector from "./pages/ProjectsPage/ProjectsConnector";
 import Rent from "./pages/RentPage/Rent";
 import Shop from "./pages/ShopPage/Shop";
 
@@ -61,10 +63,11 @@ const routes = [{
     }, {
         label: "פרוייקטים",
         location: "/projects",
-        element: Projects
-    }, {
-        label: "מאמרים",
-        location: "/articles"
+        element: ProjectsConnector,
+        child: {
+            element: ProjectConnector,
+            location: '/project/:id'
+        } 
     }]
 }, {
     label: "פטישי חציבה אוויר",
@@ -78,6 +81,9 @@ const routes = [{
     label: "סניף אילת",
     location: "/eilat",
     element: Eilat
+}, {
+    label: "מאמרים",
+    location: "/articles"
 }, {
     label: "צור קשר",
     location: "/contact",
@@ -126,7 +132,7 @@ const admin_routes = [{
 }, {
     label: "פרוייקטים",
     location: "/control_panel/projects",
-    element: Rent
+    element: ProjectsEditorPageConnector
 }]
 
 const contact_nav = {
