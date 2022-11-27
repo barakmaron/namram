@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import BlogsEditorConnector from '../../../components/DataEditors/BlogsEditor/BlogsEditorConnector';
 
 const BlogEditorPage = ({
-    blogs,
     GetBlogsAction
 }) => {
 

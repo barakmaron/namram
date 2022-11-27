@@ -9,6 +9,8 @@ import { Dropdown } from 'monday-ui-react-core';
 import RentalToolsSelectorConnector from './RentToolsSelector/RentToolsSelectorConnector';
 import SignatureCapture from './SignatureCapture/SignatureCapture';
 import Checkbox from './CheckBox/CheckBox';
+import { MobileDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 export default function Form({ 
     inputs, 
@@ -24,6 +26,7 @@ export default function Form({
     const [dynamic_inputs, setDynamicInputs] = useState([]);
     const [tools, setTools] = useState([]);
     const [signature, setSignature] = useState(undefined);
+    const [date, setDate] = useState();
 
     const uploadToClient = useCallback(event => {
         if(event.target.files) {
@@ -155,6 +158,20 @@ export default function Form({
                         key={`checkbox-${name}`}    
                         name={name}                    
                         place_holder={place_holder}/>;
+                }
+                case FORMS.INPUTS_TYPES.DATE: {
+                    return <LocalizationProvider 
+                    dateAdapter={AdapterDayjs}>
+                        <MobileDatePicker
+                        label={place_holder}
+                        inputFormat="DD/MM/YYYY"
+                        value={date}
+                        onChange={(value) => setDate(value)}
+                        renderInput={(params) => <TextField 
+                            {...params}
+                            name={name}/>}                
+                        />
+                    </LocalizationProvider>
                 }
                 default: {
                     return <TextField 
