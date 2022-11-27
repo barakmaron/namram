@@ -1,3 +1,5 @@
+import ACTIONS from "../actions/actionConstants/UserActionsConstants";
+
 const initState = {
     logged_in: false
 };
@@ -5,7 +7,13 @@ const initState = {
 const reducer = (state = initState, action) => {
     const { type, payload } = action;
     switch(type) {
-        default:{
+        case ACTIONS.LOGIN: {
+            return { logged_in: true };
+        }
+        case ACTIONS.LOGOUT: {
+            return { logged_in: false };
+        }
+        default: {
             return state;
         }
     }
