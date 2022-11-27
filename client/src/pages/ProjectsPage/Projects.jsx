@@ -25,7 +25,9 @@ const Projects = ({
         className={hexStyle.hex}>
           <div
           className={hexStyle.hexIn}>
-            <Link className={hexStyle.hexLink}>
+            <Link 
+            to={`/project/${project.id}`}
+            className={hexStyle.hexLink}>
               <h3 
               className='text-white'
               >{project.Title}</h3>

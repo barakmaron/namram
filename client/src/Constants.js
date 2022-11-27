@@ -13,6 +13,7 @@ import Cut from "./pages/CutPage/Cut";
 import Drill from "./pages/DrillPage/DrillPage";
 import Eilat from "./pages/EilatPage/Eilat";
 import Home from "./pages/HomePage/Home";
+import ProjectConnector from "./pages/ProjectsPage/Project/ProjectConnector";
 import ProjectsConnector from "./pages/ProjectsPage/ProjectsConnector";
 import Rent from "./pages/RentPage/Rent";
 import Shop from "./pages/ShopPage/Shop";
@@ -62,8 +63,12 @@ const routes = [{
     }, {
         label: "פרוייקטים",
         location: "/projects",
-        element: ProjectsConnector
-    }, ]
+        element: ProjectsConnector,
+        child: {
+            element: ProjectConnector,
+            location: '/project/:id'
+        } 
+    }]
 }, {
     label: "פטישי חציבה אוויר",
     location: "/air_hammers",
@@ -77,8 +82,8 @@ const routes = [{
     location: "/eilat",
     element: Eilat
 }, {
-        label: "מאמרים",
-        location: "/articles"
+    label: "מאמרים",
+    location: "/articles"
 }, {
     label: "צור קשר",
     location: "/contact",
