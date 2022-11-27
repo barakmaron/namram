@@ -11,13 +11,17 @@ import ExpressCache from 'express-cache-middleware';
 import cacheManager from 'cache-manager';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import RunSeed from './db/seeders/users_seed.js'
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
 
-Promise.resolve(sequelize.sync({  }));
+Promise.resolve(sequelize.sync({  })).then(() => {
+  const queryInterface = sequelize.getQueryInterface();
+  RunSeed(queryInterface, sequelize);
+});
 
 const cacheMiddleware = new ExpressCache(
   cacheManager.caching({
@@ -34,7 +38,7 @@ app.use([morgan("common"), cors({ origin:true, credentials: true }), express.jso
 app.use('/', routes);
 app.use(ValidationErrorMiddleware);
 app.use(ErrorHandler);
-
+cacheMiddleware.attach(app);
 app.use('/static', express.static(path.join(__dirname, '../client/build/static')));
 app.get('*', function(req, res) {
   res.sendFile('index.html', {root: path.join(__dirname, '../client/build/')});
