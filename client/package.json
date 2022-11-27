@@ -19,6 +19,7 @@
     "daisyui": "^2.42.1",
     "dayjs": "^1.11.6",
     "google-map-react": "^2.2.0",
+    "html-to-react": "^1.5.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "monday-ui-react-core": "^1.69.1",

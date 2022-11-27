@@ -1,4 +1,6 @@
 import AirHammers from "./pages/AirHammers/AirHammers";
+import BlogConnector from "./pages/BlogsPage/Blog/BlogConnector";
+import BlogsPageConnector from "./pages/BlogsPage/BlogsPageConnector";
 import CableCutting from "./pages/CableCuting/CableCuting";
 import Contact from "./pages/ContactPage/Contact";
 import BlogEditorPageConnector from "./pages/ControlPanel/BlogEditorPage/BlogEditorPageConnector";
@@ -35,6 +37,8 @@ const PRODUCT_TYPE = {
     SaleProducts: "SaleProducts",
     RentProducts: "RentProducts"
 };
+
+const DateFormat = "DD/MM/YYYY";
   
 const routes = [{
     label: "דף הבית",
@@ -83,7 +87,12 @@ const routes = [{
     element: Eilat
 }, {
     label: "מאמרים",
-    location: "/articles"
+    location: "/blogs",
+    element: BlogsPageConnector,
+    child: {
+        element: BlogConnector,
+        location: '/blog/:id'
+    } 
 }, {
     label: "צור קשר",
     location: "/contact",
@@ -223,6 +232,7 @@ const Constants = {
     PRODUCT_TYPE,
     maps,
     admin_routes,
+    DateFormat
 };
 
 export default Constants;
