@@ -13,10 +13,29 @@ function App({ logged_in }) {
     </header>
     <Routes>      
       {Constants.routes.map((route, index) => {
-        return route.sub_nav ? route.sub_nav.map((sub_route, sub_index) => {
-          return <Route key={`route-${sub_route.location}-${index}-sub-${sub_index}`} path={sub_route.location} element={<sub_route.element></sub_route.element>}/>;
-        }) :
-       <Route key={`route-${route.location}-${index}`} path={route.location} element={<route.element></route.element>}/>;
+        return <>
+          {route.sub_nav ? 
+          route.sub_nav.map((sub_route, sub_index) => {
+            return <>
+            <Route 
+            key={`route-${sub_route.location}-${index}-sub-${sub_index}`} 
+            path={sub_route.location} 
+            element={<sub_route.element></sub_route.element>}/>
+            { sub_route.child && <Route 
+            key={`route-child-${sub_route.child.location}-${index}`} 
+            path={sub_route.child.location} 
+            element={<sub_route.child.element></sub_route.child.element>}/>}
+            </>;
+          }) :
+          <Route 
+          key={`route-${route.location}-${index}`} 
+          path={route.location} 
+          element={<route.element></route.element>}/>}
+          { route.child && <Route 
+          key={`route-child-${route.child.location}-${index}`} 
+          path={route.child.location} 
+          element={<route.child.element></route.child.element>}/>}
+       </>
       })}
     </Routes>
     <Footer></Footer>
