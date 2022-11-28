@@ -2,8 +2,7 @@ const AddServiceReport = {
     product_id: {
         notEmpty: true,
         type: "string",
-        minLength: 36,
-        in: ['params']
+        minLength: 36
     },
     Problem: {
         notEmpty: true,

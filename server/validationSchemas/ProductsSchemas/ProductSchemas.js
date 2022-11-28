@@ -26,7 +26,7 @@ const DeleteProduct = {
         notEmpty: true,
         type: "string",
         minLength: 36,
-        in: ['query']
+        in: ['params']
     }
 };
 
@@ -35,7 +35,7 @@ const PatchProduct = {
         notEmpty: true,
         type: "string",
         minLength: 36,
-        in: ['query']
+        in: ['params']
     },
     param_name: {
         notEmpty: true,
@@ -45,7 +45,7 @@ const PatchProduct = {
     },
     value: {
         notEmpty: true,
-        minLength: 2,
+        minLength: 1,
         in: ['body']
     }
 }
