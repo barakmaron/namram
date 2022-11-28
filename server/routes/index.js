@@ -9,6 +9,7 @@ import ServiceReportsRouter from './ServiceReportsRoutes/ServiceReportsRoute.js'
 import BlogsRouter from './BlogsRouter.js';
 import ProjectsRouter from './ProjectsRoutes/ProjectsRouter.js';
 import AuthRouter from './AuthRoute.js';
+import AuthenticateToken from '../middleware/AuthMiddleware.js';
 
 const routes = express.Router();
 
@@ -16,9 +17,9 @@ routes.use('/sale', SaleRouter);
 routes.use('/rent', RentRouter);
 routes.use('/products', ProductsRouter);
 routes.use('/images', ImagesRouter);
-routes.use('/rental_agreements', RentalAgreementsRouter);
-routes.use('/customers', CustomersRouter);
-routes.use('/service_reports', ServiceReportsRouter);
+routes.use('/rental_agreements', AuthenticateToken, RentalAgreementsRouter);
+routes.use('/customers', AuthenticateToken, CustomersRouter);
+routes.use('/service_reports', AuthenticateToken, ServiceReportsRouter);
 routes.use('/blogs', BlogsRouter);
 routes.use('/projects', ProjectsRouter);
 routes.use('/auth', AuthRouter);
