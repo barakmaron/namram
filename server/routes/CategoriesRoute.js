@@ -2,12 +2,28 @@ import express from 'express';
 import CategoryController from '../controllers/CategoriesController.js';
 import AuthenticateToken from '../middleware/AuthMiddleware.js';
 import UploadImageMiddleware from '../middleware/UploadImageMiddleware.js';
+import { validate } from '../middleware/ValidationErrorMiddleware.js';
+import { checkSchema } from 'express-validator';
+import CategoriesSchemas from '../validationSchemas/CategoriesSchemas.js';
 
 const router = express.Router();
 
 router.get('/:id', CategoryController.GetCategory);
-router.post('/', AuthenticateToken, UploadImageMiddleware.single('image'), CategoryController.AddCategory);
-router.delete('/:id', AuthenticateToken, CategoryController.DeleteCategory);
-router.patch('/:id', AuthenticateToken, CategoryController.EditCategory);
+
+router.post('/', 
+    AuthenticateToken, 
+    UploadImageMiddleware.single('image'), 
+    validate(checkSchema(CategoriesSchemas.AddCategory)),
+    CategoryController.AddCategory);
+
+router.delete('/:id', 
+    AuthenticateToken, 
+    validate(checkSchema(CategoriesSchemas.DeleteCategory)),
+    CategoryController.DeleteCategory);
+
+router.patch('/:id', 
+    AuthenticateToken, 
+    validate(checkSchema(CategoriesSchemas.PatchCategory)),
+    CategoryController.EditCategory);
 
 export default router;
