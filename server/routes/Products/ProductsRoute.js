@@ -5,19 +5,20 @@ import ProductsController from '../../controllers/Products/index.js';
 import DiagramRouter from './ProductsDiagramRouter.js';
 import SparePartsRouter from './ProductsSparePartsRouter.js';
 import UploadImageMiddleware from '../../middleware/UploadImageMiddleware.js';
+import AuthenticateToken from '../../middleware/AuthMiddleware.js';
 
 const router = express.Router();
 
 router.get('/:id', ProductsController.GetProduct);
 
-router.post('/', UploadImageMiddleware.array('product_images', 10), ProductsController.AddProduct);
-router.delete('/:id', ProductsController.DeleteSaleProduct);
-router.patch('/:id', ProductsController.PatchProduct);
+router.post('/', AuthenticateToken, UploadImageMiddleware.array('product_images', 10), ProductsController.AddProduct);
+router.delete('/:id', AuthenticateToken, ProductsController.DeleteSaleProduct);
+router.patch('/:id', AuthenticateToken, ProductsController.PatchProduct);
 
-router.use('/props', PropsRouter);
-router.use('/images', ImagesRouter);
-router.use('/diagrams', DiagramRouter);
-router.use('/spare_parts', SparePartsRouter);
+router.use('/props', AuthenticateToken, PropsRouter);
+router.use('/images', AuthenticateToken, ImagesRouter);
+router.use('/diagrams', AuthenticateToken, DiagramRouter);
+router.use('/spare_parts', AuthenticateToken, SparePartsRouter);
 
 
 export default router;
