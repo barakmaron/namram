@@ -5,19 +5,35 @@ import ProductsController from '../../controllers/Products/index.js';
 import DiagramRouter from './ProductsDiagramRouter.js';
 import SparePartsRouter from './ProductsSparePartsRouter.js';
 import UploadImageMiddleware from '../../middleware/UploadImageMiddleware.js';
+import AuthenticateToken from '../../middleware/AuthMiddleware.js';
+import { checkSchema } from 'express-validator';
+import ProductSchemas from '../../validationSchemas/ProductsSchemas/ProductSchemas.js';
+import { validate } from '../../middleware/ValidationErrorMiddleware.js';
 
 const router = express.Router();
 
 router.get('/:id', ProductsController.GetProduct);
 
-router.post('/', UploadImageMiddleware.array('product_images', 10), ProductsController.AddProduct);
-router.delete('/:id', ProductsController.DeleteSaleProduct);
-router.patch('/:id', ProductsController.PatchProduct);
+router.post('/', 
+    AuthenticateToken, 
+    UploadImageMiddleware.array('product_images', 10), 
+    validate(checkSchema(ProductSchemas.AddProduct)), 
+    ProductsController.AddProduct);
 
-router.use('/props', PropsRouter);
-router.use('/images', ImagesRouter);
-router.use('/diagrams', DiagramRouter);
-router.use('/spare_parts', SparePartsRouter);
+router.delete('/:id', 
+    AuthenticateToken, 
+    validate(checkSchema(ProductSchemas.DeleteProduct)), 
+    ProductsController.DeleteSaleProduct);
+    
+router.patch('/:id', 
+    AuthenticateToken, 
+    validate(checkSchema(ProductSchemas.PatchProduct)), 
+    ProductsController.PatchProduct);
+
+router.use('/props', AuthenticateToken, PropsRouter);
+router.use('/images', AuthenticateToken, ImagesRouter);
+router.use('/diagrams', AuthenticateToken, DiagramRouter);
+router.use('/spare_parts', AuthenticateToken, SparePartsRouter);
 
 
 export default router;
