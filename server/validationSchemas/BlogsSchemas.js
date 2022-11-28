@@ -1,13 +1,8 @@
-const AddProject = {    
+const AddBlog = {    
     Title: {        
         notEmpty: true,
         type: "string",
         minLength: 3
-    },
-    Date: {
-        notEmpty: true,
-        type: "string",
-        minLength: 10
     },
     Text: {
         notEmpty: true,
@@ -16,7 +11,7 @@ const AddProject = {
     }
 };
 
-const DeleteProject = {    
+const DeleteBlog = {    
     id: {
         notEmpty: true,
         type: "string",
@@ -25,7 +20,7 @@ const DeleteProject = {
     }
 };
 
-const PatchProject = {   
+const PatchBlog = {   
     id: {
         notEmpty: true,
         type: "string",
@@ -44,10 +39,10 @@ const PatchProject = {
     }
 }
 
-const ProjectsSchemas = {
-    AddProject,
-    DeleteProject,
-    PatchProject
+const BlogsSchemas = {
+    AddBlog,
+    DeleteBlog,
+    PatchBlog
 };
 
-export default ProjectsSchemas;
+export default BlogsSchemas;
