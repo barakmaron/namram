@@ -4,7 +4,6 @@ import ProductsService from "../../services/Products/index.js";
 import Diagrams from './DiagramsController.js';
 import SpareParts from './SparePartsController.js';
 import RentService from "../../services/RentService.js";
-import PdfService from "../../services/PdfServices/index.js";
 
 async function AddProduct(req, res) {
     try {
