@@ -1,12 +1,11 @@
-import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
+
 import AirHammers from "./pages/AirHammers/AirHammers";
 import BlogConnector from "./pages/BlogsPage/Blog/BlogConnector";
 import BlogsPageConnector from "./pages/BlogsPage/BlogsPageConnector";
 import CableCutting from "./pages/CableCuting/CableCuting";
 import Contact from "./pages/ContactPage/Contact";
 import BlogEditorPageConnector from "./pages/ControlPanel/BlogEditorPage/BlogEditorPageConnector";
-import ControlPanel from "./pages/ControlPanel/ControlPanel";
+import ControlPanelConnector from "./pages/ControlPanel/ControlPanelConnector";
 import CreateReportsPageConnector from "./pages/ControlPanel/CreateReportsPage/CreateReportsPageConnector";
 import CustomersPageConnector from "./pages/ControlPanel/CustomersPage/CustomersPageConnector";
 import LoginConnector from "./pages/ControlPanel/LoginPage/LoginConnector";
@@ -22,7 +21,6 @@ import ProjectConnector from "./pages/ProjectsPage/Project/ProjectConnector";
 import ProjectsConnector from "./pages/ProjectsPage/ProjectsConnector";
 import Rent from "./pages/RentPage/Rent";
 import Shop from "./pages/ShopPage/Shop";
-import { LogoutAction } from "./redux/actions/UserActions";
 
 const API_METHODS = {
     POST: "post",
@@ -47,31 +45,38 @@ const DateFormat = "DD/MM/YYYY";
 const routes = [{
     label: "דף הבית",
     location: "/",
-    element: Home
+    element: Home,
+    editable: true
 }, {
     label: "השכרת ציוד",
     location: "/rent",
-    element: Rent
+    element: Rent,
+    editable: false
 }, {
     label: "מכירת ציוד",
     location: "/shop",
-    element: Shop
+    element: Shop,
+    editable: false
 }, {
     label: "ניסור וקידוח בבטון",
     location: "/cut",
     element: Cut,
+    editable: true,
     sub_nav: [{
         label: "ניסור בטון",
         location: "/cut",
-        element: Cut
+        element: Cut,
+        editable: true
     }, {
         label: "קידוח בטון",
         location: "/drill",
-        element: Drill
+        element: Drill,
+        editable: true
     }, {
         label: "פרוייקטים",
         location: "/projects",
         element: ProjectsConnector,
+        editable: false,
         child: {
             element: ProjectConnector,
             location: '/project/:id'
@@ -80,19 +85,23 @@ const routes = [{
 }, {
     label: "פטישי חציבה אוויר",
     location: "/air_hammers",
-    element: AirHammers
+    element: AirHammers,
+    editable: true
 }, {
     label: "כבל יהלום לניסור",
     location: "/wire_saw",
-    element: CableCutting
+    element: CableCutting,
+    editable: true
 }, {
     label: "סניף אילת",
     location: "/eilat",
-    element: Eilat
+    element: Eilat,
+    editable: false
 }, {
     label: "מאמרים",
     location: "/blogs",
     element: BlogsPageConnector,
+    editable: false,
     child: {
         element: BlogConnector,
         location: '/blog/:id'
@@ -100,13 +109,14 @@ const routes = [{
 }, {
     label: "צור קשר",
     location: "/contact",
-    element: Contact
+    element: Contact,
+    editable: false
 }];
 
 const admin_routes = [{
     label: "לוח בקרה",
     location: "/control_panel",
-    element: ControlPanel
+    element: ControlPanelConnector
 }, {
     label: "השכרת ציוד",
     location: "/control_panel/rent",
