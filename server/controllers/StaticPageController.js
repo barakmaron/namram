@@ -2,7 +2,8 @@ import StaticPageService from "../services/StaticPageService.js";
 
 async function GetStaticPages(req, res) {
     try {
-        const static_pages = await StaticPageService.GetStaticPages();
+        const { route } = req.query;
+        const static_pages = await StaticPageService.GetStaticPages(route);
         return res.status(200).json(static_pages);
     } catch (err) {
         console.log(err);

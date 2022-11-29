@@ -37,6 +37,18 @@ export const GetStaticPagesAction = () => {
     }
 }
 
+
+export const GetStaticPageDataPerPageAction = (page_route) => {
+    return async (dispatch) => {
+        try {
+            const data = await SendApiRequest(`/static_pages?route=${page_route}`);
+            dispatch(GetStaticPages(data));
+        } catch (err) {
+
+        }
+    }
+}
+
 export const AddStaticPageAction = (form, category_id, page_route) => {
     return async (dispatch) => {
         try {

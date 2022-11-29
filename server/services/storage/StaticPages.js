@@ -4,7 +4,19 @@ import { CategoriesModel, StaticPagesModel } from "../../db/models/index.js";
 async function GetStaticPages() {
     return await StaticPagesModel.findAll({
         include: { 
-            model:CategoriesModel,
+            model: CategoriesModel,
+            attributes: ["Name"]
+        }
+    });
+}
+
+async function GetStaticDataForRoute(route) {
+    return await StaticPagesModel.findAll({
+        where: {
+            PageRoute: route
+        },
+        include: { 
+            model: CategoriesModel,
             attributes: ["Name"]
         }
     });
@@ -43,7 +55,8 @@ const StaticPagesDb = {
     AddStaticPage,
     GetStaticPages,
     DeleteStaticPage,
-    GetStaticPageById
+    GetStaticPageById,
+    GetStaticDataForRoute
 };
 
 export default StaticPagesDb;

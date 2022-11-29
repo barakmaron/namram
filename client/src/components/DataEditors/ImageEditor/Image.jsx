@@ -1,5 +1,5 @@
 import { CircularProgress } from '@mui/material';
-import { FaTimes, FaExchangeAlt } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa';
 import useImageLoader from '../../../hooks/useImageLoader';
 
 function cn(...classes) {
@@ -19,6 +19,7 @@ const Image = ({
         {!isLoading ? <img
         alt={alt}
         src={image_obj}
+        loading="lazy"
         className={cn(
             'group-hover:opacity-75 duration-700 ease-in-out object-cover',
             isLoading

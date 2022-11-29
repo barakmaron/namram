@@ -41,6 +41,11 @@ const PRODUCT_TYPE = {
 };
 
 const DateFormat = "DD/MM/YYYY";
+
+const DisplayType = {
+    products: "PRODUCTS", 
+    category: "CATEGORIES"
+};
   
 const routes = [{
     label: "דף הבית",
@@ -54,7 +59,7 @@ const routes = [{
     editable: false
 }, {
     label: "מכירת ציוד",
-    location: "/shop",
+    location: "/sale",
     element: Shop,
     editable: false
 }, {
@@ -253,7 +258,8 @@ const Constants = {
     PRODUCT_TYPE,
     maps,
     admin_routes,
-    DateFormat
+    DateFormat,
+    DisplayType
 };
 
 export default Constants;

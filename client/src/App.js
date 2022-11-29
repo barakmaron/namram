@@ -6,6 +6,7 @@ import Footer from './components/Footer/Footer';
 import SideNavBar from './components/SideNavBar/SideNavBar';
 import LoginConnector from './pages/ControlPanel/LoginPage/LoginConnector';
 import React, { useEffect } from 'react';
+import DynamicDataParserConnector from './components/DynamicDataParser/DynamicDataParserConnector';
 
 function App({ 
   logged_in,
@@ -33,7 +34,12 @@ function App({
               return <React.Fragment key={`route-${sub_route.location}-${index}-sub-${sub_index}`} >
               <Route 
               path={sub_route.location} 
-              element={<sub_route.element></sub_route.element>}/>
+              element={
+                <>
+                  <sub_route.element></sub_route.element>
+                  <DynamicDataParserConnector
+                    page_route={sub_route.location} />
+                </>}/>
               { sub_route.child && <Route 
               key={`route-sub-child-${sub_route.child.location}-${index}`} 
               path={sub_route.child.location} 
@@ -44,7 +50,12 @@ function App({
           <Route 
           key={`route-${route.location}-${index}`} 
           path={route.location} 
-          element={<route.element></route.element>}/>}
+          element={
+            <>
+            <route.element></route.element>
+            <DynamicDataParserConnector
+              page_route={route.location} />
+          </>}/>}
           { route.child && <Route 
           key={`route-child-${route.child.location}-${index}`} 
           path={route.child.location} 
