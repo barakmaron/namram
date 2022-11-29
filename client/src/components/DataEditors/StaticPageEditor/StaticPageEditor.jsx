@@ -64,7 +64,9 @@ const StaticPageEditor = ({
                     </Button>
                 </div>
             </div> :
-            <div className='flex justify-center items-center w-fit px-4 py-2 flex-col'>
+            <div 
+            key={`static-page-data-${data.PageRoute}-loading`}
+            className='flex justify-center items-center w-fit px-4 py-2 flex-col'>
                 <p>טוען בקשה</p>
                 <CircularProgress/>
             </div>
