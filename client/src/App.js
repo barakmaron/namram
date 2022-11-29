@@ -7,6 +7,7 @@ import SideNavBar from './components/SideNavBar/SideNavBar';
 import LoginConnector from './pages/ControlPanel/LoginPage/LoginConnector';
 import React, { useEffect } from 'react';
 import DynamicDataParserConnector from './components/DynamicDataParser/DynamicDataParserConnector';
+import Helmet from 'react-helmet';
 
 function App({ 
   logged_in,
@@ -36,6 +37,9 @@ function App({
               path={sub_route.location} 
               element={
                 <>
+                   <Helmet>
+                      <title>נמרם | {route.label} | {sub_route.label}</title>
+                  </Helmet>
                   <sub_route.element></sub_route.element>
                   <DynamicDataParserConnector
                     page_route={sub_route.location} />
@@ -52,6 +56,9 @@ function App({
           path={route.location} 
           element={
             <>
+            <Helmet>
+              <title>נמרם | {route.label}</title>
+            </Helmet>
             <route.element></route.element>
             <DynamicDataParserConnector
               page_route={route.location} />
