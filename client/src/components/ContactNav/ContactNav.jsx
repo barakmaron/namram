@@ -17,7 +17,7 @@ const ContactNav = ({
         <span className='text-slate-700 font-semibold'>{phone}</span>
         <Link
         className='hover:text-green-600'
-        to='/shop'>
+        to='/sale'>
             <BsShop></BsShop>
         </Link>
         <Link

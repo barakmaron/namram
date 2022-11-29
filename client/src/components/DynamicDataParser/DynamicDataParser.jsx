@@ -30,7 +30,7 @@ const DynamicDataParser = ({
     }, [page_route, GetStaticPageDataPerPageAction]);
 
     useEffect(() => {
-        if(static_page_data.length) {
+        if(!page_route.includes(Constants.API_PRODUCT_TYPE.RENT) && static_page_data.length) {
             const filtered_data = static_page_data.flatMap(page_data => {
                 const category = categories.find(category => category.id === page_data.CategoryId);
                 if(page_data.DisplayType === Constants.DisplayType.products) 
@@ -53,7 +53,7 @@ const DynamicDataParser = ({
                 name: category.Name,
                 Image: category.Image
             })));
-        else  if(page_route === '/category')
+        else if(page_route === '/category')
             setDataToShow(categories.flatMap(category => {
                 return category[array_type].map(product => ({
                     id: product.id,

@@ -7,7 +7,7 @@ const ItemsListDisplay = ({
     list,
     base_link
 }) => {
-  return <ul className='w-[99vw] px-10 py-4 flex flex-wrap justify-center items-center gap-2'>
+  return <ul className='w-[98vw] px-10 py-4 flex flex-wrap justify-center items-center gap-2'>
     { list?.map(item => {
         return <li 
         className='w-[275px] h-[275px]'
