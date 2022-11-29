@@ -6,6 +6,7 @@ import customersReducer from './customersReducer';
 import serviceReducer from './serviceReducer';
 import blogsReducer from './blogsReducer';
 import projectsReducer from './projectsReducer';
+import staticPagesReducer from './staticPagesReducer';
 
 export default combineReducers({
     userReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
     customersReducer,
     serviceReducer,
     blogsReducer,
-    projectsReducer
+    projectsReducer,
+    staticPagesReducer
 });

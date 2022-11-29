@@ -4,6 +4,7 @@ import Form from '../../../components/Form/Form';
 import login_inputs from './FormConstantans';
 
 const Login = ({
+  logged_in,
   logout,
   LoginAction,
   LogoutAction
@@ -21,6 +22,12 @@ const Login = ({
       navigate('/');
     }
   },  [logout, LogoutAction, navigate]);
+
+  useEffect(() => {
+    if(logged_in) {
+      navigate('/control_panel');
+    }
+  }, [logged_in, navigate]);
 
   return (<div>
     <h2 className=' text-slate-700 text-4xl font-bold text-center bg-amber-500 py-6'>
