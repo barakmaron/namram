@@ -1,7 +1,7 @@
 import StaticPagesDb from "./storage/StaticPages.js";
 
-async function GetStaticPages() {
-    return await StaticPagesDb.GetStaticPages();
+async function GetStaticPages(route) {
+    return await route ? StaticPagesDb.GetStaticDataForRoute(route) : StaticPagesDb.GetStaticPages();
 }
 
 async function AddStaticPage(page_route, display_type, category_id) {
