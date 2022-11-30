@@ -6,7 +6,7 @@ async function AddDiagram(req, res) {
         const diagram = await ProductsService.Diagrams.AddDiagram(product_id, model_name, req.file);
         return res.status(200).json(diagram);
     } catch (err) {
-        
+        console.log(err);
     }
 }
 

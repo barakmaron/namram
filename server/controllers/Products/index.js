@@ -36,7 +36,7 @@ async function PatchProduct(req, res) {
         await ProductsService.PatchProduct(id, param_name, value, req.baseUrl);
         return res.status(200).json();
     } catch (err) {
-        
+        console.log(err);
     }
 }
 

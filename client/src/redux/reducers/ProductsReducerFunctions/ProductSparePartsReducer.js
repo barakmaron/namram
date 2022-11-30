@@ -10,7 +10,7 @@ function AddPart(state, payload, product_type) {
         id: 'temp-part',
         ...part_from
     };
-    diagram.SpareParts = [ ...diagram.SpareParts, new_part ];
+    diagram.SpareParts = [ ...diagram?.SpareParts, new_part ];
     product.Product.ProductPartsDiagrams = [ ...filtered_diagrams, diagram ];
     category[product_type] = [ ...filtered_products, product ];
     return { 

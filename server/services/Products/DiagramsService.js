@@ -3,7 +3,8 @@ import ImageService from '../ImageService.js';
 
 async function AddDiagram(product_id, model_name, file) {
     const image = await ImageService.ResizeAndStoreImage(file.path, file.filename);
-    return await ProductsDB.Diagrams.AddDiagram(product_id, model_name, image);
+    const diagram = await ProductsDB.Diagrams.AddDiagram(product_id, model_name, image);
+    return await ProductsDB.Diagrams.GetById(diagram.id);
 }
 
 async function DeleteDiagram(id) {
