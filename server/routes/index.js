@@ -11,6 +11,7 @@ import ProjectsRouter from './ProjectsRoutes/ProjectsRouter.js';
 import AuthRouter from './AuthRoute.js';
 import StaticPagesRouter from './StaticPagesRoute.js';
 import CategoriesRouter from './CategoriesRoute.js'
+import ContactRoute from './ContactRoute.js';
 import AuthenticateToken from '../middleware/AuthMiddleware.js';
 
 const routes = express.Router();
@@ -26,5 +27,6 @@ routes.use('/blogs', BlogsRouter);
 routes.use('/projects', ProjectsRouter);
 routes.use('/auth', AuthRouter);
 routes.use('/static_pages', StaticPagesRouter);
+routes.use('/contact', ContactRoute);
 
 export default routes;
