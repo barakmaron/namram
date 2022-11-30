@@ -9,7 +9,7 @@ const ItemsListDisplay = ({
   return <ul className='w-[98vw] px-10 py-4 flex flex-wrap justify-center items-center gap-2'>
     { list?.map(item => {
         return <li 
-        className='max-w-[275px] max-h-[275px] relative'
+        className='max-w-[275px] min-h-[275px] relative'
         key={`list-item-${item.id}`}>
             <Link 
             className='no-underline cursor-pointer group'

@@ -1,6 +1,6 @@
 const PRODUCT_TYPE = {
-    RENT: "rent",
-    SALE: "sale"
+    RENT: "Rent",
+    SALE: "Sale"
 };
 
 const DISPLAY_TYPE = {

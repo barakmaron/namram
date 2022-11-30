@@ -16,7 +16,7 @@ router.get('/:id', ProductsController.GetProduct);
 
 router.post('/', 
     AuthenticateToken, 
-    UploadImageMiddleware.array('product_images', 10), 
+    UploadImageMiddleware.array('product_images', 20), 
     validate(checkSchema(ProductSchemas.AddProduct)), 
     ProductsController.AddProduct);
 

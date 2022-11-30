@@ -18,6 +18,7 @@ import Cut from "./pages/CutPage/Cut";
 import Drill from "./pages/DrillPage/DrillPage";
 import Eilat from "./pages/EilatPage/Eilat";
 import Home from "./pages/HomePage/Home";
+import ProductPageConnector from "./pages/ProductPage/ProductPageConnector";
 import ProjectConnector from "./pages/ProjectsPage/Project/ProjectConnector";
 import ProjectsConnector from "./pages/ProjectsPage/ProjectsConnector";
 import Rent from "./pages/RentPage/Rent";
@@ -97,10 +98,10 @@ const routes = [{
         element: ProjectsConnector,
         editable: false,
         show: true,
-        child: {
+        child: [{
             element: ProjectConnector,
             location: '/project/:id'
-        } 
+        }] 
     }]
 }, {
     label: "פטישי חציבה אוויר",
@@ -126,10 +127,10 @@ const routes = [{
     element: BlogsPageConnector,
     editable: false,
     show: true,
-    child: {
+    child: [{
         element: BlogConnector,
         location: '/blog/:id'
-    } 
+    }] 
 }, {
     label: "צור קשר",
     location: "/contact",
@@ -137,15 +138,25 @@ const routes = [{
     editable: false,
     show: true,
 }, {
+    label: "התחבר",
+    location: "/login",
+    element: LoginConnector,
+    editable: false,
+    show: false
+}, {
     label: "קטגוריה",
     location: "/category",
     element: CategoryPageConnector,
     editable: false,
     show: false,
-    child: {
+    child: [{
         element: CategoryPageConnector,
-        location: '/category/:id'
-    } 
+        location: '/category/:id',  
+        show_dynamic: true      
+    }, {
+        element: ProductPageConnector,
+        location: '/category/:category_id/product/:product_id',
+    }]
 }];
 
 const admin_routes = [{
