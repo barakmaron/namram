@@ -1,6 +1,6 @@
 import SparePartsService from '../services/Products/SparePartsService.js';
 import HtmlService from '../services/PdfServices/index.js'
-import SendMail, { OutOfStockPartMailOption } from '../services/MailService.js';
+import SendMail, { OutOfStockPartMailOption, ContactMailOption } from '../services/MailService.js';
 
 async function SendOutOfStockPartsJob() {
     try {
@@ -14,8 +14,19 @@ async function SendOutOfStockPartsJob() {
     }
 }
 
+async function SendContactForm(data) {
+   try { 
+    const parsed_html = await HtmlService.CreateContactHtml(data);
+    const mail_params = ContactMailOption(parsed_html);
+    return SendMail(mail_params);
+   } catch (err) {
+    throw err;
+   }
+}
+
 const MailerController = {
-    SendOutOfStockPartsJob
+    SendOutOfStockPartsJob,
+    SendContactForm
 };
 
 export default MailerController;
