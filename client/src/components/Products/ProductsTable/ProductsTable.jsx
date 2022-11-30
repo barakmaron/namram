@@ -148,7 +148,7 @@ const ProductsTable = ({
         const category = categories.find(category => category.Name === category_name);
         PatchProductAction(params.id, category.id, params.field, params.value, type);
     }, [PatchProductAction, categories, rows, type]);
-    
+
     const select_spare_parts = useCallback((product) => {
         if(product !== undefined) {
             const parts = product.Product.ProductPartsDiagrams?.flatMap((diagram) => diagram.SpareParts?.map((part) => part ));
@@ -161,8 +161,6 @@ const ProductsTable = ({
         setSelectedProduct(product);
         select_spare_parts(product);
     }, [products, select_spare_parts]);
-
-    
     
     const edit_props_click = useCallback((params) => {
         select_product(params.id);
