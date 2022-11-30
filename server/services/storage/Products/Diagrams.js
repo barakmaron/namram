@@ -36,7 +36,8 @@ async function GetById(id) {
     return await ProductPartsDiagramModel.findOne({
         where: {
             id: id
-        }
+        },
+        include: SparePartsModel
     });
 }
 
