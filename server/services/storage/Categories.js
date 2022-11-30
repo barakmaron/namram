@@ -3,8 +3,14 @@ import Constants from "../../Constants.js";
 import DbConstants from "../../db/DbConstants.js";
 import { RentalProductsModel, SaleProductsModel, ProductPropsModel, ProductsModel, ProductsImagesModel, CategoriesModel, ProductPartsDiagramModel, SparePartsModel, RentalAgreementListModel, RentalAgreementModel, ServiceReportsModel, PartsChangedModel } from "../../db/models/index.js";
 
-async function GetCategoryById(id, product_type) {
-    const type_condition = product_type.includes(Constants.PRODUCT_TYPE.SALE);
+async function GetCategoryById(id) {
+    const category = await CategoriesModel.findOne({
+        where: {
+            id: id
+        }
+    });
+    const type_enum = DbConstants.GetCategoryTypeEnum();
+    const type_condition = category.Type === type_enum[1];
     return await CategoriesModel.findOne({
         where: {
             id: id
@@ -71,7 +77,7 @@ async function AddCategory(name, image, product_type) {
         Image: image,
         Type: type_condition ? type_enum[1] : type_enum[0]
     }); 
-    return await GetCategoryById(category.id, product_type); 
+    return await GetCategoryById(category.id); 
 }
 
 async function DeleteCategory(id) {

@@ -10,10 +10,11 @@ import BlogsRouter from './BlogsRouter.js';
 import ProjectsRouter from './ProjectsRoutes/ProjectsRouter.js';
 import AuthRouter from './AuthRoute.js';
 import StaticPagesRouter from './StaticPagesRoute.js';
+import CategoriesRouter from './CategoriesRoute.js'
 import AuthenticateToken from '../middleware/AuthMiddleware.js';
 
 const routes = express.Router();
-
+routes.use('/categories', CategoriesRouter)
 routes.use('/sale', SaleRouter);
 routes.use('/rent', RentRouter);
 routes.use('/products', ProductsRouter);

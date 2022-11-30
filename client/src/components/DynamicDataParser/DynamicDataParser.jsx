@@ -42,7 +42,7 @@ const DynamicDataParser = ({
                 id: product.id,
                 name: product.Product.Name,
                 Image: product.Product.ProductsImages[0].Image,
-                base_url: '/product'
+                base_url: `/category/${category.id}/product`
             }) || []));
         } else if(!page_route.includes(Constants.API_PRODUCT_TYPE.RENT) && static_page_data.length && categories.length) {
             const filtered_data = static_page_data.flatMap(page_data => {
@@ -52,7 +52,7 @@ const DynamicDataParser = ({
                         id: product.id,
                         name: product.Product.Name,
                         Image: product.Product.ProductsImages[0].Image,
-                        base_url: '/product'
+                        base_url: `/category/${category.id}/product`
                     }));
                 return {
                     id: category.id,
