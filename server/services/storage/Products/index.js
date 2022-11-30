@@ -7,7 +7,7 @@ import Constants from '../../../Constants.js';
 
 
 async function AddProduct(id, name, serial_number, text, price, images, props, product_type, display, hour_clock) {
-    const type_condition = product_type.includes(Constants.PRODUCT_TYPE.SALE);
+    const type_condition = product_type.includes(Constants.PRODUCT_TYPE.SALE.toLocaleLowerCase());
     const product = await ProductsModel.create({
         Name: name,
         Text: text,

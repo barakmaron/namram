@@ -4,7 +4,7 @@ import Form from '../Form/Form';
 import Modal from '../Modal/Modal';
 import Constants from '../../Constants';
 import useProductType from '../../hooks/useProductType';
-import allProductForms from './FormConstantas';
+import allProductForms from './FormConstants';
 
 const Products = ({
   categories,
@@ -20,7 +20,7 @@ const Products = ({
     const [delete_form_controller, setDeleteFormController] = useState([]);
     const [selected_category, setSelectedCategory] = useState(null);
     const [selected_product, setSelectedProduct] = useState(null);
-    const array_type = useProductType(type);
+    const [array_type, setType] = useProductType(type);
 
     useEffect(() => {
       const controller = [{            
@@ -58,7 +58,7 @@ const Products = ({
 
   return (<>
     <ControlPanelBlock
-    number={products?.length}
+    number={products?.length || 0}
     actions={[{
       value: () => setAddProduct(true),
       label: "הוסף"

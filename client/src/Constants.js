@@ -3,6 +3,7 @@ import AirHammers from "./pages/AirHammers/AirHammers";
 import BlogConnector from "./pages/BlogsPage/Blog/BlogConnector";
 import BlogsPageConnector from "./pages/BlogsPage/BlogsPageConnector";
 import CableCutting from "./pages/CableCuting/CableCuting";
+import CategoryPageConnector from "./pages/CategoryPage/CategoryPageConnector";
 import Contact from "./pages/ContactPage/Contact";
 import BlogEditorPageConnector from "./pages/ControlPanel/BlogEditorPage/BlogEditorPageConnector";
 import ControlPanelConnector from "./pages/ControlPanel/ControlPanelConnector";
@@ -17,6 +18,7 @@ import Cut from "./pages/CutPage/Cut";
 import Drill from "./pages/DrillPage/DrillPage";
 import Eilat from "./pages/EilatPage/Eilat";
 import Home from "./pages/HomePage/Home";
+import ProductPageConnector from "./pages/ProductPage/ProductPageConnector";
 import ProjectConnector from "./pages/ProjectsPage/Project/ProjectConnector";
 import ProjectsConnector from "./pages/ProjectsPage/ProjectsConnector";
 import Rent from "./pages/RentPage/Rent";
@@ -37,7 +39,14 @@ const API_PRODUCT_TYPE = {
 
 const PRODUCT_TYPE = {
     SaleProducts: "SaleProducts",
-    RentProducts: "RentProducts"
+    RentProducts: "RentProducts",
+    Sale: "SaleProducts",
+    Rental: "RentProducts"
+};
+
+const CATEGORY_TYPE = {
+    Sale: 'sale',
+    Rental: 'rent'
 };
 
 const DateFormat = "DD/MM/YYYY";
@@ -51,71 +60,103 @@ const routes = [{
     label: "דף הבית",
     location: "/",
     element: Home,
-    editable: true
+    editable: true,
+    show: true,
 }, {
     label: "השכרת ציוד",
     location: "/rent",
     element: Rent,
-    editable: false
+    editable: false,
+    show: true
 }, {
     label: "מכירת ציוד",
     location: "/sale",
     element: Shop,
-    editable: false
+    editable: false,
+    show: true
 }, {
     label: "ניסור וקידוח בבטון",
     location: "/cut",
     element: Cut,
     editable: true,
+    show: true,
     sub_nav: [{
         label: "ניסור בטון",
         location: "/cut",
         element: Cut,
-        editable: true
+        editable: true,
+        show: true
     }, {
         label: "קידוח בטון",
         location: "/drill",
         element: Drill,
-        editable: true
+        editable: true,
+        show: true
     }, {
         label: "פרוייקטים",
         location: "/projects",
         element: ProjectsConnector,
         editable: false,
-        child: {
+        show: true,
+        child: [{
             element: ProjectConnector,
             location: '/project/:id'
-        } 
+        }] 
     }]
 }, {
     label: "פטישי חציבה אוויר",
     location: "/air_hammers",
     element: AirHammers,
-    editable: true
+    editable: true,
+    show: true
 }, {
     label: "כבל יהלום לניסור",
     location: "/wire_saw",
     element: CableCutting,
-    editable: true
+    editable: true,
+    show: true
 }, {
     label: "סניף אילת",
     location: "/eilat",
     element: Eilat,
-    editable: false
+    editable: false,
+    show: true
 }, {
     label: "מאמרים",
     location: "/blogs",
     element: BlogsPageConnector,
     editable: false,
-    child: {
+    show: true,
+    child: [{
         element: BlogConnector,
         location: '/blog/:id'
-    } 
+    }] 
 }, {
     label: "צור קשר",
     location: "/contact",
     element: Contact,
-    editable: false
+    editable: false,
+    show: true,
+}, {
+    label: "התחבר",
+    location: "/login",
+    element: LoginConnector,
+    editable: false,
+    show: false
+}, {
+    label: "קטגוריה",
+    location: "/category",
+    element: CategoryPageConnector,
+    editable: false,
+    show: false,
+    child: [{
+        element: CategoryPageConnector,
+        location: '/category/:id',  
+        show_dynamic: true      
+    }, {
+        element: ProductPageConnector,
+        location: '/category/:category_id/product/:product_id',
+    }]
 }];
 
 const admin_routes = [{
@@ -259,7 +300,8 @@ const Constants = {
     maps,
     admin_routes,
     DateFormat,
-    DisplayType
+    DisplayType,
+    CATEGORY_TYPE
 };
 
 export default Constants;

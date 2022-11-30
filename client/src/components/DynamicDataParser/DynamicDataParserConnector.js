@@ -1,10 +1,11 @@
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import { getCategories } from "../../redux/selectors/categoriesSelector";
-import { GetStaticPageDataPerPageAction } from "../../redux/actions/StaticPageActions";
+import { GetStaticPageDataPerPageAction, InitStaticPageDataAction } from "../../redux/actions/StaticPageActions";
 import { getStaticPages } from "../../redux/selectors/staticPagesSelector";
 import { GetRentAction } from "../../redux/actions/RentActions/RentActions";
 import { GetSaleAction } from "../../redux/actions/SaleActions/saleActions";
+import { GetCategoryAction } from "../../redux/actions/CategoriesActions/CategoriesActions";
 import DynamicDataParser from "./DynamicDataParser";
 
 const maStateToProps = (state, ownProps) => {
@@ -19,9 +20,11 @@ const maStateToProps = (state, ownProps) => {
 
 const mapActionToProps = (dispatch) => {
     return bindActionCreators({
+        InitStaticPageDataAction,
         GetStaticPageDataPerPageAction,
         GetRentAction,
-        GetSaleAction
+        GetSaleAction,
+        GetCategoryAction
     }, dispatch);
 };
 
