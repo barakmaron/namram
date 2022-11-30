@@ -4,7 +4,7 @@ import BlogConnector from "./pages/BlogsPage/Blog/BlogConnector";
 import BlogsPageConnector from "./pages/BlogsPage/BlogsPageConnector";
 import CableCutting from "./pages/CableCuting/CableCuting";
 import CategoryPageConnector from "./pages/CategoryPage/CategoryPageConnector";
-import Contact from "./pages/ContactPage/Contact";
+import ContactConnector from "./pages/ContactPage/ContactConnector";
 import BlogEditorPageConnector from "./pages/ControlPanel/BlogEditorPage/BlogEditorPageConnector";
 import ControlPanelConnector from "./pages/ControlPanel/ControlPanelConnector";
 import CreateReportsPageConnector from "./pages/ControlPanel/CreateReportsPage/CreateReportsPageConnector";
@@ -134,7 +134,7 @@ const routes = [{
 }, {
     label: "צור קשר",
     location: "/contact",
-    element: Contact,
+    element: ContactConnector,
     editable: false,
     show: true,
 }, {
