@@ -16,7 +16,11 @@ const ToolsPage = ({
   const [categories_list, setCategoriesList] = useState([]);
 
   const [products, setProducts] = useState([]);
-  const array_type = useProductType(product_type);
+  const [array_type, setType] = useProductType(product_type);
+
+    useEffect(() => {
+      setType(product_type);
+    }, [product_type, setType]);
 
     useEffect(() => {
       product_type === Constants.API_PRODUCT_TYPE.RENT ?

@@ -26,6 +26,7 @@ const reducer = (state = initState, action) => {
             case RentActionsConstants.GET_RENT: {
                 return RentReducerFunctions[type](state, payload);
             }
+            case CategoriesActionsConstants.GET_CATEGORY:
             case CategoriesActionsConstants.ADD_CATEGORY:
             case CategoriesActionsConstants.DELETE_CATEGORY: 
             case CategoriesActionsConstants.UPDATE_CATEGORY:

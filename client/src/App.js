@@ -66,7 +66,14 @@ function App({
           { route.child && <Route 
           key={`route-child-${route.child.location}-${index}`} 
           path={route.child.location} 
-          element={<route.child.element></route.child.element>}/>}
+          element={<>
+            <Helmet>
+              <title>נמרם | {route.label}</title>
+            </Helmet>
+            <route.child.element></route.child.element>
+            <DynamicDataParserConnector
+              page_route={route.location} />
+          </>}/>}
        </React.Fragment>
       })}
     </Routes>

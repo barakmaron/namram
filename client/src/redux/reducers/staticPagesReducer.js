@@ -8,6 +8,9 @@ const initState = {
 const reducer = (state = initState, action) => {
     const { type, payload } = action;
     switch(type) {
+        case ACTIONS.INIT_STATIC_PAGES: {
+            return initState;
+        }
         case ACTIONS.GET_STATIC_PAGES: {
             return {
                 ...state,
