@@ -11,7 +11,7 @@ function AddDiagram(state, payload, product_type) {
         ModelName: parsed_diagram_form.model_name,
         Image: temp_image_url[0]
     };
-    product.Product.ProductPartsDiagrams = [ ...product.Product?.ProductPartsDiagrams || [], diagram ];
+    product.Product.ProductPartsDiagrams = [ ...product.Product?.ProductPartsDiagrams, diagram ];
     category[product_type] = [ ...filtered_products, product ];
     return { 
         ...state, 
