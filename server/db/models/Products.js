@@ -18,7 +18,7 @@ const Products = (sequelize, DataTypes) => {
             type: DataTypes.STRING
         },
         Text: {
-            type: DataTypes.STRING
+            type: DataTypes.TEXT('long')
         },
         SerialNumber: {
             type: DataTypes.INTEGER

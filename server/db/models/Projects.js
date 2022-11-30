@@ -19,7 +19,7 @@ const Projects = (sequelize, DataTypes) => {
             type: DataTypes.STRING
         },
         Text: {
-            type: DataTypes.STRING
+            type: DataTypes.TEXT('long')
         },
         Date: {
             type: DataTypes.DATE,
