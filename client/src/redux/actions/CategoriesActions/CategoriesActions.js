@@ -2,6 +2,11 @@ import Constants from "../../../Constants";
 import SendApiRequest from "../../../services/ApiService";
 import ACTIONS from "../actionConstants/Categories/CategoriesActionConstants";
 
+const GetCategory = (category) => ({
+    type: ACTIONS.GET_CATEGORY,
+    payload: [category]
+});
+
 const AddCategory = (form_data, temp_url, product_type) => ({
     type: ACTIONS.ADD_CATEGORY,
     payload: {
@@ -64,6 +69,17 @@ export const EditCategoryAction = (id, form, product_type) => {
         try {
             dispatch(EditCategory(id, form.name, product_type));
             await SendApiRequest(`/${product_type}/categories/${id}`, Constants.API_METHODS.PATCH, form);
+        } catch (err) {
+
+        }
+    };
+};
+
+export const GetCategoryAction = (id) => {
+    return async (dispatch) => {
+        try {            
+            const category = await SendApiRequest(`/categories/${id}`);
+            dispatch(GetCategory(category));
         } catch (err) {
 
         }

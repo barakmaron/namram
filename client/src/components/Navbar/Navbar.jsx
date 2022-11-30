@@ -10,13 +10,13 @@ const Navbar = ({
   return (<nav 
   className={`z-10 flex w-full justify-center mx-auto text-lg font-bold bg-white shadow-lg transition-all ${scroll > 20 && ` fixed top-0`}`} dir='rtl'>
     {routes.map((route, index) => {
-        return !(route?.sub_nav) ? <Link 
+        return !(route?.sub_nav) ? route.show && <Link 
         className={`py-2 px-1 hover:bg-green-600 hover:text-white
         ${route.location === location.pathname ? `bg-green-600 text-white` : `text-slate-700`}`}
         key={`route-${index}`} 
         to={route.location}>
             {route.label}
-        </Link> : <div key={`route-sub-route${index}`} className={`py-2 px-1 relative hover:bg-green-600 hover:text-white peer
+        </Link> : route.show && <div key={`route-sub-route${index}`} className={`py-2 px-1 relative hover:bg-green-600 hover:text-white peer
             ${route.location === location.pathname ? `bg-green-600 text-white` : `text-slate-700`}`}   >
             <Link 
             className='peer'
@@ -26,7 +26,7 @@ const Navbar = ({
             <div key={`route-sub--menu-route${index}`} 
             className='hidden z-10 peer-focus:flex peer-hover:flex hover:flex flex-col bg-white drop-shadow-lg absolute top-7 left-0 w-full text-center'>
                 {route.sub_nav.map((sub_route, sub_index) => {
-                    return <Link 
+                    return sub_route.show && <Link 
                     className={`py-2 px-2 hover:bg-green-600 hover:text-white
                     ${sub_route.location === location.pathname ? `bg-green-600 text-white` : `text-slate-700`}`}
                     key={`route-${index}-sub-${sub_index}`} 

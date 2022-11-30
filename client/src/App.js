@@ -21,8 +21,7 @@ function App({
       AuthUserAction();
   }, [AuthUserAction, location]);
 
-  return !logged_in ? 
-   !location.pathname.includes('login') ? (<>
+  return !logged_in ? (<>
     <header>
       <ContactNav {...Constants.contact_nav}/>
       <Navbar routes={Constants.routes} />
@@ -63,16 +62,24 @@ function App({
             <DynamicDataParserConnector
               page_route={route.location} />
           </>}/>}
-          { route.child && <Route 
-          key={`route-child-${route.child.location}-${index}`} 
-          path={route.child.location} 
-          element={<route.child.element></route.child.element>}/>}
+          { route.child && route.child.map(child => {
+            return <Route 
+            key={`route-child-${child.location}-${index}`} 
+            path={child.location} 
+            element={<>
+              <Helmet>
+                <title>נמרם | {route.label}</title>
+              </Helmet>
+              <child.element></child.element>
+              { child.show_dynamic && <DynamicDataParserConnector
+                page_route={route.location} />}
+            </>}/>          
+          })}
        </React.Fragment>
       })}
     </Routes>
     <Footer></Footer>
-  </>) : 
-  (<LoginConnector/>) 
+  </>) 
   : (<div className='flex flex-row ' dir='rtl'>
     <header className='w-fit'>
       <SideNavBar routes={Constants.admin_routes} />

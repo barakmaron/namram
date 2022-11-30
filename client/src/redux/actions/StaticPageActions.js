@@ -2,6 +2,10 @@ import Constants from "../../Constants";
 import SendApiRequest from "../../services/ApiService";
 import ACTIONS from "./actionConstants/StaticPageActionsConstants";
 
+const InitStaticPageData = () => ({
+    type: ACTIONS.INIT_STATIC_PAGES
+});
+
 const GetStaticPages = (data) => ({
     type: ACTIONS.GET_STATIC_PAGES,
     payload: data
@@ -74,4 +78,8 @@ export const DeleteStaticPageAction = (id) => {
 
         }
     }
+}
+
+export const InitStaticPageDataAction = () => {
+    return dispatch => dispatch(InitStaticPageData());
 }
