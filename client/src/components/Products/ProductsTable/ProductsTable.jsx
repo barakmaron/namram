@@ -26,6 +26,7 @@ const ProductsTable = ({
     const [edit_diagram, setEditDiagram] = useState(false);
     const [edit_spare_parts, setSpareParts] = useState(false);
     const [selected_product_parts, setSelectedProductParts] = useState([]);
+    const [rows, setRows] = useState([]);
 
     const is_sale = Constants.PRODUCT_TYPE.SaleProducts.toLowerCase().includes(type);
 
@@ -114,7 +115,6 @@ const ProductsTable = ({
             }
         }];
 
-    const [rows, setRows] = useState([]);
 
     useEffect(() => {
         const row_parsed = products ? products.map((product) => {
@@ -148,21 +148,21 @@ const ProductsTable = ({
         const category = categories.find(category => category.Name === category_name);
         PatchProductAction(params.id, category.id, params.field, params.value, type);
     }, [PatchProductAction, categories, rows, type]);
-
-    useEffect(() => {
-        if(selected_product !== undefined) {
-            const product = products.find(product => product.id === selected_product.id)
-            const parts = product.Product.ProductPartsDiagrams?.flatMap((diagram) => diagram.SpareParts?.map((part) => part) || []);
-            setSelectedProductParts(parts);
+    
+    const select_spare_parts = useCallback((product) => {
+        if(product !== undefined) {
+            const parts = product.Product.ProductPartsDiagrams?.flatMap((diagram) => diagram.SpareParts?.map((part) => part ));
+            setSelectedProductParts(parts || []);
         }
-    }, [selected_product, products, categories]);
+    }, []);
 
     const select_product = useCallback((product_id) => {
         const product = products.find(product => product.ProductId === product_id);
         setSelectedProduct(product);
-        const parts = product.Product.ProductPartsDiagrams?.flatMap((diagram) => diagram.SpareParts?.map((part) => part ) || []);
-        setSelectedProductParts(parts);
-    }, [products]);
+        select_spare_parts(product);
+    }, [products, select_spare_parts]);
+
+    
     
     const edit_props_click = useCallback((params) => {
         select_product(params.id);
@@ -186,8 +186,9 @@ const ProductsTable = ({
 
     const edit_spare_parts_click = useCallback((params) => {
         select_product(params.id);
+        select_spare_parts(selected_product);
         setSpareParts(true);
-    }, [select_product]);
+    }, [select_product, selected_product, select_spare_parts]);
 
     const get_pdf_service_book = useCallback((params) => {
         window.open(`${process.env.REACT_APP_API_BASE_URL}/service_reports/product/${params.id}`); 
