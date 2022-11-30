@@ -1,6 +1,14 @@
 import categoriesAction from '../../actions/actionConstants/Categories/CategoriesActionConstants';
 import reducerUtilities from '../reducerUtilities';
 
+
+function GetCategory(state, payload) {
+    return {
+        ...state,
+        categories: payload
+    };
+}
+
 function AddCategory(state, payload) {
     return {
         ...state,
@@ -10,7 +18,6 @@ function AddCategory(state, payload) {
         }]
     };
 }
-
 
 function DeleteCategory(state, payload) {
     const { filtered_array: filtered_categories } = reducerUtilities.destructorArray(state.categories, payload);
@@ -39,6 +46,7 @@ function EditCategory(state, payload) {
 
 
 const CategoriesFunctions = {
+    [categoriesAction.GET_CATEGORY]: GetCategory,
     [categoriesAction.ADD_CATEGORY]: AddCategory,
     [categoriesAction.DELETE_CATEGORY]: DeleteCategory,
     [categoriesAction.UPDATE_CATEGORY]: UpdateCategory,
