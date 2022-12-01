@@ -11,15 +11,18 @@ import SignatureCapture from './SignatureCapture/SignatureCapture';
 import Checkbox from './CheckBox/CheckBox';
 import { MobileDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { BsCheck2Circle } from 'react-icons/bs';
 
 export default function Form({ 
     inputs, 
     controller,
     action,
+    className,
     reset,
+    successful,
     failed,
     message,
-    className
+    errors    
 }){
     const form_ref = useRef(null);
     const [images, setObjectUrl] = useState([]);
@@ -64,6 +67,12 @@ export default function Form({
     const DeleteDynamicInputs = useCallback((id) => {
         setDynamicInputs(inputs => inputs.filter(input => input.id !== id));
     }, []);
+
+    if(successful)
+        return <div className='flex flex-col justify-center h-fit w-full items-center text-4xl py-10 px-4 text-forest-green-600'>
+            <BsCheck2Circle/>
+            <span>{message}</span>
+        </div>;
 
     return <form className={`${className || style.container}`} ref={form_ref} key={`form`} dir="rtl">
         {inputs.map(({ name, type, place_holder }, index) => {
@@ -138,7 +147,8 @@ export default function Form({
                     </div>;
                 }
                 case FORMS.INPUTS_TYPES.RENT_TOOLS_SELECTOR: {
-                    return <React.Fragment key={`rent-tools-selector-${name}`} ><RentalToolsSelectorConnector
+                    return <React.Fragment key={`rent-tools-selector-${name}`} >
+                    <RentalToolsSelectorConnector
                     setData={setTools}/>
                     <input 
                     readOnly
@@ -174,11 +184,14 @@ export default function Form({
                     </LocalizationProvider>
                 }
                 default: {
+                    console.log(errors)
                     return <TextField 
                     name={name} 
                     type={type} 
                     label={place_holder} 
-                    key={`form-input-${name}-${index}`} />;
+                    key={`form-input-${name}-${index}`}
+                    error={errors[name] === undefined ? false : true}
+                    helperText={errors[name]} />;
                 }
             }    
         })}
