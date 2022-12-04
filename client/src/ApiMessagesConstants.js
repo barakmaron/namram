@@ -112,6 +112,20 @@ const ApiMessagesConstants = {
                 successful: "תכונה נערכה בהצלחה",
                 failed: "לא ניתן לערוך תכונה"
             }
+        },
+        diagram: {
+            addDiagram: {
+                successful: "דיאגרמה נוספה בהצלחה",
+                failed: "לא ניתן להוסיף דיאגרמה"
+            },
+            deleteDiagram: {
+                successful: "דיאגרמה נמחקה בהצלחה",
+                failed: "לא ניתן למחוק דיאגרמה"
+            },
+            patchDiagram: {
+                successful: "דיאגרה נערכה בהצלחה",
+                failed: "לא ניתן לערוך דיאגרמה"
+            }
         }
     }
 };
