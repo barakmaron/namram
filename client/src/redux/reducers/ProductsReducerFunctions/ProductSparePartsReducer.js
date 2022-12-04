@@ -25,7 +25,7 @@ function UpdatePart(state, payload, product_type) {
     const { object: product, filtered_array: filtered_products } = reducerUtilities.destructorArray(category[product_type], product_id, "ProductId");
     const { object: diagram, filtered_array: filtered_diagrams } = reducerUtilities.destructorArray(product.Product.ProductPartsDiagrams, diagram_id);
     const { filtered_array: filtered_spare_parts } = reducerUtilities.destructorArray(diagram.SpareParts, "temp-part");
-    diagram.SpareParts = [ ...filtered_spare_parts , new_part ];
+    diagram.SpareParts = new_part.id ? [ ...filtered_spare_parts , new_part ] : [ ...filtered_spare_parts ];
     product.Product.ProductPartsDiagrams = [ ...filtered_diagrams, diagram ];
     category[product_type] = [ ...filtered_products, product ];
     return { 

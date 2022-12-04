@@ -1,6 +1,8 @@
+import ApiMessagesConstants from "../../../ApiMessagesConstants";
 import Constants from "../../../Constants";
 import SendApiRequest from "../../../services/ApiService";
 import ACTIONS from "../actionConstants/Products/SparePartsActionConstants";
+import { DispatchError, Successful } from "../ApiHandlerActions";
 
 const AddSparePart = (product_id, category_id, diagram_id, part_from, product_type) => ({
     type: ACTIONS.ADD_SPARE_PART,
@@ -56,8 +58,10 @@ export const AddSparePartAction =  (product_id, category_id, diagram_id, part_fr
                 diagram_id   
             });
             dispatch(UpdateSparePart(product_id, category_id, diagram_id, new_part, product_type));
+            dispatch(Successful(ApiMessagesConstants.product.sparePart.addPart.successful));
         } catch (err) {
-
+            dispatch(UpdateSparePart(product_id, category_id, diagram_id, {}, product_type));
+            DispatchError(dispatch, err, ApiMessagesConstants.product.sparePart.addPart.failed);
         }
     }
 };
@@ -67,8 +71,9 @@ export const DeleteSparePartAction = (product_id, category_id, diagram_id, part_
         try {
             dispatch(DeleteSparePart(product_id, category_id, diagram_id, part_id, product_type));
             await SendApiRequest(`/products/spare_parts/${part_id}`, Constants.API_METHODS.DELETE);
+            dispatch(Successful(ApiMessagesConstants.product.sparePart.deletePart.successful));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.product.sparePart.deletePart.failed);
         }
     }
 }
@@ -81,8 +86,9 @@ export const PatchSparePartAction = (part_id, product_id, category_id, diagram_i
                 field_name,
                 value
             });
+            dispatch(Successful(ApiMessagesConstants.product.sparePart.patchPart.successful));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.product.sparePart.patchPart.failed);
         }
     }
 }
