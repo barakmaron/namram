@@ -13,6 +13,7 @@ const ErrorMessages = {
     page_route: "כותבת דף אינה תקינה",
     display_type: "סוג התצוגה אינה תקינה",
     login: "לא היה ניתן לאמת את פרטי התחברות שלך נסה שוב",
+    category_name: "שם קטגוריה לא תקין"
 };
 
 export default ErrorMessages;
