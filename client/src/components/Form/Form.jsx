@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCallback, useRef, useState } from 'react';
-import { Button, TextareaAutosize, TextField } from '@mui/material';
+import { Button, FormHelperText, TextareaAutosize, TextField } from '@mui/material';
 import style from './Form.module.css';
 import { useEffect } from 'react';
 import FORMS from './Forms';
@@ -25,6 +25,7 @@ export default function Form({
     errors    
 }){
     const form_ref = useRef(null);
+    const has_Images = inputs.find(input => input.type === FORMS.INPUTS_TYPES.FILE) ? true : false;
     const [images, setObjectUrl] = useState([]);
     const [dynamic_inputs, setDynamicInputs] = useState([]);
     const [tools, setTools] = useState([]);
@@ -44,10 +45,10 @@ export default function Form({
     const submit_action = useCallback((event) => {
         event.preventDefault();
         const form_data = new FormData(form_ref?.current);
-        const formatted_form = images.length || signature ? form_data : Object.fromEntries(form_data);
+        const formatted_form = has_Images || signature ? form_data : Object.fromEntries(form_data);
         signature && formatted_form.append("Signature", signature);
         action(event, formatted_form, images);
-    }, [form_ref, action, images, signature]);
+    }, [form_ref, action, has_Images, signature, images]);
 
     useEffect(() => {
         if(reset)
@@ -82,14 +83,21 @@ export default function Form({
                         <Button
                         variant="outlined"
                         component="label"
-                        onChange={uploadToClient}>
+                        onChange={uploadToClient}
+                        color={errors?.[name] === undefined ? "primary" : "error" }
+                        helperText={errors?.[name]}>
                             {place_holder}
                             <input
                             type={type}
                             name={name}
                             multiple
-                            hidden />
+                            hidden 
+                            required/>                            
                         </Button>
+                        { errors?.[name] && <FormHelperText
+                            error={true}>
+                                {errors[name]}
+                            </FormHelperText>}
                         <div className="group w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
                             {images.map((img, index) => <img 
                                 src={img} 
@@ -184,14 +192,13 @@ export default function Form({
                     </LocalizationProvider>
                 }
                 default: {
-                    console.log(errors)
                     return <TextField 
                     name={name} 
                     type={type} 
                     label={place_holder} 
                     key={`form-input-${name}-${index}`}
-                    error={errors[name] === undefined ? false : true}
-                    helperText={errors[name]} />;
+                    error={errors?.[name] === undefined ? false : true}
+                    helperText={errors?.[name]} />;
                 }
             }    
         })}
