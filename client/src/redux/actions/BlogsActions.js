@@ -1,6 +1,8 @@
+import ApiMessagesConstants from "../../ApiMessagesConstants";
 import Constants from "../../Constants";
 import SendApiRequest from "../../services/ApiService";
 import ACTIONS from "./actionConstants/BlogsActionsConstants";
+import { DispatchError, Successful } from "./ApiHandlerActions";
 
 const GetBlogs = (blogs) => ({
     type: ACTIONS.GET_BLOGS,
@@ -40,7 +42,7 @@ export const GetBlogsAction = () => {
             const blogs = await SendApiRequest('/blogs');
             dispatch(GetBlogs(blogs));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.blogs.getBlogs.failed);
         }
     }
 };
@@ -50,9 +52,11 @@ export const AddBlogAction = (form, temp_image) => {
         try {
             dispatch(AddBlog(Object.fromEntries(form), temp_image));
             const blog = await SendApiRequest('/blogs', Constants.API_METHODS.POST, form);
+            dispatch(Successful(ApiMessagesConstants.blogs.addBlog.successful));
             dispatch(UpdateBlog(blog));
         } catch (err) {
-
+            dispatch(UpdateBlog());
+            DispatchError(dispatch, err, ApiMessagesConstants.blogs.addBlog.failed);
         }
     }
 };
@@ -62,8 +66,9 @@ export const DeleteBlogAction = (blog_id) => {
         try {
             dispatch(DeleteBlog(blog_id));
             await SendApiRequest(`/blogs/${blog_id}`, Constants.API_METHODS.DELETE);
+            dispatch(Successful(ApiMessagesConstants.blogs.deleteBlog.successful));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.blogs.deleteBlog.failed);
         }
     }
 };
@@ -75,9 +80,10 @@ export const EditBlogAction = (blog_id, title, text) => {
             await SendApiRequest(`/blogs/${blog_id}`, Constants.API_METHODS.PATCH, {
                 Title: title,
                 Text: text
-            });
+            });            
+            dispatch(Successful(ApiMessagesConstants.blogs.patchBlog.successful));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.blogs.patchBlog.failed);
         }
     }
 };

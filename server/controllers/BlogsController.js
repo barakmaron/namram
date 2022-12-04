@@ -5,7 +5,7 @@ async function GetAllBlogs(req, res) {
         const blogs = await BlogsService.GetAllBlogs();
         return res.status(200).json(blogs);
     } catch (err) {
-
+        throw err;
     }
 }
 
@@ -19,7 +19,7 @@ async function AddBlog(req, res) {
         });
         return res.status(200).json(blog);
     } catch (err) {
-
+        throw err;
     }
 }
 
@@ -29,7 +29,7 @@ async function DeleteBlog(req, res) {
         await BlogsService.DeleteBlog(id);
         return res.status(200).json();
     } catch (err) {
-        console.log(err);
+        throw err;
     }
 }
 
@@ -40,7 +40,7 @@ async function PatchBlog(req, res) {
         await BlogsService.PatchBlog(id, Title, Text);
         return res.status(200).json();
     } catch (err) {
-        console.log(err);
+        throw err;
     }
 }
 

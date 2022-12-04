@@ -14,12 +14,18 @@ function AddBlog(state, payload) {
 
 function UpdateBlog(state, payload) {
     const { filtered_array: filtered_blogs } = reducerUtilities.destructorArray(state.blogs);
+    const blogs = filtered_blogs.length ? [...filtered_blogs] : [];
+    if(payload !== undefined)
+        return {
+            ...state,
+            blogs: [
+                ...filtered_blogs,
+                payload
+            ]
+        };
     return {
         ...state,
-        blogs: [
-            ...filtered_blogs,
-            payload
-        ]
+        blogs: blogs
     };
 }
 

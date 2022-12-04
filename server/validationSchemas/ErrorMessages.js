@@ -1,10 +1,13 @@
 
 const ErrorMessages = {
+    file: "אנא העלה תמונה/ת",
     text_empty: "טקסט לא יכול להיות ריק",
     phone: "אנא הכנס מספר טלפון תקין",
     email: "אנא הכנס איימל תקין",
     full_name: "אנא הכנס שם מלא",
-    company_name: "אנא הכנס שם חברה תקין"
+    company_name: "אנא הכנס שם חברה תקין",
+    id: "כתובת המשאב לא תקין",
+    title: "הכותרת לא תקינה"
 };
 
 export default ErrorMessages;
