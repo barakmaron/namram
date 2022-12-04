@@ -40,7 +40,7 @@ export const PatchCustomerAction = (customer_id, param_name, value) => {
         try {
             dispatch(PatchCustomer(customer_id, param_name, value));
             await SendApiRequest(`/customers/${customer_id}`, Constants.API_METHODS.PATCH, { param_name, value });
-            dispatch(Successful(ApiMessagesConstants.customers.patchCustomer.Successful));
+            dispatch(Successful(ApiMessagesConstants.customers.patchCustomer.successful));
         } catch (err) {
             DispatchError(dispatch, err, ApiMessagesConstants.customers.patchCustomer.failed);
         }
