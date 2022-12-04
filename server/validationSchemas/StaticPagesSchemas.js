@@ -1,27 +1,32 @@
+import ErrorMessages from "./ErrorMessages.js";
 
 const AddStaticPage = {
     PageRoute: {
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 1
+            }
+        },
+        errorMessage: ErrorMessages.page_route,
     },
     CategoryId: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36
-    },
-    DisplayType: {
-        type: "string",
-        minLength: 8,
-        maxLength: 10
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.id,
     }
 };
 
 const DeleteStaticPage = {
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36,
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.id,
         in: ["params"]
     }
 }
