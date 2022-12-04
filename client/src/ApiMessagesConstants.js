@@ -168,6 +168,23 @@ const ApiMessagesConstants = {
                 failed: "לא ניתן למחוק את תמונה"
             }
         },
+    },
+    serviceReport: {
+        getReports: {
+            failed: "לא הצלחנו לקבל את הסכמי השכרה נסה שוב מאוחר יותר"
+        },
+        addReport: {
+            successful: "הסכם נוסף בהצלחה",
+            failed: "לא ניתן להוסיף הסכם"
+        },
+        deleteReport: {
+            successful: "הסכם נמחק בהצלחה",
+            failed: "לא ניתן למחוק הסכם"
+        },
+        patchReport: {
+            successful: "דיאגרה נערך בהצלחה",
+            failed: "לא ניתן לערוך הסכם"
+        },
     }
 };
 

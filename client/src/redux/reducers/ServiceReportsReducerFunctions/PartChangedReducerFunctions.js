@@ -18,10 +18,10 @@ function AddChangedPart(state, payload) {
 function UpdateChangedPart(state, payload) {
     const { object: service_report, filtered_array: filtered_service_reports } = reducerUtilities.destructorArray(state.service_reports, payload.service_report_id);
     const { filtered_array: filtered_parts } = reducerUtilities.destructorArray(service_report.PartsChangeds);
-    service_report.PartsChangeds = [ 
+    service_report.PartsChangeds = payload.part.id ? [ 
         ...filtered_parts,
         payload.part
-    ];
+    ] : [ ...filtered_parts ];
     return {
         ...state,
         service_reports: [
