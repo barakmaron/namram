@@ -126,6 +126,20 @@ const ApiMessagesConstants = {
                 successful: "דיאגרה נערכה בהצלחה",
                 failed: "לא ניתן לערוך דיאגרמה"
             }
+        },
+        sparePart: {
+            addPart: {
+                successful: "חלק חילוף נוספה בהצלחה",
+                failed: "לא ניתן להוסיף חלק חילוף"
+            },
+            deletePart: {
+                successful: "חלק חילוף נמחקה בהצלחה",
+                failed: "לא ניתן למחוק חלק חילוף"
+            },
+            patchPart: {
+                successful: "דיאגרה נערכה בהצלחה",
+                failed: "לא ניתן לערוך חלק חילוף"
+            }
         }
     }
 };
