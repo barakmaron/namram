@@ -11,7 +11,8 @@ const ErrorMessages = {
     param_name: "משהו השתבש",
     value: "אנא הכנס ערך תקין",
     page_route: "כותבת דף אינה תקינה",
-    display_type: "סוג התצוגה אינה תקינה"
+    display_type: "סוג התצוגה אינה תקינה",
+    login: "לא היה ניתן לאמת את פרטי התחברות שלך נסה שוב",
 };
 
 export default ErrorMessages;

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Form from '../../../components/Form/Form';
+import FormConnector from '../../../components/Form/FormConnector';
 import login_inputs from './FormConstantans';
 
 const Login = ({
@@ -33,7 +33,7 @@ const Login = ({
     <h2 className=' text-slate-700 text-4xl font-bold text-center bg-amber-500 py-6'>
         התחבר
     </h2>
-    <Form inputs={login_inputs} action={LoginSubmit} />
+    <FormConnector inputs={login_inputs} action={LoginSubmit} />
   </div>)
 }
 
