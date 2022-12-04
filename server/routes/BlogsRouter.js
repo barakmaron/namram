@@ -1,7 +1,7 @@
 import express from 'express';
 import BlogsController from '../controllers/BlogsController.js';
 import AuthenticateToken from '../middleware/AuthMiddleware.js';
-import UploadMiddleware from '../middleware/UploadImageMiddleware.js';
+import UploadMiddleware, { makeMulterUploadMiddleware } from '../middleware/UploadImageMiddleware.js';
 import { validate } from '../middleware/ValidationErrorMiddleware.js';
 import { checkSchema } from 'express-validator';
 import BlogsSchemas from '../validationSchemas/BlogsSchemas.js';
@@ -12,7 +12,7 @@ router.get('/', BlogsController.GetAllBlogs);
 
 router.post('/', 
     AuthenticateToken, 
-    UploadMiddleware.single('Image'), 
+    makeMulterUploadMiddleware(UploadMiddleware.single('Image')), 
     validate(checkSchema(BlogsSchemas.AddBlog)),
     BlogsController.AddBlog);
 
