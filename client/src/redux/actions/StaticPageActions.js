@@ -1,6 +1,8 @@
+import ApiMessagesConstants from "../../ApiMessagesConstants";
 import Constants from "../../Constants";
 import SendApiRequest from "../../services/ApiService";
 import ACTIONS from "./actionConstants/StaticPageActionsConstants";
+import { DispatchError, Successful } from "./ApiHandlerActions";
 
 const InitStaticPageData = () => ({
     type: ACTIONS.INIT_STATIC_PAGES
@@ -36,7 +38,7 @@ export const GetStaticPagesAction = () => {
             const data = await SendApiRequest(`/static_pages`);
             dispatch(GetStaticPages(data));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.static_page.getPages.failed);
         }
     }
 }
@@ -48,7 +50,7 @@ export const GetStaticPageDataPerPageAction = (page_route) => {
             const data = await SendApiRequest(`/static_pages?route=${page_route}`);
             dispatch(GetStaticPages(data));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.static_page.getPage.failed);
         }
     }
 }
@@ -63,8 +65,10 @@ export const AddStaticPageAction = (form, category_id, page_route) => {
                 PageRoute: page_route 
             });
             dispatch(UpdateStaticPage(static_page));
+            dispatch(Successful(ApiMessagesConstants.static_page.addPage.successful));
         } catch (err) {
-
+            dispatch(UpdateStaticPage());
+            DispatchError(dispatch, err, ApiMessagesConstants.static_page.addPage.failed);
         }
     }
 };
@@ -74,8 +78,9 @@ export const DeleteStaticPageAction = (id) => {
         try {
             dispatch(DeleteStaticPage(id));
             await SendApiRequest(`/static_pages/${id}`, Constants.API_METHODS.DELETE);
+            dispatch(Successful(ApiMessagesConstants.static_page.deletePage.successful));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.static_page.deletePage.failed);
         }
     }
 }
