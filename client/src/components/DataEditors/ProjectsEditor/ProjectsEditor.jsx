@@ -3,7 +3,7 @@ import React from 'react';
 import { useCallback } from 'react';
 import { useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
-import Form from '../../Form/Form';
+import FormConnector from '../../Form/FormConnector';
 import Modal from '../../Modal/Modal';
 import SingleAccordion from '../SingleAccordion/SingleAccordion';
 import ProjectsForms from './FormsConstants';
@@ -54,7 +54,7 @@ const ProjectsEditor = ({
         })}
     </div>
     { show_new_project_form && <Modal setClose={() => setShowNewProjectForm(false)}>
-        <Form
+        <FormConnector
         inputs={ProjectsForms.add_project}
         action={add_project}/>
     </Modal>}
