@@ -155,7 +155,7 @@ const ApiMessagesConstants = {
             failed: "לא ניתן למחוק פרוייקט"
         },
         patchProject: {
-            successful: "דיאגרה נערך בהצלחה",
+            successful: "פרוייקט נערך בהצלחה",
             failed: "לא ניתן לערוך פרוייקט"
         },
         images: {
