@@ -98,6 +98,20 @@ const ApiMessagesConstants = {
                 successful: "התמונה נמחקה בהצלחה",
                 failed: "לא ניתן למחוק את תמונה"
             }
+        },
+        props: {
+            addProp: {
+                successful: "תכונה נוספה בהצלחה",
+                failed: "לא ניתן להוסיף תכונה"
+            },
+            deleteProp: {
+                successful: "תכונה נמחקה בהצלחה",
+                failed: "לא ניתן למחוק תכונה"
+            },
+            patchProp: {
+                successful: "תכונה נערכה בהצלחה",
+                failed: "לא ניתן לערוך תכונה"
+            }
         }
     }
 };
