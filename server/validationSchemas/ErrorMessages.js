@@ -1,6 +1,9 @@
 
 const ErrorMessages = {
-    file: "אנא העלה תמונה/ת",
+    file: {
+        Image: "אנא העלה תמונה/ת",
+        Signature: "אנא שמור חתימה"
+    },
     text_empty: "טקסט לא יכול להיות ריק",
     phone: "אנא הכנס מספר טלפון תקין",
     email: "אנא הכנס איימל תקין",
@@ -18,7 +21,9 @@ const ErrorMessages = {
     serial_number: "מספר סידורי לא תקין",
     model_name: "שם מודל לא תקין",
     name: "שם לא תקין",
-    date: "תאריך לא תקין"
+    date: "תאריך לא תקין",
+    location: "מיקום לא תקין",
+    tools: "כלים נבחרים לא תקין"
 };
 
 export default ErrorMessages;
