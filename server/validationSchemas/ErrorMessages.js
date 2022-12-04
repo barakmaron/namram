@@ -9,7 +9,9 @@ const ErrorMessages = {
     id: "כתובת המשאב לא תקין",
     title: "הכותרת לא תקינה",
     param_name: "משהו השתבש",
-    value: "אנא הכנס ערך תקין"
+    value: "אנא הכנס ערך תקין",
+    page_route: "כותבת דף אינה תקינה",
+    display_type: "סוג התצוגה אינה תקינה"
 };
 
 export default ErrorMessages;
