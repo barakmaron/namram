@@ -1,8 +1,14 @@
+import ErrorMessages from "../ErrorMessages.js";
+
 const AddServiceReport = {    
     product_id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
+        in: ['params']
     },
     Problem: {
         notEmpty: true,
@@ -14,29 +20,41 @@ const AddServiceReport = {
 
 const GetServiceReport = {    
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36,
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
         in: ['params']
     }
 };
 
 const PatchServiceReport = {   
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36,
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
         in: ['params']
     },
     param_name: {        
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.param_name,
     },
     value: {
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.value,
     }
 }
 
