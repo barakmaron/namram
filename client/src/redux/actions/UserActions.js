@@ -2,6 +2,8 @@ import SendApiRequest from "../../services/ApiService";
 import Constants from "../../Constants";
 import UserService from "../../services/UserService";
 import ACTIONS from "./actionConstants/UserActionsConstants";
+import { DispatchError, Successful } from "./ApiHandlerActions";
+import ApiMessagesConstants from "../../ApiMessagesConstants";
 
 const Login = () => ({
     type: ACTIONS.LOGIN
@@ -17,8 +19,10 @@ export const LoginAction = (login_form) => {
             const form_encrypted_password = await UserService.EncryptForm(login_form);
             await SendApiRequest('/auth/login', Constants.API_METHODS.POST, form_encrypted_password);
             dispatch(Login());
+            dispatch(Successful(ApiMessagesConstants.login.successful));
         } catch (err) {
-
+            dispatch(Logout());
+            DispatchError(dispatch, err, ApiMessagesConstants.login.failed);
         }
     }
 };
@@ -29,8 +33,9 @@ export const LogoutAction = () => {
             await SendApiRequest('/auth/logout');
             localStorage.removeItem('jwt');
             dispatch(Logout());
-        } catch (error) {
-            console.log(error);
+            dispatch(Successful(ApiMessagesConstants.logout.successful));
+        } catch (err) {
+            DispatchError(dispatch, err, ApiMessagesConstants.logout.failed);
         }
     }
 }

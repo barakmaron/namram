@@ -1,12 +1,17 @@
+import ErrorMessages from "./ErrorMessages.js";
+
 const Login = {    
     Email: {
         isEmail: true,
-        notEmpty: true,
+        errorMessage: ErrorMessages.login
     },
     Password: {
-        notEmpty: true,
-        type: "string",
-        minLength: 5
+        isLength: {
+            options: { 
+                min: 5
+            }
+        },
+        errorMessage: ErrorMessages.login
     }
 };
 
