@@ -1,6 +1,8 @@
+import ApiMessagesConstants from "../../../ApiMessagesConstants";
 import Constants from "../../../Constants";
 import SendApiRequest from "../../../services/ApiService";
 import ACTIONS from "../actionConstants/Projects/ProjectsImagesActionsConstants";
+import { DispatchError, Successful } from "../ApiHandlerActions";
 
 const AddImages = (project_id, images) => ({
     type: ACTIONS.ADD_PROJECT_IMAGES,
@@ -32,8 +34,10 @@ export const AddImagesAction = (project_id, images, temp_url) => {
             dispatch(AddImages(project_id, temp_url));
             const added_images = await SendApiRequest(`/projects/${project_id}/images`, Constants.API_METHODS.POST, images);
             dispatch(UpdateImages(project_id, added_images));
+            dispatch(Successful(ApiMessagesConstants.projects.images.addImage.successful));
         } catch (err) {
-
+            dispatch(UpdateImages(project_id, []));
+            DispatchError(dispatch, err, ApiMessagesConstants.projects.images.addImage.failed);
         }
     }
 };
@@ -43,8 +47,9 @@ export const DeleteImageAction = (project_id, image_id) => {
         try {
             dispatch(DeleteImage(project_id, image_id));
             await SendApiRequest(`/projects/${project_id}/images/${image_id}`, Constants.API_METHODS.DELETE);
+            dispatch(Successful(ApiMessagesConstants.projects.images.deleteImage.successful));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.projects.images.deleteImage.failed);
         }
     }
 };

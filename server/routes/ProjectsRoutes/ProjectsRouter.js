@@ -1,7 +1,7 @@
 import express from 'express';
 import ProjectsController from '../../controllers/Projects/ProjectsController.js';
 import AuthenticateToken from '../../middleware/AuthMiddleware.js';
-import UploadMiddleware from '../../middleware/UploadImageMiddleware.js';
+import UploadMiddleware, { makeMulterUploadMiddleware } from '../../middleware/UploadImageMiddleware.js';
 import { validate } from '../../middleware/ValidationErrorMiddleware.js';
 import ProjectsImagesRouter from './ProjectsImagesRouter.js';
 import { checkSchema } from 'express-validator';
@@ -13,7 +13,7 @@ router.get('/', ProjectsController.GetAllProjects);
 
 router.post('/', 
     AuthenticateToken, 
-    UploadMiddleware.array('Image'),
+    makeMulterUploadMiddleware(UploadMiddleware.array('Image')),
     validate(checkSchema(ProjectsSchemas.AddProject)), 
     ProjectsController.AddProject);
 

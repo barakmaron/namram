@@ -129,18 +129,45 @@ const ApiMessagesConstants = {
         },
         sparePart: {
             addPart: {
-                successful: "חלק חילוף נוספה בהצלחה",
+                successful: "חלק חילוף נוסף בהצלחה",
                 failed: "לא ניתן להוסיף חלק חילוף"
             },
             deletePart: {
-                successful: "חלק חילוף נמחקה בהצלחה",
+                successful: "חלק חילוף נמחק בהצלחה",
                 failed: "לא ניתן למחוק חלק חילוף"
             },
             patchPart: {
-                successful: "דיאגרה נערכה בהצלחה",
+                successful: "דיאגרה נערך בהצלחה",
                 failed: "לא ניתן לערוך חלק חילוף"
             }
         }
+    },
+    projects: {
+        getProjects: {
+            failed: "לא הצלחנו לקבל את הפרוייקטים נסה שוב מאוחר יותר"
+        },
+        addProject: {
+            successful: "פרוייקט נוסף בהצלחה",
+            failed: "לא ניתן להוסיף פרוייקט"
+        },
+        deleteProject: {
+            successful: "פרוייקט נמחק בהצלחה",
+            failed: "לא ניתן למחוק פרוייקט"
+        },
+        patchProject: {
+            successful: "דיאגרה נערך בהצלחה",
+            failed: "לא ניתן לערוך פרוייקט"
+        },
+        images: {
+            addImage: {
+                successful: "התמונות נוספו בהצלחה",
+                failed: "לא ניתן להוסיף את התמונות"
+            },
+            deleteImage: {
+                successful: "התמונה נמחקה בהצלחה",
+                failed: "לא ניתן למחוק את תמונה"
+            }
+        },
     }
 };
 

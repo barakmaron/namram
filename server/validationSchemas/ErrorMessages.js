@@ -17,7 +17,8 @@ const ErrorMessages = {
     product_name: "שם מוצר לא תקין",
     serial_number: "מספר סידורי לא תקין",
     model_name: "שם מודל לא תקין",
-    name: "שם לא תקין"
+    name: "שם לא תקין",
+    date: "תאריך לא תקין"
 };
 
 export default ErrorMessages;

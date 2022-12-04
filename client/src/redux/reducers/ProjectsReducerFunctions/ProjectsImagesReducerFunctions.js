@@ -24,10 +24,10 @@ function UpdateImages(state, payload) {
     const { project_id, Images } = payload;
     const { object: project, filtered_array: filtered_projects } = reducerUtilities.destructorArray(state.projects, project_id);
     const { filtered_array: filtered_images } = reducerUtilities.destructorArray(project.ProjectsImages);
-    project.ProjectsImages = [
+    project.ProjectsImages = Images.length ? [
         ...filtered_images,
         ...Images
-    ];
+    ] : [ ...filtered_images ];
     return {
         ...state,
         projects: [
