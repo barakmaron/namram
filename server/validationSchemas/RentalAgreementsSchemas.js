@@ -1,79 +1,128 @@
+import ErrorMessages from "./ErrorMessages.js";
+
 const AddRentalAgreement = {    
     Tools: {        
-        notEmpty: true,
-        type: "string",
-        minLength: 5
+        isLength: {
+            options: { 
+                min: 5
+            }
+        },
+        errorMessage: ErrorMessages.tools,
     },
     Location: {
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.location,
     },
     FuelAmount: {
-        notEmpty: true,
-        type: "float",
-        minLength: 1
+        isLength: {
+            options: { 
+                min: 1
+            }
+        },
+        isFloat: true,
+        errorMessage: ErrorMessages.value,
     },
     FuelPrice: {
-        notEmpty: true,
-        type: "float",
-        minLength: 1
+        isLength: {
+            options: { 
+                min: 1
+            }
+        },
+        isFloat: true,
+        errorMessage: ErrorMessages.value,
     },
     TransportAmount: {
-        notEmpty: true,
-        type: "float",
-        minLength: 1
+        isLength: {
+            options: { 
+                min: 1
+            }
+        },
+        isFloat: true,
+        errorMessage: ErrorMessages.value,
     },
     TransportPrice: {
-        notEmpty: true,
-        type: "float",
-        minLength: 1
+        isLength: {
+            options: { 
+                min: 1
+            }
+        },
+        isFloat: true,
+        errorMessage: ErrorMessages.value,
     },
 };
 
 const DeleteRentalAgreement = {    
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36,
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
         in: ['params']
     }
 };
 
 const CloseRentalAgreement = {   
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36,
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
         in: ['params']
     },
     FuelAmount: {
-        notEmpty: true,
-        type: "float",
-        minLength: 1
+        isLength: {
+            options: { 
+                min: 1
+            }
+        },
+        isFloat: true,
+        errorMessage: ErrorMessages.value,
     },
     FuelPrice: {
-        notEmpty: true,
-        type: "float",
-        minLength: 1
+        isLength: {
+            options: { 
+                min: 1
+            }
+        },
+        isFloat: true,
+        errorMessage: ErrorMessages.value,
     },
     TransportAmount: {
-        notEmpty: true,
-        type: "float",
-        minLength: 1
+        isLength: {
+            options: { 
+                min: 1
+            }
+        },
+        isFloat: true,
+        errorMessage: ErrorMessages.value,
     },
     TransportPrice: {
-        notEmpty: true,
-        type: "float",
-        minLength: 1
+        isLength: {
+            options: { 
+                min: 1
+            }
+        },
+        isFloat: true,
+        errorMessage: ErrorMessages.value,
     },
 }
 
 const GetRentalAgreement = {
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36,
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
         in: ['params']
     },
 }

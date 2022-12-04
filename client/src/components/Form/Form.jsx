@@ -160,6 +160,10 @@ export default function Form({
                     <input 
                     readOnly
                     hidden={true} value={JSON.stringify(tools)} name={name} />
+                     { errors?.[name] && <FormHelperText
+                            error={true}>
+                                {errors[name]}
+                            </FormHelperText>}
                     </React.Fragment>;
                 }
                 case FORMS.INPUTS_TYPES.SIGNATURE_FIELD: {
@@ -167,7 +171,8 @@ export default function Form({
                     key={`signature-${name}`}>
                         <SignatureCapture
                         name={name}
-                        setSignature={setSignature} />
+                        setSignature={setSignature}
+                        error={errors?.Signature} />
                     </div>;
                 }
                 case FORMS.INPUTS_TYPES.CHECK_BOX: {

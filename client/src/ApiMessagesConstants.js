@@ -171,18 +171,35 @@ const ApiMessagesConstants = {
     },
     serviceReport: {
         getReports: {
-            failed: "לא הצלחנו לקבל את הסכמי השכרה נסה שוב מאוחר יותר"
+            failed: "לא הצלחנו לקבל את כרטיסי תיקון נסה שוב מאוחר יותר"
         },
         addReport: {
+            successful: "תיקון נוסף בהצלחה",
+            failed: "לא ניתן להוסיף תיקון"
+        },
+        deleteReport: {
+            successful: "תיקון נמחק בהצלחה",
+            failed: "לא ניתן למחוק תיקון"
+        },
+        patchReport: {
+            successful: "תיקון נערך בהצלחה",
+            failed: "לא ניתן לערוך תיקון"
+        },
+    },
+    rentalAgreements: {
+        getAgreements: {
+            failed: "לא הצלחנו לקבל את הסכמי השכרה נסה שוב מאוחר יותר"
+        },
+        addAgreement: {
             successful: "הסכם נוסף בהצלחה",
             failed: "לא ניתן להוסיף הסכם"
         },
-        deleteReport: {
+        deleteAgreement: {
             successful: "הסכם נמחק בהצלחה",
             failed: "לא ניתן למחוק הסכם"
         },
-        patchReport: {
-            successful: "דיאגרה נערך בהצלחה",
+        closeAgreement: {
+            successful: "הסכם נערך בהצלחה",
             failed: "לא ניתן לערוך הסכם"
         },
     }
