@@ -1,35 +1,51 @@
+import ErrorMessages from "../ErrorMessages.js";
 
 const AddProp = {
     product_id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
     }
 };
 
 const DeleteProp = {
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
     },
 };
 
 const PatchProp = {
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
     },
     name: {
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.param_name,
     },
     value: {
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.value
     }
 };
 
