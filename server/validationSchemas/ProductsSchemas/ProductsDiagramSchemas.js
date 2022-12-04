@@ -1,36 +1,52 @@
+import ErrorMessages from "../ErrorMessages.js";
 
 const AddDiagram = {
     product_id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
     },
     model_name: {
-        notEmpty: true,
-        type: "string",
-        minLength: 3,
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.model_name,
     }
 };
 
 const DeleteDiagram = {
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
     }
 }
 
 const PatchDiagram = {
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36,
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
         in: ["params"]
     },
     value: {
-        notEmpty: true,
-        type: "string",
-        minLength: 3,
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.value,
     }
 }
 
