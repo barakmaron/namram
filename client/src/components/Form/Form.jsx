@@ -84,8 +84,7 @@ export default function Form({
                         variant="outlined"
                         component="label"
                         onChange={uploadToClient}
-                        color={errors?.[name] === undefined ? "primary" : "error" }
-                        helperText={errors?.[name]}>
+                        color={errors?.[name] === undefined ? "primary" : "error" }>
                             {place_holder}
                             <input
                             type={type}

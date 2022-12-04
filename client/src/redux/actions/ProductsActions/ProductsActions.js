@@ -1,6 +1,8 @@
+import ApiMessagesConstants from "../../../ApiMessagesConstants";
 import Constants from "../../../Constants";
 import SendApiRequest from "../../../services/ApiService";
 import ACTIONS from "../actionConstants/Products/ProductsActionConstants";
+import { DispatchError, Successful } from "../ApiHandlerActions";
 
 const AddProduct = (category_id, form, temp_url, product_type) => ({
     type: ACTIONS.ADD_PRODUCT,
@@ -48,8 +50,10 @@ export const AddProductAction = (category_id, form_data, temp_url, product_type)
             form_data.append("category_id", category_id);
             const product = await SendApiRequest(`/${product_type}/products`, Constants.API_METHODS.POST, form_data);
             dispatch(UpdateProduct(product, category_id, product_type, product_type));
+            dispatch(Successful(ApiMessagesConstants.product.addProduct.successful));
         } catch (err) {
-
+            dispatch(UpdateProduct({}, category_id, product_type));
+            DispatchError(dispatch, err, ApiMessagesConstants.product.addProduct.failed);
         }
     };
 };
@@ -60,8 +64,9 @@ export const DeleteProductAction = (category_id, product_id, product_type) => {
         try {
             dispatch(DeleteProduct(category_id, product_id, product_type));
             await SendApiRequest(`/${product_type}/products/${product_id}`, Constants.API_METHODS.DELETE);
+            dispatch(Successful(ApiMessagesConstants.product.deleteProduct.successful));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.product.deleteProduct.failed);
         }
     };
 };
@@ -71,8 +76,9 @@ export const PatchProductAction = (product_id, category_id, param_name, value, p
         try {
             dispatch(PatchProduct(product_id, category_id, param_name, value, product_type));
             await SendApiRequest(`/${product_type}/products/${product_id}`, Constants.API_METHODS.PATCH, { param_name, value });
+            dispatch(Successful(ApiMessagesConstants.product.patchProduct.successful));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.product.patchProduct.failed);
         }
     };
 };

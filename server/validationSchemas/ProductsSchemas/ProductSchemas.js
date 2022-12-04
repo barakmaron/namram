@@ -1,51 +1,78 @@
+import ErrorMessages from "../ErrorMessages.js";
+
 const AddProduct = {    
     category_id: {        
-        notEmpty: true,
-        type: "string",
-        minLength: 36
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id
     },
     Name: {
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.product_name
     },
     SerialNumber: {
-        notEmpty: true,
-        type: "string",
-        minLength: 2
+        isLength: {
+            options: { 
+                min: 1
+            }
+        },
+        errorMessage: ErrorMessages.serial_number
     },
     Text: {
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.text
     }
 };
 
 const DeleteProduct = {    
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36,
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
         in: ['params']
     }
 };
 
 const PatchProduct = {   
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36,
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
         in: ['params']
     },
     param_name: {
-        notEmpty: true,
-        type: "string",
-        minLength: 3,
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.param_name,
         in: ['body']
     },
     value: {
-        notEmpty: true,
-        minLength: 1,
+        isLength: {
+            options: { 
+                min: 1
+            }
+        },
+        errorMessage: ErrorMessages.value,
         in: ['body']
     }
 }
