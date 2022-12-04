@@ -1,6 +1,6 @@
 import express from 'express';
 import ProductController from '../../controllers/Products/index.js';
-import UploadMiddleware from '../../middleware/UploadImageMiddleware.js';
+import UploadMiddleware, { makeMulterUploadMiddleware } from '../../middleware/UploadImageMiddleware.js';
 import { validate } from '../../middleware/ValidationErrorMiddleware.js';
 import { checkSchema } from 'express-validator';
 import ProductsImagesSchemas from '../../validationSchemas/ProductsSchemas/ProductsImagesSchemas.js';
@@ -12,7 +12,7 @@ router.delete('/:id',
     ProductController.Images.DeleteImage);
 
 router.post('/', 
-    UploadMiddleware.array('images', 10), 
+    makeMulterUploadMiddleware(UploadMiddleware.array('Image', 10)), 
     validate(checkSchema(ProductsImagesSchemas.AddImages)),
     ProductController.Images.AddImages);
 
