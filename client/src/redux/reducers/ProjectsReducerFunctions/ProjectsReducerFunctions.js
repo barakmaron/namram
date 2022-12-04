@@ -18,7 +18,7 @@ function AddProject(state, payload) {
 
 function UpdateProject(state, payload) {
     const { filtered_array: projects } = reducerUtilities.destructorArray(state.projects);
-    const parsed_projects = payload.id ? [ ...projects, payload ] : [ ...projects ];
+    const parsed_projects = payload?.id ? [ ...projects, payload ] : [ ...projects ];
     return {
         ...state,
         projects: parsed_projects
