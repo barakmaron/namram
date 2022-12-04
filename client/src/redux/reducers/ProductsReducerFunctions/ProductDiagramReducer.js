@@ -24,7 +24,7 @@ function UpdateDiagram(state, payload, product_type) {
     const { object: category, filtered_array: filtered_categories } = reducerUtilities.destructorArray(state.categories, category_id);
     const { object: product, filtered_array: filtered_products } = reducerUtilities.destructorArray(category[product_type], product_id, "ProductId");
     const { filtered_array: filtered_diagrams } = reducerUtilities.destructorArray(product.Product.ProductPartsDiagrams, "temp-diagram");
-    product.Product.ProductPartsDiagrams = [ ...filtered_diagrams, diagram ];
+    product.Product.ProductPartsDiagrams = diagram.id ? [ ...filtered_diagrams, diagram ] : [ ...filtered_diagrams ];
     category[product_type] = [ ...filtered_products, product ];
     return { 
         ...state, 
