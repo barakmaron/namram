@@ -1,16 +1,25 @@
+import ErrorMessages from "../ErrorMessages.js";
+
 const AddImages = {    
     id: {        
-        notEmpty: true,
-        type: "string",
-        minLength: 36
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
+        in: ['params']
     }
 };
 
 const DeleteImage = {    
     image_id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36,
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
         in: ['params']
     }
 };
