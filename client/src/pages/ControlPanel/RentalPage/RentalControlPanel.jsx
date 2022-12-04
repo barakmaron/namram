@@ -1,10 +1,10 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import ControlPanelBlock from '../../../components/ControlPanelBlock/ControlPanelBlock';
 import AgreementRentalToolsList from '../../../components/DataDisplay/AgreementRentalToolsList/AgreementRentalToolsList';
-import Form from '../../../components/Form/Form';
 import Modal from '../../../components/Modal/Modal';
 import RentalPageTableConnector from '../../../components/DataEditors/RentalAgreementsTable/RentalAgreementsTableConnector';
 import RentalAgreementsForms from './FormsConstants';
+import FormConnector from '../../../components/Form/FormConnector';
 
 const RentalControlPanel = ({
   open_agreements,
@@ -88,13 +88,13 @@ const RentalControlPanel = ({
     agreements={open_agreements}
     filter_fields={["EndDate"]}/>
     {new_agreement && <Modal setClose={() => setNewAgreement(false)}>
-      <Form
+      <FormConnector
       className={`w-3/4 mx-auto flex gap-5 flex-wrap justify-center`}
       inputs={RentalAgreementsForms.add_rental_agreement}
       action={add_agreement}/>
     </Modal>}
     {new_agreement_old_customer && <Modal setClose={() => setNewAgreementOldCustomer(false)}>
-      <Form
+      <FormConnector
       className={`w-3/4 mx-auto flex gap-5 flex-wrap justify-center`}
       inputs={RentalAgreementsForms.add_rental_agreement_old_customer}
       action={add_agreement}
