@@ -4,7 +4,7 @@ import ImagesRouter from './ProductsImagesRoute.js';
 import ProductsController from '../../controllers/Products/index.js';
 import DiagramRouter from './ProductsDiagramRouter.js';
 import SparePartsRouter from './ProductsSparePartsRouter.js';
-import UploadImageMiddleware from '../../middleware/UploadImageMiddleware.js';
+import UploadImageMiddleware, { makeMulterUploadMiddleware } from '../../middleware/UploadImageMiddleware.js';
 import AuthenticateToken from '../../middleware/AuthMiddleware.js';
 import { checkSchema } from 'express-validator';
 import ProductSchemas from '../../validationSchemas/ProductsSchemas/ProductSchemas.js';
@@ -16,7 +16,7 @@ router.get('/:id', ProductsController.GetProduct);
 
 router.post('/', 
     AuthenticateToken, 
-    UploadImageMiddleware.array('product_images', 20), 
+    makeMulterUploadMiddleware(UploadImageMiddleware.array('Image', 20)), 
     validate(checkSchema(ProductSchemas.AddProduct)), 
     ProductsController.AddProduct);
 

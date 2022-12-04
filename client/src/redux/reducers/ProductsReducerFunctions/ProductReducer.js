@@ -17,7 +17,7 @@ function UpdateProduct(state, payload, product_type) {
     const { id, product: new_product } = payload;
     const { object: category, filtered_array: filtered_categories } = reducerUtilities.destructorArray(state.categories, id);
     const { filtered_array: filtered_products } = reducerUtilities.destructorArray(category[product_type]);
-    const new_products_arr = [ new_product, ...filtered_products ];
+    const new_products_arr = new_product.id  ? [ new_product, ...filtered_products ] : [ ...filtered_products ];
     category[product_type] = new_products_arr;
     return { 
         ...state, 

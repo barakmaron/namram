@@ -19,7 +19,7 @@ export function makeMulterUploadMiddleware(multerUploadFunction) {
                         param: 'Image'
                     }]
                 });
-            } else if(!req.file && !req.files) {
+            } else if(!req.file && !req.files.length) {
                 return res.status(400).json({
                     errors: [{
                         msg: ErrorMessages.file,
