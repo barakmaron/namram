@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useCallback } from 'react';
 import { useEffect } from 'react';
 import { GetImageUrl } from '../../../services/ApiService';
-import Form from '../../Form/Form';
+import FormConnector from '../../Form/FormConnector';
 import DiagramForms from './FormsConstants';
 
 const DiagramEditor = ({
@@ -79,7 +79,7 @@ const DiagramEditor = ({
   return (<>  
   <div className="w-[50vw] h-screen mt-5 flex flex-col">
     <div className='w-96 mx-auto'>
-        <Form 
+        <FormConnector 
         inputs={DiagramForms.add_diagram}  
         action={add_diagram} />
     </div>
