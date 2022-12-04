@@ -14,7 +14,7 @@ const ApiMessageDisplay = ({
   }, [InitApiHandlerAction])
 
   return <div dir="rtl" 
-  className="fixed top-28 left-[44%] mx-auto w-fit">
+  className="fixed top-28 left-[44%] mx-auto w-fit z-50">
     <Snackbar open={successful} autoHideDuration={10000} onClose={handle_successful}>
       <Alert severity="success">
         {message}    
