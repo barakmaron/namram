@@ -7,7 +7,9 @@ const ErrorMessages = {
     full_name: "אנא הכנס שם מלא",
     company_name: "אנא הכנס שם חברה תקין",
     id: "כתובת המשאב לא תקין",
-    title: "הכותרת לא תקינה"
+    title: "הכותרת לא תקינה",
+    param_name: "משהו השתבש",
+    value: "אנא הכנס ערך תקין"
 };
 
 export default ErrorMessages;
