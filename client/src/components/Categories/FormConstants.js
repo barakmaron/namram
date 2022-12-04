@@ -3,7 +3,7 @@ import FORMS from "../Form/Forms";
 const CategoriesForms = {
     add_category: [{
         type: FORMS.INPUTS_TYPES.FILE,
-        name: "image",
+        name: "Image",
         place_holder: "Image"
     }, {
         type: FORMS.INPUTS_TYPES.TEXT,
