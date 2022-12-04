@@ -3,7 +3,7 @@ import React from 'react';
 import { useCallback } from 'react';
 import { useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
-import Form from '../../Form/Form';
+import FormConnector from '../../Form/FormConnector';
 import Modal from '../../Modal/Modal';
 import SingleAccordion from '../SingleAccordion/SingleAccordion';
 import BlogsForms from './FormsConstants';
@@ -48,7 +48,7 @@ const BlogsEditor = ({
         })}
     </div>
     { show_new_blog_form && <Modal setClose={() => setShowNewBlogForm(false)}>
-        <Form
+        <FormConnector
         inputs={BlogsForms.add_blog}
         action={add_blog}/>
     </Modal>}

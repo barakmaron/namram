@@ -59,7 +59,7 @@ const SingleAccordion = ({
           meta_data={{
             id: object.id
           }} /> :
-          <Image
+          (object.Image.length || object.TempUrl) && <Image
           image={object}
           />}
           <RichTextArea
