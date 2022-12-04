@@ -1,6 +1,8 @@
+import ApiMessagesConstants from "../../../ApiMessagesConstants";
 import Constants from "../../../Constants";
 import SendApiRequest from "../../../services/ApiService";
 import ACTIONS from "../actionConstants/Products/ImagesActionConstants";
+import { DispatchError, Successful } from "../ApiHandlerActions";
 
 const DeleteImage = (category_id, product_id, image_id, product_type) => ({
     type: ACTIONS.DELETE_PRODUCT_IMAGE,
@@ -37,8 +39,9 @@ export const DeleteImageAction = (category_id, product_id, product_type, image_i
         try {
             dispatch(DeleteImage(category_id, product_id, image_id, product_type));
             await SendApiRequest(`/products/images/${image_id}`, Constants.API_METHODS.DELETE);
+            dispatch(Successful(ApiMessagesConstants.product.images.deleteImage.successful));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.product.images.deleteImage.failed);
         }
     }
 };
@@ -50,8 +53,10 @@ export const AddImagesAction = (category_id, product_id, product_type, images, t
             images.append('product_id', product_id);
             const new_images = await SendApiRequest(`/products/images`, Constants.API_METHODS.POST, images);
             dispatch(UpdatedImages(category_id, product_id, new_images));
+            dispatch(Successful(ApiMessagesConstants.product.images.addImage.successful));
         } catch (err) {
-
+            dispatch(UpdatedImages(category_id, product_id, []));
+            DispatchError(dispatch, err, ApiMessagesConstants.product.images.addImage.failed);
         }
     }
 };

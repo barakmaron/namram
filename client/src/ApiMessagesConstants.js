@@ -88,6 +88,16 @@ const ApiMessagesConstants = {
         editProduct: {
             successful: "מוצר נערך בהצלחה",
             failed: "לא ניתן לערוך מוצר"
+        },
+        images: {
+            addImage: {
+                successful: "התמונות נוספו בהצלחה",
+                failed: "לא ניתן להוסיף את התמונות"
+            },
+            deleteImage: {
+                successful: "התמונה נמחקה בהצלחה",
+                failed: "לא ניתן למחוק את תמונה"
+            }
         }
     }
 };
