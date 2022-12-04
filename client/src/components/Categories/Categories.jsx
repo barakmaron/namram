@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { useEffect } from 'react';
 import ControlPanelBlock from '../../components/ControlPanelBlock/ControlPanelBlock';
-import Form from '../../components/Form/Form';
 import Modal from '../../components/Modal/Modal';
+import FormConnector from '../Form/FormConnector';
 import CategoriesForms from './FormConstants';
 
 const Categories = ({
@@ -65,20 +65,20 @@ const Categories = ({
     </ControlPanelBlock>
     {add_category && <Modal setClose={() => setAddCategory(false)}>
       <h2 className='mx-auto text-3xl font-bold w-fit'>הוסף קטגוריה</h2>
-      <Form 
+      <FormConnector 
       action={add_category_action} 
       inputs={CategoriesForms.add_category}/>
     </Modal> }
     {edit_category && <Modal setClose={() => setEditCategory(false)}>
       <h2 className='mx-auto text-3xl font-bold w-fit'>ערוך קטגוריה</h2>
-      <Form 
+      <FormConnector 
       action={edit_category_action} 
       inputs={CategoriesForms.edit_category}
       controller={edit_form_controller}/>
     </Modal>}
     {delete_category && <Modal setClose={() => setDeleteCategory(false)}>
       <h2 className='mx-auto text-3xl font-bold w-fit'>מחק קטגוריה</h2>
-      <Form 
+      <FormConnector 
       action={delete_category_action} 
       inputs={CategoriesForms.delete_category}
       controller={delete_form_controller}/>

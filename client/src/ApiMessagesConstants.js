@@ -58,6 +58,23 @@ const ApiMessagesConstants = {
     logout: {
         successful: "התנתקת בהצלחה",
         failed: "לא היה ניתן להתנתק נסה שוב מאוחר יותר"
+    },
+    categories: {
+        getCategory: {
+            failed: "לא ניתן לטעון את נתוני המוצרים"
+        },
+        addCategory: {
+            successful: "קטגוריה נוספה בהצלחה",
+            failed: "לא ניתן להוסיך קטגוריה"
+        },
+        deleteCategory: {
+            successful: "קטגוריה נמחקה בהצלחה",
+            failed: "לא ניתן למחוק קטגוריה"
+        },
+        editCategory: {
+            successful: "קטגוריה נערכה בהצלחה",
+            failed: "לא ניתן לערוך קטגוריה"
+        }
     }
 };
 
