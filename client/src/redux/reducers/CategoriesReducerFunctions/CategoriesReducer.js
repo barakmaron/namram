@@ -20,7 +20,7 @@ function AddCategory(state, payload) {
 }
 
 function DeleteCategory(state, payload) {
-    const { filtered_array: filtered_categories } = reducerUtilities.destructorArray(state.categories, payload);
+    const { filtered_array: filtered_categories } = reducerUtilities.destructorArray(state.categories, payload.id);
     return { 
         ...state, 
         categories: [ ...filtered_categories ]
