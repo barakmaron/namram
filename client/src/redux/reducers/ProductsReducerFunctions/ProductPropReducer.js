@@ -22,7 +22,7 @@ function UpdateProp(state, payload, product_type) {
     const { object: category, filtered_array: filtered_categories } = reducerUtilities.destructorArray(state.categories, category_id);
     const { object: product, filtered_array: filtered_products } = reducerUtilities.destructorArray(category[product_type], product_id, "ProductId");
     const { filtered_array: filtered_props } = reducerUtilities.destructorArray(product.Product.ProductProps, 'temp-prop');
-    product.Product.ProductProps = [...filtered_props, prop];
+    product.Product.ProductProps = prop.id ? [...filtered_props, prop] : [ ...filtered_props ];
     category[product_type] = [ ...filtered_products, product ];
     return { 
         ...state, 
