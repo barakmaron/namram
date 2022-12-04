@@ -75,6 +75,20 @@ const ApiMessagesConstants = {
             successful: "קטגוריה נערכה בהצלחה",
             failed: "לא ניתן לערוך קטגוריה"
         }
+    },
+    product: {
+        addProduct: {
+            successful: "מוצר נוסף בהצלחה",
+            failed: "המוצר לא נוסף"
+        },
+        deleteProduct: {
+            successful: "מוצר נמחק בהצלחה",
+            failed: "לא היה ניתן למחוק מוצר"
+        },
+        editProduct: {
+            successful: "מוצר נערך בהצלחה",
+            failed: "לא ניתן לערוך מוצר"
+        }
     }
 };
 
