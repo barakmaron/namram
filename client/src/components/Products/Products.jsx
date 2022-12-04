@@ -1,10 +1,10 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import ControlPanelBlock from '../ControlPanelBlock/ControlPanelBlock';
-import Form from '../Form/Form';
 import Modal from '../Modal/Modal';
 import Constants from '../../Constants';
 import useProductType from '../../hooks/useProductType';
 import allProductForms from './FormConstants';
+import FormConnector from '../Form/FormConnector';
 
 const Products = ({
   categories,
@@ -70,7 +70,7 @@ const Products = ({
     </ControlPanelBlock>
     {add_product && <Modal setClose={() => setAddProduct(false)}>
       <h2 className='mx-auto text-3xl font-bold w-fit'>הוסף מוצר</h2>
-      <Form 
+      <FormConnector 
       action={add_product_action} 
       inputs={type === Constants.API_PRODUCT_TYPE.SALE ? 
         allProductForms.add_sale_product :
@@ -79,7 +79,7 @@ const Products = ({
     </Modal>}
     {delete_product && <Modal setClose={() => setDeleteProduct(false)}>
       <h2 className='mx-auto text-3xl font-bold w-fit'>מחק מוצר</h2>
-      <Form 
+      <FormConnector
       action={delete_product_action} 
       inputs={allProductForms.delete_product}
       controller={delete_form_controller}/>
