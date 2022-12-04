@@ -21,6 +21,19 @@ const ApiMessagesConstants = {
             successful: "הבלוג נערך בהצלחה",
             failed: "לא הצלחנו לערוך את הבלוג אנא בדוק את הטופס הוספה"
         }
+    },
+    customers: {
+        getCustomers: {
+            failed: "לא הצלחנו לקבל את הלקוחות אנא נסה שוב מאוחר יותר"
+        },
+        patchCustomer: {
+            successful: "עדכון הלקוח הושלם",
+            failed: "לא הצלחנו לעדכן את פרטי הלקוח נסה שוב מאוחר יותר"
+        },
+        deleteCustomer: {
+            successful: "הלקוח נמחק בהצלחה",
+            failed: "לא הצלחנו למחוק את הלקוח אנא נסה שוב"
+        }
     }
 };
 
