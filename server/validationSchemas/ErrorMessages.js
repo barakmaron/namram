@@ -23,7 +23,9 @@ const ErrorMessages = {
     name: "שם לא תקין",
     date: "תאריך לא תקין",
     location: "מיקום לא תקין",
-    tools: "כלים נבחרים לא תקין"
+    tools: "כלים נבחרים לא תקין",
+    text: "אנא הכנס ערך תקין",
+    price: "מחיר לא תקין"
 };
 
 export default ErrorMessages;

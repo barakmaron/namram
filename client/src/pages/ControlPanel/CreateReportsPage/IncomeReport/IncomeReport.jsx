@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import Form from '../../../../components/Form/Form';
+import FormConnector from '../../../../components/Form/FormConnector';
 import CreateReportsForms from '../FormsConstants';
 
 const IncomeReport = ({
@@ -58,14 +58,14 @@ const IncomeReport = ({
   return <div className='flex gap-5 justify-center'>
     <fieldset className='border-2 border-forest-green-500 px-4 py-4 w-fit'>
       <legend className='text-forest-900 px-4 text-2xl'>דוח רוח/הפסד עבור כלי השכרה</legend>
-      { form_controller.length !== 0 && <Form
+      { form_controller.length !== 0 && <FormConnector
       inputs={CreateReportsForms.product_gain_loss_form}
       controller={form_controller}
       action={open_rent_product_report}/>}
     </fieldset>
     <fieldset className='border-2 border-forest-green-500 px-4 py-4 w-fit'>
       <legend className='text-forest-900 px-4 text-2xl'>דוח רוח/הפסד עבור קטגוריה השכרה</legend>
-      { form_controller.length !== 0 && <Form
+      { form_controller.length !== 0 && <FormConnector
       inputs={CreateReportsForms.category_gain_loss_form}
       controller={form_controller}
       action={open_rent_category_report}/>}

@@ -12,7 +12,7 @@ const AddPart = {
     serial_number: {
         isLength: {
             options: { 
-                min: 36
+                min: 1
             }
         },
         errorMessage: ErrorMessages.serial_number

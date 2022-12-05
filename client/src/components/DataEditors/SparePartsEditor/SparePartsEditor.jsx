@@ -3,9 +3,9 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import React, { useCallback } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import Form from '../../Form/Form';
 import { FaShekelSign } from 'react-icons/fa';
 import SparePartsForms from './FormsConstants';
+import FormConnector from '../../Form/FormConnector';
 
 const SparePartsEditor = ({
   parts,
@@ -131,7 +131,7 @@ const SparePartsEditor = ({
   return (<>
     <div className='flex flex-col justify-center items-center'>
       <div>
-        { form_controller.length && <Form 
+        { form_controller.length && <FormConnector 
         inputs={SparePartsForms.add_part} 
         controller={form_controller}
         className='flex flex-row flex-wrap w-2/4 mx-auto gap-2 justify-center mb-4'
