@@ -1,6 +1,7 @@
 import SparePartsService from '../services/Products/SparePartsService.js';
 import HtmlService from '../services/PdfServices/index.js'
 import SendMail, { OutOfStockPartMailOption, ContactMailOption } from '../services/MailService.js';
+import { StatusCode } from 'status-code-enum';
 
 async function SendOutOfStockPartsJob() {
     try {
@@ -10,7 +11,7 @@ async function SendOutOfStockPartsJob() {
         const mail_params = OutOfStockPartMailOption(parsed_html);
         return SendMail(mail_params);
     } catch (err) {
-        throw err;
+        next(err);
     }
 }
 
@@ -20,7 +21,7 @@ async function SendContactForm(data) {
     const mail_params = ContactMailOption(parsed_html);
     return SendMail(mail_params);
    } catch (err) {
-    throw err;
+    next(err);
    }
 }
 

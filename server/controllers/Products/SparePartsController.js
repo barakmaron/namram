@@ -1,33 +1,34 @@
 import ProductsService from "../../services/Products/index.js";
+import { StatusCode } from 'status-code-enum';
 
-async function AddPart(req, res) {
+async function AddPart(req, res, next) {
     try {
         const { diagram_id, serial_number, name_english, name_hebrew, price, count } = req.body;
         const new_part = await ProductsService.SpareParts.AddPart(diagram_id, serial_number, name_english, name_hebrew, price, count);
-        return res.status(200).json(new_part);
+        return res.status(StatusCode.SuccessOK).json(new_part);
     } catch (err) {
-
+        next(err);
     }
 }
 
-async function DeletePart(req, res) {
+async function DeletePart(req, res, next) {
     try {
         const { id } = req.params;
         await ProductsService.SpareParts.DeletePart(id);
-        return res.status(200).json();
+        return res.status(StatusCode.SuccessOK).json();
     } catch (err) {
-
+        next(err);
     }
 }
 
-async function PatchPart(req, res) {
+async function PatchPart(req, res, next) {
     try {
         const { id } = req.params;
         const { field_name, value } = req.body;
         await ProductsService.SpareParts.PatchPart(id, field_name, value);
-        return res.status(200).json();
+        return res.status(StatusCode.SuccessOK).json();
     } catch (err) {
-        
+        next(err);
     }
 }
 
