@@ -9,10 +9,10 @@ const Drill = () => {
     const navigate = useNavigate();
   return (<>
     <div className='flex justify-center bg-drill bg-fixed bg-cover py-16 shadow-inner bg-center'>
-        <h2 className='text-8xl text-white font-bold pt-60 pb-24 '>קידוח בטון</h2>
+        <h2 className='sm:text-8xl text-4xl text-white font-bold sm:pt-60 sm:pb-24 w-fit mx-auto text-center'>קידוח בטון</h2>
     </div>
-    <div className='py-10 mx-auto flex flex-col items-center' dir='rtl'>
-        <p className='w-3/4 text-center text-3xl text-slate-700'>
+    <div className='py-10 px-2 mx-auto flex flex-col items-center' dir='rtl'>
+        <p className='sm:w-3/4 text-center sm:text-3xl text-xl text-slate-700'>
         חברת נמרם מתמחה בקידוח בטון, לאחר שנים של עשייה בתחום 
         <span className='font-bold'> ביצענו אלפי קידוחים ללקוחתינו בכל גודל אפשרי. </span><br></br>
          עם השנים הבנו כי הציוד שנמצא בארץ אותם מיבאים המתחרים שלנו לא מספקים את דרשתינו כך 
@@ -28,13 +28,13 @@ const Drill = () => {
         </p>
     </div>
     <div className='flex flex-col gap-10 justify-center bg-drill-2 bg-fixed bg-cover py-16 shadow-inner bg-center items-center'>
-        <h2 className='text-8xl text-white font-bold pt-60 pb-24 text-center' dir='rtl'>
+        <h2 className='sm:text-8xl text-3xl text-white font-bold sm:pt-60 sm:pb-24 w-fit mx-auto text-center' dir='rtl'>
             צריכים הצעה או ייעוץ לניסור בטון?
         </h2>
         <Button text={"צור קשר עכשיו"} action={() => navigate("/contact")} />
     </div>
-    <div className='py-10 w-3/4 mx-auto flex flex-col gap-5' dir='rtl'>
-        <div className='mx-auto flex sm:flex-row flex-col gap-5'>
+    <div className='py-10 lg:w-3/4 mx-auto flex flex-col gap-5' dir='rtl'>
+        <div className='mx-auto flex xl:flex-row flex-col gap-5'>
             <List 
             title={Constants.lists.drill.title} 
             list={Constants.lists.drill.list} />
@@ -50,7 +50,7 @@ const Drill = () => {
         </div>
     </div>
     <div className='flex flex-col gap-10 justify-center bg-drill-3 bg-fixed bg-cover py-16 shadow-inner bg-center items-center'>
-        <h2 className='text-8xl text-white font-bold pt-60 pb-24 text-center' dir='rtl'>
+        <h2 className='sm:text-8xl text-3xl text-white font-bold sm:pt-60 sm:pb-24 w-fit mx-auto text-center' dir='rtl'>
             מחפשים כוסות יהלום לקידוח בטון או מקדחות לקידוח בטון?
         </h2>
     </div>

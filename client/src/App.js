@@ -1,10 +1,8 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Constants from './Constants';
-import ContactNav from './components/ContactNav/ContactNav';
 import Footer from './components/Footer/Footer';
 import SideNavBar from './components/SideNavBar/SideNavBar';
-import LoginConnector from './pages/ControlPanel/LoginPage/LoginConnector';
 import React, { useEffect } from 'react';
 import DynamicDataParserConnector from './components/DynamicDataParser/DynamicDataParserConnector';
 import Helmet from 'react-helmet';
@@ -24,8 +22,7 @@ function App({
 
   return !logged_in ? (<>
     <header>
-      <ContactNav {...Constants.contact_nav}/>
-      <Navbar routes={Constants.routes} />
+      <Navbar routes={Constants.routes} {...Constants.contact_nav} />
     </header>
     <ApiMessageDisplayConnector/>
     <Routes>      
@@ -45,10 +42,10 @@ function App({
                   <DynamicDataParserConnector
                     page_route={sub_route.location} />
                 </>}/>
-              { sub_route.child && <Route 
-              key={`route-sub-child-${sub_route.child.location}-${index}`} 
-              path={sub_route.child.location} 
-              element={<sub_route.child.element></sub_route.child.element>}/>}
+              { sub_route.child && sub_route.child.map(child => <Route 
+              key={`route-sub-child-${child.location}-${index}`} 
+              path={child.location} 
+              element={<child.element></child.element>}/>)}
               </React.Fragment >;
             })
           :

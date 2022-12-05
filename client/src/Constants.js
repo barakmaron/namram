@@ -213,7 +213,7 @@ const admin_routes = [{
 
 const contact_nav = {
     phone: "08-8560399",
-    facebook: "https://www.facebook.com/people/%D7%A0%D7%9E%D7%A8%D7%9D-%D7%94%D7%A9%D7%9B%D7%A8%D7%AA-%D7%A6%D7%99%D7%95%D7%93/100016789871066/",
+    facebook: "https://www.facebook.com/people/%D7%A0%D7%9E%D7%A8%D7%9D-%D7%94%D7%A9%D7%9B%D7%A8%D7%AA-%D7%A6%D7%99%D7%95%D7%93/100016789871066",
     youtube: "https://www.youtube.com/channel/UC8pAUFsldDItHcaC6U0KhWg"
 };
 
