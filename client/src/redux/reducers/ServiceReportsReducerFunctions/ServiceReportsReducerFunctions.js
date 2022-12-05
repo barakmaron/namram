@@ -20,7 +20,7 @@ function AddServiceReport(state, payload) {
 
 function UpdateServiceReport(state, payload) {
     const { filtered_array: filtered_service_reports } = reducerUtilities.destructorArray(state.service_reports);
-    const service_reports = payload.id ? [
+    const service_reports = payload?.id ? [
         ...filtered_service_reports,
         payload
     ] : [ ...filtered_service_reports ];

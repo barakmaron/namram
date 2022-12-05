@@ -5,10 +5,10 @@ import React, { useCallback, useState } from 'react';
 import { useEffect } from 'react';
 import AgreementRentalToolsList from '../../DataDisplay/AgreementRentalToolsList/AgreementRentalToolsList';
 import CustomerData from '../../DataDisplay/CustomerData/CustomerData';
-import Form from '../../Form/Form';
 import Modal from '../../Modal/Modal';
 import moment from 'moment';
 import RentalAgreementsForms from '../../../pages/ControlPanel/RentalPage/FormsConstants';
+import FormConnector from '../../Form/FormConnector';
 
 const RentalAgreementsTable = ({
     customers,
@@ -151,7 +151,7 @@ const RentalAgreementsTable = ({
       />  
     </Modal>}
     {close_agreement && <Modal setClose={() => setCloseAgreement(false)}>
-      <Form
+      <FormConnector
       className={`w-3/4 mx-auto flex gap-5 flex-wrap justify-center`}
       inputs={RentalAgreementsForms.close_rental_agreement}
       action={close_agreement_form_submit}/>
