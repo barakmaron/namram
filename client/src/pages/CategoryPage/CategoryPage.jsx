@@ -3,7 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 import Constants from '../../Constants';
 
 const CategoryPage = ({
-    categories
+    categories,
+    GetCategoryAction
 }) => {
 
     const [category, setCategory] = useState(undefined);
@@ -11,7 +12,11 @@ const CategoryPage = ({
     const category_id = url_query.id;
 
     useEffect(() => {
-        setCategory(categories?.find(category => category.id === category_id));
+        GetCategoryAction(category_id);
+    }, [GetCategoryAction, category_id]);
+
+    useEffect(() => {
+        setCategory(() => categories?.find(category => category.id === category_id));
     }, [categories, category_id]);
 
   return category && <div 

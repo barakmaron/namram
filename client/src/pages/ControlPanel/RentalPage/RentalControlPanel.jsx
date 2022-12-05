@@ -59,7 +59,7 @@ const RentalControlPanel = ({
     setNewAgreementOldCustomer(true);
   }, []);
 
-  return (<>
+  return (<div className='flex-1'>
    <h2 className="w-fit mx-auto my-4 text-4xl font-bold text-green-600">
       הסכמי שכירות
     </h2>
@@ -104,7 +104,7 @@ const RentalControlPanel = ({
         <AgreementRentalToolsList
         tools={tools_in_rent}/>
     </Modal>}
-  </>);
+  </div>);
 };
 
 export default RentalControlPanel;
