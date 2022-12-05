@@ -16,16 +16,16 @@ const CategoryPage = ({
 
   return category && <div 
   dir='rtl'
-  className='bg-forest-green-600 text-white rounded-b-xl w-1/2 mx-auto flex justify-start items-center px-4'>
+  className='bg-forest-green-600 text-white rounded-b-xl sm:w-1/2 mx-auto flex justify-start items-center sm:px-4 px-2'>
     <Link 
     to={`/${Constants.CATEGORY_TYPE[category.Type]}`}
-    className='text-2xl py-5 hover:underline hover:text-amber-400 hover:font-bold'>
+    className='sm:text-2xl text-xl py-5 hover:underline hover:text-amber-400 hover:font-bold'>
         {category.Type.toLowerCase().includes(Constants.CATEGORY_TYPE.Sale) ? `מכירת ציוד` : `השכרת ציוד`}
     </Link> 
-    <span className='text-3xl px-2'> / </span>
+    <span className='sm:text-3xl text-2xl px-2'> / </span>
     <Link 
     to={`/category/${category_id}`}
-    className='text-2xl py-5 hover:underline hover:text-amber-400 hover:font-bold'>
+    className='sm:text-2xl text-xl py-5 hover:underline hover:text-amber-400 hover:font-bold'>
         {category.Name}
     </Link>
   </div>;
