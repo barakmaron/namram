@@ -27,7 +27,7 @@ async function GetServiceReportById(id) {
 async function GetServiceReportPdf(id) {
     const service_report = await GetServiceReportById(id);
     const parsed_object_from_db = service_report.toJSON();
-    parsed_object_from_db.ServiceReports = ParseServiceReportData(parsed_object_from_db);    
+    parsed_object_from_db.ServiceReports = ParseServiceReportData([parsed_object_from_db]);    
     return await PdfService.CreateServiceReportPdf(parsed_object_from_db);
 }
 
@@ -43,7 +43,7 @@ function ParseServiceReportData(ServiceReports) {
         const temp_report = {...report};
         temp_report.StartDate = moment(report.StartDate).locale('he').format(Constants.TIME_DATE_FORMAT);
         temp_report.EndDate = report.EndDate ? moment(report.EndDate).locale('he').format(Constants.TIME_DATE_FORMAT) : null;
-        temp_report.SumParts = report.PartsChangeds.reduce((accumulator, part) => accumulator + Number.parseInt(part.SparePart.Price), 0);
+        temp_report.SumParts = report.PartsChangeds?.reduce((accumulator, part) => accumulator + Number.parseInt(part.SparePart.Price), 0) || 0;
         return temp_report;
     });
 }

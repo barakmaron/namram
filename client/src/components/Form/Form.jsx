@@ -108,12 +108,18 @@ export default function Form({
                     </div>;
                 }
                 case FORMS.INPUTS_TYPES.TEXT_AREA: {
-                    return <TextareaAutosize 
-                    placeholder={place_holder}
-                    name={name} 
-                    minRows={3} 
-                    className="w-full border-2 border-slate-400 rounded"
-                    key={`form-input-${name}-${index}`}/>;
+                    return <React.Fragment>
+                        <TextareaAutosize 
+                        placeholder={place_holder}
+                        name={name} 
+                        minRows={3} 
+                        className="w-full border-2 border-slate-400 rounded"
+                        key={`form-input-${name}-${index}`}/>
+                        { errors?.[name] && <FormHelperText
+                            error={true}>
+                                {errors[name]}
+                            </FormHelperText>}
+                        </React.Fragment>;
                 }
                 case FORMS.INPUTS_TYPES.DATA_LIST: { 
                     return <Dropdown 
