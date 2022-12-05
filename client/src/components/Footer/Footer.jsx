@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Constants from '../../Constants';
 import { FaFacebookSquare, FaYoutube } from 'react-icons/fa';
 import ContactInfo from '../ContactInfo/ContactInfo';
+import AppRoutes from '../../AppRoutes';
 
 const Footer = () => {
   return (<footer dir='rtl'>
@@ -10,7 +11,7 @@ const Footer = () => {
         <li className='w-full sm:w-1/3 flex flex-col justify-center items-center'>
            <h2 className='text-3xl text-green-600 py-2 font-bold'>קישורים</h2>
            <nav className='flex flex-col justify-center items-center text-xl'>
-            {Constants.routes.map((route, index) => {
+            {AppRoutes.routes.map((route, index) => {
                return route.show && <React.Fragment key={`footer-links-${index}`}>
                <Link 
                className='hover:font-bold hover:text-white'

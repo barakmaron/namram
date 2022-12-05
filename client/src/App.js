@@ -3,10 +3,11 @@ import Navbar from './components/Navbar/Navbar';
 import Constants from './Constants';
 import Footer from './components/Footer/Footer';
 import SideNavBar from './components/SideNavBar/SideNavBar';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import DynamicDataParserConnector from './components/DynamicDataParser/DynamicDataParserConnector';
 import Helmet from 'react-helmet';
 import ApiMessageDisplayConnector from './components/ApiMessageDisplay/ApiMessageDisplayConnector';
+import AppRoutes from './AppRoutes';
 
 function App({ 
   logged_in,
@@ -14,93 +15,60 @@ function App({
 }) {
 
   const location = useLocation();
+  const [routes, setRoutes] = useState(AppRoutes.routes);
 
   useEffect(() => {
-    if(location.pathname.includes('control_panel') || location.pathname.includes('login')) 
-      AuthUserAction();
-  }, [AuthUserAction, location]);
+    if(location.pathname.includes('control_panel') && logged_in) 
+      setRoutes(AppRoutes.admin_routes);
+    else 
+      setRoutes(AppRoutes.routes);
+  }, [AuthUserAction, location, logged_in]);
 
-  return !logged_in ? (<>
+  useEffect(() => {
+    AuthUserAction();
+  }, [AuthUserAction, logged_in]);
+  
+  return <div className={`${logged_in ? `flex flex-row` : ``}`}  dir={logged_in ? 'rtl': 'ltr'}>
     <header>
-      <Navbar routes={Constants.routes} {...Constants.contact_nav} />
+      { !logged_in ? 
+      <Navbar routes={routes} {...Constants.contact_nav} />:
+      <SideNavBar routes={routes} />}
     </header>
     <ApiMessageDisplayConnector/>
     <Routes>      
-      {Constants.routes.map((route, index) => {
+      {routes?.map((route, index) => {
         return <React.Fragment key={`route-fragment-${index}`}>
-          {route.sub_nav ? 
-            route.sub_nav.map((sub_route, sub_index) => {
-              return <React.Fragment key={`route-${sub_route.location}-${index}-sub-${sub_index}`} >
+          {(route?.sub_nav || [route]).map((parse_route, sub_index) => {
+            return <React.Fragment key={`route-${parse_route.location}-${index}-sub-${sub_index}`} >
               <Route 
-              path={sub_route.location} 
+              path={parse_route.location} 
               element={
-                <>
-                   <Helmet>
-                      <title>נמרם | {route.label} | {sub_route.label}</title>
-                  </Helmet>
-                  <sub_route.element></sub_route.element>
-                  <DynamicDataParserConnector
-                    page_route={sub_route.location} />
-                </>}/>
-              { sub_route.child && sub_route.child.map(child => <Route 
-              key={`route-sub-child-${child.location}-${index}`} 
-              path={child.location} 
-              element={<child.element></child.element>}/>)}
-              </React.Fragment >;
-            })
-          :
-          <Route 
-          key={`route-${route.location}-${index}`} 
-          path={route.location} 
-          element={
-            <>
-            <Helmet>
-              <title>נמרם | {route.label}</title>
-            </Helmet>
-            <route.element></route.element>
-            <DynamicDataParserConnector
-              page_route={route.location} />
-          </>}/>}
-          { route.child && route.child.map(child => {
-            return <Route 
-            key={`route-child-${child.location}-${index}`} 
+              <>
+                  <Helmet>
+                    <title>נמרם | {route.label} | {parse_route?.label}</title>
+                </Helmet>
+                <parse_route.element {...(parse_route?.props || [])}></parse_route.element>
+                { !logged_in && <DynamicDataParserConnector
+                  page_route={parse_route.location} />}
+              </>}/>
+            { parse_route.child && parse_route.child.map(child => <Route 
+            key={`route-sub-child-${child.location}-${index}`} 
             path={child.location} 
             element={<>
               <Helmet>
                 <title>נמרם | {route.label}</title>
-              </Helmet>
-              <child.element></child.element>
-              { child.show_dynamic && <DynamicDataParserConnector
-                page_route={route.location} />}
-            </>}/>          
+            </Helmet>
+            <child.element></child.element>
+            { !logged_in && <DynamicDataParserConnector
+              page_route={child.location} />}
+          </>}/>)}
+            </React.Fragment >;
           })}
-       </React.Fragment>
+          </React.Fragment>;
       })}
     </Routes>
-    <Footer></Footer>
-  </>) 
-  : (<div className='flex flex-row ' dir='rtl'>
-    <header className='w-fit'>
-      <SideNavBar routes={Constants.admin_routes} />
-    </header>
-    <ApiMessageDisplayConnector/>
-    <div className='flex-1'>
-      <Routes>      
-        {Constants.admin_routes.map((route, index) => {
-          return route.sub_nav ? route.sub_nav.map((sub_route, sub_index) => {
-            return <Route 
-            key={`route-${sub_route.location}-${index}-sub-${sub_index}`} 
-            path={sub_route.location} 
-            element={<sub_route.element {...sub_route.props}></sub_route.element>}/>;
-          }) :
-        <Route 
-        key={`route-${route.location}-${index}`} 
-        path={route.location} 
-        element={<route.element {...route.props}></route.element>}/>;
-        })}
-      </Routes>
-    </div>
-  </div>);
+   { !logged_in && <Footer></Footer> }
+  </div>;
 }
 
 export default App;
