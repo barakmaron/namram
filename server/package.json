@@ -30,7 +30,8 @@
     "nodemailer": "^6.8.0",
     "puppeteer": "^19.2.2",
     "sequelize": "^6.25.0",
-    "sharp": "^0.31.1"
+    "sharp": "^0.31.1",
+    "status-code-enum": "^1.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
