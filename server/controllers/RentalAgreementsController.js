@@ -1,6 +1,7 @@
 import RentalAgreementsService from "../services/RentalAgreementsService.js";
+import { StatusCode } from 'status-code-enum';
 
-async function GetAgreements(req, res) {
+async function GetAgreements(req, res, next) {
     try {
         const { customer, close, SerialNumber, StartDate, EndDate, pdf } = req.query;
         let agreements;
@@ -13,13 +14,13 @@ async function GetAgreements(req, res) {
             res.set('Content-Type', 'text/html');
             return res.send(agreements);
         }
-        return res.status(200).json(agreements);
+        return res.status(StatusCode.SuccessOK).json(agreements);
     } catch (err) {
-        console.log(err)
+        next(err);
     }
 }
 
-async function GetRentalAgreement(req, res) {
+async function GetRentalAgreement(req, res, next) {
     try {
         const { id } = req.params;
         const { pdf } = req.query;
@@ -29,13 +30,13 @@ async function GetRentalAgreement(req, res) {
             res.set('Content-Type', 'text/html');
             return res.send(agreement);
         }
-        return res.status(200).json(agreement);
+        return res.status(StatusCode.SuccessOK).json(agreement);
     } catch (err) {
-        console.log(err);
+        next(err);
     }
 }
 
-async function AddAgreement(req, res) {
+async function AddAgreement(req, res, next) {
     try {
         const { Tools, Location, FuelAmount, FuelPrice, TransportAmount, TransportPrice, ...customer } = req.body;
         const { id } = req.params;
@@ -43,31 +44,31 @@ async function AddAgreement(req, res) {
         const new_agreement = id ?  
             await RentalAgreementsService.AddAgreementOldCustomer(Tools, Location, FuelAmount, FuelPrice, TransportAmount, TransportPrice, file, id) :
             await RentalAgreementsService.AddAgreement(Tools, Location, FuelAmount, FuelPrice, TransportAmount, TransportPrice, file, customer);
-        return res.status(200).json(new_agreement);
+        return res.status(StatusCode.SuccessOK).json(new_agreement);
     } catch (err) {
         console.log(err)
     }
 }
 
-async function CloseAgreement(req, res) {
+async function CloseAgreement(req, res, next) {
     try {
         const { FuelAmount, FuelPrice, TransportAmount, TransportPrice } = req.body;
         const { id } = req.params;
         const file = req.file;
         await RentalAgreementsService.CloseAgreement(id, FuelAmount, FuelPrice, TransportAmount, TransportPrice, file);
-        return res.status(200).json();
+        return res.status(StatusCode.SuccessOK).json();
     } catch (err) {
-        console.log(err)
+        next(err);
     }
 }
 
-async function DeleteAgreement(req, res) {
+async function DeleteAgreement(req, res, next) {
     try {
         const { id } = req.params;
         await RentalAgreementsService.DeleteAgreement(id);
-        return res.status(200).json();
+        return res.status(StatusCode.SuccessOK).json();
     } catch (err) {
-        console.log(err)
+        next(err);
     }
 }
 
