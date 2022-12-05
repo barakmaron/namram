@@ -1,16 +1,17 @@
 import ServiceReportsService from "../../services/ServiceReports/ServiceReportsService.js";
 import parts_changed from './PartsChangedController.js';
+import { StatusCode } from 'status-code-enum';
 
-async function GetServiceReports(req, res) {
+async function GetServiceReports(req, res, next) {
     try {
         const service_reports = await ServiceReportsService.GetServiceReports();
-        return res.status(200).json(service_reports);
+        return res.status(StatusCode.SuccessOK).json(service_reports);
     } catch (err) {
-
+        next(err);
     }
 }
 
-async function GetServiceReport(req, res) {
+async function GetServiceReport(req, res, next) {
     try {
         const { id } = req.params;
         const { pdf } = req.query;
@@ -19,41 +20,41 @@ async function GetServiceReport(req, res) {
             res.set('Content-Type', 'text/html');
             return res.send(service_report);
         }
-        return res.status(200).json(service_report);
+        return res.status(StatusCode.SuccessOK).json(service_report);
     } catch (err) {
-        console.log(err)
+        next(err);
     }
 }
 
-async function AddServiceReport(req, res) {
+async function AddServiceReport(req, res, next) {
     try {
         const { product_id, Problem } = req.body;
         const service_report = await ServiceReportsService.AddServiceReport(product_id, Problem);
-        return res.status(200).json(service_report);
+        return res.status(StatusCode.SuccessOK).json(service_report);
     } catch (err) {
         console.log(err);
     }
 }
 
-async function GetServiceBook(req, res) {
+async function GetServiceBook(req, res, next) {
     try {
         const { id } = req.params;
         const service_book = await ServiceReportsService.GetServiceBook(id);
         res.set('Content-Type', 'text/html');
         return res.send(service_book);
     } catch (err) {
-        console.log(err);
+        next(err);
     }
 }
 
-async function PatchServiceReport(req, res) {
+async function PatchServiceReport(req, res, next) {
     try {
         const { id } = req.params;
         const { param_name, value } = req.body;
         await ServiceReportsService.PatchServiceReport(id, param_name, value);
-        return res.status(200).json();
+        return res.status(StatusCode.SuccessOK).json();
     } catch (err) {
-        console.log(err)
+        next(err);
     }
 }
 

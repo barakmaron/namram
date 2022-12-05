@@ -1,15 +1,16 @@
 import ProjectsService from "../../services/ProjectsServices/ProjectsService.js";
+import { StatusCode } from 'status-code-enum';
 
-async function GetAllProjects(req, res) {
+async function GetAllProjects(req, res, next) {
     try {
         const projects = await ProjectsService.GetAllProjects();
-        return res.status(200).json(projects);
+        return res.status(StatusCode.SuccessOK).json(projects);
     } catch (err) {
-
+        next(err);
     }
 }
 
-async function AddProject(req, res) {
+async function AddProject(req, res, next) {
     try {
         const { Title, Text, Date } = req.body;
         const images = req.files.map((file) => ({
@@ -17,30 +18,30 @@ async function AddProject(req, res) {
             filename: file.filename 
         }));  
         const project = await ProjectsService.AddProject(Title, Text, Date, images);
-        return res.status(200).json(project);
+        return res.status(StatusCode.SuccessOK).json(project);
     } catch (err) {
-        console.log(err);
+        next(err);
     }
 }
 
-async function DeleteProject(req, res) {
+async function DeleteProject(req, res, next) {
     try {
         const { id } = req.params;
         await ProjectsService.DeleteProject(id);
-        return res.status(200).json();
+        return res.status(StatusCode.SuccessOK).json();
     } catch (err) {
-        console.log(err);
+        next(err);
     }
 }
 
-async function PatchProject(req, res) {
+async function PatchProject(req, res, next) {
     try {
         const { id } = req.params;
         const { Title, Text } = req.body;
         await ProjectsService.PatchProject(id, Title, Text);
-        return res.status(200).json();
+        return res.status(StatusCode.SuccessOK).json();
     } catch (err) {
-
+        next(err);
     }
 }
 

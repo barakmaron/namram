@@ -1,15 +1,16 @@
 import BlogsService from "../services/BlogsService.js";
+import { StatusCode } from 'status-code-enum';
 
-async function GetAllBlogs(req, res) {
+async function GetAllBlogs(req, res, next) {
     try {
         const blogs = await BlogsService.GetAllBlogs();
-        return res.status(200).json(blogs);
+        return res.status(StatusCode.SuccessOK).json(blogs);
     } catch (err) {
-        throw err;
+        next(err);
     }
 }
 
-async function AddBlog(req, res) {
+async function AddBlog(req, res, next) {
     try {
         const { Title, Text } = req.body;
         const { path, filename } = req.file;
@@ -17,28 +18,28 @@ async function AddBlog(req, res) {
             path,
             filename
         });
-        return res.status(200).json(blog);
+        return res.status(StatusCode.SuccessOK).json(blog);
     } catch (err) {
-        throw err;
+        next(err);
     }
 }
 
-async function DeleteBlog(req, res) {
+async function DeleteBlog(req, res, next) {
     try {
         const { id } = req.params;
         await BlogsService.DeleteBlog(id);
-        return res.status(200).json();
+        return res.status(StatusCode.SuccessOK).json();
     } catch (err) {
-        throw err;
+        next(err);
     }
 }
 
-async function PatchBlog(req, res) {
+async function PatchBlog(req, res, next) {
     try {
         const { id } = req.params;
         const { Title, Text } = req.body;
         await BlogsService.PatchBlog(id, Title, Text);
-        return res.status(200).json();
+        return res.status(StatusCode.SuccessOK).json();
     } catch (err) {
         throw err;
     }
