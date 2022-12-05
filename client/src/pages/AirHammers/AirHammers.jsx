@@ -1,15 +1,12 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Button from '../../components/Button/Button';
 
 const AirHammers = () => {
-    const navigate = useNavigate();
   return (<>
     <div className='flex justify-center py-2 bg-amber-500 shadow-inner bg-center'>
         <h2 className='text-4xl text-slate-700 font-bold'>פטישי חציבה אוויר</h2>
     </div>
-    <div className='py-10 mx-auto flex flex-col items-center' dir='rtl'>
-        <p className='w-3/4 text-center text-3xl text-slate-700'>
+    <div className='sm:py-10 py-4 mx-auto flex flex-col items-center' dir='rtl'>
+        <p className='sm:w-3/4 w-full text-center sm:text-3xl text-2xl text-slate-700'>
             חברת נמרם יבואנית כלי עבודה ופטישי חציבה המופעלים על לחץ אויר. עם השנים החלנו לשווק, לייבא ולמכור כלים פנאומטים איכותיים המתאימים לכל כיס וגם פטישי חציבה איכותיים לתחום הבניין וההריסות. החברה מחזיקה מלאי חלפים גדול במיוחד, המאפשר מענה מהיר לשיפוץ ותיקון פטישי חציבה, והתחייבות לשירות מהיר בהצעת המחיר ושיפוץ ותיקון הכלי הפנאומטי, בהתחשב בצרכי הלקוח. כיום אנו ידועים בהתמחויותינו רבת השנים בנושא חציבה והריסות בטון (כלי עבודה פנאומטיים). בנוסף למכירה ושירות לכלים, אנו נותנים ייעוץ נרחב ללקוחותינו.
             <br></br>
             <br></br>

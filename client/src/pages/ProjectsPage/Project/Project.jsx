@@ -1,8 +1,7 @@
 import { CircularProgress, ImageList, ImageListItem } from '@mui/material';
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useParams } from "react-router-dom";
-import Image from '../../../components/DataEditors/ImageEditor/Image';
 import TextParser from '../../../components/RichTextArea/TextParser';
 import { GetImageUrl } from '../../../services/ApiService';
 
@@ -34,9 +33,8 @@ const Project = ({
             >
                 <TextParser body={project.Text}/>
             </div>
-            <ImageList
-            className='mx-12 my-10'
-            cols={2}
+            <ul
+            className='sm:mx-12 mx-2 sm:my-10 my-2 sm:grid-cols-3 grid'
             variant="quilted">
                 {project.ProjectsImages.map(image => {
                     return <ImageListItem
@@ -49,7 +47,7 @@ const Project = ({
                             loading="lazy"/>
                         </ImageListItem>;
                 })}
-            </ImageList>
+            </ul>
         </div>;
     else
         return <div>
