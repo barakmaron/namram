@@ -7,9 +7,11 @@ import serviceReducer from './serviceReducer';
 import blogsReducer from './blogsReducer';
 import projectsReducer from './projectsReducer';
 import staticPagesReducer from './staticPagesReducer';
+import apiHandlerReducer from './apiHandlerReducer';
 
 export default combineReducers({
     userReducer,
+    apiHandlerReducer,
     categoriesReducer,
     rentalAgreementsReducer,
     customersReducer,

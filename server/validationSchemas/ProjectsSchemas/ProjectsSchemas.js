@@ -1,46 +1,69 @@
+import ErrorMessages from "../ErrorMessages.js";
+
 const AddProject = {    
     Title: {        
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.title,
     },
     Date: {
-        notEmpty: true,
-        type: "string",
-        minLength: 10
+        isLength: {
+            options: { 
+                min: 10
+            }
+        },
+        errorMessage: ErrorMessages.date,
     },
     Text: {
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.text,
     }
 };
 
 const DeleteProject = {    
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36,
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
         in: ['params']
     }
 };
 
 const PatchProject = {   
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36,
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
         in: ['params']
     },
     Title: {        
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.title,
     },
     Text: {
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.text,
     }
 }
 

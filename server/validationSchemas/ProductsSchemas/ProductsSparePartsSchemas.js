@@ -1,60 +1,93 @@
+import ErrorMessages from "../ErrorMessages.js";
 
 const AddPart = {
     diagram_id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
     },
     serial_number: {
-        notEmpty: true,
-        type: "integer",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 1
+            }
+        },
+        errorMessage: ErrorMessages.serial_number
     },
     name_english: {
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.name
     },
     name_hebrew: {
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.name
     },
     price: {
-        notEmpty: true,
-        type: "float",
-        minLength: 1
+        isLength: {
+            options: { 
+                min: 1
+            }
+        },
+        isFloat: true,
+        errorMessage: ErrorMessages.price
     },
     count: {
-        notEmpty: true,
-        type: "integer",
-        minLength: 1
+        isLength: {
+            options: { 
+                min: 1
+            }
+        },
+        isInt: true,
+        errorMessage: ErrorMessages.value
     }
 };
 
 const DeletePart = {
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
     },
 };
 
 const PatchPart = {
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
     },
     field_name: {
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.param_name,
     },
     value: {
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.value,
     }
 };
 

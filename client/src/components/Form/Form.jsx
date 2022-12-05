@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCallback, useRef, useState } from 'react';
-import { Button, TextareaAutosize, TextField } from '@mui/material';
+import { Button, FormHelperText, TextareaAutosize, TextField } from '@mui/material';
 import style from './Form.module.css';
 import { useEffect } from 'react';
 import FORMS from './Forms';
@@ -11,17 +11,21 @@ import SignatureCapture from './SignatureCapture/SignatureCapture';
 import Checkbox from './CheckBox/CheckBox';
 import { MobileDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { BsCheck2Circle } from 'react-icons/bs';
 
 export default function Form({ 
     inputs, 
     controller,
     action,
+    className,
     reset,
+    successful,
     failed,
     message,
-    className
+    errors    
 }){
     const form_ref = useRef(null);
+    const has_Images = inputs.find(input => input.type === FORMS.INPUTS_TYPES.FILE) ? true : false;
     const [images, setObjectUrl] = useState([]);
     const [dynamic_inputs, setDynamicInputs] = useState([]);
     const [tools, setTools] = useState([]);
@@ -41,10 +45,10 @@ export default function Form({
     const submit_action = useCallback((event) => {
         event.preventDefault();
         const form_data = new FormData(form_ref?.current);
-        const formatted_form = images.length || signature ? form_data : Object.fromEntries(form_data);
+        const formatted_form = has_Images || signature ? form_data : Object.fromEntries(form_data);
         signature && formatted_form.append("Signature", signature);
         action(event, formatted_form, images);
-    }, [form_ref, action, images, signature]);
+    }, [form_ref, action, has_Images, signature, images]);
 
     useEffect(() => {
         if(reset)
@@ -65,6 +69,12 @@ export default function Form({
         setDynamicInputs(inputs => inputs.filter(input => input.id !== id));
     }, []);
 
+    if(successful)
+        return <div className='flex flex-col justify-center h-fit w-full items-center text-4xl py-10 px-4 text-forest-green-600'>
+            <BsCheck2Circle/>
+            <span>{message}</span>
+        </div>;
+
     return <form className={`${className || style.container}`} ref={form_ref} key={`form`} dir="rtl">
         {inputs.map(({ name, type, place_holder }, index) => {
             switch(type){
@@ -73,14 +83,20 @@ export default function Form({
                         <Button
                         variant="outlined"
                         component="label"
-                        onChange={uploadToClient}>
+                        onChange={uploadToClient}
+                        color={errors?.[name] === undefined ? "primary" : "error" }>
                             {place_holder}
                             <input
                             type={type}
                             name={name}
                             multiple
-                            hidden />
+                            hidden 
+                            required/>                            
                         </Button>
+                        { errors?.[name] && <FormHelperText
+                            error={true}>
+                                {errors[name]}
+                            </FormHelperText>}
                         <div className="group w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
                             {images.map((img, index) => <img 
                                 src={img} 
@@ -92,12 +108,18 @@ export default function Form({
                     </div>;
                 }
                 case FORMS.INPUTS_TYPES.TEXT_AREA: {
-                    return <TextareaAutosize 
-                    placeholder={place_holder}
-                    name={name} 
-                    minRows={3} 
-                    className="w-full border-2 border-slate-400 rounded"
-                    key={`form-input-${name}-${index}`}/>;
+                    return <React.Fragment>
+                        <TextareaAutosize 
+                        placeholder={place_holder}
+                        name={name} 
+                        minRows={3} 
+                        className="w-full border-2 border-slate-400 rounded"
+                        key={`form-input-${name}-${index}`}/>
+                        { errors?.[name] && <FormHelperText
+                            error={true}>
+                                {errors[name]}
+                            </FormHelperText>}
+                        </React.Fragment>;
                 }
                 case FORMS.INPUTS_TYPES.DATA_LIST: { 
                     return <Dropdown 
@@ -138,11 +160,16 @@ export default function Form({
                     </div>;
                 }
                 case FORMS.INPUTS_TYPES.RENT_TOOLS_SELECTOR: {
-                    return <React.Fragment key={`rent-tools-selector-${name}`} ><RentalToolsSelectorConnector
+                    return <React.Fragment key={`rent-tools-selector-${name}`} >
+                    <RentalToolsSelectorConnector
                     setData={setTools}/>
                     <input 
                     readOnly
                     hidden={true} value={JSON.stringify(tools)} name={name} />
+                     { errors?.[name] && <FormHelperText
+                            error={true}>
+                                {errors[name]}
+                            </FormHelperText>}
                     </React.Fragment>;
                 }
                 case FORMS.INPUTS_TYPES.SIGNATURE_FIELD: {
@@ -150,7 +177,8 @@ export default function Form({
                     key={`signature-${name}`}>
                         <SignatureCapture
                         name={name}
-                        setSignature={setSignature} />
+                        setSignature={setSignature}
+                        error={errors?.Signature} />
                     </div>;
                 }
                 case FORMS.INPUTS_TYPES.CHECK_BOX: {
@@ -178,7 +206,9 @@ export default function Form({
                     name={name} 
                     type={type} 
                     label={place_holder} 
-                    key={`form-input-${name}-${index}`} />;
+                    key={`form-input-${name}-${index}`}
+                    error={errors?.[name] === undefined ? false : true}
+                    helperText={errors?.[name]} />;
                 }
             }    
         })}

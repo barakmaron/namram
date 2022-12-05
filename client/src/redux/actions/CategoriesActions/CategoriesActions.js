@@ -1,6 +1,8 @@
+import ApiMessagesConstants from "../../../ApiMessagesConstants";
 import Constants from "../../../Constants";
 import SendApiRequest from "../../../services/ApiService";
 import ACTIONS from "../actionConstants/Categories/CategoriesActionConstants";
+import { DispatchError, Successful } from "../ApiHandlerActions";
 
 const GetCategory = (category) => ({
     type: ACTIONS.GET_CATEGORY,
@@ -47,8 +49,10 @@ export const AddCategoryAction = (form_data, temp_url, product_type) => {
             dispatch(AddCategory(form_data, temp_url, product_type));
             const category = await SendApiRequest(`/${product_type}/categories`, Constants.API_METHODS.POST, form_data);
             dispatch(UpdateCategory(category));
+            dispatch(Successful(ApiMessagesConstants.categories.addCategory.successful));
         } catch (err) {
-
+            dispatch(UpdateCategory());
+            DispatchError(dispatch, err, ApiMessagesConstants.categories.addCategory.failed);
         }
     };
 };
@@ -58,8 +62,9 @@ export const DeleteCategoryAction = (id, product_type) => {
         try {
             dispatch(DeleteCategory(id, product_type));
             await SendApiRequest(`/${product_type}/categories/${id}`, Constants.API_METHODS.DELETE);
+            dispatch(Successful(ApiMessagesConstants.categories.deleteCategory.successful));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.categories.deleteCategory.failed);
         }
     };
 };
@@ -69,8 +74,9 @@ export const EditCategoryAction = (id, form, product_type) => {
         try {
             dispatch(EditCategory(id, form.name, product_type));
             await SendApiRequest(`/${product_type}/categories/${id}`, Constants.API_METHODS.PATCH, form);
+            dispatch(Successful(ApiMessagesConstants.categories.editCategory.successful));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.categories.editCategory.failed);
         }
     };
 };
@@ -81,7 +87,7 @@ export const GetCategoryAction = (id) => {
             const category = await SendApiRequest(`/categories/${id}`);
             dispatch(GetCategory(category));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.categories.getCategory.failed);
         }
     };
 };

@@ -1,13 +1,22 @@
+import ErrorMessages from "../ErrorMessages.js";
+
 const ChangedPartSchema = {    
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36,
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
         in: ['params']
     },
     part_id: {
-        notEmpty: true,
-        type: "string",
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
         minLength: 36,
     },
 };

@@ -1,41 +1,61 @@
+import ErrorMessages from "./ErrorMessages.js";
+
 const AddBlog = {    
     Title: {        
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.title
     },
     Text: {
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.text
     }
 };
 
 const DeleteBlog = {    
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36,
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
         in: ['params']
     }
 };
 
 const PatchBlog = {   
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36,
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
         in: ['params']
     },
     Title: {        
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.title
     },
     Text: {
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.text
     }
 }
 

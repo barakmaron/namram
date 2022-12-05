@@ -7,8 +7,8 @@ const DiagramForms = {
         place_holder: "Model Name"
     }, {
         type: FORMS.INPUTS_TYPES.FILE,
-        name: "image",
-        place_holder: "image"
+        name: "Image",
+        place_holder: "Image"
     }]
 };
 

@@ -1,6 +1,6 @@
 import express from 'express';
 import ProductsController from '../../controllers/Products/index.js';
-import UploadMiddleware from '../../middleware/UploadImageMiddleware.js';
+import UploadMiddleware, { makeMulterUploadMiddleware } from '../../middleware/UploadImageMiddleware.js';
 import { validate } from '../../middleware/ValidationErrorMiddleware.js';
 import { checkSchema } from 'express-validator';
 import ProductsDiagramSchemas from '../../validationSchemas/ProductsSchemas/ProductsDiagramSchemas.js';
@@ -8,7 +8,7 @@ import ProductsDiagramSchemas from '../../validationSchemas/ProductsSchemas/Prod
 const router = express.Router();
 
 router.post('/', 
-    UploadMiddleware.single('image'), 
+    makeMulterUploadMiddleware(UploadMiddleware.single('Image')), 
     validate(checkSchema(ProductsDiagramSchemas.AddDiagram)),
     ProductsController.Diagrams.AddDiagram);
 

@@ -1,11 +1,12 @@
-import { Button } from '@mui/material';
+import { Button, FormHelperText } from '@mui/material';
 import React, { useRef } from 'react';
 import { useCallback } from 'react';
 import SignaturePad from 'react-signature-canvas';
 
 const SignatureCapture = ({
   name,
-  setSignature
+  setSignature,
+  error = undefined
 }) => {
 
   const sig_ref = useRef({});
@@ -36,6 +37,10 @@ const SignatureCapture = ({
     <Button onClick={save_sig}>
       save
     </Button>
+    { error && <FormHelperText
+      error={true}>
+          {error}
+      </FormHelperText>}
   </div>
   </>);
 };

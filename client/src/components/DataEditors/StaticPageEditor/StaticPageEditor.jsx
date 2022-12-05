@@ -3,7 +3,7 @@ import React from 'react'
 import { useCallback } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import Form from '../../Form/Form';
+import FormConnector from '../../Form/FormConnector';
 import StaticPageForms from './FormsConstants';
 
 const StaticPageEditor = ({
@@ -76,7 +76,7 @@ const StaticPageEditor = ({
     className="border-2 rounded-sm border-solid border-forest-green-600 w-fit">
         <legend
         className='text-xl px-2 text-center'>הוסף</legend>
-        { controller.length &&<Form
+        { controller.length && <FormConnector
         inputs={StaticPageForms.add_static_page_data}
         controller={controller}
         action={add_static_page_data}/>}

@@ -1,6 +1,8 @@
+import ApiMessagesConstants from "../../../ApiMessagesConstants";
 import Constants from "../../../Constants";
 import SendApiRequest from "../../../services/ApiService";
 import ACTIONS from "../actionConstants/Projects/ProjectsActionsConstants";
+import { DispatchError, Successful } from "../ApiHandlerActions";
 
 const GetProjects = (projects) => ({
     type: ACTIONS.GET_ALL_PROJECTS,
@@ -40,7 +42,7 @@ export const GetProjectsAction = () => {
             const projects = await SendApiRequest(`/projects`);
             dispatch(GetProjects(projects));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.projects.getProjects);
         }
     };
 };
@@ -52,8 +54,10 @@ export const AddProjectAction = (form, temp_url) => {
             dispatch(AddProject(Object.fromEntries(form), temp_url));
             const project = await SendApiRequest(`/projects`, Constants.API_METHODS.POST, form);
             dispatch(UpdateProject(project));
+            dispatch(Successful(ApiMessagesConstants.projects.addProject.successful));
         } catch (err) {
-
+            dispatch(UpdateProject());
+            DispatchError(dispatch, err, ApiMessagesConstants.projects.addProject.failed);
         }
     };
 };
@@ -64,8 +68,9 @@ export const DeleteProjectAction = (id) => {
         try {
             dispatch(DeleteProject(id));
             await SendApiRequest(`/projects/${id}`, Constants.API_METHODS.DELETE);
+            dispatch(Successful(ApiMessagesConstants.projects.deleteProject.successful));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.projects.deleteProject.failed);
         }
     };
 };
@@ -78,8 +83,9 @@ export const EditProjectAction = (id, title, text) => {
                 Title: title,
                 Text: text
             });
+            dispatch(Successful(ApiMessagesConstants.projects.patchProject.successful));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.projects.patchProject.failed);
         }
     };
 };

@@ -1,31 +1,45 @@
+import ErrorMessages from "./ErrorMessages.js";
+
 const AddCategory = {    
     name: {        
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.category_name,
     }
 };
 
 const DeleteCategory = {    
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36,
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
         in: ['params']
     }
 };
 
 const PatchCategory = {   
     id: {
-        notEmpty: true,
-        type: "string",
-        minLength: 36,
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
         in: ['params']
     },
     name: {        
-        notEmpty: true,
-        type: "string",
-        minLength: 3
+        isLength: {
+            options: { 
+                min: 3
+            }
+        },
+        errorMessage: ErrorMessages.category_name,
     }
 }
 

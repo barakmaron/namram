@@ -22,7 +22,7 @@ function UpdateImages(state, payload, product_type) {
     const { object: category, filtered_array: filtered_categories } = reducerUtilities.destructorArray(state.categories, category_id);
     const { object: product, filtered_array: filtered_products } = reducerUtilities.destructorArray(category[product_type], product_id, "ProductId");
     const { filtered_array: filtered_images } = reducerUtilities.destructorArray(product.Product.ProductsImages, "temp-image");
-    product.Product.ProductsImages = [ ...filtered_images, ...images ];
+    product.Product.ProductsImages = images.length !== 0 ? [ ...filtered_images, ...images ] : [ ...filtered_images ];
     category[product_type] = [ ...filtered_products, product ];
     return { 
         ...state, 
