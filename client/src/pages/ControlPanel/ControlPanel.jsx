@@ -1,6 +1,7 @@
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import React from 'react';
 import { useEffect } from 'react';
+import AppRoutes from '../../AppRoutes';
 import StaticPageEditorConnector from '../../components/DataEditors/StaticPageEditor/StaticPageEditorConnector';
 import Constants from '../../Constants';
 
@@ -22,7 +23,7 @@ const ControlPanel = ({
       <h2
       className='w-fit mx-auto my-4 text-4xl font-bold text-green-600'
       >עריכת דפים סטטים</h2>
-      {Constants.routes.map(route => {
+      {AppRoutes.routes.map(route => {
         return <React.Fragment key={`static-page-${route.location}`}>
           { !route.sub_nav && <StaticPageAccordion route={route}/>}      
           {route.sub_nav?.map(sub_route => {

@@ -69,7 +69,7 @@ const ServicePage = ({
         AddServiceReportsAction(form, selected_product.value);
     }, [AddServiceReportsAction, selected_product]);
 
-  return (<>
+  return (<div className='flex-1'>
     <h2 className="w-fit mx-auto my-4 text-4xl font-bold text-green-600">
         תיקונים
     </h2>
@@ -99,7 +99,7 @@ const ServicePage = ({
         controller={add_form_controller}
         action={add_tool_to_service}/>
     </Modal>}
-  </>);
+  </div>);
 };
 
 export default ServicePage;
