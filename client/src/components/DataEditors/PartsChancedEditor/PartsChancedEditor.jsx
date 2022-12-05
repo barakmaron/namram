@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useCallback } from 'react';
 import { useEffect } from 'react';
 import { FaShekelSign } from 'react-icons/fa';
-import Form from '../../Form/Form';
+import FormConnector from '../../Form/FormConnector';
 import ChangedPartForms from './FormConstants';
 
 const PartsChancedEditor = ({
@@ -120,7 +120,7 @@ const PartsChancedEditor = ({
 
   return (<>
     <div>
-        { change_part_form_controller.length && <Form 
+        { change_part_form_controller.length && <FormConnector 
         inputs={ChangedPartForms.add_changed_part}
         controller={change_part_form_controller}
         action={add_part}/>}

@@ -1,8 +1,13 @@
+import ErrorMessages from "./ErrorMessages.js";
+
 const GetImageSchema = {    
     file_name: {
-        notEmpty: true,
-        type: "string",
-        minLength: 10
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
     }
 };
 
