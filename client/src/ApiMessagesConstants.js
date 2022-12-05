@@ -85,7 +85,7 @@ const ApiMessagesConstants = {
             successful: "מוצר נמחק בהצלחה",
             failed: "לא היה ניתן למחוק מוצר"
         },
-        editProduct: {
+        patchProduct: {
             successful: "מוצר נערך בהצלחה",
             failed: "לא ניתן לערוך מוצר"
         },

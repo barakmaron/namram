@@ -1,32 +1,33 @@
 import StaticPageService from "../services/StaticPageService.js";
+import { StatusCode } from 'status-code-enum';
 
-async function GetStaticPages(req, res) {
+async function GetStaticPages(req, res, next) {
     try {
         const { route } = req.query;
         const static_pages = await StaticPageService.GetStaticPages(route);
-        return res.status(200).json(static_pages);
+        return res.status(StatusCode.SuccessOK).json(static_pages);
     } catch (err) {
-        console.log(err);
+        next(err);
     }
 }
 
-async function AddStaticPage(req, res) {
+async function AddStaticPage(req, res, next) {
     try {
         const { PageRoute, DisplayType, CategoryId } = req.body;
         const added_page = await StaticPageService.AddStaticPage(PageRoute, DisplayType, CategoryId);
-        return res.status(200).json(added_page);
+        return res.status(StatusCode.SuccessOK).json(added_page);
     } catch (err) {
-        console.log(err)
+        next(err);
     }
 }
 
-async function DeleteStaticPage(req, res) {
+async function DeleteStaticPage(req, res, next) {
     try {
         const { id } = req.params;
         await StaticPageService.DeleteStaticPage(id);
-        return res.status(200).json();
+        return res.status(StatusCode.SuccessOK).json();
     } catch (err) {
-        console.log(err)
+        next(err);
     }
 }
 
