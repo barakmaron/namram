@@ -20,12 +20,13 @@ function AddAgreement(state, payload) {
 
 function UpdateAgreement(state, payload) {
     const { filtered_array: agreements } = reducerUtilities.destructorArray(state.rental_agreements);
+    const rental_agreements = payload?.id ? [
+        ...agreements,
+        payload
+    ] : [ ...agreements ];
     return {
         ...state,
-        rental_agreements: [
-            ...agreements,
-            payload
-        ]
+        rental_agreements: rental_agreements
     };
 }
 

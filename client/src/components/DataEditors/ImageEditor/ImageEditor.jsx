@@ -53,7 +53,7 @@ const ImageEditor = ({
                 className='text-6xl'></FaPlus>
                 <input
                 type={FORMS.INPUTS_TYPES.FILE}
-                name={'images'}
+                name={'Image'}
                 multiple
                 hidden />
                 </form>

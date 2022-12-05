@@ -3,7 +3,7 @@ export default function ErrorHandler(err, req, res, next) {
     LogError(err);
     if (res.headersSent)
         return next(err);  
-    res.status(status).json({
+    return res.status(status).json({
         "status": status,
         "error": `${err || "Something went wrong"}`
     });

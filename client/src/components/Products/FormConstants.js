@@ -19,7 +19,7 @@ const ProductForms = {
         place_holder: "Description"
     }, {
         type: FORMS.INPUTS_TYPES.FILE,
-        name: "product_images",
+        name: "Image",
         place_holder: "Images"
     }, {
         type: FORMS.INPUTS_TYPES.DYNAMIC_INPUTS,

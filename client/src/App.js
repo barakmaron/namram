@@ -8,6 +8,7 @@ import LoginConnector from './pages/ControlPanel/LoginPage/LoginConnector';
 import React, { useEffect } from 'react';
 import DynamicDataParserConnector from './components/DynamicDataParser/DynamicDataParserConnector';
 import Helmet from 'react-helmet';
+import ApiMessageDisplayConnector from './components/ApiMessageDisplay/ApiMessageDisplayConnector';
 
 function App({ 
   logged_in,
@@ -26,6 +27,7 @@ function App({
       <ContactNav {...Constants.contact_nav}/>
       <Navbar routes={Constants.routes} />
     </header>
+    <ApiMessageDisplayConnector/>
     <Routes>      
       {Constants.routes.map((route, index) => {
         return <React.Fragment key={`route-fragment-${index}`}>
@@ -84,6 +86,7 @@ function App({
     <header className='w-fit'>
       <SideNavBar routes={Constants.admin_routes} />
     </header>
+    <ApiMessageDisplayConnector/>
     <div className='flex-1'>
       <Routes>      
         {Constants.admin_routes.map((route, index) => {

@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import ControlPanelBlock from '../../../components/ControlPanelBlock/ControlPanelBlock';
 import ServiceReportTableConnector from '../../../components/DataEditors/ServiceReportsTable/ServiceReportTableConnector';
-import Form from '../../../components/Form/Form';
+import FormConnector from '../../../components/Form/FormConnector';
 import Modal from '../../../components/Modal/Modal';
 import ServiceReportForms from './FormsConstants';
 
@@ -22,7 +22,6 @@ const ServicePage = ({
     const [selected_category, setSelectedCategory] = useState(null);
     const [selected_product, setSelectedProduct] = useState(null);
     const [add_form_controller, setAddFormController] = useState([]);
-    const [missing_spare_parts, setMissingSpareParts] = useState([]);
 
     useEffect(() => {
         GetServiceReportsAction();
@@ -95,7 +94,7 @@ const ServicePage = ({
     <ServiceReportTableConnector
     service_reports={service_reports}/>
     {open_add_tool_to_service && <Modal setClose={() => setOpenToolToService(false)}>
-        <Form
+        <FormConnector
         inputs={ServiceReportForms.add_tool_to_service}
         controller={add_form_controller}
         action={add_tool_to_service}/>
