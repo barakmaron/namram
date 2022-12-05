@@ -18,7 +18,7 @@ const Projects = ({
 
   return (<>
     <div className='flex justify-center bg-project bg-fixed bg-cover py-16 shadow-inner bg-center'>
-        <h2 className='text-8xl text-white font-bold pt-60 pb-24 '>פרוייקטים</h2>
+        <h2 className='sm:text-8xl text-4xl text-white font-bold sm:pt-60 sm:pb-24 w-fit mx-auto text-center'>פרוייקטים</h2>
     </div>
     <ul className={hexStyle.hexGrid} dir='rtl'>
       {projects?.map(project => {
@@ -45,7 +45,7 @@ const Projects = ({
       })}
     </ul>
     <div className='flex flex-col gap-10 justify-center bg-project-2 bg-fixed bg-cover py-16 shadow-inner bg-center items-center'>
-        <h2 className='text-8xl text-white font-bold pt-60 pb-24 text-center' dir='rtl'>
+        <h2 className='sm:text-8xl text-4xl text-white font-bold sm:pt-60 sm:pb-24 w-fit mx-auto text-center' dir='rtl'>
             צריכים הצעה או ייעוץ לניסור בטון?
         </h2>
         <Button text={"צור קשר עכשיו"} action={() => navigate("/contact")} />
