@@ -120,7 +120,7 @@ const CustomersPage = ({
         setOpenRentalAgreements(true);
     }, [GetRentalForCustomerAgreementsAction]);
 
-  return (<>
+  return (<div className='flex-1'>
    <h2 className="w-fit mx-auto my-4 text-4xl font-bold text-green-600">
       לקוחות
     </h2>
@@ -146,7 +146,7 @@ const CustomersPage = ({
         agreements={customer_agreements}
         />
     </Modal>}
-  </>);
+  </div>);
 };
 
 export default CustomersPage;

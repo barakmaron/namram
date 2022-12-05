@@ -1,6 +1,7 @@
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import { getCategories } from "../../redux/selectors/categoriesSelector";
+import { GetCategoryAction } from "../../redux/actions/CategoriesActions/CategoriesActions";
 import CategoryPage from "./CategoryPage";
 
 const maStateToProps = (state, ownProps) => {
@@ -10,6 +11,7 @@ const maStateToProps = (state, ownProps) => {
 
 const mapActionToProps = (dispatch) => {
     return bindActionCreators({
+        GetCategoryAction
     }, dispatch);
 };
 
