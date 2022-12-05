@@ -1,6 +1,7 @@
 import CategoriesService from '../services/CategoriesService.js';
+import { StatusCode } from 'status-code-enum';
 
-async function AddCategory(req, res) {
+async function AddCategory(req, res, next) {
     try {
         const { name } = req.body;
         const { path, filename } = req.file;
@@ -8,34 +9,34 @@ async function AddCategory(req, res) {
             path, 
             filename 
         }, req.baseUrl);
-        return res.status(200).json(category);
+        return res.status(StatusCode.SuccessOK).json(category);
     } catch (err) {
-        throw err;
+        next(err);
     }
 }
 
-async function DeleteCategory(req, res) {
+async function DeleteCategory(req, res, next) {
     try {
         const { id } = req.params;
         await CategoriesService.DeleteCategory(id);
-        return res.status(200).json();
+        return res.status(StatusCode.SuccessOK).json();
     } catch(err) {
-        throw err;
+        next(err);
     }
 }
 
-async function EditCategory(req, res) {
+async function EditCategory(req, res, next) {
     try {
         const { id } = req.params;
         const { name } = req.body;
         await CategoriesService.EditCategory(name, id);
-        return res.status(200).json();
+        return res.status(StatusCode.SuccessOK).json();
     } catch (err) {
-        throw err;
+        next(err);
     }
 }
 
-async function GetCategory(req, res) {
+async function GetCategory(req, res, next) {
     try {
         const { id } = req.params;
         const { pdf, income } = req.query;
@@ -52,9 +53,9 @@ async function GetCategory(req, res) {
             return res.send(html_file);
         }
         category = await CategoriesService.GetCategory(id);
-        return res.status(200).json(category);
+        return res.status(StatusCode.SuccessOK).json(category);
     } catch (err) {
-        console.log(err);
+        next(err);
     }
 }
 
