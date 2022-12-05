@@ -2,7 +2,7 @@ import React from 'react';
 import Constants from '../../Constants';
 
 const ContactInfo = () => {
-  return (<ul className='flex flex-col gap-2 text-xl'>
+  return (<ul className='flex flex-col gap-2 text-xl mr-4 w-fit'>
     <li>
         <span className='font-bold text-2xl'>מייל: </span>
         {Constants.contact_info.mail}

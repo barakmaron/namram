@@ -8,8 +8,8 @@ const Eilat = () => {
     <div className='flex justify-center py-2 bg-amber-500 shadow-inner bg-center'>
         <h2 className='text-4xl text-slate-700 font-bold'>סניף אילת</h2>
     </div>
-    <div className='py-10 mx-auto flex flex-col items-center' dir='rtl'>
-        <h3 className=' text-slate-700 text-3xl font-bold'>ממוקם באזור התעשייה בכניסה לאילת ברחוב המלאכה 3.</h3>
+    <div className='sm:py-10 py-4 mx-auto flex flex-col items-center' dir='rtl'>
+        <h3 className=' text-slate-700 sm:text-3xl text-2xl text-center font-bold'>ממוקם באזור התעשייה בכניסה לאילת ברחוב המלאכה 3.</h3>
        
         <div className='py-10 w-3/4 mx-auto flex flex-col gap-5' dir='rtl'>
             <div className='mx-auto flex sm:flex-row flex-col gap-5'>

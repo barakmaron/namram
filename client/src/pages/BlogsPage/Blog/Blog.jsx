@@ -24,7 +24,7 @@ const Blog = ({
     if(blog) 
         return <div className='my-5'>
             <img
-            className='w-1/2 max-h-96 object-contain mx-auto'
+            className='sm:w-1/2 w-screen max-h-96 object-contain mx-auto'
             alt={blog.Title}
             src={GetImageUrl(blog.Image)}
             loading="lazy"/>
@@ -32,7 +32,7 @@ const Blog = ({
             className='w-fit text-3xl text-forest-green-600 font-bold mx-auto my-14'
             >{blog.Title}</h2>
             <div 
-            className='mx-10 w-fit max-w-96 text-xl mt-4'
+            className='sm:mx-10 mx-2 w-fit max-w-96 text-xl mt-4'
             >
                 <TextParser body={blog.Text}/>
             </div>
