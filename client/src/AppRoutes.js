@@ -141,14 +141,14 @@ const admin_routes = [{
         location: "/control_panel/rent",
         element: RentalControlPanelConnector
     }, {
-        label: "כלים",
+        label: "כלים השכרה",
         location: "/control_panel/rent/tools",
         element: ToolsPageConnector,
         props: { 
             product_type: Constants.API_PRODUCT_TYPE.RENT 
         }
     }, {
-        label: "לקוחות",
+        label: "לקוחות השכרה",
         location: "/control_panel/rent/customers",
         element: CustomersPageConnector,
     }, {
