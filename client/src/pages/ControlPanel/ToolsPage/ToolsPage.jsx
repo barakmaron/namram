@@ -46,7 +46,7 @@ const ToolsPage = ({
       });
     }, [categories, array_type]);
     
-  return (<>  
+  return (<div className='flex-1'>  
   <h2
   className='w-fit mx-auto my-4 text-4xl font-bold text-green-600'
   >מוצרים ל{product_type === Constants.API_PRODUCT_TYPE.RENT ? `השכרה` : `מכירה`}</h2>
@@ -64,7 +64,7 @@ const ToolsPage = ({
     products={products}
     type={product_type}></ProductsTableConnector>
   </div>
-  </>);
+  </div>);
 };
 
 export default ToolsPage;
