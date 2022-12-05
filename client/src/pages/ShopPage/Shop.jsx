@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Shop = () => {
   return (<>
     <div className='flex justify-center bg-shop bg-fixed bg-cover py-16 shadow-inner bg-center'>
-        <h2 className='text-8xl text-amber-500 font-bold pt-60 pb-24 '>מכירת ציוד וכלים</h2>
+        <h2 className='text-8xl text-amber-500 font-bold sm:pt-60 sm:pb-24 w-fit mx-auto text-center'>מכירת ציוד וכלים</h2>
     </div>
     <div className='py-10 mx-auto flex flex-col items-center' dir='rtl'>
         <p className='w-3/4 text-center text-2xl'>
