@@ -21,7 +21,7 @@ const ItemsListDisplay = ({
                     loading='lazy'
                     image={item}/>
                     <h3
-                    className='absolute bottom-0 w-full text-4xl py-2 text-forest-green-600 bg-amber-400 border-b-8 border-solid border-transparent border-x-8 font-bold text-center group-hover:border-b-amber-400 group-hover:text-amber-400 group-hover:bg-forest-green-600'>
+                    className='absolute bottom-0 w-full sm:text-4xl text-2xl py-2 text-forest-green-600 bg-amber-400 border-b-8 border-solid border-transparent border-x-8 font-bold text-center group-hover:border-b-amber-400 group-hover:text-amber-400 group-hover:bg-forest-green-600'>
                         {item.name}
                     </h3>
                 </>
