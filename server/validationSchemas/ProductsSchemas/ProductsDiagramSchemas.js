@@ -15,9 +15,29 @@ const AddDiagram = {
                 min: 3
             }
         },
-        errorMessage: ErrorMessages.model_name,
-    }
+        errorMessage: ErrorMessages.model_name,        
+    }    
 };
+
+const AddDiagramFromList = {
+    id: {
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
+        in: ["params"]
+    },
+    product_id: {
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
+    },
+}
 
 const DeleteDiagram = {
     id: {
@@ -52,6 +72,7 @@ const PatchDiagram = {
 
 const ProductsDiagramSchemas = {
     AddDiagram,
+    AddDiagramFromList,
     DeleteDiagram,
     PatchDiagram
 };
