@@ -16,6 +16,10 @@ router.post('/:id',
     validate(checkSchema(ProductsDiagramSchemas.AddDiagramFromList)),
     ProductsController.Diagrams.AddDiagramFromList);
 
+router.delete('/:diagram_id/:product_id', 
+    validate(checkSchema(ProductsDiagramSchemas.DeleteDiagramFromProduct)),
+    ProductsController.Diagrams.DeleteDiagramFromProduct);
+
 router.delete('/:id', 
     validate(checkSchema(ProductsDiagramSchemas.DeleteDiagram)),
     ProductsController.Diagrams.DeleteDiagram);
