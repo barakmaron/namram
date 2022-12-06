@@ -62,11 +62,19 @@ function DeleteDiagram(state, payload, product_type) {
     };
 }
 
+function GetDiagrams(state, payload) {
+    return {
+        ...state,
+        diagrams: payload
+    };
+}
+
 const ProductDiagramFunctions = {
     [ProductDiagramActions.ADD_DIAGRAM]: AddDiagram,
     [ProductDiagramActions.UPDATE_DIAGRAM]: UpdateDiagram,
     [ProductDiagramActions.PATCH_DIAGRAM]: PatchDiagram,
-    [ProductDiagramActions.DELETE_DIAGRAM]: DeleteDiagram
+    [ProductDiagramActions.DELETE_DIAGRAM]: DeleteDiagram,
+    [ProductDiagramActions.GET_DIAGRAMS]: GetDiagrams
 };
 
 export default ProductDiagramFunctions;

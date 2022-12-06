@@ -46,6 +46,11 @@ const PatchDiagram = (diagram_id, value, product_id, category_id, product_type) 
     }
 });
 
+const GetDiagrams = (diagrams) => ({
+    type: ACTIONS.GET_DIAGRAMS,
+    payload: diagrams
+});
+
 export const AddDiagramAction = (product_id, category_id, diagram_form, temp_image_url, product_type) => {
     return async (dispatch) => {
         try {
@@ -58,8 +63,23 @@ export const AddDiagramAction = (product_id, category_id, diagram_form, temp_ima
             dispatch(UpdateDiagram(product_id, category_id, {}, product_type));
             DispatchError(dispatch, err, ApiMessagesConstants.product.diagram.addDiagram.failed);
         }
-    }
-}
+    };
+};
+
+export const AddDiagramFromListAction = (product_id, category_id, diagram, product_type) => {
+    return async (dispatch) => {
+        try {  
+            const parsed_diagram = await SendApiRequest(`/products/diagrams/${diagram.id}`, Constants.API_METHODS.POST, {
+                product_id
+            });
+            dispatch(UpdateDiagram(product_id, category_id, parsed_diagram, product_type));
+            dispatch(Successful(ApiMessagesConstants.product.diagram.addDiagram.successful));
+        } catch (err) {
+            dispatch(UpdateDiagram(product_id, category_id, {}, product_type));
+            DispatchError(dispatch, err, ApiMessagesConstants.product.diagram.addDiagram.failed);
+        }
+    };
+};
 
 export const DeleteDiagramAction = (product_id, category_id, diagram_id, product_type) => {
     return async (dispatch) => {
@@ -70,8 +90,8 @@ export const DeleteDiagramAction = (product_id, category_id, diagram_id, product
         } catch (err) {
             DispatchError(dispatch, err, ApiMessagesConstants.product.diagram.deleteDiagram.failed);
         }
-    }
-}
+    };
+};
 
 export const PatchDiagramAction = (diagram_id, value, product_id, category_id, product_type) => {
     return async (dispatch) => {
@@ -84,5 +104,16 @@ export const PatchDiagramAction = (diagram_id, value, product_id, category_id, p
         } catch (err) {
             DispatchError(dispatch, err, ApiMessagesConstants.product.diagram.patchDiagram.failed);
         }
-    }
-}
+    };
+};
+
+export const GetDiagramsAction = () => {
+    return async (dispatch) => {
+        try {
+            const diagrams = await SendApiRequest(`/products/diagrams`);
+            dispatch(GetDiagrams(diagrams));
+        } catch (err) {
+            DispatchError(dispatch, err, ApiMessagesConstants.product.diagram.getDiagrams.failed);
+        }
+    };
+};

@@ -12,6 +12,14 @@ async function AddDiagram(product_id, model_name, image) {
     return await GetById(diagram.id);
 }
 
+async function AddDiagramFromList(diagram_id, product_id) {
+    await ProductDiagramsListModel.create({
+        ProductPartsDiagramId: diagram_id,
+        ProductId: product_id
+    });
+    return await GetById(diagram_id);
+}
+
 async function DeleteDiagram(id) {
     const parts = SparePartsModel.destroy({
         where: {
@@ -53,11 +61,17 @@ async function GetById(id) {
     });
 }
 
+async function GetDiagrams() {
+    return await ProductPartsDiagramModel.findAll();
+}
+
 const DiagramsDB = {
     AddDiagram,
+    AddDiagramFromList,
     DeleteDiagram,
     PatchDiagramName,
-    GetById
+    GetById,
+    GetDiagrams
 };
 
 export default DiagramsDB;
