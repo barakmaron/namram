@@ -9,6 +9,11 @@ const DiagramForms = {
         type: FORMS.INPUTS_TYPES.FILE,
         name: "Image",
         place_holder: "Image"
+    }],
+    connect_diagram: [{
+        type: FORMS.INPUTS_TYPES.DATA_LIST,
+        name: "diagram_id",
+        place_holder: "Chose diagram"
     }]
 };
 

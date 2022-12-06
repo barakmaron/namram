@@ -23,8 +23,8 @@ const SparePartsEditor = ({
 
   useEffect(() => {
     setParsedDiagramsList(diagrams.map((diagram) => ({
-      label: diagram.ModelName,
-      value: diagram.id
+      label: diagram.ProductPartsDiagram.ModelName,
+      value: diagram.ProductPartsDiagram.id
     })));
   }, [diagrams]);
 
@@ -32,8 +32,8 @@ const SparePartsEditor = ({
     const controller = [{            
       list: parsed_diagrams_list,
       onChange: (selected) => {
-          const diagram = diagrams.find(diagram => diagram.id === selected.value);
-          setSelectedDiagram(diagram.id);
+          const diagram = diagrams.find(diagram => diagram.ProductPartsDiagram.id === selected.value);
+          setSelectedDiagram(diagram.ProductPartsDiagram.id);
       }
   }];
 
@@ -131,7 +131,7 @@ const SparePartsEditor = ({
   return (<>
     <div className='flex flex-col justify-center items-center'>
       <div>
-        { form_controller.length && <FormConnector 
+        { form_controller.length !== 0 && <FormConnector 
         inputs={SparePartsForms.add_part} 
         controller={form_controller}
         className='flex flex-row flex-wrap w-2/4 mx-auto gap-2 justify-center mb-4'

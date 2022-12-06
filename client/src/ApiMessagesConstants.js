@@ -114,6 +114,9 @@ const ApiMessagesConstants = {
             }
         },
         diagram: {
+            getDiagrams: {
+                failed: "לא ניתן לקבל את כל הדיאגרמות נסה שוב מאוחר יותר"
+            },
             addDiagram: {
                 successful: "דיאגרמה נוספה בהצלחה",
                 failed: "לא ניתן להוסיף דיאגרמה"
