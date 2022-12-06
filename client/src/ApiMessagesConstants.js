@@ -4,6 +4,9 @@ const ApiMessagesConstants = {
     rent: {
         failed: "לא ניתן לקסל את כלי ההשכרה נסה שוב מאוחר יותר"
     },
+    sale: {
+        failed: "לא ניתן לקסל את כלי מכירה נסה שוב מאוחר יותר"
+    },
     contact: {
         successful: "טופס צור קשר נשלח בהצלחה",
         failed: "לא הצלחנו לשלוח טופס צור קשר"
