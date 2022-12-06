@@ -1,5 +1,7 @@
+import ApiMessagesConstants from "../../../ApiMessagesConstants";
 import SendApiRequest from "../../../services/ApiService";
 import ACTIONS from "../actionConstants/rent/rentActionConstants";
+import { DispatchError } from "../ApiHandlerActions";
 
 const GetRent = (categories) => ({
     type: ACTIONS.GET_RENT,
@@ -12,7 +14,7 @@ export const GetRentOnlyAvailableAction = () => {
             const categories = await SendApiRequest(`/rent?available=true`);
             dispatch(GetRent(categories));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.rent.failed);
         }
     }
 };
@@ -23,7 +25,7 @@ export const GetRentAction = () => {
             const categories = await SendApiRequest(`/rent`);
             dispatch(GetRent(categories));
         } catch (err) {
-
+            DispatchError(dispatch, err, ApiMessagesConstants.rent.failed);
         }
     }
 };
