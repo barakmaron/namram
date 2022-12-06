@@ -1,4 +1,4 @@
-import { CategoriesModel, ProductPropsModel, ProductsImagesModel, ProductsModel, SaleProductsModel, ProductPartsDiagramModel, SparePartsModel } from "../../db/models/index.js";
+import { CategoriesModel, ProductPropsModel, ProductDiagramsListModel, ProductsImagesModel, ProductsModel, SaleProductsModel, ProductPartsDiagramModel, SparePartsModel } from "../../db/models/index.js";
 
 async function GetAllWithNested() {
     return await CategoriesModel.findAll({
@@ -10,8 +10,11 @@ async function GetAllWithNested() {
             include: {
                 model: ProductsModel,
                 include: [ProductPropsModel, ProductsImagesModel, {
-                    model: ProductPartsDiagramModel,
-                    include: SparePartsModel
+                    model: ProductDiagramsListModel,
+                    include: {
+                        model: ProductPartsDiagramModel,
+                        include: SparePartsModel
+                    }
                 }]
             }
         }]

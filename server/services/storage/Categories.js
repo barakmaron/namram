@@ -73,7 +73,7 @@ async function GetOnlyCategoryById(id) {
 }
 
 async function AddCategory(name, image, product_type) {
-    const type_condition = product_type.includes(Constants.PRODUCT_TYPE.SALE);
+    const type_condition = product_type.includes(Constants.PRODUCT_TYPE.SALE.toLocaleLowerCase());
     const type_enum = DbConstants.GetCategoryTypeEnum();
     const category = await CategoriesModel.create({
         Name: name,

@@ -12,6 +12,10 @@ router.post('/',
     validate(checkSchema(ProductsDiagramSchemas.AddDiagram)),
     ProductsController.Diagrams.AddDiagram);
 
+router.post('/:id', 
+    validate(checkSchema(ProductsDiagramSchemas.AddDiagramFromList)),
+    ProductsController.Diagrams.AddDiagramFromList);
+
 router.delete('/:id', 
     validate(checkSchema(ProductsDiagramSchemas.DeleteDiagram)),
     ProductsController.Diagrams.DeleteDiagram);
@@ -19,5 +23,8 @@ router.delete('/:id',
 router.patch('/:id', 
     validate(checkSchema(ProductsDiagramSchemas.PatchDiagram)),
     ProductsController.Diagrams.PatchDiagram);
+
+router.get('/', 
+    ProductsController.Diagrams.GetDiagrams);
 
 export default router;
