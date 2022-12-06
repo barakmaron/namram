@@ -8,10 +8,13 @@ function AddDiagram(state, payload, product_type) {
     const parsed_diagram_form = Object.fromEntries(diagram_form);
     const diagram = {
         id: "temp-diagram",
-        ModelName: parsed_diagram_form.model_name,
-        Image: temp_image_url[0]
+        ProductPartsDiagram: {
+            id: "temp-diagram",
+            ModelName: parsed_diagram_form.model_name,
+            Image: temp_image_url[0]
+        }
     };
-    product.Product.ProductPartsDiagrams = [ ...product.Product?.ProductPartsDiagrams, diagram ];
+    product.Product.ProductDiagramsLists = [ ...product.Product?.ProductDiagramsLists, diagram ];
     category[product_type] = [ ...filtered_products, product ];
     return { 
         ...state, 
@@ -23,8 +26,8 @@ function UpdateDiagram(state, payload, product_type) {
     const { product_id, category_id, diagram } = payload;
     const { object: category, filtered_array: filtered_categories } = reducerUtilities.destructorArray(state.categories, category_id);
     const { object: product, filtered_array: filtered_products } = reducerUtilities.destructorArray(category[product_type], product_id, "ProductId");
-    const { filtered_array: filtered_diagrams } = reducerUtilities.destructorArray(product.Product.ProductPartsDiagrams, "temp-diagram");
-    product.Product.ProductPartsDiagrams = diagram.id ? [ ...filtered_diagrams, diagram ] : [ ...filtered_diagrams ];
+    const { filtered_array: filtered_diagrams } = reducerUtilities.destructorArray(product.Product.ProductDiagramsLists, "temp-diagram");
+    product.Product.ProductDiagramsLists = diagram.id ? [ ...filtered_diagrams, diagram ] : [ ...filtered_diagrams ];
     category[product_type] = [ ...filtered_products, product ];
     return { 
         ...state, 
@@ -36,9 +39,9 @@ function PatchDiagram(state, payload, product_type) {
     const { product_id, category_id, diagram_id, value } = payload;
     const { object: category, filtered_array: filtered_categories } = reducerUtilities.destructorArray(state.categories, category_id);
     const { object: product, filtered_array: filtered_products } = reducerUtilities.destructorArray(category[product_type], product_id, "ProductId");
-    const { object: diagram, filtered_array: filtered_diagrams } = reducerUtilities.destructorArray(product.Product.ProductPartsDiagrams, diagram_id);
-    diagram.ModelName = value;
-    product.Product.ProductPartsDiagrams = [ ...filtered_diagrams, diagram ];
+    const { object: diagram, filtered_array: filtered_diagrams } = reducerUtilities.destructorArray(product.Product.ProductDiagramsLists, diagram_id, "ProductPartsDiagramId");
+    diagram.ProductPartsDiagram.ModelName = value;
+    product.Product.ProductDiagramsLists = [ ...filtered_diagrams, diagram ];
     category[product_type] = [ ...filtered_products, product ];
     return { 
         ...state, 
@@ -50,8 +53,8 @@ function DeleteDiagram(state, payload, product_type) {
     const { product_id, category_id, diagram_id } = payload;
     const { object: category, filtered_array: filtered_categories } = reducerUtilities.destructorArray(state.categories, category_id);
     const { object: product, filtered_array: filtered_products } = reducerUtilities.destructorArray(category[product_type], product_id, "ProductId");
-    const { filtered_array: filtered_diagrams } = reducerUtilities.destructorArray(product.Product.ProductPartsDiagrams, diagram_id);
-    product.Product.ProductPartsDiagrams = [ ...filtered_diagrams ];
+    const { filtered_array: filtered_diagrams } = reducerUtilities.destructorArray(product.Product.ProductDiagramsLists, diagram_id, "ProductPartsDiagramId");
+    product.Product.ProductDiagramsLists = [ ...filtered_diagrams ];
     category[product_type] = [ ...filtered_products, product ];
     return { 
         ...state, 

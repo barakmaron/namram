@@ -53,9 +53,9 @@ const DiagramEditor = ({
         const row_parsed = diagrams?.map((diagram) => {
             if(diagram.id){
                 return {
-                    id: diagram.id,
-                    ModelName: diagram.ModelName,
-                    Image: diagram.Image
+                    id: diagram.ProductPartsDiagram.id,
+                    ModelName: diagram.ProductPartsDiagram.ModelName,
+                    Image: diagram.ProductPartsDiagram.Image
                 };
             }
         }) || [];
