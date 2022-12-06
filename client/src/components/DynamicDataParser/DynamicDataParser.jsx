@@ -38,12 +38,13 @@ const DynamicDataParser = ({
     useEffect(() => {
         if(page_route.includes('/category') && categories.length) { 
             const category = categories.find(category => category.id === category_id);
-            setDataToShow(category[Constants.PRODUCT_TYPE[category.Type]]?.map(product => ({
+            const temp_data = category?.[Constants.PRODUCT_TYPE[category.Type]]?.map(product => ({
                 id: product.id,
                 name: product.Product.Name,
                 Image: product.Product.ProductsImages[0].Image,
                 base_url: `/category/${category.id}/product`
-            }) || []));
+            }));
+            setDataToShow(temp_data || []);
         } else if(!page_route.includes(Constants.API_PRODUCT_TYPE.RENT) && static_page_data.length && categories.length) {
             const filtered_data = static_page_data.flatMap(page_data => {
                 const category = categories.find(category => category.id === page_data.CategoryId);
