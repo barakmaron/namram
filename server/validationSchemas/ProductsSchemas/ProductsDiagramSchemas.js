@@ -50,6 +50,27 @@ const DeleteDiagram = {
     }
 }
 
+const DeleteDiagramFromProduct = {
+    diagram_id: {
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
+        in: ["params"]
+    },
+    product_id: {
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
+        in: ["params"]
+    },
+}
+
 const PatchDiagram = {
     id: {
         isLength: {
@@ -74,6 +95,7 @@ const ProductsDiagramSchemas = {
     AddDiagram,
     AddDiagramFromList,
     DeleteDiagram,
+    DeleteDiagramFromProduct,
     PatchDiagram
 };
 

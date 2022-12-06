@@ -39,6 +39,15 @@ async function DeleteDiagram(id) {
     return await Promise.all([ parts, diagram, lists ]);
 }
 
+async function DeleteDiagramFromProduct(diagram_id, product_id) {
+    return await ProductDiagramsListModel.destroy({
+        where: {
+            ProductId: product_id,
+            ProductPartsDiagramId: diagram_id
+        }
+    });
+}
+
 async function PatchDiagramName(id, value) {
     return await ProductPartsDiagramModel.update({
         ModelName: value
@@ -69,6 +78,7 @@ const DiagramsDB = {
     AddDiagram,
     AddDiagramFromList,
     DeleteDiagram,
+    DeleteDiagramFromProduct,
     PatchDiagramName,
     GetById,
     GetDiagrams

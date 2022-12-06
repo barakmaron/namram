@@ -93,6 +93,18 @@ export const DeleteDiagramAction = (product_id, category_id, diagram_id, product
     };
 };
 
+export const DeleteDiagramFromProductAction = (product_id, category_id, diagram_id, product_type) => {
+    return async (dispatch) => {
+        try {
+            dispatch(DeleteDiagram(product_id, category_id, diagram_id, product_type));
+            await SendApiRequest(`/products/diagrams/${diagram_id}/${product_id}`, Constants.API_METHODS.DELETE);
+            dispatch(Successful(ApiMessagesConstants.product.diagram.deleteDiagramFromProduct.successful));
+        } catch (err) {
+            DispatchError(dispatch, err, ApiMessagesConstants.product.diagram.deleteDiagramFromProduct.failed);
+        }
+    };
+};
+
 export const PatchDiagramAction = (diagram_id, value, product_id, category_id, product_type) => {
     return async (dispatch) => {
         try {
