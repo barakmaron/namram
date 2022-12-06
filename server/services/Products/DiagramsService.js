@@ -17,6 +17,10 @@ async function DeleteDiagram(id) {
     return [await Promise.all([ProductsDB.Diagrams.DeleteDiagram(id), delete_image])];
 }
 
+async function DeleteDiagramFromProduct(diagram_id, product_id) {
+    return await ProductsDB.Diagrams.DeleteDiagramFromProduct(diagram_id, product_id);
+}
+
 async function PatchDiagram(id, value) {
     return await ProductsDB.Diagrams.PatchDiagramName(id, value);
 }
@@ -29,6 +33,7 @@ const DiagramsService = {
     AddDiagram,
     AddDiagramFromList,
     DeleteDiagram,
+    DeleteDiagramFromProduct,
     PatchDiagram,
     GetDiagrams
 };

@@ -32,6 +32,16 @@ async function DeleteDiagram(req, res, next) {
     }
 }
 
+async function DeleteDiagramFromProduct(req, res, next) {
+    try {
+        const { diagram_id, product_id } = req.params;
+        await ProductsService.Diagrams.DeleteDiagramFromProduct(diagram_id, product_id);
+        return res.status(StatusCode.SuccessOK).json();
+    } catch (err) {
+        next(err);
+    }
+}
+
 
 async function PatchDiagram(req, res, next) {
     try {
@@ -57,6 +67,7 @@ const DiagramsController = {
     AddDiagram,
     AddDiagramFromList,
     DeleteDiagram,
+    DeleteDiagramFromProduct,
     PatchDiagram,
     GetDiagrams
 };

@@ -16,6 +16,7 @@ const DiagramEditor = ({
     AddDiagramAction,
     AddDiagramFromListAction,
     DeleteDiagramAction,
+    DeleteDiagramFromProductAction,
     PatchDiagramAction,
     GetDiagramsAction,
     product_type
@@ -38,7 +39,7 @@ const DiagramEditor = ({
         flex: 1,
         type: "actions",
         renderCell: (params) => {
-            return <>
+            return < div className='flex gap-2'>
                 <Button 
                 onClick={() => {
                     window.open(GetImageUrl(params.row.Image));
@@ -46,10 +47,15 @@ const DiagramEditor = ({
                 variant="outlined">הצג</Button>
                 <Button      
                 onClick={() => {
+                    remove_diagram_form_product(params.id);
+                }}       
+                variant="outlined">הסר ממוצר זה</Button>
+                <Button      
+                onClick={() => {
                     delete_diagram(params.id);
                 }}       
                 variant="outlined">מחק</Button>
-            </>;
+            </div>;
         }
     }];
 
@@ -98,6 +104,10 @@ const DiagramEditor = ({
     const delete_diagram = useCallback((diagram_id) => {
         DeleteDiagramAction(product_id, category_id, diagram_id, product_type);
     }, [category_id, product_id, DeleteDiagramAction, product_type]);
+
+    const remove_diagram_form_product = useCallback((diagram_id) => {
+        DeleteDiagramFromProductAction(product_id, category_id, diagram_id, product_type);
+    },  [category_id, product_id, DeleteDiagramFromProductAction, product_type]);
 
     const edit_cell = useCallback((params) => {
         PatchDiagramAction(params.id, params.value, product_id, category_id, product_type);

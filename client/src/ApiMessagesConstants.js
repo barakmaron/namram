@@ -128,6 +128,10 @@ const ApiMessagesConstants = {
             patchDiagram: {
                 successful: "דיאגרה נערכה בהצלחה",
                 failed: "לא ניתן לערוך דיאגרמה"
+            },
+            deleteDiagramFromProduct: {
+                successful: "דיאגרמה הוסרה ממוצר בהצלחה",
+                failed: "לא ניתן להסיר דיאגרמה ממוצר"
             }
         },
         sparePart: {
