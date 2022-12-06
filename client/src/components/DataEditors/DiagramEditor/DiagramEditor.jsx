@@ -10,14 +10,20 @@ import DiagramForms from './FormsConstants';
 
 const DiagramEditor = ({
     diagrams,
+    product_diagrams,
     product_id,
     category_id,
     AddDiagramAction,
+    AddDiagramFromListAction,
     DeleteDiagramAction,
     PatchDiagramAction,
+    GetDiagramsAction,
     product_type
 }) => {
-    
+    const [rows, setRows] = useState([]);
+    const [selected_diagram, setSelectedDiagram] = useState({});
+    const [form_controller, setFormController] = useState([]);
+
     const columns = [{ 
         field: 'id', 
         headerName: 'ID'
@@ -47,26 +53,47 @@ const DiagramEditor = ({
         }
     }];
 
-    const [rows, setRows] = useState([]);
+    useEffect(() => {
+        GetDiagramsAction();
+    }, [GetDiagramsAction]);
 
     useEffect(() => {
-        const row_parsed = diagrams?.map((diagram) => {
+        const temp_controller = [{
+            list: diagrams.map(diagram => ({
+                label: diagram.ModelName,
+                value: diagram.id
+            })),
+            onChange: (selected) => {
+                setSelectedDiagram(selected);
+            }
+        }];
+        setFormController(temp_controller);
+    }, [diagrams]);
+
+    useEffect(() => {
+        const row_parsed = product_diagrams?.map((diagram) => {
             if(diagram.id){
                 return {
-                    id: diagram.id,
-                    ModelName: diagram.ModelName,
-                    Image: diagram.Image
+                    id: diagram.ProductPartsDiagram.id,
+                    ModelName: diagram.ProductPartsDiagram.ModelName,
+                    Image: diagram.ProductPartsDiagram.Image
                 };
             }
         }) || [];
         const filter_add_only_redux = row_parsed.filter(row => row !== undefined);
         setRows(filter_add_only_redux);
-    }, [diagrams]);
+    }, [product_diagrams]);
 
     const add_diagram = useCallback((event, diagram, temp_image_url) => {
         event.preventDefault();
         AddDiagramAction(product_id, category_id, diagram, temp_image_url, product_type);
     }, [product_id, category_id, AddDiagramAction, product_type]);
+
+    const add_diagram_from_list = useCallback((event) => {
+        event.preventDefault();
+        const diagram = diagrams.find(diagram => diagram.id === selected_diagram.value);
+        AddDiagramFromListAction(product_id, category_id, diagram, product_type);
+    }, [product_id, category_id, product_type, selected_diagram, diagrams, AddDiagramFromListAction]);
 
     const delete_diagram = useCallback((diagram_id) => {
         DeleteDiagramAction(product_id, category_id, diagram_id, product_type);
@@ -78,10 +105,20 @@ const DiagramEditor = ({
 
   return (<>  
   <div className="w-[50vw] h-screen mt-5 flex flex-col">
-    <div className='w-96 mx-auto'>
-        <FormConnector 
-        inputs={DiagramForms.add_diagram}  
-        action={add_diagram} />
+    <div className='flex gap-4 justify-center'>
+        <fieldset className='border-2 border-forest-green-500 px-4 py-4 w-fit'>
+            <legend className='text-forest-900 px-4 text-2xl'>הוסף דיאגרמה חדשה</legend>
+            <FormConnector 
+            inputs={DiagramForms.add_diagram}  
+            action={add_diagram} />
+        </fieldset>
+        <fieldset className='border-2 border-forest-green-500 px-4 py-4 w-fit'>
+            <legend className='text-forest-900 px-4 text-2xl'>חבר דיאגרמה</legend>
+            { form_controller.length !== 0 && <FormConnector 
+            controller={form_controller}
+            inputs={DiagramForms.connect_diagram}  
+            action={add_diagram_from_list} />}
+        </fieldset>
     </div>
     <DataGrid
     rows={rows}

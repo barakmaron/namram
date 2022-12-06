@@ -11,6 +11,17 @@ async function AddDiagram(req, res, next) {
     }
 }
 
+async function AddDiagramFromList(req, res, next) {
+    try {
+        const { id } = req.params;
+        const { product_id } = req.body;
+        const diagram = await ProductsService.Diagrams.AddDiagramFromList(id, product_id);
+        return res.status(StatusCode.SuccessOK).json(diagram);
+    } catch (err) {
+        next(err);
+    }
+}
+
 async function DeleteDiagram(req, res, next) {
     try {
         const { id } = req.params;
@@ -33,12 +44,21 @@ async function PatchDiagram(req, res, next) {
     }
 }
 
-
+async function GetDiagrams(req, res, next) {
+    try {
+        const diagrams = await ProductsService.Diagrams.GetDiagrams();
+        return res.status(StatusCode.SuccessOK).json(diagrams);
+    } catch (err) {
+        next(err);
+    }
+}
 
 const DiagramsController = {
     AddDiagram,
+    AddDiagramFromList,
     DeleteDiagram,
-    PatchDiagram
+    PatchDiagram,
+    GetDiagrams
 };
 
 export default DiagramsController;
