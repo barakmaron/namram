@@ -1,7 +1,7 @@
 import { Op } from "sequelize";
 import Constants from "../../Constants.js";
 import DbConstants from "../../db/DbConstants.js";
-import { RentalProductsModel, SaleProductsModel, ProductPropsModel, ProductsModel, ProductsImagesModel, CategoriesModel, ProductPartsDiagramModel, SparePartsModel, RentalAgreementListModel, RentalAgreementModel, ServiceReportsModel, PartsChangedModel } from "../../db/models/index.js";
+import { RentalProductsModel, SaleProductsModel, ProductPropsModel, ProductsModel, ProductsImagesModel, CategoriesModel, ProductPartsDiagramModel, SparePartsModel, RentalAgreementListModel, RentalAgreementModel, ServiceReportsModel, PartsChangedModel, ProductDiagramsListModel } from "../../db/models/index.js";
 
 async function GetCategoryById(id) {
     const category = await CategoriesModel.findOne({
@@ -35,8 +35,11 @@ async function GetRentCategory(id) {
             include: [{
                 model: ProductsModel,
                 include: [ProductPropsModel, ProductsImagesModel, {
-                    model: ProductPartsDiagramModel,
-                    include: SparePartsModel
+                    model: ProductDiagramsListModel,
+                    include: {
+                        model: ProductPartsDiagramModel,
+                        include: SparePartsModel
+                    }
                 }]
             }, {
                 model: RentalAgreementListModel,

@@ -47,15 +47,15 @@ app.get('*', function(req, res) {
   res.sendFile('index.html', {root: path.join(__dirname, '../client/build/')});
 });
 
-app.use(ErrorHandler);
-process.on('unhandledRejection', (reason, promise) => {
-  console.log('Uncaught Rejection', reason.message);
-  throw reason;
-});
+// app.use(ErrorHandler);
+// process.on('unhandledRejection', (reason, promise) => {
+//   console.log('Uncaught Rejection', reason.message);
+//   throw reason;
+// });
 
-process.on('uncaughtException', (error) => {
-  console.log("Uncaught Exception", error.message);
-  process.exit(1);
-});
+// process.on('uncaughtException', (error) => {
+//   console.log("Uncaught Exception", error.message);
+//   process.exit(1);
+// });
 
 export default app;
