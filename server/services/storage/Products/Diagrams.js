@@ -1,11 +1,15 @@
-import { ProductPartsDiagramModel, SparePartsModel } from "../../../db/models/index.js";
+import { ProductDiagramsListModel, ProductPartsDiagramModel, SparePartsModel } from "../../../db/models/index.js";
 
 async function AddDiagram(product_id, model_name, image) {
-    return await ProductPartsDiagramModel.create({
+    const diagram = await ProductPartsDiagramModel.create({
         ModelName: model_name,
-        Image: image,
+        Image: image
+    });
+    const diagram_list_item = await ProductDiagramsListModel.create({
+        ProductPartsDiagramId: diagram.id,
         ProductId: product_id
     });
+    return await GetById(diagram.id);
 }
 
 async function DeleteDiagram(id) {
@@ -19,7 +23,12 @@ async function DeleteDiagram(id) {
             id: id
         }
     });
-    return await Promise.all([ parts, diagram ]);
+    const lists = ProductDiagramsListModel.destroy({
+        where: {
+            ProductPartsDiagramId: id
+        }
+    })
+    return await Promise.all([ parts, diagram, lists ]);
 }
 
 async function PatchDiagramName(id, value) {
@@ -33,11 +42,14 @@ async function PatchDiagramName(id, value) {
 }
 
 async function GetById(id) {
-    return await ProductPartsDiagramModel.findOne({
-        where: {
-            id: id
-        },
-        include: SparePartsModel
+    return await ProductDiagramsListModel.findOne({        
+        include: {
+            model: ProductPartsDiagramModel,
+            include: SparePartsModel,
+            where: {
+                id: id
+            },
+        }
     });
 }
 

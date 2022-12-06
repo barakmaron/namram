@@ -228,7 +228,7 @@ const ProductsTable = ({
     </Modal>}
     {edit_diagram && <Modal setClose={() => setEditDiagram(false)}>
         <DiagramEditorConnector 
-        diagrams={selected_product.Product.ProductPartsDiagrams}
+        diagrams={selected_product.Product.ProductDiagramsLists}
         category_id={selected_product.CategoryId}
         product_id={selected_product.Product.id}
         product_type={type}/>
@@ -236,7 +236,7 @@ const ProductsTable = ({
     {edit_spare_parts && <Modal setClose={() => setSpareParts(false)}>
         <SparePartsEditorConnector 
         parts={selected_product_parts}
-        diagrams={selected_product.Product.ProductPartsDiagrams}
+        diagrams={selected_product.Product.ProductDiagramsLists}
         category_id={selected_product.CategoryId}
         product_id={selected_product.Product.id}
         product_type={type}/>

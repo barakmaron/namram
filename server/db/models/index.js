@@ -3,6 +3,7 @@ import Products from './Products.js';
 import ProductsImages from './ProductsImages.js';
 import ProductProps from './ProductProps.js';
 import ProductPartsDiagram from './ProductPartsDiagram.js';
+import ProductDiagramsList from './ProductDiagramsList.js';
 import SpareParts from './SpareParts.js';
 import Users from './Users.js';
 import Blogs from './Blogs.js';
@@ -36,6 +37,7 @@ export const SaleProductsModel = SaleProducts(sequelize, Sequelize.DataTypes);
 export const ProductsImagesModel = ProductsImages(sequelize, Sequelize.DataTypes);
 export const ProductPropsModel = ProductProps(sequelize, Sequelize.DataTypes);
 export const ProductPartsDiagramModel = ProductPartsDiagram(sequelize, Sequelize.DataTypes);
+export const ProductDiagramsListModel = ProductDiagramsList(sequelize, Sequelize.DataTypes);
 export const SparePartsModel = SpareParts(sequelize, Sequelize.DataTypes);
 export const ServiceReportsModel = ServiceReports(sequelize, Sequelize.DataTypes);
 export const PartsChangedModel = PartsChanged(sequelize, Sequelize.DataTypes);
@@ -73,8 +75,10 @@ ProductsImagesModel.belongsTo(ProductsModel, relational_options);
 ProductsModel.hasMany(ProductPropsModel, relational_options);
 ProductPropsModel.belongsTo(ProductsModel, relational_options);
 
-ProductsModel.hasMany(ProductPartsDiagramModel, relational_options);
-ProductPartsDiagramModel.belongsTo(ProductsModel, relational_options);
+ProductsModel.hasMany(ProductDiagramsListModel, relational_options);
+ProductPartsDiagramModel.hasMany(ProductDiagramsListModel, relational_options);
+ProductDiagramsListModel.belongsTo(ProductPartsDiagramModel, relational_options);
+ProductDiagramsListModel.belongsTo(ProductsModel, relational_options);
 
 ProductPartsDiagramModel.hasMany(SparePartsModel, relational_options);
 SparePartsModel.belongsTo(ProductPartsDiagramModel, relational_options);

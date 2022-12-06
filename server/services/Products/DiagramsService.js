@@ -4,12 +4,12 @@ import ImageService from '../ImageService.js';
 async function AddDiagram(product_id, model_name, file) {
     const image = await ImageService.ResizeAndStoreImage(file.path, file.filename);
     const diagram = await ProductsDB.Diagrams.AddDiagram(product_id, model_name, image);
-    return await ProductsDB.Diagrams.GetById(diagram.id);
+    return await ProductsDB.Diagrams.GetById(diagram.ProductPartsDiagramId);
 }
 
 async function DeleteDiagram(id) {
     const diagram = await ProductsDB.Diagrams.GetById(id);
-    const delete_image = ImageService.DeleteStoredImages(diagram.Image);
+    const delete_image = ImageService.DeleteStoredImages(diagram.ProductPartsDiagram.Image);
     return [await Promise.all([ProductsDB.Diagrams.DeleteDiagram(id), delete_image])];
 }
 
