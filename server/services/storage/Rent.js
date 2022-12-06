@@ -1,5 +1,5 @@
 import { Op } from "sequelize";
-import { CategoriesModel, ProductPropsModel, ProductsImagesModel, ProductsModel, RentalProductsModel, ProductPartsDiagramModel, SparePartsModel, RentalAgreementListModel, RentalAgreementModel, ServiceReportsModel, PartsChangedModel } from "../../db/models/index.js";
+import { CategoriesModel, ProductPropsModel, ProductsImagesModel, ProductsModel, RentalProductsModel, ProductPartsDiagramModel, SparePartsModel, RentalAgreementListModel, RentalAgreementModel, ServiceReportsModel, PartsChangedModel, ProductDiagramsListModel } from "../../db/models/index.js";
 
 async function GetAllCategoriesNested() {
     return await CategoriesModel.findAll({
@@ -11,8 +11,11 @@ async function GetAllCategoriesNested() {
             include: {
                 model: ProductsModel,
                 include: [ProductPropsModel, ProductsImagesModel, {
-                    model: ProductPartsDiagramModel,
-                    include: SparePartsModel
+                    model: ProductDiagramsListModel,
+                    include: {
+                        model: ProductPartsDiagramModel,
+                        include: SparePartsModel
+                    }
                 }]
             }
         }]
@@ -27,8 +30,11 @@ async function GetRentalProduct(id) {
         include: [{
             model: ProductsModel,
             include: [ProductPropsModel, ProductsImagesModel, {
-                model: ProductPartsDiagramModel,
-                include: SparePartsModel
+                model: ProductDiagramsListModel,
+                include: {
+                    model: ProductPartsDiagramModel,
+                    include: SparePartsModel
+                }
             }]
         }, {
             model: RentalAgreementListModel,
