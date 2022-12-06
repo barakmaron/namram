@@ -8,6 +8,7 @@ import DynamicDataParserConnector from './components/DynamicDataParser/DynamicDa
 import Helmet from 'react-helmet';
 import ApiMessageDisplayConnector from './components/ApiMessageDisplay/ApiMessageDisplayConnector';
 import AppRoutes from './AppRoutes';
+import GoogleAnalytics from './components/GoogleAnalytics/GoogleAnalytics';
 
 function App({ 
   logged_in,
@@ -29,6 +30,7 @@ function App({
   }, [AuthUserAction, logged_in]);
   
   return <div className={`${logged_in ? `flex flex-row` : ``}`}  dir={logged_in ? 'rtl': 'ltr'}>
+    <GoogleAnalytics></GoogleAnalytics>
     <header>
       { !logged_in ? 
       <Navbar routes={routes} {...Constants.contact_nav} />:
