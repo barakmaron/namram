@@ -12,8 +12,6 @@ import { validate } from '../../middleware/ValidationErrorMiddleware.js';
 
 const router = express.Router();
 
-router.get('/:id', ProductsController.GetProduct);
-
 router.post('/', 
     AuthenticateToken, 
     makeMulterUploadMiddleware(UploadImageMiddleware.array('Image', 20)), 
@@ -35,5 +33,6 @@ router.use('/images', AuthenticateToken, ImagesRouter);
 router.use('/diagrams', AuthenticateToken, DiagramRouter);
 router.use('/spare_parts', AuthenticateToken, SparePartsRouter);
 
+router.get('/:id', ProductsController.GetProduct);
 
 export default router;

@@ -13,7 +13,8 @@ import RentActionsConstants from '../actions/actionConstants/rent/rentActionCons
 import RentReducerFunctions from "./RentReducerFunctions/Rent";
 
 const initState = {
-    categories: []
+    categories: [],
+    diagrams: []
 };
 
 const reducer = (state = initState, action) => {
@@ -53,6 +54,7 @@ const reducer = (state = initState, action) => {
                 const type_condition = reducerUtilities.type_condition(payload.product_type, PRODUCT_TYPE.SaleProducts);
                 return ProductImagesFunctions[type](state, payload, type_condition ? PRODUCT_TYPE.SaleProducts : PRODUCT_TYPE.RentProducts);
             }
+            case ProductsActionsConstants.DIAGRAM_ACTIONS.GET_DIAGRAMS:
             case ProductsActionsConstants.DIAGRAM_ACTIONS.ADD_DIAGRAM:
             case ProductsActionsConstants.DIAGRAM_ACTIONS.UPDATE_DIAGRAM:
             case ProductsActionsConstants.DIAGRAM_ACTIONS.PATCH_DIAGRAM:

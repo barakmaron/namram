@@ -215,6 +215,6 @@ export default function Form({
         <div>
             <Button variant="contained" id="submit" type="submit" onClick={submit_action}>Submit</Button>
         </div>
-        { failed && errors.length && <div className='bg-red-400 text-white border-red-500 py-2 px-4 text-lg rounded-xl'>{message}</div>}
+        { failed && <div className='bg-red-400 text-white border-red-500 py-2 px-4 text-lg rounded-xl'>{message}</div>}
     </form>
 }

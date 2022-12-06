@@ -1,17 +1,24 @@
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import DiagramEditor from "./DiagramEditor";
-import { AddDiagramAction, DeleteDiagramAction, PatchDiagramAction } from "../../../redux/actions/ProductsActions/diagramActions";
+import { AddDiagramAction, AddDiagramFromListAction, DeleteDiagramAction, PatchDiagramAction, GetDiagramsAction } from "../../../redux/actions/ProductsActions/diagramActions";
+import { getDiagrams } from "../../../redux/selectors/categoriesSelector";
 
 const maStateToProps = (state, ownProps) => {
-    return { ...ownProps };
+    const diagrams = getDiagrams(state);
+    return { 
+        ...ownProps,
+        diagrams
+    };
 };
 
 const mapActionToProps = (dispatch) => {
     return bindActionCreators({
         AddDiagramAction,
+        AddDiagramFromListAction,
         DeleteDiagramAction,
-        PatchDiagramAction
+        PatchDiagramAction,
+        GetDiagramsAction
     }, dispatch);
 };
 
