@@ -17,11 +17,11 @@ const DynamicDataParser = ({
 
     const [data_to_show, setDataToShow] = useState([]);
     const url_query = useParams();
-    const category_id = url_query.id;
+    const category_id = url_query.id || url_query.category_id;
 
 
     useEffect(() => {
-        if(page_route.includes('/category')) {
+        if(page_route.includes('/category') && category_id !== undefined) {
             GetCategoryAction(category_id);            
         } else if(page_route.includes(Constants.API_PRODUCT_TYPE.RENT))
             GetRentAction();
