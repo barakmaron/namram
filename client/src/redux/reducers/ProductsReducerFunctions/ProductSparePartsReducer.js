@@ -5,13 +5,13 @@ function AddPart(state, payload, product_type) {
     const { product_id, category_id, diagram_id, part_from } = payload;
     const { object: category, filtered_array: filtered_categories } = reducerUtilities.destructorArray(state.categories, category_id);
     const { object: product, filtered_array: filtered_products } = reducerUtilities.destructorArray(category[product_type], product_id, "ProductId");
-    const { object: diagram, filtered_array: filtered_diagrams } = reducerUtilities.destructorArray(product.Product.ProductPartsDiagrams, diagram_id);
+    const { object: diagram, filtered_array: filtered_diagrams } = reducerUtilities.destructorArray(product.Product.ProductDiagramsLists, diagram_id, "ProductPartsDiagramId");
     const new_part = {
         id: 'temp-part',
         ...part_from
     };
-    diagram.SpareParts = [ ...diagram?.SpareParts, new_part ];
-    product.Product.ProductPartsDiagrams = [ ...filtered_diagrams, diagram ];
+    diagram.ProductPartsDiagram.SpareParts = [ ...diagram?.ProductPartsDiagram?.SpareParts, new_part ];
+    product.Product.ProductDiagramsLists = [ ...filtered_diagrams, diagram ];
     category[product_type] = [ ...filtered_products, product ];
     return { 
         ...state, 
@@ -23,10 +23,10 @@ function UpdatePart(state, payload, product_type) {
     const { product_id, category_id, diagram_id, new_part } = payload;
     const { object: category, filtered_array: filtered_categories } = reducerUtilities.destructorArray(state.categories, category_id);
     const { object: product, filtered_array: filtered_products } = reducerUtilities.destructorArray(category[product_type], product_id, "ProductId");
-    const { object: diagram, filtered_array: filtered_diagrams } = reducerUtilities.destructorArray(product.Product.ProductPartsDiagrams, diagram_id);
-    const { filtered_array: filtered_spare_parts } = reducerUtilities.destructorArray(diagram.SpareParts, "temp-part");
-    diagram.SpareParts = new_part?.id ? [ ...filtered_spare_parts , new_part ] : [ ...filtered_spare_parts ];
-    product.Product.ProductPartsDiagrams = [ ...filtered_diagrams, diagram ];
+    const { object: diagram, filtered_array: filtered_diagrams } = reducerUtilities.destructorArray(product.Product.ProductDiagramsLists, diagram_id, "ProductPartsDiagramId");
+    const { filtered_array: filtered_spare_parts } = reducerUtilities.destructorArray(diagram?.ProductPartsDiagram?.SpareParts, "temp-part");
+    diagram.ProductPartsDiagram.SpareParts = new_part?.id ? [ ...filtered_spare_parts , new_part ] : [ ...filtered_spare_parts ];
+    product.Product.ProductDiagramsLists = [ ...filtered_diagrams, diagram ];
     category[product_type] = [ ...filtered_products, product ];
     return { 
         ...state, 
@@ -38,11 +38,11 @@ function PatchPart(state, payload, product_type) {
     const { product_id, category_id, diagram_id, part_id, field_name, value } = payload;
     const { object: category, filtered_array: filtered_categories } = reducerUtilities.destructorArray(state.categories, category_id);
     const { object: product, filtered_array: filtered_products } = reducerUtilities.destructorArray(category[product_type], product_id, "ProductId");
-    const { object: diagram, filtered_array: filtered_diagrams } = reducerUtilities.destructorArray(product.Product.ProductPartsDiagrams, diagram_id);
-    const { object: part, filtered_array: filtered_spare_parts } = reducerUtilities.destructorArray(diagram.SpareParts, part_id);
+    const { object: diagram, filtered_array: filtered_diagrams } = reducerUtilities.destructorArray(product.Product.ProductDiagramsLists, diagram_id, "ProductPartsDiagramId");
+    const { object: part, filtered_array: filtered_spare_parts } = reducerUtilities.destructorArray(diagram?.ProductPartsDiagram?.SpareParts, part_id);
     part[field_name] = value;
-    diagram.SpareParts = [ ...filtered_spare_parts , part ];
-    product.Product.ProductPartsDiagrams = [ ...filtered_diagrams, diagram ];
+    diagram.ProductPartsDiagram.SpareParts = [ ...filtered_spare_parts , part ];
+    product.Product.ProductDiagramsLists = [ ...filtered_diagrams, diagram ];
     category[product_type] = [ ...filtered_products, product ];
     return { 
         ...state, 
@@ -54,10 +54,10 @@ function DeletePart(state, payload, product_type) {
     const { product_id, category_id, diagram_id, part_id } = payload;
     const { object: category, filtered_array: filtered_categories } = reducerUtilities.destructorArray(state.categories, category_id);
     const { object: product, filtered_array: filtered_products } = reducerUtilities.destructorArray(category[product_type], product_id, "ProductId");
-    const { object: diagram, filtered_array: filtered_diagrams } = reducerUtilities.destructorArray(product.Product.ProductPartsDiagrams, diagram_id);
-    const { filtered_array: filtered_spare_parts } = reducerUtilities.destructorArray(diagram.SpareParts, part_id);
-    diagram.SpareParts = [ ...filtered_spare_parts ];
-    product.Product.ProductPartsDiagrams = [ ...filtered_diagrams, diagram ];
+    const { object: diagram, filtered_array: filtered_diagrams } = reducerUtilities.destructorArray(product.Product.ProductDiagramsLists, diagram_id, "ProductPartsDiagramId");
+    const { filtered_array: filtered_spare_parts } = reducerUtilities.destructorArray(diagram?.ProductPartsDiagram?.SpareParts, part_id);
+    diagram.ProductPartsDiagram.SpareParts = [ ...filtered_spare_parts ];
+    product.Product.ProductDiagramsLists = [ ...filtered_diagrams, diagram ];
     category[product_type] = [ ...filtered_products, product ];
     return { 
         ...state, 

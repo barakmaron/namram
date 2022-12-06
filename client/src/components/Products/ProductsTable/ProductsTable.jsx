@@ -151,16 +151,25 @@ const ProductsTable = ({
 
     const select_spare_parts = useCallback((product) => {
         if(product !== undefined) {
-            const parts = product.Product.ProductPartsDiagrams?.flatMap((diagram) => diagram.SpareParts?.map((part) => part ));
+            const parts = product.Product.ProductDiagramsLists?.flatMap((diagram) => diagram.ProductPartsDiagram.SpareParts?.map((part) => part ));
             setSelectedProductParts(parts || []);
         }
     }, []);
+
+    useEffect(() => {
+        select_spare_parts(selected_product);
+    }, [selected_product, select_spare_parts])
 
     const select_product = useCallback((product_id) => {
         const product = products.find(product => product.ProductId === product_id);
         setSelectedProduct(product);
         select_spare_parts(product);
     }, [products, select_spare_parts]);
+
+    useEffect(() => {
+        if(selected_product !== undefined)
+            select_product(selected_product.ProductId);
+    }, [products]);
     
     const edit_props_click = useCallback((params) => {
         select_product(params.id);
