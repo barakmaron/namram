@@ -3,7 +3,6 @@ import React from 'react';
 import { useEffect } from 'react';
 import AppRoutes from '../../AppRoutes';
 import StaticPageEditorConnector from '../../components/DataEditors/StaticPageEditor/StaticPageEditorConnector';
-import Constants from '../../Constants';
 
 const ControlPanel = ({
   categories,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaShekelSign } from 'react-icons/fa';
 import { Link, useParams } from 'react-router-dom';
-import Image from '../../components/DataEditors/ImageEditor/Image';
+import StructureProductData from '../../components/GoogleAnalytics/StructureProductData';
 import ImageSlider from '../../components/ImageSlider/ImageSlider';
 import TextParser from '../../components/RichTextArea/TextParser';
 import Constants from '../../Constants';
@@ -31,6 +31,7 @@ const ProductPage = ({
 
   return product && <div
   className='w-[80vw] mx-auto pb-5'>
+    <StructureProductData product={product} />
   <div 
   dir='rtl'
   className='text-forest-green-600 rounded-b-xl mx-auto flex justify-start items-baseline px-4 h-fit'>
