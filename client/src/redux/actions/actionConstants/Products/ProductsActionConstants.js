@@ -2,6 +2,7 @@ import PropsActions from "./PropsActionConstants";
 import ImagesActions from './ImagesActionConstants';
 import DiagramActions from './DiagramActionConstants';
 import SparePartsActions from './SparePartsActionConstants';
+import ScheduledActions from './ScheduledServiceConstants';
 
 const ACTIONS = {
     ADD_PRODUCT: "ADD_PRODUCT",
@@ -12,7 +13,8 @@ const ACTIONS = {
     IMAGES_ACTIONS: ImagesActions,
     DIAGRAM_ACTIONS: DiagramActions,
     SPARE_PARTS_ACTIONS: SparePartsActions,
-    UPDATE_TEXT: "UPDATE_TEXT"
+    UPDATE_TEXT: "UPDATE_TEXT",
+    SCHEDULED_SERVICE_ACTIONS: ScheduledActions
 };
 
 export default ACTIONS;

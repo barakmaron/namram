@@ -3,6 +3,7 @@ import Images from './Images.js';
 import { ProductsImagesModel, ProductsModel, RentalProductsModel, ProductPropsModel, SaleProductsModel } from "../../../db/models/index.js";
 import Diagrams from './Diagrams.js';
 import SpareParts from './SpareParts.js';
+import ScheduledService from './ScheduledService.js';
 import Constants from '../../../Constants.js';
 
 
@@ -164,6 +165,7 @@ const ProductsDB = {
     Images,
     Diagrams,
     SpareParts,
+    ScheduledService,
     AddProduct,
     DeleteProduct,
     PatchName,
