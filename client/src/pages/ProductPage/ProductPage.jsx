@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaShekelSign } from 'react-icons/fa';
+import { TfiAnnouncement } from 'react-icons/tfi'
 import { Link, useParams } from 'react-router-dom';
 import StructureProductData from '../../components/GoogleAnalytics/StructureProductData';
 import ImageSlider from '../../components/ImageSlider/ImageSlider';
@@ -30,14 +31,14 @@ const ProductPage = ({
     }, [category, product_id]);
 
   return product && <div
-  className='w-[80vw] mx-auto pb-5'>
+  className='lg:w-[80vw] w-screen mx-auto pb-5'>
     <StructureProductData product={product} />
   <div 
   dir='rtl'
-  className='text-forest-green-600 rounded-b-xl mx-auto flex justify-start items-baseline px-4 h-fit'>
+  className='text-forest-green-600 rounded-b-xl mx-auto flex flex-wrap sm:justify-start justify-center items-baseline sm:px-4 h-fit '>
     <Link 
     to={`/${Constants.CATEGORY_TYPE[category.Type]}`}
-    className='text-xl hover:underline hover:text-amber-400 hover:font-bold'>
+    className='text-xl hover:underline hover:text-amber-400 hover:font-bold w-fit'>
         {category.Type.toLowerCase().includes(Constants.CATEGORY_TYPE.Sale) ? `מכירת ציוד` : `השכרת ציוד`}
     </Link> 
     <span className='text-3xl px-2 h-fit'> / </span>
@@ -53,12 +54,21 @@ const ProductPage = ({
         {product.Product.Name}
     </Link>
   </div>
-  <div className='flex justify-center w-full mx-auto gap-12'>
+  <div className='grid md:grid-cols-2 md:grid-rows-1 justify-center w-full mx-auto gap-5' dir='rtl'>
+    <div>
+        <ImageSlider
+        images={product.Product.ProductsImages.map(image => ({
+            alt: product.Product.name,
+            Image: image.Image
+        }))}/>        
+    </div>
     <div className='w-full flex flex-col justify-start' dir='rtl'>
-        <h2 className='text-3xl text-forest-green-600 font-bold'>
+        <h2 className='text-3xl text-forest-green-600 font-bold text-center sm:text-start'>
             {product.Product.Name}
         </h2>
-        <TextParser body={product.Product.Text}/>
+        <div dir='ltr'>
+            <TextParser body={product.Product.Text}/>
+        </div>
         <span className='font-bold'>
             מקט: {product.Product.SerialNumber}
         </span>
@@ -70,20 +80,16 @@ const ProductPage = ({
                 { product.Price || product.DayPrice } <FaShekelSign/>
             </span>
         </div>
-    </div>    
-    <div>
-        <ImageSlider
-        images={product.Product.ProductsImages.map(image => ({
-            alt: product.Product.name,
-            Image: image.Image
-        }))}/>        
+        <span className='flex gap-2 text-2xl text-green-500 my-2'>
+            <TfiAnnouncement/> כל המחירים באתר אינם כוללים מע"מ
+        </span>
     </div>
   </div>
   <div className='divide-y-2'  dir='rtl'>
     <h3 className='text-3xl'>
         פרטים טכניים
     </h3>
-    <ul className='w-full pr-5'>
+    <ul className='w-[99%] px-5'>
         {product.Product.ProductProps.map(prop => {
             return <React.Fragment key={`prop-${prop.id}`}>
                 <li className='text-2xl font-bold py-2'>
