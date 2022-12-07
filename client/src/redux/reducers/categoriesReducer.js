@@ -11,6 +11,7 @@ import ProductImagesFunctions from "./ProductsReducerFunctions/ProductImagesRedu
 import ProductPropsFunctions from "./ProductsReducerFunctions/ProductPropReducer";
 import RentActionsConstants from '../actions/actionConstants/rent/rentActionConstants';
 import RentReducerFunctions from "./RentReducerFunctions/Rent";
+import ProductScheduledServiceReducerFunctions from "./ProductsReducerFunctions/ProductScheduledServiceReducer";
 
 const initState = {
     categories: [],
@@ -68,6 +69,12 @@ const reducer = (state = initState, action) => {
             case ProductsActionsConstants.SPARE_PARTS_ACTIONS.DELETE_SPARE_PART: {
                 const type_condition = reducerUtilities.type_condition(payload.product_type, PRODUCT_TYPE.SaleProducts);
                 return ProductSparePartsFunctions[type](state, payload, type_condition ? PRODUCT_TYPE.SaleProducts : PRODUCT_TYPE.RentProducts);
+            }
+            case ProductsActionsConstants.SCHEDULED_SERVICE_ACTIONS.ADD_SCHEDULED_SERVICE:
+            case ProductsActionsConstants.SCHEDULED_SERVICE_ACTIONS.UPDATE_SCHEDULED_SERVICE:
+            case ProductsActionsConstants.SCHEDULED_SERVICE_ACTIONS.PATCH_SCHEDULED_SERVICE:
+            case ProductsActionsConstants.SCHEDULED_SERVICE_ACTIONS.DELETE_SCHEDULED_SERVICE: {
+                return ProductScheduledServiceReducerFunctions[type](state, payload);
             }
             default: {
                 return state;
