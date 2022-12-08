@@ -32,6 +32,7 @@ const SpareParts = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "SpareParts"
     });
     return SpareParts;

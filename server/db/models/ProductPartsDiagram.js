@@ -23,6 +23,7 @@ const ProductPartsDiagram = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "ProductPartsDiagram"
     });
     return ProductPartsDiagram;

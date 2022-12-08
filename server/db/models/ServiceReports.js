@@ -36,6 +36,7 @@ const ServiceReports = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "ServiceReports"
     });
 

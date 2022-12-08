@@ -84,6 +84,7 @@ const RentalAgreement = (sequelize, DataTypes) => {
     }, {
         initialAutoIncrement: 20000,
         sequelize,
+        timestamps: false,
         modelName: "RentalAgreement"
     });
 

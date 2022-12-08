@@ -17,6 +17,7 @@ const PartsChanged = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "PartsChanged"
     });
 
