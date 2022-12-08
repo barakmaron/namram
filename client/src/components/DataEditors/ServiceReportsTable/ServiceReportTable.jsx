@@ -4,6 +4,7 @@ import moment from 'moment';
 import React, { useCallback } from 'react';
 import { useEffect, useState } from 'react';
 import { FaShekelSign } from 'react-icons/fa';
+import Constants from '../../../Constants';
 import Modal from '../../Modal/Modal';
 import PartsChancedEditorConnector from '../PartsChancedEditor/PartsChancedEditorConnector';
 
@@ -72,7 +73,7 @@ const ServiceReportTable = ({
     }
   }];
 
-  useEffect(() => {
+  useEffect(() => {    
     const row_parsed = service_reports ? service_reports.map((report) => {
       if(report.id){
         return {
@@ -80,7 +81,7 @@ const ServiceReportTable = ({
           ProductId: report.RentProduct.ProductId,
           ProductName: report.RentProduct.Product.Name,
           SerialNumber: report.RentProduct.Product.SerialNumber,
-          Problem: report.Problem,
+          Problem: report.Problem.replace(Constants.html_remove_regex, ""),
           Update: report.Update,
           Cost: report.PartsChangeds.reduce((accumulator, part) => accumulator + Number.parseInt(part.SparePart.Price), 0) || 0
         };
