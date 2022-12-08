@@ -1,6 +1,6 @@
 import Props from "./Props.js";
 import Images from './Images.js';
-import { ProductsImagesModel, ProductsModel, RentalProductsModel, ProductPropsModel, SaleProductsModel, RentalAgreementListModel, RentalAgreementModel } from "../../../db/models/index.js";
+import { ProductsImagesModel, ProductsModel, RentalProductsModel, ProductPropsModel, SaleProductsModel, RentalAgreementListModel, RentalAgreementModel, sequelize } from "../../../db/models/index.js";
 import Diagrams from './Diagrams.js';
 import SpareParts from './SpareParts.js';
 import ScheduledService from './ScheduledService.js';
@@ -9,41 +9,47 @@ import { Op } from "sequelize";
 
 
 async function AddProduct(id, name, serial_number, text, price, images, props, product_type, display, hour_clock) {
-    const type_condition = product_type.includes(Constants.PRODUCT_TYPE.SALE.toLocaleLowerCase());
-    const product = await ProductsModel.create({
-        Name: name,
-        Text: text,
-        SerialNumber: serial_number,
-    });
-    const products_images = images.map((image) => ProductsImagesModel.create({
-        Image: image,
-        ProductId: product.id
-    }));
-    const props_promises = props.map(({ name, value }) => ProductPropsModel.create({
-        PropName: name,
-        Value: value,
-        ProductId: product.id
-    }));
-    const typed_product = type_condition ? 
-    SaleProductsModel.create({
-        SerialNumber: serial_number,
-        Price: price,
-        ProductId: product.id,
-        CategoryId: id
-    }) :
-    RentalProductsModel.create({
-        DayPrice: price.DayPrice,
-        WeekPrice: price.WeekPrice,
-        MonthPrice: price.MonthPrice,
-        ProductId: product.id,
-        CategoryId: id,
-        Display: display,
-        HourClock: hour_clock ? hour_clock : null
-    });
-    const [product_row] = await Promise.all([typed_product, ...props_promises, ...products_images]);
-    return type_condition ? 
-    await GetSaleProductById(product_row.id) :
-    await GetRentProductById(product_row.id);
+    const transaction = await sequelize.transaction();
+    try {
+        const type_condition = product_type.includes(Constants.PRODUCT_TYPE.SALE.toLocaleLowerCase());    
+        const product = await ProductsModel.create({
+            Name: name,
+            Text: text,
+            SerialNumber: serial_number,
+        }, { transaction });
+        const products_images = images.map((image) => ProductsImagesModel.create({
+            Image: image,
+            ProductId: product.id
+        }, { transaction }));
+        const props_promises = props.map(({ name, value }) => ProductPropsModel.create({
+            PropName: name,
+            Value: value,
+            ProductId: product.id
+        }, { transaction }));
+        const typed_product = type_condition ? 
+        SaleProductsModel.create({
+            SerialNumber: serial_number,
+            Price: price,
+            ProductId: product.id,
+            CategoryId: id
+        }, { transaction }) :
+        RentalProductsModel.create({
+            DayPrice: price.DayPrice,
+            WeekPrice: price.WeekPrice,
+            MonthPrice: price.MonthPrice,
+            ProductId: product.id,
+            CategoryId: id,
+            Display: display,
+            HourClock: hour_clock ? hour_clock : null
+        }, { transaction });
+        const [product_row] = await Promise.all([typed_product, ...props_promises, ...products_images]);
+        return type_condition ? 
+        await GetSaleProductById(product_row.id) :
+        await GetRentProductById(product_row.id);
+    } catch (err) {
+        await transaction.rollback();
+        throw err;
+    }
 }
 
 
