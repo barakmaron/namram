@@ -59,7 +59,7 @@ export const AddScheduledServiceAction = (product_id, category_id, form) => {
     };
 };
 
-export const PatchScheduledServiceAction = (service_id, product_id, category_id, param, value) => {
+export const PatchScheduledServiceAction = (param, value, service_id, product_id, category_id) => {
     return async (dispatch) => {
         try {
             dispatch(PatchScheduledService(service_id, product_id, category_id, param, value));

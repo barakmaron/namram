@@ -8,7 +8,7 @@ import { useCallback } from 'react';
 import Modal from '../../../components/Modal/Modal';
 import PropsEditorConnector from '../../../components/DataEditors/PropsEditor/PropsEditorConnector';
 import ImageEditorConnector from '../../../components/DataEditors/ImageEditor/ImageEditorConnector';
-import TextEditorConnector from '../../../components/DataEditors/TextEditor/TextEditorConnector';
+import TextEditor from '../../../components/DataEditors/TextEditor/TextEditor';
 import DiagramEditorConnector from '../../../components/DataEditors/DiagramEditor/DiagramEditorConnector';
 import SparePartsEditorConnector from '../../../components/DataEditors/SparePartsEditor/SparePartsEditorConnector';
 import Constants from '../../../Constants';
@@ -241,11 +241,15 @@ const ProductsTable = ({
         />
     </Modal>}
     {edit_text && <Modal setClose={() => setEditText(false)}>
-        <TextEditorConnector 
+        <TextEditor
         text={selected_product.Product.Text}
-        category_id={selected_product.CategoryId}
-        product_id={selected_product.Product.id}
-        product_type={type}/>
+        Action={PatchProductAction}
+        meta_data={{
+            product_id: selected_product.Product.id,
+            category_id: selected_product.CategoryId,            
+            product_type: type
+        }}
+        />
     </Modal>}
     {edit_diagram && <Modal setClose={() => setEditDiagram(false)}>
         <DiagramEditorConnector 

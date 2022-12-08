@@ -13,6 +13,11 @@ const ScheduledForms = {
         type: FORMS.INPUTS_TYPES.TEXT_AREA,
         name: "Text",
         place_holder: "Text"
+    }],
+    edit_text: [{
+        type: FORMS.INPUTS_TYPES.TEXT_AREA,
+        name: "Text",
+        place_holder: "Text"
     }]
 };
 

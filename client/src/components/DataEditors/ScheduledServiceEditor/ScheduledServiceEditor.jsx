@@ -3,6 +3,10 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import React, { useCallback, useEffect, useState } from 'react';
 import FormConnector from '../../Form/FormConnector';
 import ScheduledForms from './FormConstants';
+import moment from 'moment';
+import Constants from '../../../Constants';
+import Modal from '../../Modal/Modal';
+import TextEditor from '../TextEditor/TextEditor';
 
 const ScheduledServiceEditor = ({
   services,
@@ -14,6 +18,9 @@ const ScheduledServiceEditor = ({
 }) => {
 
   const [rows, setRows] = useState([]);
+  const [edit_text, setEditText] = useState(false);
+  const [text, setText] = useState("");
+  const [service_id, setServiceId] = useState("");
 
   const columns = [{ 
     field: 'id', 
@@ -21,7 +28,8 @@ const ScheduledServiceEditor = ({
   }, {
     field: 'Name',
     headerName: 'שם הטיפול',
-    flex: 1
+    flex: 1,
+    editable: true
   }, {
     field: 'Scheduled',
     headerName: 'מתי לטפל',
@@ -40,8 +48,11 @@ const ScheduledServiceEditor = ({
           onClick={() => delete_service(params)}
           variant="outlined">מחק</Button>
           <Button 
-          onClick={() => {}}
+          onClick={() => open_text_edit(params)}
           variant="outlined">ערוך תיאור</Button>
+          <Button 
+          onClick={() => set_service_done(params)}
+          variant="outlined">סמן בוצע</Button>
         </div>;
     }
   }];
@@ -54,7 +65,8 @@ const ScheduledServiceEditor = ({
           ProductId: product_id,
           Name: service.Name,
           Scheduled: service.Scheduled,
-          LastServiceDate: service.LastServiceDate
+          Text: service.Text,
+          LastServiceDate: moment(service.LastServiceDate).format(Constants.DateFormat)
         };
       }
     }) : [];
@@ -63,7 +75,7 @@ const ScheduledServiceEditor = ({
   }, [services, product_id]);
 
   const edit_cell = useCallback((params) => {
-    PatchScheduledServiceAction(params.id, product_id, category_id, params.field, params.value);
+    PatchScheduledServiceAction(params.field, params.value, params.id, product_id, category_id);
   }, [PatchScheduledServiceAction, product_id, category_id]);
 
   const add_service = useCallback((event, form) => {
@@ -74,6 +86,16 @@ const ScheduledServiceEditor = ({
   const delete_service = useCallback((params) => {
     DeleteScheduledServiceAction(params.id, product_id, category_id);
   }, [DeleteScheduledServiceAction, product_id, category_id]);
+
+  const set_service_done = useCallback((params) => {
+    PatchScheduledServiceAction("LastServiceDate", new Date(), params.id, product_id, category_id);
+  }, [PatchScheduledServiceAction, product_id, category_id]);
+
+  const open_text_edit = useCallback((params) => {
+    setText(params.row.Text);
+    setEditText(true);
+    setServiceId(params.id);
+  }, []);
 
   return <div className='flex flex-col min-h-[20rem] w-[50vw] justify-center'>
     <FormConnector
@@ -88,6 +110,16 @@ const ScheduledServiceEditor = ({
         rowsPerPageOptions={[10]}
         onCellEditCommit={edit_cell}></DataGrid>
     </Box>
+    { edit_text && <Modal setClose={() => setEditText(false)}>
+      <TextEditor
+      text={text}
+      Action={PatchScheduledServiceAction}
+      meta_data={{
+        service_id: service_id,
+        product_id,
+        category_id
+      }}/>
+    </Modal>}
     </div>;
 }
 
