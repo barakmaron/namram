@@ -27,10 +27,15 @@ async function PatchService(id, param, value) {
     });
 }
 
+async function GetAllScheduledServices() {
+    return await ScheduledServiceModel.findAll();
+}
+
 const ScheduledService = {
     AddService,
     DeleteService,
-    PatchService
+    PatchService,
+    GetAllScheduledServices
 };
 
 export default ScheduledService;
