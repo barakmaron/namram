@@ -23,6 +23,7 @@ const ProjectsImages = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "ProjectsImages"
     });
     return ProjectsImages;

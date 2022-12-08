@@ -25,6 +25,7 @@ const Categories = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "Categories"
     });
 
