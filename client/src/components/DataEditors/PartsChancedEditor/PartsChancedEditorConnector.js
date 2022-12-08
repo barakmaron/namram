@@ -9,7 +9,7 @@ const maStateToProps = (state, ownProps) => {
     return { 
         ...ownProps,
         parts: service_report.PartsChangeds,
-        diagrams: service_report.RentProduct.Product.ProductPartsDiagrams
+        diagrams: service_report.RentProduct.Product.ProductDiagramsLists
     };
 };
 

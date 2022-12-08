@@ -1,4 +1,4 @@
-import { ProductPartsDiagramModel, ProductsModel, SparePartsModel } from "../../../db/models/index.js";
+import { ProductDiagramsListModel, ProductPartsDiagramModel, ProductsModel, SparePartsModel } from "../../../db/models/index.js";
 
 async function GetSparePartById(part_id) {
     return await SparePartsModel.findOne({
@@ -55,7 +55,10 @@ async function GetOutOfStock() {
         include: {
             model: ProductPartsDiagramModel,
             attributes: ["ModelName"],
-            include: ProductsModel
+            include: {
+                model: ProductDiagramsListModel,
+                include: ProductsModel
+            }
         }
     });
 }

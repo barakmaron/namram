@@ -41,8 +41,11 @@ async function GetServiceReportById(id) {
             include: {
                 model: ProductsModel,
                 include: {
-                    model: ProductPartsDiagramModel,
-                    include: SparePartsModel
+                    model: ProductDiagramsListModel,
+                    include: {
+                        model: ProductPartsDiagramModel,
+                        include: SparePartsModel
+                    }
                 }
             }
         }, {
@@ -89,8 +92,7 @@ async function GetServiceReportsByProductId(id) {
 }
 
 async function GetProductByServiceReportId(id) {
-    return await RentalProductsModel.findOne({ 
-          
+    return await RentalProductsModel.findOne({           
         include: [{
             model: ProductsModel,
             include: {

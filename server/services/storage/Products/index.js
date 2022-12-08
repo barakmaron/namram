@@ -41,8 +41,9 @@ async function AddProduct(id, name, serial_number, text, price, images, props, p
             CategoryId: id,
             Display: display,
             HourClock: hour_clock ? hour_clock : null
-        }, { transaction });
+        }, { transaction });        
         const [product_row] = await Promise.all([typed_product, ...props_promises, ...products_images]);
+        await transaction.commit();
         return type_condition ? 
         await GetSaleProductById(product_row.id) :
         await GetRentProductById(product_row.id);
