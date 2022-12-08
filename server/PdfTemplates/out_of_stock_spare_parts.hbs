@@ -20,8 +20,16 @@
                     <td>{{ part.NameHebrew }}</td>
                     <td>{{ part.NameEnglish }}</td>
                     <td>{{ part.ProductPartsDiagram.ModelName }}</td>
-                    <td>{{ part.ProductPartsDiagram.Product.Name }}</td>
-                    <td>{{ part.ProductPartsDiagram.Product.SerialNumber }}</td>
+                    <td>
+                        {{#each  part.ProductPartsDiagram.ProductDiagramsLists as | item |}}
+                        {{ item.Product.Name }}
+                        {{/each}}
+                    </td>
+                    <td>
+                        {{#each  part.ProductPartsDiagram.ProductDiagramsLists as | item |}}
+                        {{ item.Product.SerialNumber }}
+                        {{/each}}
+                    </td>
                     <td>{{ part.Price }}</td>
                 </tr>
             {{/each}}           

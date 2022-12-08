@@ -39,11 +39,16 @@ async function GetServiceBook(product_id) {
 }
 
 function ParseServiceReportData(ServiceReports) {
+    const html_remove_regex = /(<([^>]+)>)/gi;
     return ServiceReports.map(report => {
         const temp_report = {...report};
         temp_report.StartDate = moment(report.StartDate).locale('he').format(Constants.TIME_DATE_FORMAT);
         temp_report.EndDate = report.EndDate ? moment(report.EndDate).locale('he').format(Constants.TIME_DATE_FORMAT) : null;
         temp_report.SumParts = report.PartsChangeds?.reduce((accumulator, part) => accumulator + Number.parseInt(part.SparePart.Price), 0) || 0;
+        if(!report.Problem) 
+            temp_report.Problem = report.ServiceReports[0].Problem.replace(html_remove_regex, "");
+        else
+            temp_report.Problem = report.Problem.replace(html_remove_regex, "");
         return temp_report;
     });
 }

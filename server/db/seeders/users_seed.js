@@ -8,9 +8,7 @@ async function up (queryInterface, Sequelize) {
   return await queryInterface.bulkInsert('Users', [{
     id: uuid(),
     Email: "barak062@gmail.com",
-    Password: "ab07ee36ba2b5e021c09fca2c8a57c821a4f9165f6e5e7260c120e4216465ad97aa0cced88f3be42f0388bd249199beb588542442e95996658b43c4ec1dc850f",
-    createdAt: new Date(),
-    updatedAt: new Date()
+    Password: "ab07ee36ba2b5e021c09fca2c8a57c821a4f9165f6e5e7260c120e4216465ad97aa0cced88f3be42f0388bd249199beb588542442e95996658b43c4ec1dc850f"
   }]);
 } catch (err) {
   throw err;

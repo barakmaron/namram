@@ -32,7 +32,7 @@ async function AddServiceReport(req, res, next) {
         const service_report = await ServiceReportsService.AddServiceReport(product_id, Problem);
         return res.status(StatusCode.SuccessOK).json(service_report);
     } catch (err) {
-        console.log(err);
+        next(err);
     }
 }
 

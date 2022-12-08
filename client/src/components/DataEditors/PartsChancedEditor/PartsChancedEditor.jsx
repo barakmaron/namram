@@ -81,7 +81,7 @@ const PartsChancedEditor = ({
 
     useEffect(() => {
         const temp_diagrams = diagrams.map(diagram => ({
-            label: diagram.ModelName,
+            label: diagram.ProductPartsDiagram.ModelName,
             value: diagram.id
         }));
         setParsedDiagrams(temp_diagrams);
@@ -91,19 +91,19 @@ const PartsChancedEditor = ({
         const controller = [{
             list: parsed_diagrams,
             onChange: (selected) => {
-                const diagram = diagrams.find(diagram => diagram.id === selected.value);
-                const temp_parts_in_diagram = diagram.SpareParts;
-                setPartsInDiagram(temp_parts_in_diagram);
-                setSelectedDiagram(diagram);
+              const diagram = diagrams.find(diagram => diagram.id === selected.value);
+              const temp_parts_in_diagram = diagram.ProductPartsDiagram.SpareParts;
+              setPartsInDiagram(temp_parts_in_diagram);
+              setSelectedDiagram(diagram);
             }
         }, {
             list: parts_in_diagram.map(part => ({
-                label: `${part.NameEnglish} | ${part.NameHebrew}`,
-                value: part.id
+              label: `${part.NameEnglish} | ${part.NameHebrew}`,
+              value: part.id
             })),
             onChange: (selected) => {
-                const part = selected_diagram.SpareParts.find(part => part.id === selected.value);
-                setSelectedPart(part);
+              const part = selected_diagram.ProductPartsDiagram.SpareParts.find(part => part.id === selected.value);
+              setSelectedPart(part);
             }
         }];
         setChangePartFormController(controller);
