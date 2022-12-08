@@ -19,6 +19,7 @@ const ProductsImages = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "ProductsImages"
     });
     return ProductsImages;

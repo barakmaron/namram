@@ -20,6 +20,7 @@ const SaleProducts = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "SaleProducts"
     });
 

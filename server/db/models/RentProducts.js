@@ -35,6 +35,7 @@ const RentProducts = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "RentProducts"
     });
 
