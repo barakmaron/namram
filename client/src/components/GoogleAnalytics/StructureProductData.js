@@ -1,17 +1,17 @@
 import React from 'react';
+import Constants from '../../Constants';
 import { GetImageUrl } from '../../services/ApiService';
 
 const StructureProductData = ({
     product
 }) => {
-    const html_remove_regex = /(<([^>]+)>)/gi;
   return <script type="application/ld+json">
     {`{
         "@context": "https://schema.org/",
         "@type": "Product",
         "name": "${product.Product.Name}",
         "image": "${GetImageUrl(product.Product.ProductsImages[0].Image)}",
-        "description": "${product.Product.Text.replace(html_remove_regex, "")}",
+        "description": "${product.Product.Text.replace(Constants.html_remove_regex, "")}",
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "4.6",

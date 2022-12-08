@@ -31,6 +31,7 @@ const DisplayType = {
     category: "CATEGORIES"
 };
   
+const html_remove_regex = /(<([^>]+)>)/gi;
 
 const contact_nav = {
     phone: "08-8560399",
@@ -120,7 +121,8 @@ const Constants = {
     maps,
     DateFormat,
     DisplayType,
-    CATEGORY_TYPE
+    CATEGORY_TYPE,
+    html_remove_regex
 };
 
 export default Constants;
