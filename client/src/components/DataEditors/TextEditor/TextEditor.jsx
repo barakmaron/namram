@@ -5,16 +5,14 @@ import RichTextArea from '../../RichTextArea/RichTextArea';
 
 const TextEditor = ({
     text,
-    PatchProductAction,
-    product_id,
-    category_id,
-    product_type
+    Action,
+    meta_data
 }) => {
     const [editor, setEditor] = useState(text);
 
     const save_call_back = useCallback(() => {
-        PatchProductAction(product_id, category_id, "Text", editor, product_type);
-    }, [PatchProductAction, product_id, category_id, editor, product_type]);
+        Action( "Text", editor, ...Object.values(meta_data));
+    }, [Action, editor, meta_data]);
 
   return (<div className='w-96 flex flex-col gap-5 justify-center items-center'>
     <div>

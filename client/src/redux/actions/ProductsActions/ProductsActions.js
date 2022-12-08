@@ -71,7 +71,7 @@ export const DeleteProductAction = (category_id, product_id, product_type) => {
     };
 };
 
-export const PatchProductAction = (product_id, category_id, param_name, value, product_type) => {
+export const PatchProductAction = (param_name, value, product_id, category_id, product_type) => {
     return async (dispatch) => {
         try {
             dispatch(PatchProduct(product_id, category_id, param_name, value, product_type));

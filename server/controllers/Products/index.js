@@ -1,5 +1,6 @@
 import Props from "./PropsController.js";
 import Images from './ImagesController.js';
+import ScheduledService from './ScheduledServiceController.js';
 import ProductsService from "../../services/Products/index.js";
 import Diagrams from './DiagramsController.js';
 import SpareParts from './SparePartsController.js';
@@ -66,7 +67,8 @@ const ProductsController = {
     Props,
     Images,
     Diagrams,
-    SpareParts
+    SpareParts,
+    ScheduledService
 };
 
 export default ProductsController;

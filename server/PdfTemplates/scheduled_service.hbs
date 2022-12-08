@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            טיפולים
+        </title>
+        <style>
+            {{ css }}
+        </style>
+    </head>
+    <body dir="rtl">
+        <main>
+            <h1 class="main_title">טיפולים</h1> 
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>שם הכלי</th>
+                        <th>מספר סידורי</th>
+                        <th>שעון שעות</th>
+                        <th>ימים בשכירות מטיפול אחרון</th>
+                        <th>טיפול אחרון</th>
+                        <th>שם הטיפול</th>
+                        <th>תיאור הטיפול</th>
+                        <th>ימים בשכירות עד הטיפול</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data as | service |}}
+                        <tr>
+                            <td>{{ service.product.Product.Name }}</td>
+                            <td>{{ service.product.Product.SerialNumber }}</td>
+                            <td>{{ service.product.Product.HourClock }}</td>
+                            <td>{{ service.num_rental_days }}</td>
+                            <td>{{ service.service.LastServiceDate }}</td>
+                            <td>{{ service.service.Name }}</td>
+                            <td>{{ service.service.Text }}</td>
+                            <td>{{ service.service.Scheduled }}</td>
+                        </tr>                    
+                    {{/each}} 
+                </tbody>
+            </table>
+        </main>
+    </body>
+</html>

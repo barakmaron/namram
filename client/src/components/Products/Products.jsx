@@ -26,13 +26,13 @@ const Products = ({
       const controller = [{            
           list: categories_list,
           onChange: (selected) => {
-              const category = categories.find(category => category.id === selected.value);
-              setSelectedCategory(category);
+            const category = categories.find(category => category.id === selected.value);
+            setSelectedCategory(category);
           }
       }];
       
       const delete_controller = [ ...controller, {
-        list: (selected_category && selected_category[array_type].map(product => {
+        list: (selected_category && selected_category[array_type]?.map(product => {
           return product.id && { 
             label: product.Product.Name, 
             value: product.id 

@@ -1,5 +1,6 @@
 import Props from './PropsService.js';
 import Images from './ImagesService.js';
+import ScheduledService from './ScheduledService.js';
 import ProductsDB from '../storage/Products/index.js';
 import Diagrams from './DiagramsService.js';
 import SpareParts from './SparePartsService.js';
@@ -22,7 +23,12 @@ function destructorProps(props) {
 async function AddProduct(category, name, serial_number, text, price, files, props, product_type){
     const image_resized = files.map(file => ImageService.ResizeAndStoreImage(file.path, file.filename));
     const images = await Promise.all(image_resized);
-    const { DayPrice, WeekPrice, MonthPrice, Display, HourClock } = product_type.includes(Constants.PRODUCT_TYPE.RENT.toLowerCase()) && props;    
+    const { DayPrice, WeekPrice, MonthPrice, Display, HourClock } = product_type.includes(Constants.PRODUCT_TYPE.RENT.toLowerCase()) && props;  
+    delete props.DayPrice;
+    delete props.WeekPrice;
+    delete props.MonthPrice;
+    delete props.Display;
+    delete props.HourClock;  
     const parsed_props = destructorProps(props);
     return await ProductsDB.AddProduct(
         category, 
@@ -72,6 +78,7 @@ const ProductsService = {
     Images,
     Diagrams,
     SpareParts,
+    ScheduledService,
     AddProduct,
     DeleteProduct, 
     PatchProduct

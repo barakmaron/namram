@@ -1,9 +1,11 @@
 import Props from "./Props.js";
 import Images from './Images.js';
-import { ProductsImagesModel, ProductsModel, RentalProductsModel, ProductPropsModel, SaleProductsModel } from "../../../db/models/index.js";
+import { ProductsImagesModel, ProductsModel, RentalProductsModel, ProductPropsModel, SaleProductsModel, RentalAgreementListModel, RentalAgreementModel } from "../../../db/models/index.js";
 import Diagrams from './Diagrams.js';
 import SpareParts from './SpareParts.js';
+import ScheduledService from './ScheduledService.js';
 import Constants from '../../../Constants.js';
+import { Op } from "sequelize";
 
 
 async function AddProduct(id, name, serial_number, text, price, images, props, product_type, display, hour_clock) {
@@ -159,11 +161,34 @@ async function PatchSerialNumber(product_id, SerialNumber) {
     });
 }
 
+async function GetRentProductWithRentalAgreements(rent_product_id, date){
+    return await RentalProductsModel.findOne({
+        where: {
+            id: rent_product_id
+        },
+        include: [ProductsModel, {
+            model: RentalAgreementListModel,            
+            include: {
+                model: RentalAgreementModel,
+                where: {
+                    StartDate: {
+                        [Op.gte]: date
+                    },
+                    EndDate: {
+                        [Op.ne]: null
+                    }
+                }
+            }
+        }]        
+    });
+}
+
 const ProductsDB = {
     Props,
     Images,
     Diagrams,
     SpareParts,
+    ScheduledService,
     AddProduct,
     DeleteProduct,
     PatchName,
@@ -171,7 +196,8 @@ const ProductsDB = {
     PatchText,
     PatchSerialNumber,
     PatchRentProp,
-    GetProductById
+    GetProductById,
+    GetRentProductWithRentalAgreements
 };
 
 export default ProductsDB;
