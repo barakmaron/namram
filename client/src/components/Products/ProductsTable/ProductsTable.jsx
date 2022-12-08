@@ -8,10 +8,11 @@ import { useCallback } from 'react';
 import Modal from '../../../components/Modal/Modal';
 import PropsEditorConnector from '../../../components/DataEditors/PropsEditor/PropsEditorConnector';
 import ImageEditorConnector from '../../../components/DataEditors/ImageEditor/ImageEditorConnector';
-import TextEditorConnector from '../../../components/DataEditors/TextEditor/TextEditorConnector';
+import TextEditor from '../../../components/DataEditors/TextEditor/TextEditor';
 import DiagramEditorConnector from '../../../components/DataEditors/DiagramEditor/DiagramEditorConnector';
 import SparePartsEditorConnector from '../../../components/DataEditors/SparePartsEditor/SparePartsEditorConnector';
 import Constants from '../../../Constants';
+import ScheduledServiceEditorConnector from '../../DataEditors/ScheduledServiceEditor/ScheduledServiceEditorConnector';
 
 const ProductsTable = ({
     categories,
@@ -25,6 +26,7 @@ const ProductsTable = ({
     const [edit_text, setEditText] = useState(false);
     const [edit_diagram, setEditDiagram] = useState(false);
     const [edit_spare_parts, setSpareParts] = useState(false);
+    const [edit_scheduled_service, setScheduledService] = useState(false);    
     const [selected_product_parts, setSelectedProductParts] = useState([]);
     const [rows, setRows] = useState([]);
 
@@ -108,9 +110,14 @@ const ProductsTable = ({
                     <Button 
                     onClick={() => edit_spare_parts_click(params)}
                     variant="outlined">חלקים</Button>
-                    { !is_sale && <Button 
-                    onClick={() => get_pdf_service_book(params)}
-                    variant="outlined">ספר תחזוקה</Button>}
+                    { !is_sale && <>
+                        <Button 
+                        onClick={() => get_pdf_service_book(params)}
+                        variant="outlined">ספר תחזוקה</Button>
+                        <Button 
+                        onClick={() => edit_scheduled_service_click(params)}
+                        variant="outlined">טיפולים</Button>
+                    </> }
                 </div>;
             }
         }];
@@ -201,6 +208,11 @@ const ProductsTable = ({
         window.open(`${process.env.REACT_APP_API_BASE_URL}/service_reports/product/${params.id}`); 
     }, []);
 
+    const edit_scheduled_service_click = useCallback((params) => {
+        select_product(params.id);
+        setScheduledService(true);
+    }, [select_product]);
+
     return <>
     <Box sx={{width: '100%' }} className="h-screen mt-5">
         <DataGrid
@@ -229,11 +241,15 @@ const ProductsTable = ({
         />
     </Modal>}
     {edit_text && <Modal setClose={() => setEditText(false)}>
-        <TextEditorConnector 
+        <TextEditor
         text={selected_product.Product.Text}
-        category_id={selected_product.CategoryId}
-        product_id={selected_product.Product.id}
-        product_type={type}/>
+        Action={PatchProductAction}
+        meta_data={{
+            product_id: selected_product.Product.id,
+            category_id: selected_product.CategoryId,            
+            product_type: type
+        }}
+        />
     </Modal>}
     {edit_diagram && <Modal setClose={() => setEditDiagram(false)}>
         <DiagramEditorConnector 
@@ -249,6 +265,12 @@ const ProductsTable = ({
         category_id={selected_product.CategoryId}
         product_id={selected_product.Product.id}
         product_type={type}/>
+    </Modal>}
+    {edit_scheduled_service && <Modal setClose={() => setScheduledService(false)}>
+        <ScheduledServiceEditorConnector 
+        services={selected_product.ScheduledServices}
+        product_id={selected_product.id}
+        category_id={selected_product.CategoryId}/>
     </Modal>}
     </>;
 };

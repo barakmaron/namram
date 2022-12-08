@@ -1,4 +1,4 @@
-import { PartsChangedModel, ProductPartsDiagramModel, ProductsModel, RentalProductsModel, ServiceReportsModel, SparePartsModel } from '../../../db/models/index.js';
+import { PartsChangedModel, ProductPartsDiagramModel, ProductsModel, RentalProductsModel, ProductDiagramsListModel, ServiceReportsModel, SparePartsModel } from '../../../db/models/index.js';
 import ChangedPartDb from './ChangedPart.js';
 
 async function GetServiceReports() {
@@ -11,8 +11,11 @@ async function GetServiceReports() {
             include: {
                 model: ProductsModel,
                 include: {
-                    model: ProductPartsDiagramModel,
-                    include: SparePartsModel
+                    model: ProductDiagramsListModel,
+                    include: {
+                        model: ProductPartsDiagramModel,
+                        include: SparePartsModel
+                    }
                 }
             }
         }, {
@@ -63,8 +66,11 @@ async function GetServiceReportsByProductId(id) {
                 id: id
             },       
             include: {
-                model: ProductPartsDiagramModel,
-                include: SparePartsModel
+                model: ProductDiagramsListModel,
+                include: {
+                    model: ProductPartsDiagramModel,
+                    include: SparePartsModel
+                }
             }
         }, {
             model: ServiceReportsModel,            
@@ -88,8 +94,11 @@ async function GetProductByServiceReportId(id) {
         include: [{
             model: ProductsModel,
             include: {
-                model: ProductPartsDiagramModel,
-                include: SparePartsModel
+                model: ProductDiagramsListModel,
+                include: {
+                    model: ProductPartsDiagramModel,
+                    include: SparePartsModel
+                }
             }
         }, {
             model: ServiceReportsModel,

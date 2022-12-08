@@ -153,6 +153,20 @@ const ApiMessagesConstants = {
                 successful: "דיאגרה נערך בהצלחה",
                 failed: "לא ניתן לערוך חלק חילוף"
             }
+        },
+        ScheduledService: {
+            addService: {
+                successful: "הטיפול נוסף בהצלחה",
+                failed: "לא ניתן להוסיף טיפול"
+            },
+            patchService: {
+                successful: "הטיפול נערך בהצלחה",
+                failed: "לא ניתן לערוך טיפול"
+            },
+            deleteService: {
+                successful: "הטיפול נמחק בהצלחה",
+                failed: "לא ניתן למחוק טיפול"
+            }
         }
     },
     projects: {

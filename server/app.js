@@ -25,6 +25,7 @@ Promise.resolve(sequelize.sync({  })).then(() => {
 });
 
 Promise.resolve(CronJobsController.ScheduleOutOfStock());
+Promise.resolve(CronJobsController.ScheduleCheckScheduledServices());
 
 const cacheMiddleware = new ExpressCache(
   cacheManager.caching({

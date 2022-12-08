@@ -19,6 +19,7 @@ import Customers from './Customers.js';
 import dotenv from 'dotenv';
 import Categories from './Categories.js';
 import StaticPages from './StaticPages.js';
+import ScheduledService from './ScheduledService.js';
 dotenv.config();
 
 export const sequelize = new Sequelize(
@@ -50,6 +51,7 @@ export const ProjectsModel = Projects(sequelize, Sequelize.DataTypes);
 export const ProjectsImagesModel = ProjectsImages(sequelize, Sequelize.DataTypes);
 export const CategoriesModel = Categories(sequelize, Sequelize.DataTypes);
 export const StaticPagesModel = StaticPages(sequelize, Sequelize.DataTypes);
+export const ScheduledServiceModel = ScheduledService(sequelize, Sequelize.DataTypes);
 
 const relational_options = {
   onDelete: 'cascade', 
@@ -104,3 +106,6 @@ ServiceReportsModel.hasMany(PartsChangedModel, relational_options);
 
 CategoriesModel.hasMany(StaticPagesModel, relational_options);
 StaticPagesModel.belongsTo(CategoriesModel, relational_options);
+
+RentalProductsModel.hasMany(ScheduledServiceModel, relational_options);
+ScheduledServiceModel.belongsTo(RentalProductsModel, relational_options);

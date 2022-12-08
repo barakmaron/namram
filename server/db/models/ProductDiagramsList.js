@@ -14,10 +14,21 @@ const ProductDiagramsList = (sequelize, DataTypes) => {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true
+        }, 
+        ProductId: {
+            type: DataTypes.UUID
+        },
+        ProductPartsDiagramId: {
+            type: DataTypes.UUID
         }
     }, {
         sequelize,
-        modelName: "ProductDiagramsList"
+        modelName: "ProductDiagramsList",
+        indexes: [{
+            name: 'unique_index',
+            type:"unique",
+            fields: ['ProductId', 'ProductPartsDiagramId']
+        }]
     });
     return ProductDiagramsList;
 };

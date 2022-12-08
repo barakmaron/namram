@@ -47,6 +47,10 @@ async function CreateContactHtml(data) {
     return await CreatePdf('contact', data);
 }
 
+async function CreateServiceHtml(data) {
+    return await CreatePdf('scheduled_service', data);
+}
+
 const PdfService = {
     CreatePdf,
     ParseDbObject,
@@ -55,7 +59,8 @@ const PdfService = {
     CreateRentalProductPdf,
     CreateRentalCategoryPdf,
     CreateSparePartOutOfStockHtml,
-    CreateContactHtml
+    CreateContactHtml,
+    CreateServiceHtml
 };
 
 export default PdfService;
