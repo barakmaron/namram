@@ -12,6 +12,7 @@ import Checkbox from './CheckBox/CheckBox';
 import { MobileDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { BsCheck2Circle } from 'react-icons/bs';
+import RichTextArea from '../RichTextArea/RichTextArea';
 
 export default function Form({ 
     inputs, 
@@ -31,6 +32,7 @@ export default function Form({
     const [tools, setTools] = useState([]);
     const [signature, setSignature] = useState(undefined);
     const [date, setDate] = useState();
+    const [text, setText] = useState("");
 
     const uploadToClient = useCallback(event => {
         if(event.target.files) {
@@ -108,13 +110,16 @@ export default function Form({
                     </div>;
                 }
                 case FORMS.INPUTS_TYPES.TEXT_AREA: {
-                    return <React.Fragment>
-                        <TextareaAutosize 
-                        placeholder={place_holder}
+                    return <React.Fragment key={`form-input-${name}-${index}`}>
+                        <RichTextArea
+                        value={text}
+                        setValue={setText}
+                        />
+                        <input
                         name={name} 
-                        minRows={3} 
-                        className="w-full border-2 border-slate-400 rounded"
-                        key={`form-input-${name}-${index}`}/>
+                        hidden
+                        value={text}
+                        readOnly/>
                         { errors?.[name] && <FormHelperText
                             error={true}>
                                 {errors[name]}
