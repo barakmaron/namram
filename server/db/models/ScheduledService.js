@@ -1,5 +1,5 @@
 'use strict';
-import { Model } from "sequelize";
+import { Model, Sequelize } from 'sequelize';
 
 const ScheduledService = (sequelize, DataTypes) => {
     class ScheduledService extends Model {
@@ -24,7 +24,8 @@ const ScheduledService = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER
         },
         LastServiceDate: {
-            type: DataTypes.DATE
+            type: DataTypes.DATE,
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
         }
     }, {
         sequelize,

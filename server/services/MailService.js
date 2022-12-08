@@ -27,6 +27,12 @@ export const ContactMailOption = (prase_mail) => ({
     html: prase_mail
 });
 
+export const ScheduledServicesMailOptions = (prase_mail) => ({
+    to: process.env.EMAIL_ADMIN,
+    subject: "Namram | Scheduled Services",
+    html: prase_mail
+});
+
 const SendMail = (mail_params) => transporter.sendMail(mail_params, (error, info) => {
     info && console.log("Email was sent successfully");
     if(error)
