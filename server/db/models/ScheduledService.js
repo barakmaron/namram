@@ -29,6 +29,7 @@ const ScheduledService = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "ScheduledService"
     });
     return ScheduledService;

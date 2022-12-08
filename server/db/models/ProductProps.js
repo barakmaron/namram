@@ -23,6 +23,7 @@ const ProductProps = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "ProductProps"
     });
     return ProductProps;

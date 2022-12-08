@@ -38,6 +38,7 @@ const Customers = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "Customers"
     });
 

@@ -31,6 +31,7 @@ const Blogs = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "Blogs"
     });
     return Blogs;

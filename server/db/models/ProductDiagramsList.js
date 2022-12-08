@@ -23,6 +23,7 @@ const ProductDiagramsList = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "ProductDiagramsList",
         indexes: [{
             name: 'unique_index',

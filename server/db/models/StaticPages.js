@@ -24,6 +24,7 @@ const StaticPages = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "StaticPages"
     });
 
