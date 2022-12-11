@@ -4,7 +4,7 @@ const GetImageSchema = {
     file_name: {
         isLength: {
             options: { 
-                min: 36
+                min: 5
             }
         },
         errorMessage: ErrorMessages.id,
