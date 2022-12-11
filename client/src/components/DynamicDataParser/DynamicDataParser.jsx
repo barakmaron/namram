@@ -36,16 +36,19 @@ const DynamicDataParser = ({
     }, [page_route, GetStaticPageDataPerPageAction, InitStaticPageDataAction]);
 
     useEffect(() => {
-        if(page_route.includes('/category') && categories.length) { 
+        if(page_route.includes('/category') && categories.length) { // show category as products
             const category = categories.find(category => category.id === category_id);
-            const temp_data = category?.[Constants.PRODUCT_TYPE[category.Type]]?.map(product => ({
-                id: product.id,
-                name: product.Product.Name,
-                Image: product.Product.ProductsImages[0].Image,
-                base_url: `/category/${category.id}/product`
-            }));
+            const temp_data = category?.[Constants.PRODUCT_TYPE[category.Type]]?.reduce((products, product) => {
+                (product?.Display !== true || product?.Display === undefined ) && products.push({
+                    id: product.id,
+                    name: product.Product.Name,
+                    Image: product.Product.ProductsImages[0].Image,
+                    base_url: `/category/${category.id}/product`
+                });
+                return products;
+            }, []);            
             setDataToShow(temp_data || []);
-        } else if(!page_route.includes(Constants.API_PRODUCT_TYPE.RENT) && static_page_data.length && categories.length) {
+        } else if(!page_route.includes(Constants.API_PRODUCT_TYPE.RENT) && static_page_data.length && categories.length) { // show products and categories as defined in control panel
             const filtered_data = static_page_data.flatMap(page_data => {
                 const category = categories.find(category => category.id === page_data.CategoryId);
                 if(page_data.DisplayType === Constants.DisplayType.products) 
@@ -63,7 +66,7 @@ const DynamicDataParser = ({
                 };
             });
             setDataToShow(filtered_data);
-        } else if(page_route.includes(Constants.API_PRODUCT_TYPE.RENT) || page_route.includes(Constants.API_PRODUCT_TYPE.SALE))
+        } else if(page_route.includes(Constants.API_PRODUCT_TYPE.RENT) || page_route.includes(Constants.API_PRODUCT_TYPE.SALE)) // show categories rent or sale
             setDataToShow(categories.map(category => ({
                 id: category.id,
                 name: category.Name,
