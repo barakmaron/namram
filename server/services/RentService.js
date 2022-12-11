@@ -37,10 +37,11 @@ async function GetRentalProduct(id) {
 
 async function CreateRentalProductReport(product) {
     const parse_product_from_db = ParseRentalProductForPdf(product);
+    parse_product_from_db.RentalProducts = [{...parse_product_from_db}];
     return await PdfService.CreateRentalProductPdf(parse_product_from_db);
 }
 
-async function ParseRentalProductForPdf(product) {
+function ParseRentalProductForPdf(product) {
     const temp_product = {...product};
     temp_product.RentalAgreementLists = temp_product.RentalAgreementLists.map(agreement => ({
         RentalAgreement: RentalAgreementsService.ParseAgreementForPdf(agreement.RentalAgreement),
