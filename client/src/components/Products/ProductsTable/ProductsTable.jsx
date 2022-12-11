@@ -153,7 +153,7 @@ const ProductsTable = ({
     const edit_cell = useCallback((params) => {
         const category_name = rows.find(row => row.id === params.id).category;
         const category = categories.find(category => category.Name === category_name);
-        PatchProductAction(params.id, category.id, params.field, params.value, type);
+        PatchProductAction(params.field, params.value, params.id, category.id, type);
     }, [PatchProductAction, categories, rows, type]);
 
     const select_spare_parts = useCallback((product) => {
