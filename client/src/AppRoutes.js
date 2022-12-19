@@ -1,5 +1,6 @@
 
 import Constants from "./Constants";
+import Page404 from "./pages/404/404";
 import AirHammers from "./pages/AirHammers/AirHammers";
 import BlogConnector from "./pages/BlogsPage/Blog/BlogConnector";
 import BlogsPageConnector from "./pages/BlogsPage/BlogsPageConnector";
@@ -126,6 +127,12 @@ const routes = [{
         element: ProductPageConnector,
         location: '/category/:category_id/product/:product_id',
     }]
+}, {
+    label: "404",
+    location: "*",
+    element: Page404,
+    show: false,
+    editable: false
 }];
 
 const admin_routes = [{
