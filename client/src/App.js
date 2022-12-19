@@ -9,7 +9,6 @@ import Helmet from 'react-helmet';
 import ApiMessageDisplayConnector from './components/ApiMessageDisplay/ApiMessageDisplayConnector';
 import AppRoutes from './AppRoutes';
 import GoogleAnalytics from './components/GoogleAnalytics/GoogleAnalytics';
-import Page404 from './pages/404/404';
 
 function App({ 
   logged_in,
@@ -69,7 +68,6 @@ function App({
           })}
           </React.Fragment>;
       })}
-      <Route path='*' element={<Page404/>}/>
     </Routes>
    { !logged_in && <Footer></Footer> }
   </div>;

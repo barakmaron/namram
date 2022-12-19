@@ -1,4 +1,4 @@
-import { CircularProgress, ImageList, ImageListItem } from '@mui/material';
+import { CircularProgress, ImageListItem } from '@mui/material';
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useParams } from "react-router-dom";

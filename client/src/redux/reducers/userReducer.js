@@ -5,7 +5,7 @@ const initState = {
 };
 
 const reducer = (state = initState, action) => {
-    const { type, payload } = action;
+    const { type } = action;
     switch(type) {
         case ACTIONS.LOGIN: {
             return { logged_in: true };

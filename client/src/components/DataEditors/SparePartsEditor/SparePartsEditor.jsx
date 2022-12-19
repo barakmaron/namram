@@ -96,9 +96,9 @@ const SparePartsEditor = ({
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    const row_parsed = parts?.map((part) => {
+    const row_parsed = parts?.reduce((parts_array, part) => {
       if(part.id){
-        return {
+        parts_array.push({
           id: part.id,
           SerialNumber: part.SerialNumber,
           NameEnglish: part.NameEnglish,
@@ -106,8 +106,10 @@ const SparePartsEditor = ({
           Price: part.Price,
           Count: part.Count,
           Diagram: parsed_diagrams_list.find(diagram => diagram.value === part.ProductPartsDiagramId)?.label
-        };
-    }}) || [];
+        });
+      }
+      return parts_array;
+    }, []);
     const filter_add_only_redux = row_parsed.filter(row => row !== undefined);
     setRows(filter_add_only_redux);
   }, [parts, parsed_diagrams_list]);
