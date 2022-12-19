@@ -139,6 +139,10 @@ async function GetAllAgreementsByDateRange(StartDate, EndDate) {
                 EndDate: {
                     [Op.between]: [StartDate, EndDate]
                 }
+            }, {
+                StartDate: StartDate
+            }, {
+                EndDate: EndDate
             }]
         }, 
         include: [CustomersModel, {

@@ -9,7 +9,8 @@ async function Login(req, res, next) {
         const access_token = AuthService.GenerateToken(auth);
         if(auth) {
             return res.cookie('jwt', access_token, {
-                httpOnly: true
+                httpOnly: true,
+                secure: true
             }).sendStatus(StatusCode.SuccessOK);
         } 
         return res.status(StatusCode.ClientErrorUnauthorized).json({
