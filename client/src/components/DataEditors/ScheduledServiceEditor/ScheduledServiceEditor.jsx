@@ -58,18 +58,19 @@ const ScheduledServiceEditor = ({
   }];
 
   useEffect(() => {
-    const row_parsed = services ? services.map((service) => {
+    const row_parsed = services && services.reduce((services_array, service) => {
       if(service.id){
-        return {
+        services_array.push({
           id: service.id,
           ProductId: product_id,
           Name: service.Name,
           Scheduled: service.Scheduled,
           Text: service.Text,
           LastServiceDate: moment(service.LastServiceDate).format(Constants.DateFormat)
-        };
+        });
       }
-    }) : [];
+      return services_array;
+    }, []);
     const filter_add_only_redux = row_parsed.filter(row => row !== undefined);
     setRows(filter_add_only_redux);
   }, [services, product_id]);

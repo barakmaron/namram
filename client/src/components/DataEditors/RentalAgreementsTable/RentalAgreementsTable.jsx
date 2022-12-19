@@ -80,9 +80,9 @@ const RentalAgreementsTable = ({
   const columns = temp_columns.filter(column => !filter_fields.find(field => field === column.field));
 
   useEffect(() => {
-    const row_parsed = agreements ? agreements.map((agreement) => {
+    const row_parsed = agreements && agreements.reduce((agreements_array, agreement) => {
       if(agreement.id){
-        return {
+        agreements_array.push({
             id: agreement.id,
             SerialNumber: agreement.SerialNumber,
             StartDate: agreement.StartDate,
@@ -90,9 +90,10 @@ const RentalAgreementsTable = ({
             Customer: agreement.CustomerId,
             Location: agreement.Location,
             ToolsList: agreement.RentalAgreementLists.map(list => list.RentProduct)
-        };
+        });
       }
-    }) : [];
+      return agreements_array;
+    }, []);
     const filter_add_only_redux = row_parsed.filter(row => row !== undefined);
     setRows(filter_add_only_redux);
   }, [agreements]);
