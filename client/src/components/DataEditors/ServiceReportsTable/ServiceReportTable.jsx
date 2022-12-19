@@ -74,9 +74,9 @@ const ServiceReportTable = ({
   }];
 
   useEffect(() => {    
-    const row_parsed = service_reports ? service_reports.map((report) => {
+    const row_parsed = service_reports && service_reports.reduce((reports_array, report) => {
       if(report.id){
-        return {
+        reports_array.push({
           id: report.id,
           ProductId: report.RentProduct.ProductId,
           ProductName: report.RentProduct.Product.Name,
@@ -84,9 +84,10 @@ const ServiceReportTable = ({
           Problem: report.Problem.replace(Constants.html_remove_regex, ""),
           Update: report.Update,
           Cost: report.PartsChangeds.reduce((accumulator, part) => accumulator + Number.parseInt(part.SparePart.Price), 0) || 0
-        };
+        });
       }
-    }) : [];
+      return reports_array;
+    }, []);
     const filter_add_only_redux = row_parsed.filter(row => row !== undefined);
     setRows(filter_add_only_redux);
   }, [service_reports]);
