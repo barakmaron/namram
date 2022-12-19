@@ -124,7 +124,7 @@ const ProductsTable = ({
 
 
     useEffect(() => {
-        const row_parsed = products ? products.map((product) => {
+        const row_parsed = products && products.reduce((products_array, product) => {
             if(product.id){
                 const category = categories.find(category => category.id === product.CategoryId);
                 if(category) {
@@ -136,16 +136,17 @@ const ProductsTable = ({
                         Display: product.Display,
                         HourClock: product.HourClock
                     }
-                    return {
+                    products_array.push({
                         id: Product.id,
                         Name: Product.Name,
                         category: category.Name,
                         SerialNumber: Product.SerialNumber,
                         ...extra_rent_data
-                    };
+                    });
                 }
             }
-        }) : [];
+            return products_array;
+        }, []);
         const filter_add_only_redux = row_parsed.filter(row => row !== undefined);
         setRows(filter_add_only_redux);
     }, [categories, products, is_sale]);

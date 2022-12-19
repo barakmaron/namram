@@ -77,15 +77,16 @@ const DiagramEditor = ({
     }, [diagrams]);
 
     useEffect(() => {
-        const row_parsed = product_diagrams?.map((diagram) => {
+        const row_parsed = product_diagrams?.reduce((diagrams_array, diagram) => {
             if(diagram.id){
-                return {
+                diagrams_array.push({
                     id: diagram.ProductPartsDiagram.id,
                     ModelName: diagram.ProductPartsDiagram.ModelName,
                     Image: diagram.ProductPartsDiagram.Image
-                };
+                });
             }
-        }) || [];
+            return diagrams_array
+        }, []);
         const filter_add_only_redux = row_parsed.filter(row => row !== undefined);
         setRows(filter_add_only_redux);
     }, [product_diagrams]);

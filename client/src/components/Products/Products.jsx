@@ -20,7 +20,7 @@ const Products = ({
     const [delete_form_controller, setDeleteFormController] = useState([]);
     const [selected_category, setSelectedCategory] = useState(null);
     const [selected_product, setSelectedProduct] = useState(null);
-    const [array_type, setType] = useProductType(type);
+    const [array_type] = useProductType(type);
 
     useEffect(() => {
       const controller = [{            

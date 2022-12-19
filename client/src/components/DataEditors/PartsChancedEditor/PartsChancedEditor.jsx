@@ -63,9 +63,9 @@ const PartsChancedEditor = ({
       }];
 
     useEffect(() => {
-      const row_parsed = parts?.map((part) => {
+      const row_parsed = parts?.reduce((parts_array, part) => {
         if(part.id){
-          return {
+          parts_array.push({
               id: part.id,
               SparePartId: part.SparePart.id,
               SerialNumber: part.SparePart.SerialNumber,
@@ -73,8 +73,10 @@ const PartsChancedEditor = ({
               NameHebrew: part.SparePart.NameHebrew,
               Price: part.SparePart.Price,
               Diagram: part.SparePart.ProductPartsDiagram.ModelName
-          };
-      }}) || [];
+          });
+        }
+        return parts_array;
+      }, []);
       const filter_add_only_redux = row_parsed.filter(row => row !== undefined);
       setRows(filter_add_only_redux);
     }, [parts]);
