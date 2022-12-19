@@ -1,7 +1,6 @@
 import ACTIONS from "../actions/actionConstants/Projects/ProjectsActionsConstants";
 import ProjectsImagesReducerFunctions from "./ProjectsReducerFunctions/ProjectsImagesReducerFunctions";
 import ProjectsReducerFunctions from "./ProjectsReducerFunctions/ProjectsReducerFunctions";
-import reducerUtilities from "./reducerUtilities";
 
 const initState = {
     projects: []
