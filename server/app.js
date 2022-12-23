@@ -7,8 +7,6 @@ import routes from './routes/index.js';
 import ErrorHandler from './middleware/ErrorHandler.js';
 import ValidationErrorMiddleware from './middleware/ValidationErrorMiddleware.js';
 import { sequelize } from './db/models/index.js';
-import ExpressCache from 'express-cache-middleware';
-import cacheManager from 'cache-manager';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import RunSeed from './db/seeders/users_seed.js'
@@ -27,14 +25,6 @@ Promise.resolve(sequelize.sync({  })).then(() => {
 Promise.resolve(CronJobsController.ScheduleOutOfStock());
 Promise.resolve(CronJobsController.ScheduleCheckScheduledServices());
 
-const cacheMiddleware = new ExpressCache(
-  cacheManager.caching({
-    store: 'memory', 
-    max: 10000, 
-    ttl: 3600
-  })
-);
-
 const app = express();
 app.use(cookieParser());
 app.use([morgan("common"), cors({ origin:true, credentials: true }), express.json(), express.urlencoded()]);
@@ -42,21 +32,20 @@ app.use([morgan("common"), cors({ origin:true, credentials: true }), express.jso
 app.use('/', routes);
 app.use(ValidationErrorMiddleware);
 
-cacheMiddleware.attach(app);
 app.use('/static', express.static(path.join(__dirname, '../client/build/static')));
 app.get('*', function(req, res) {
   res.sendFile('index.html', {root: path.join(__dirname, '../client/build/')});
 });
 
-// app.use(ErrorHandler);
-// process.on('unhandledRejection', (reason, promise) => {
-//   console.log('Uncaught Rejection', reason.message);
-//   throw reason;
-// });
+app.use(ErrorHandler);
+process.on('unhandledRejection', (reason, promise) => {
+  console.log('Uncaught Rejection', reason.message);
+  throw reason;
+});
 
-// process.on('uncaughtException', (error) => {
-//   console.log("Uncaught Exception", error.message);
-//   process.exit(1);
-// });
+process.on('uncaughtException', (error) => {
+  console.log("Uncaught Exception", error.message);
+  process.exit(1);
+});
 
 export default app;
