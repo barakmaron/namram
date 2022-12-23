@@ -17,7 +17,8 @@ const RentalAgreementList = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
-        modelName: "RentalAgreementList"
+        timestamps: false,
+        modelName: "RentalAgreementList"        
     });
 
     return RentalAgreementList;

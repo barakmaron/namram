@@ -9,25 +9,43 @@ import ValidationErrorMiddleware from './middleware/ValidationErrorMiddleware.js
 import { sequelize } from './db/models/index.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import RunSeed from './db/seeders/users_seed.js'
+import CronJobsController from './controllers/CronJobsController.js';
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
 
-Promise.resolve(sequelize.sync({}));
+Promise.resolve(sequelize.sync({  })).then(() => {
+  const queryInterface = sequelize.getQueryInterface();
+  RunSeed(queryInterface, sequelize);
+});
+
+Promise.resolve(CronJobsController.ScheduleOutOfStock());
+Promise.resolve(CronJobsController.ScheduleCheckScheduledServices());
 
 const app = express();
 app.use(cookieParser());
-app.use([morgan("common"), cors({ origin:true, credentials: true }), express.json()]);
+app.use([morgan("common"), cors({ origin:true, credentials: true }), express.json(), express.urlencoded()]);
 
 app.use('/', routes);
 app.use(ValidationErrorMiddleware);
-app.use(ErrorHandler);
 
 app.use('/static', express.static(path.join(__dirname, '../client/build/static')));
 app.get('*', function(req, res) {
   res.sendFile('index.html', {root: path.join(__dirname, '../client/build/')});
+});
+
+app.use(ErrorHandler);
+process.on('unhandledRejection', (reason, promise) => {
+  console.log('Uncaught Rejection', reason.message);
+  throw reason;
+});
+
+process.on('uncaughtException', (error) => {
+  console.log("Uncaught Exception", error.message);
+  process.exit(1);
 });
 
 export default app;

@@ -1,8 +1,22 @@
 import { combineReducers } from "redux";
 import userReducer from './userReducer';
-import saleReducer from './saleReducer';
+import categoriesReducer from './categoriesReducer';
+import rentalAgreementsReducer from './rentalAgreementsReducer';
+import customersReducer from './customersReducer';
+import serviceReducer from './serviceReducer';
+import blogsReducer from './blogsReducer';
+import projectsReducer from './projectsReducer';
+import staticPagesReducer from './staticPagesReducer';
+import apiHandlerReducer from './apiHandlerReducer';
 
 export default combineReducers({
     userReducer,
-    saleReducer
+    apiHandlerReducer,
+    categoriesReducer,
+    rentalAgreementsReducer,
+    customersReducer,
+    serviceReducer,
+    blogsReducer,
+    projectsReducer,
+    staticPagesReducer
 });

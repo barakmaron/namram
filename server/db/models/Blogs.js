@@ -19,7 +19,7 @@ const Blogs = (sequelize, DataTypes) => {
             type: DataTypes.STRING
         },
         Text: {
-            type: DataTypes.STRING
+            type: DataTypes.TEXT('long')
         },
         Image: {
             type: DataTypes.STRING
@@ -31,6 +31,7 @@ const Blogs = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "Blogs"
     });
     return Blogs;

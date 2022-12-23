@@ -1,15 +1,3 @@
-import AirHammers from "./pages/AirHammers/AirHammers";
-import CableCutting from "./pages/CableCuting/CableCuting";
-import Contact from "./pages/ContactPage/Contact";
-import ControlPanel from "./pages/ControlPanelPage/ControlPanel";
-import SaleConnector from "./pages/ControlPanelPage/SalePage/SaleConnector";
-import Cut from "./pages/CutPage/Cut";
-import Drill from "./pages/DrillPage/DrillPage";
-import Eilat from "./pages/EilatPage/Eilat";
-import Home from "./pages/HomePage/Home";
-import Projects from "./pages/ProjectsPage/Projects";
-import Rent from "./pages/RentPage/Rent";
-import Shop from "./pages/ShopPage/Shop";
 
 const API_METHODS = {
     POST: "post",
@@ -17,94 +5,37 @@ const API_METHODS = {
     PUT: "put",
     PATCH: "patch",
     DELETE: "delete"
-  };
-  
-const INPUTS_TYPES = {
-    TEXT: "text",
-    PASSWORD: "password",
-    TEXT_AREA: "textarea",
-    FILE: "file",
-    NUMBER: "number",
-    EMAIL: "email",
-    TEL: "tel"
 };
 
-  
-const routes = [{
-    label: "דף הבית",
-    location: "/",
-    element: Home
-}, {
-    label: "השכרת ציוד",
-    location: "/rent",
-    element: Rent
-}, {
-    label: "מכירת ציוד",
-    location: "/shop",
-    element: Shop
-}, {
-    label: "ניסור וקידוח בבטון",
-    location: "/cut",
-    element: Cut,
-    sub_nav: [{
-        label: "ניסור בטון",
-        location: "/cut",
-        element: Cut
-    }, {
-        label: "קידוח בטון",
-        location: "/drill",
-        element: Drill
-    }, {
-        label: "פרוייקטים",
-        location: "/projects",
-        element: Projects
-    }, {
-        label: "מאמרים",
-        location: "/articles"
-    }]
-}, {
-    label: "פטישי חציבה אוויר",
-    location: "/air_hammers",
-    element: AirHammers
-}, {
-    label: "כבל יהלום לניסור",
-    location: "/wire_saw",
-    element: CableCutting
-}, {
-    label: "סניף אילת",
-    location: "/eilat",
-    element: Eilat
-}, {
-    label: "צור קשר",
-    location: "/contact",
-    element: Contact
-}];
+const API_PRODUCT_TYPE = {
+    SALE: "sale",
+    RENT: "rent"
+};
 
-const admin_routes = [{
-    label: "לוח בקרה",
-    location: "/control_panel",
-    element: ControlPanel
-}, {
-    label: "השכרת ציוד",
-    location: "/control_panel/rent",
-    element: Rent
-}, {
-    label: "מכירת ציוד",
-    location: "/control_panel/sale",
-    element: SaleConnector
-}, {
-    label: "בלוג",
-    location: "/control_panel/blogs",
-    element: Rent
-}, {
-    label: "פרוייקטים",
-    location: "/control_panel/projects",
-    element: Rent
-}]
+const PRODUCT_TYPE = {
+    SaleProducts: "SaleProducts",
+    RentProducts: "RentProducts",
+    Sale: "SaleProducts",
+    Rental: "RentProducts"
+};
+
+const CATEGORY_TYPE = {
+    Sale: 'sale',
+    Rental: 'rent'
+};
+
+const DateFormat = "DD/MM/YYYY";
+
+const DisplayType = {
+    products: "PRODUCTS", 
+    category: "CATEGORIES"
+};
+  
+const html_remove_regex = /(<([^>]+)>)/gi;
 
 const contact_nav = {
     phone: "08-8560399",
-    facebook: "https://www.facebook.com/people/%D7%A0%D7%9E%D7%A8%D7%9D-%D7%94%D7%A9%D7%9B%D7%A8%D7%AA-%D7%A6%D7%99%D7%95%D7%93/100016789871066/",
+    facebook: "https://www.facebook.com/people/%D7%A0%D7%9E%D7%A8%D7%9D-%D7%94%D7%A9%D7%9B%D7%A8%D7%AA-%D7%A6%D7%99%D7%95%D7%93/100016789871066",
     youtube: "https://www.youtube.com/channel/UC8pAUFsldDItHcaC6U0KhWg"
 };
 
@@ -175,54 +106,23 @@ const lists = {
     }
 };
 
-const contact_inputs = [{
-    type: INPUTS_TYPES.TEXT,
-    name: "full_name",
-    place_holder: "שם מלא"
-}, {
-    type: INPUTS_TYPES.TEXT,
-    name: "company_name",
-    place_holder: "שם החברה"
-}, {
-    type: INPUTS_TYPES.TEL,
-    name: "phone_number",
-    place_holder: "טלפון"
-}, {
-    type: INPUTS_TYPES.EMAIL,
-    name: "email",
-    place_holder: "אימייל"
-}, {
-    type: INPUTS_TYPES.TEXT_AREA,
-    name: "text",
-    place_holder: "מהות הפנייה"
-}];
-
 const maps = {
     ashdod: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3389.793685021669!2d34.67930828445996!3d31.83061108126808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502bce8c97c0863%3A0x63b3a097fc3ce025!2z16DXnteo150g15TXqdeb16jXqiDXpteZ15XXkyDXkdeiIteeINeg15nXodeV16gg15HXmNeV158g16fXmdeT15XXlyDXkdeY15XXnyDXkdeZ15TXnNeV150g16fXkdec158g15TXqNeZ16HXlA!5e0!3m2!1siw!2sil!4v1667131948310!5m2!1siw!2sil",
     eilat: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d216.89833395611618!2d34.959266949398284!3d29.563738702595106!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15006f84bd8ec259%3A0x3112f3dc38309150!2z16DXnteo150g15HXmdem15XXoiDXkdeiIteeINeU16nXm9eo16og16bXmdeV15Mg15XXm9ec15nXnSDXnNeR16DXmdeZ15Q!5e0!3m2!1siw!2sil!4v1667132620931!5m2!1siw!2sil"
 };
 
-const login_inputs = [{
-    type: INPUTS_TYPES.EMAIL,
-    name: "email",
-    place_holder: "email"
-}, {
-    type: INPUTS_TYPES.PASSWORD,
-    name: "password",
-    place_holder: "password"
-}];
-
 const Constants = {
-    routes,
     contact_nav,
     contact_info,
     lists,
     API_METHODS,
-    INPUTS_TYPES,
-    contact_inputs,
+    API_PRODUCT_TYPE,
+    PRODUCT_TYPE,
     maps,
-    login_inputs,
-    admin_routes
+    DateFormat,
+    DisplayType,
+    CATEGORY_TYPE,
+    html_remove_regex
 };
 
 export default Constants;
