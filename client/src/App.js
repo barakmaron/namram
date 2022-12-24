@@ -26,7 +26,8 @@ function App({
   }, [AuthUserAction, location, logged_in]);
 
   useEffect(() => {
-    AuthUserAction();
+    if(logged_in)
+      AuthUserAction();
   }, [AuthUserAction, logged_in]);
   
   return <div className={`${logged_in ? `flex flex-row` : ``}`}  dir={logged_in ? 'rtl': 'ltr'}>
