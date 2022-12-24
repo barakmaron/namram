@@ -1,8 +1,8 @@
-import crypto from 'crypto';
+import { sha512 } from 'js-sha512';
 
-async function EncryptForm(form) {
+function EncryptForm(form) {
     const new_form = {...form};
-    new_form.Password = await crypto.createHash('sha256').update(new_form.Password).digest("hex");
+    new_form.Password = sha512(new_form.Password);
     return new_form;
 }
 
