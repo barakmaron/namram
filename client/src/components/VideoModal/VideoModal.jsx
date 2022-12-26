@@ -30,7 +30,7 @@ const VideoModal = ({
             {title}
         </h2>
         <video controls>
-            <source src={`/video/${video}`} />
+            <source src={`/${video}`} />
         </video>
     </Modal>}
   </>);
