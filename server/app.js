@@ -32,20 +32,22 @@ app.use([morgan("common"), cors({ origin:true, credentials: true }), express.jso
 app.use('/', routes);
 app.use(ValidationErrorMiddleware);
 
-app.use('/static', express.static(path.join(__dirname, '../client/build/static'),  { dotfiles: 'allow' }));
-app.get('*', function(req, res) {
-  res.sendFile('index.html', {root: path.join(__dirname, '../client/build/')});
-});
+app.use(express.static(path.join(__dirname, '../client/build/static'), { dotfiles: 'allow' } ));
 
-app.use(ErrorHandler);
-process.on('unhandledRejection', (reason, promise) => {
-  console.log('Uncaught Rejection', reason.message);
-  throw reason;
-});
+// app.use('/static', express.static(path.join(__dirname, '../client/build/static')));
+// app.get('*', function(req, res) {
+//   res.sendFile('index.html', {root: path.join(__dirname, '../client/build/')});
+// });
 
-process.on('uncaughtException', (error) => {
-  console.log("Uncaught Exception", error.message);
-  process.exit(1);
-});
+// app.use(ErrorHandler);
+// process.on('unhandledRejection', (reason, promise) => {
+//   console.log('Uncaught Rejection', reason.message);
+//   throw reason;
+// });
+
+// process.on('uncaughtException', (error) => {
+//   console.log("Uncaught Exception", error.message);
+//   process.exit(1);
+// });
 
 export default app;
