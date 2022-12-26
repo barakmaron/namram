@@ -11,6 +11,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import RunSeed from './db/seeders/users_seed.js'
 import CronJobsController from './controllers/CronJobsController.js';
+import EnsureSecureMiddleware from './middleware/EnsureSecureMiddleware.js';
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -26,6 +27,8 @@ Promise.resolve(CronJobsController.ScheduleOutOfStock());
 Promise.resolve(CronJobsController.ScheduleCheckScheduledServices());
 
 const app = express();
+
+app.use(EnsureSecureMiddleware);
 app.use(cookieParser());
 app.use([morgan("common"), cors({ origin:true, credentials: true }), express.json(), express.urlencoded()]);
 
