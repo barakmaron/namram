@@ -12,6 +12,7 @@ import { fileURLToPath } from 'url';
 import RunSeed from './db/seeders/users_seed.js'
 import CronJobsController from './controllers/CronJobsController.js';
 import EnsureSecureMiddleware from './middleware/EnsureSecureMiddleware.js';
+import favicon from "serve-favicon";
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -29,6 +30,7 @@ Promise.resolve(CronJobsController.ScheduleCheckScheduledServices());
 const app = express();
 
 app.use(EnsureSecureMiddleware);
+app.use(favicon(path.join(__dirname, '../client/build/favicon.ico')));
 app.use(cookieParser());
 app.use([morgan("common"), cors({ origin:true, credentials: true }), express.json(), express.urlencoded()]);
 
