@@ -35,8 +35,8 @@ app.use([morgan("common"), cors({ origin:true, credentials: true }), express.jso
 app.use('/', routes);
 app.use(ValidationErrorMiddleware);
 
-app.use('/static', express.static(path.join(__dirname, '../client/build/static')));
-app.get('*', function(req, res) {
+app.use(express.static(path.join(__dirname, '../client/build')));
+app.get('(/*)?', function(req, res) {
   res.sendFile('index.html', {root: path.join(__dirname, '../client/build/')});
 });
 
