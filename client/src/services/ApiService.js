@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 const sender = axios.create({
-    baseURL: process.env.API_BASE_URL
+    baseURL: process.env.REACT_APP_API_BASE_URL
 });
 
 export default async function SendApiRequest(url, method = "get", params = undefined) {
     try {
-        axios.defaults.withCredentials = true;
+        sender.defaults.withCredentials = true;
         const res = await sender[method](`${url}`, params);
         if(res.headers["set-cookie"]){
             const [cookie] = res.headers["set-cookie"];
