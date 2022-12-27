@@ -19,7 +19,7 @@ const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename); 
 
-Promise.resolve(sequelize.sync({  })).then(() => {
+Promise.resolve(sequelize.sync({ force:true })).then(() => {
   const queryInterface = sequelize.getQueryInterface();
   RunSeed(queryInterface, sequelize);
 });
@@ -29,7 +29,7 @@ Promise.resolve(CronJobsController.ScheduleCheckScheduledServices());
 
 const app = express();
 
-app.use(EnsureSecureMiddleware);
+// app.use(EnsureSecureMiddleware);
 app.use(favicon(path.join(__dirname, '../client/build/favicon.ico')));
 app.use(cookieParser());
 app.use([morgan("common"), cors({ origin:true, credentials: true }), express.json(), express.urlencoded()]);
