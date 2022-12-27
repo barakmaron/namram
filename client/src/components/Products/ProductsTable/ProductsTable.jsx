@@ -124,7 +124,7 @@ const ProductsTable = ({
 
 
     useEffect(() => {
-        const row_parsed = products && products.reduce((products_array, product) => {
+        const row_parsed = (products && products.reduce((products_array, product) => {
             if(product.id){
                 const category = categories.find(category => category.id === product.CategoryId);
                 if(category) {
@@ -146,9 +146,8 @@ const ProductsTable = ({
                 }
             }
             return products_array;
-        }, []);
-        const filter_add_only_redux = row_parsed.filter(row => row !== undefined);
-        setRows(filter_add_only_redux);
+        }, [])) || [];
+        setRows(row_parsed);
     }, [categories, products, is_sale]);
 
     const edit_cell = useCallback((params) => {
