@@ -86,9 +86,8 @@ const DiagramEditor = ({
                 });
             }
             return diagrams_array
-        }, []);
-        const filter_add_only_redux = row_parsed.filter(row => row !== undefined);
-        setRows(filter_add_only_redux);
+        }, []) || [];
+        setRows(row_parsed);
     }, [product_diagrams]);
 
     const add_diagram = useCallback((event, diagram, temp_image_url) => {

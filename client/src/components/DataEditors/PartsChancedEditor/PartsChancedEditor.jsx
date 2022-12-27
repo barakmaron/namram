@@ -76,9 +76,8 @@ const PartsChancedEditor = ({
           });
         }
         return parts_array;
-      }, []);
-      const filter_add_only_redux = row_parsed.filter(row => row !== undefined);
-      setRows(filter_add_only_redux);
+      }, []) || [];
+      setRows(row_parsed);
     }, [parts]);
 
     useEffect(() => {

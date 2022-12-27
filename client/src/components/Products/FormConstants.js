@@ -52,6 +52,10 @@ const ProductFormsExtended = {
         name: "HourClock",
         place_holder: "Number of working hours"
     }, {
+        type: FORMS.INPUTS_TYPES.TEXT,
+        name: "Identifier",
+        place_holder: "Identifier"
+    }, {
         type: FORMS.INPUTS_TYPES.CHECK_BOX,
         name: "Display",
         place_holder: "To display this tool on site?"

@@ -40,14 +40,14 @@ const RentToolsSelector = ({
         }))
         setParsedCategories([ default_category, ...temp_parsed_categories]);
         setAllProducts(() => categories.flatMap(category => category.RentProducts.map(product => ({
-            label: `${product.Product.Name} | מס ${product.Product.SerialNumber}`,
+            label: `${product.Product.Name} | מס ${product.Product.SerialNumber} | ${product.Identifier}`,
             value: product.id
         }))));
     }, [categories, default_category]);
 
     useEffect(() => {
         const temp_products = selected_category ? selected_category.RentProducts.map(product => ({
-            label: `${product.Product.Name} | מס ${product.Product.SerialNumber}`,
+            label: `${product.Product.Name} | מס ${product.Product.SerialNumber} | ${product.Identifier}`,
             value: product.id
         })) : [];
         setParsedProducts([ default_product, ...temp_products ]);
