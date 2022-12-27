@@ -109,9 +109,8 @@ const SparePartsEditor = ({
         });
       }
       return parts_array;
-    }, []);
-    const filter_add_only_redux = row_parsed.filter(row => row !== undefined);
-    setRows(filter_add_only_redux);
+    }, []) || [];
+    setRows(row_parsed);
   }, [parts, parsed_diagrams_list]);
 
   const add_part = useCallback((event, part_form) => {

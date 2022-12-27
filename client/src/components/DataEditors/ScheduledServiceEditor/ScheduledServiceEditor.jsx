@@ -58,7 +58,7 @@ const ScheduledServiceEditor = ({
   }];
 
   useEffect(() => {
-    const row_parsed = services && services.reduce((services_array, service) => {
+    const row_parsed = (services && services.reduce((services_array, service) => {
       if(service.id){
         services_array.push({
           id: service.id,
@@ -70,9 +70,8 @@ const ScheduledServiceEditor = ({
         });
       }
       return services_array;
-    }, []);
-    const filter_add_only_redux = row_parsed.filter(row => row !== undefined);
-    setRows(filter_add_only_redux);
+    }, [])) || [];
+    setRows(row_parsed);
   }, [services, product_id]);
 
   const edit_cell = useCallback((params) => {

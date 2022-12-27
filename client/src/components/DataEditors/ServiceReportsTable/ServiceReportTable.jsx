@@ -74,7 +74,7 @@ const ServiceReportTable = ({
   }];
 
   useEffect(() => {    
-    const row_parsed = service_reports && service_reports.reduce((reports_array, report) => {
+    const row_parsed = (service_reports && service_reports.reduce((reports_array, report) => {
       if(report.id){
         reports_array.push({
           id: report.id,
@@ -87,9 +87,8 @@ const ServiceReportTable = ({
         });
       }
       return reports_array;
-    }, []);
-    const filter_add_only_redux = row_parsed.filter(row => row !== undefined);
-    setRows(filter_add_only_redux);
+    }, [])) || [];
+    setRows(row_parsed);
   }, [service_reports]);
 
   const get_pdf_service_report = useCallback((params) => {

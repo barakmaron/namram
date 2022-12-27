@@ -32,6 +32,10 @@ const RentProducts = (sequelize, DataTypes) => {
         Display: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
+        },
+        Identifier: {
+            type: DataTypes.STRING,
+            defaultValue: ""
         }
     }, {
         sequelize,
