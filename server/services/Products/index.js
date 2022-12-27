@@ -23,12 +23,13 @@ function destructorProps(props) {
 async function AddProduct(category, name, serial_number, text, price, files, props, product_type){
     const image_resized = files.map(file => ImageService.ResizeAndStoreImage(file.path, file.filename));
     const images = await Promise.all(image_resized);
-    const { DayPrice, WeekPrice, MonthPrice, Display, HourClock } = product_type.includes(Constants.PRODUCT_TYPE.RENT.toLowerCase()) && props;  
+    const { DayPrice, WeekPrice, MonthPrice, Display, HourClock, Identifier } = product_type.includes(Constants.PRODUCT_TYPE.RENT.toLowerCase()) && props;  
     delete props.DayPrice;
     delete props.WeekPrice;
     delete props.MonthPrice;
     delete props.Display;
-    delete props.HourClock;  
+    delete props.HourClock; 
+    delete props.Identifier; 
     const parsed_props = destructorProps(props);
     return await ProductsDB.AddProduct(
         category, 
@@ -40,7 +41,8 @@ async function AddProduct(category, name, serial_number, text, price, files, pro
         parsed_props, 
         product_type,
         Display, 
-        HourClock);
+        HourClock,
+        Identifier);
 }
 
 async function DeleteProduct(id, product_type) {
