@@ -8,7 +8,7 @@ import Constants from '../../../Constants.js';
 import { Op } from "sequelize";
 
 
-async function AddProduct(id, name, serial_number, text, price, images, props, product_type, display, hour_clock) {
+async function AddProduct(id, name, serial_number, text, price, images, props, product_type, display, hour_clock, identifier) {
     const transaction = await sequelize.transaction();
     try {
         const type_condition = product_type.includes(Constants.PRODUCT_TYPE.SALE.toLocaleLowerCase());    
@@ -40,7 +40,8 @@ async function AddProduct(id, name, serial_number, text, price, images, props, p
             ProductId: product.id,
             CategoryId: id,
             Display: display,
-            HourClock: hour_clock ? hour_clock : null
+            HourClock: hour_clock ? hour_clock : null,
+            Identifier: identifier
         }, { transaction });        
         const [product_row] = await Promise.all([typed_product, ...props_promises, ...products_images]);
         await transaction.commit();
