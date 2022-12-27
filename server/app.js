@@ -19,7 +19,7 @@ const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename); 
 
-Promise.resolve(sequelize.sync({ force:true })).then(() => {
+Promise.resolve(sequelize.sync({  })).then(() => {
   const queryInterface = sequelize.getQueryInterface();
   RunSeed(queryInterface, sequelize);
 });
