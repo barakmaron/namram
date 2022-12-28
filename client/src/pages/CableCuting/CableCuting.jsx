@@ -36,7 +36,7 @@ const CableCutting = () => {
         <h2 className='sm:text-8xl text-4xl text-white font-bold sm:pt-60 sm:pb-24 w-fit mx-auto text-center' dir='rtl'>
             צריכים הצעה או ייעוץ לניסור בטון?
         </h2>
-        <Button text={"צור קשר עכשיו"} action={() => navigate("/contact")} />
+        <Button text={"צור קשר עכשיו"} action={() => navigate("/Contact")} />
     </div>
     <div className='py-10 w-3/4 mx-auto flex flex-col gap-5' dir='rtl'>
         <div className='mx-auto flex sm:flex-row flex-col gap-5'>
