@@ -34,13 +34,13 @@ const routes = [{
     show: true,
 }, {
     label: "השכרת ציוד",
-    location: "/Rent",
+    location: "/RentPage",
     element: Rent,
     editable: false,
     show: true
 }, {
     label: "מכירת ציוד",
-    location: "/Sale",
+    location: "/SalePage",
     element: Shop,
     editable: false,
     show: true
