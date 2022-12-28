@@ -23,7 +23,7 @@ const DynamicDataParser = ({
     useEffect(() => {
         if(page_route.includes('/category') && category_id !== undefined) {
             GetCategoryAction(category_id);            
-        } else if(page_route.includes(Constants.API_PRODUCT_TYPE.RENT))
+        } else if(page_route.toLowerCase().includes(Constants.API_PRODUCT_TYPE.RENT))
             GetRentAction();
         else
             GetSaleAction();
