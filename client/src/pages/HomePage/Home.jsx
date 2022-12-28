@@ -8,7 +8,7 @@ const Home = () => {
   return (<>
   <div className='flex sm:flex-row flex-col justify-center bg-home bg-fixed bg-cover py-16 shadow-inner bg-center'>    
     <div className='text-center my-5 sm:w-full lg:w-1/3 bg-white shadow-lg sm:rounded-l-2xl sm:rounded-r-none rounded-b-2xl rounded-t-2xl w-screen  relative transition-all group cursor-pointer '
-    onClick={() => navigate(`/Rent`)}>
+    onClick={() => navigate(`/RentPage`)}>
         <h2 className='sm:text-4xl text-3xl bg-amber-500 py-2 text-white font-bold sm:rounded-tl-2xl sm:rounded-r-none rounded-t-2xl transition-all group-hover:text-amber-600 group-hover:bg-white'>
             נמרם השכרת ציוד בע"מ    
         </h2>
