@@ -49,7 +49,7 @@ const Navbar = ({
         <div className={`flex text-4xl items-center justify-center gap-2 bg-white w-full ${scroll > 30 && ` fixed top-0 z-10 py-2`}`}>
             <Link
             className='hover:text-green-600'
-            to='/sale'>
+            to='/SalePage'>
                 <BsShop></BsShop>
             </Link>
             <a
