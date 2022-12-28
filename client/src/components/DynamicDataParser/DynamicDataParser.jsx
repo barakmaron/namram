@@ -48,7 +48,7 @@ const DynamicDataParser = ({
                 return products;
             }, []);            
             setDataToShow(temp_data || []);
-        } else if(!page_route.includes(Constants.API_PRODUCT_TYPE.RENT) && static_page_data.length && categories.length) { // show products and categories as defined in control panel
+        } else if(!page_route.toLowerCase().includes(Constants.API_PRODUCT_TYPE.RENT) && static_page_data.length && categories.length) { // show products and categories as defined in control panel
             const filtered_data = static_page_data.flatMap(page_data => {
                 const category = categories.find(category => category.id === page_data.CategoryId);
                 if(page_data.DisplayType === Constants.DisplayType.products) 
@@ -66,7 +66,7 @@ const DynamicDataParser = ({
                 };
             });
             setDataToShow(filtered_data);
-        } else if(page_route.includes(Constants.API_PRODUCT_TYPE.RENT) || page_route.includes(Constants.API_PRODUCT_TYPE.SALE)) // show categories rent or sale
+        } else if(page_route.toLowerCase().includes(Constants.API_PRODUCT_TYPE.RENT) || page_route.toLowerCase().includes(Constants.API_PRODUCT_TYPE.SALE)) // show categories rent or sale
             setDataToShow(categories.map(category => ({
                 id: category.id,
                 name: category.Name,
