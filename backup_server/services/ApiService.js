@@ -8,7 +8,7 @@ const sender = axios.create({
 
 export default async function SendApiRequest(url, method = "get", params = undefined) {
     try {
-        axios.defaults.withCredentials = true;
+        sender.defaults.withCredentials = true;
         const res = await sender[method](`${url}`, params);
         if(res.headers["set-cookie"]){
             const [cookie] = res.headers["set-cookie"];
