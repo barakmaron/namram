@@ -34,76 +34,76 @@ const routes = [{
     show: true,
 }, {
     label: "השכרת ציוד",
-    location: "/rent",
+    location: "/Rent",
     element: Rent,
     editable: false,
     show: true
 }, {
     label: "מכירת ציוד",
-    location: "/sale",
+    location: "/Sale",
     element: Shop,
     editable: false,
     show: true
 }, {
     label: "ניסור וקידוח בבטון",
-    location: "/cut",
+    location: "/Cut",
     element: Cut,
     editable: true,
     show: true,
     sub_nav: [{
         label: "ניסור בטון",
-        location: "/cut",
+        location: "/Cut",
         element: Cut,
         editable: true,
         show: true
     }, {
         label: "קידוח בטון",
-        location: "/drill",
+        location: "/Drill",
         element: Drill,
         editable: true,
         show: true
     }, {
         label: "פרוייקטים",
-        location: "/projects",
+        location: "/Projects",
         element: ProjectsConnector,
         editable: false,
         show: true,
         child: [{
             element: ProjectConnector,
-            location: '/project/:id'
+            location: '/Project/:id'
         }] 
     }]
 }, {
     label: "פטישי חציבה אוויר",
-    location: "/air_hammers",
+    location: "/Air_hammers",
     element: AirHammers,
     editable: true,
     show: true
 }, {
     label: "כבל יהלום לניסור",
-    location: "/wire_saw",
+    location: "/Wire_saw",
     element: CableCutting,
     editable: true,
     show: true
 }, {
     label: "סניף אילת",
-    location: "/eilat",
+    location: "/Eilat",
     element: Eilat,
     editable: false,
     show: true
 }, {
     label: "מאמרים",
-    location: "/blogs",
+    location: "/Blogs",
     element: BlogsPageConnector,
     editable: false,
     show: true,
     child: [{
         element: BlogConnector,
-        location: '/blog/:id'
+        location: '/Blog/:id'
     }] 
 }, {
     label: "צור קשר",
-    location: "/contact",
+    location: "/Contact",
     element: ContactConnector,
     editable: false,
     show: true,
