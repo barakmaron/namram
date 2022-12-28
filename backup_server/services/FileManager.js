@@ -8,13 +8,11 @@ async function CreateDir() {
         const base_folder = process.env.BASE_FOLDER;
         const folder = path.resolve(path.join(base_folder, date));
         const check_dir = fs.existsSync(folder);
-        if(!check_dir) {
-            const created_folder = fs.mkdirSync(folder);
-            return created_folder;
-        }
+        if(!check_dir) 
+            fs.mkdirSync(folder);
         return folder;
     } catch (err) {
-        return false;
+        throw err;
     }
 }
 
