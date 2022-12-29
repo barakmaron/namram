@@ -22,7 +22,7 @@ const CategoryPage = ({
 
   return category && <>
   <Helmet>
-        <title>נמרם | {category.Name} </title>
+        <title>נמרם | {category.Name}</title>
     </Helmet>
     <div 
   dir='rtl'
@@ -30,7 +30,7 @@ const CategoryPage = ({
     <Link 
     to={`/${Constants.CATEGORY_TYPE[category.Type]}`}
     className='sm:text-2xl text-xl py-5 hover:underline hover:text-amber-400 hover:font-bold'>
-        {category.Type.toLowerCase().includes(Constants.CATEGORY_TYPE.Sale) ? `מכירת ציוד` : `השכרת ציוד`}
+        {category.Type.toLowerCase().includes(Constants.API_PRODUCT_TYPE.SALE) ? `מכירת ציוד` : `השכרת ציוד`}
     </Link> 
     <span className='sm:text-3xl text-2xl px-2'> / </span>
     <Link 
