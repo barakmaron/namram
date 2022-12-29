@@ -32,7 +32,7 @@ const ProductPage = ({
     }, [category, product_id]);
 
   return product && <>
-  <Helmet>
+    <Helmet>
         <title>נמרם | {category.Name} | {product.Product.name}</title>
     </Helmet>
   <div
