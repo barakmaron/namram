@@ -32,7 +32,7 @@ const ProductPage = ({
     }, [category, product_id]);
 
   return product && <>
-  <Helmet>
+    <Helmet>
         <title>נמרם | {category.Name} | {product.Product.name}</title>
     </Helmet>
   <div
@@ -44,7 +44,7 @@ const ProductPage = ({
     <Link 
     to={`/${Constants.CATEGORY_TYPE[category.Type]}`}
     className='text-xl hover:underline hover:text-amber-400 hover:font-bold w-fit'>
-        {category.Type.toLowerCase().includes(Constants.CATEGORY_TYPE.Sale) ? `מכירת ציוד` : `השכרת ציוד`}
+        {category.Type.toLowerCase().includes(Constants.API_PRODUCT_TYPE.SALE) ? `מכירת ציוד` : `השכרת ציוד`}
     </Link> 
     <span className='text-3xl px-2 h-fit'> / </span>
     <Link 
