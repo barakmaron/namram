@@ -52,7 +52,7 @@ const DynamicDataParser = ({
             const filtered_data = static_page_data.flatMap(page_data => {
                 const category = categories?.find(category => category.id === page_data.CategoryId);
                 if(page_data.DisplayType === Constants.DisplayType.products) 
-                    return category.SaleProducts?.map(product => ({
+                    return category?.SaleProducts?.map(product => ({
                         id: product.id,
                         name: product.Product.Name,
                         Image: product.Product.ProductsImages[0].Image,
