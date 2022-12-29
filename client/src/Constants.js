@@ -20,8 +20,8 @@ const PRODUCT_TYPE = {
 };
 
 const CATEGORY_TYPE = {
-    Sale: 'sale',
-    Rental: 'rent'
+    Sale: 'SalePage',
+    Rental: 'RentPage'
 };
 
 const DateFormat = "DD/MM/YYYY";
