@@ -6,10 +6,10 @@ import Image from '../../DataEditors/ImageEditor/Image';
 const ItemsListDisplay = ({
     list
 }) => {
-  return <ul className='w-[98vw] px-10 py-4 flex flex-wrap justify-center items-center gap-2'>
+  return <ul className='w-[98vw] px-10 py-4 flex flex-wrap justify-center items-baseline gap-2'>
     { list?.map(item => {
         return <li 
-        className='max-w-[275px] min-h-[275px] relative'
+        className='max-w-[275px] min-h-[275px] min-w-[275px] relative'
         key={`list-item-${item.id}`}>
             <Link 
             className='no-underline cursor-pointer group'
