@@ -6,6 +6,7 @@ import StructureProductData from '../../components/GoogleAnalytics/StructureProd
 import ImageSlider from '../../components/ImageSlider/ImageSlider';
 import TextParser from '../../components/RichTextArea/TextParser';
 import Constants from '../../Constants';
+import Helmet from 'react-helmet'
 
 const ProductPage = ({
     categories,
@@ -30,7 +31,11 @@ const ProductPage = ({
             setProduct(category[Constants.PRODUCT_TYPE[category.Type]].find(product => product.id === product_id));
     }, [category, product_id]);
 
-  return product && <div
+  return product && <>
+  <Helmet>
+        <title>נמרם | {category.Name} | {product.Product.name}</title>
+    </Helmet>
+  <div
   className='lg:w-[80vw] w-screen mx-auto pb-5'>
     <StructureProductData product={product} />
   <div 
@@ -103,7 +108,8 @@ const ProductPage = ({
         })}
     </ul>
   </div>
-  </div>;
+  </div>
+  </>;
 }
 
 export default ProductPage;
