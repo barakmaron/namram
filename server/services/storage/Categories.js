@@ -19,10 +19,12 @@ async function GetCategoryById(id) {
             model: type_condition ? SaleProductsModel : RentalProductsModel,
             include: {
                 model: ProductsModel,
-                include: [ProductPropsModel, ProductsImagesModel],
-                order: "Name ASC"
+                include: [ProductPropsModel, ProductsImagesModel]
             }
-        }]
+        }],
+        order: [
+            [ProductsModel, "Name", "ASC"]
+        ]
     });
 }
 
