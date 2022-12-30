@@ -48,7 +48,7 @@ const Projects = ({
         <h2 className='sm:text-8xl text-4xl text-white font-bold sm:pt-60 sm:pb-24 w-fit mx-auto text-center' dir='rtl'>
             צריכים הצעה או ייעוץ לניסור בטון?
         </h2>
-        <Button text={"צור קשר עכשיו"} action={() => navigate("/Sontact")} />
+        <Button text={"צור קשר עכשיו"} action={() => navigate("/Contact")} />
     </div>
   </>);
 };
