@@ -79,6 +79,7 @@ const ProductsTable = ({
             field: 'Name',
             headerName: 'שם המוצר',
             editable: true,
+            flex: 1
         }, {
             field: 'category',
             headerName: 'קטגוריה'
