@@ -23,7 +23,7 @@ async function GetCategoryById(id) {
             }
         }],
         order: [
-            [ProductsModel, "Name", "ASC"]
+            [type_condition ? SaleProductsModel : RentalProductsModel, ProductsModel, "Name", "ASC"]
         ]
     });
 }
