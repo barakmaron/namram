@@ -20,9 +20,7 @@ async function GetCategoryById(id) {
             include: {
                 model: ProductsModel,
                 include: [ProductPropsModel, ProductsImagesModel],
-                order: [
-                    ["Name", 'ASC']
-                ]
+                order: "Name ASC"
             }
         }]
     });
