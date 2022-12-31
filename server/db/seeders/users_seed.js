@@ -12,11 +12,11 @@ async function up (queryInterface, Sequelize) {
     }, {
       id: uuid(),
       Email: "verd@namram.co.il",
-      Password: "cc14ff47bda71ace3ff2c77ab55c73adc246d48af91cf9554ef731f95a52d803d4a6837c42638b859fb0b203beec69b9f735be4fda701438e06c685cfc62a996"
+      Password: "68f5815aae1023da23f231491271775edf5c163940bb95e10c9e31a85c4c18d7a9ea10ae8149a563294c9260326c33dccde524314e88e657170fedf2099fb523"
     }, {
       id: uuid(),
       Email: "nadav@namram.co.il",
-      Password: "d14b5a5caefe91534e773706cc51bfc39b17d458ba0079c72819518efd5705b833cce9e19842880b7f7708160d51be4981439b39886b9bc56a20f42a9c9edc0e"
+      Password: "68f5815aae1023da23f231491271775edf5c163940bb95e10c9e31a85c4c18d7a9ea10ae8149a563294c9260326c33dccde524314e88e657170fedf2099fb523"
     }]);
   } catch (err) {
     throw err;
