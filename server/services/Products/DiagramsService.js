@@ -2,7 +2,7 @@ import ProductsDB from "../storage/Products/index.js";
 import ImageService from '../ImageService.js';
 
 async function AddDiagram(product_id, model_name, file) {
-    const image = await ImageService.ResizeAndStoreImage(file.path, file.filename);
+    const image = await ImageService.ResizeAndStoreImage(file.path, file.filename, file.mimetype);
     const diagram = await ProductsDB.Diagrams.AddDiagram(product_id, model_name, image);
     return await ProductsDB.Diagrams.GetById(diagram.ProductPartsDiagramId);
 }
