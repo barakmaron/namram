@@ -82,14 +82,6 @@ const ServicePage = ({
         }]}>
             כלים בתיקון
         </ControlPanelBlock>
-        <ControlPanelBlock
-        number={service_reports.length}
-        actions={[{
-            label: "הוסף כלי לתיקון",
-            value: () => setOpenToolToService(true)
-        }]}>
-            כלים בתיקון
-        </ControlPanelBlock>
     </div>
     <ServiceReportTableConnector
     service_reports={service_reports}/>
