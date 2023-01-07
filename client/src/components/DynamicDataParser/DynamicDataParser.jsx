@@ -39,7 +39,7 @@ const DynamicDataParser = ({
         if(page_route.includes('/category') && categories.length) { // show category as products
             const category = categories.find(category => category.id === category_id);
             const temp_data = category?.[Constants.PRODUCT_TYPE[category.Type]]?.reduce((products, product) => {
-                (product?.Display !== true || product.Display === undefined ) && products.push({
+                (product?.Display === true || product.Display === undefined ) && products.push({
                     id: product.id,
                     name: product.Product.Name,
                     Image: product.Product.ProductsImages[0].Image,
