@@ -41,7 +41,7 @@ const ServicePage = ({
 
     useEffect(() => {
         const products = selected_category && selected_category.RentProducts.map(product => ({
-            label: product.Product.Name,
+            label: `${product.Product.Name} | מס ${product.Product.SerialNumber}`,
             value: product.id
         }));
         setProductsList(products);
