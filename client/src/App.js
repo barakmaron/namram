@@ -9,6 +9,7 @@ import Helmet from 'react-helmet';
 import ApiMessageDisplayConnector from './components/ApiMessageDisplay/ApiMessageDisplayConnector';
 import AppRoutes from './AppRoutes';
 import GoogleAnalytics from './components/GoogleAnalytics/GoogleAnalytics';
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 
 function App({ 
   logged_in,
@@ -31,6 +32,7 @@ function App({
   
   return <div className={`${logged_in ? `flex flex-row` : ``}`}  dir={logged_in ? 'rtl': 'ltr'}>
     <GoogleAnalytics></GoogleAnalytics>
+    <ScrollToTop/>
     <header>
       { !logged_in ? 
       <Navbar routes={routes} {...Constants.contact_nav} />:
