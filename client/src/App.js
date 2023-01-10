@@ -30,11 +30,11 @@ function App({
     AuthUserAction();
   }, [AuthUserAction, logged_in]);
   
-  return <div className={`${logged_in ? `flex flex-row` : ``}`}  dir={logged_in ? 'rtl': 'ltr'}>
+  return <div className={`${logged_in && routes === AppRoutes.admin_routes ? `flex flex-row` : ``}`}  dir={logged_in && routes === AppRoutes.admin_routes ? 'rtl': 'ltr'}>
     <GoogleAnalytics></GoogleAnalytics>
     <ScrollToTop/>
     <header>
-      { !logged_in ? 
+      { !logged_in || routes !== AppRoutes.admin_routes ? 
       <Navbar routes={routes} {...Constants.contact_nav} />:
       <SideNavBar routes={routes} />}
     </header>
