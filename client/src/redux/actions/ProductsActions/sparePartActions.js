@@ -21,7 +21,8 @@ const UpdateSparePart = (product_id, category_id, diagram_id, new_part, product_
         product_id,
         category_id,
         diagram_id,
-        new_part
+        new_part,
+        product_type
     }
 });
 
