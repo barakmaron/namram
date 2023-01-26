@@ -20,5 +20,11 @@ This is a corporate website, with added custome one of a kind plant rental cms b
 - React
 - Redux
 
+# Database diagram
+![DB diagram](https://iili.io/H0Efw3g.png)
+
+# Data Manipulation Flow (For Ui First)
+![Data Manipulation Flow](https://github.com/barakmaron/namram/blob/main/Data%20Manipulation%20Flow.png)
+
 # License
 This project is licensed under the MIT License.
