@@ -30,8 +30,8 @@ const ToolsPage = ({
 
     useEffect(() => {
       const categories_map_for_list = categories?.map((category) => ({
-        label: category.Name,
-        value: category.id
+        label: category?.Name,
+        value: category?.id
       }));
       setCategoriesList(categories_map_for_list);
     }, [categories]);
