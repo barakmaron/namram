@@ -7,6 +7,8 @@ services:
     build: ./client
     ports: 
       - 3000:3000
+    depends_on:
+      - server
   db:
     container_name: mysql_server
     image: mysql
@@ -21,4 +23,9 @@ services:
     image: docker-express-image
     build: ./server
     network_mode: "host"
+    depends_on:
+      - db
+    volumes:
+      - /tmp/Images:/server/Images
+    user: "root"
     restart: always

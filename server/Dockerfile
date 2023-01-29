@@ -1,5 +1,6 @@
-FROM node:18-alpine
+FROM node:18-buster
 RUN npm install -g mysql2
+RUN apt-get update && apt-get install -y libvips-dev
 WORKDIR /server
 COPY package.json .
 RUN npm install --force
