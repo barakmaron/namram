@@ -3,3 +3,5 @@
 /Images
 /public.pem
 /private.pem
+/index.js
+/db/seeders/user_seed.js
