@@ -15,14 +15,12 @@ const SaleProducts = (sequelize, DataTypes) => {
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true
         },
-        SerialNumber: {
-            type: DataTypes.INTEGER
-        },
         Price: {
             type: DataTypes.INTEGER
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "SaleProducts"
     });
 

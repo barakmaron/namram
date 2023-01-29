@@ -28,10 +28,11 @@ const SpareParts = (sequelize, DataTypes) => {
             type: DataTypes.STRING
         },
         Count: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER.UNSIGNED
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "SpareParts"
     });
     return SpareParts;

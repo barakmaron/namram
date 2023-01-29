@@ -1,9 +1,9 @@
 import Sequelize from 'sequelize';
-import SaleCategories from './SaleCategories.js';
 import Products from './Products.js';
 import ProductsImages from './ProductsImages.js';
 import ProductProps from './ProductProps.js';
 import ProductPartsDiagram from './ProductPartsDiagram.js';
+import ProductDiagramsList from './ProductDiagramsList.js';
 import SpareParts from './SpareParts.js';
 import Users from './Users.js';
 import Blogs from './Blogs.js';
@@ -11,14 +11,15 @@ import Projects from './Projects.js';
 import ProjectsImages from './ProjectsImages.js';
 import RentalProducts from './RentProducts.js';
 import SaleProducts from './SaleProducts.js';
-import ServiceBook from './ServiceBook.js';
 import ServiceReports from './ServiceReports.js';
 import PartsChanged from './PartsChanged.js';
 import RentalAgreement from './RentalAgreement.js';
 import RentalAgreementList from './RentalAgreementList.js';
 import Customers from './Customers.js';
-import RentCategories from './RentCategories.js';
 import dotenv from 'dotenv';
+import Categories from './Categories.js';
+import StaticPages from './StaticPages.js';
+import ScheduledService from './ScheduledService.js';
 dotenv.config();
 
 export const sequelize = new Sequelize(
@@ -31,16 +32,14 @@ export const sequelize = new Sequelize(
   }
 );
 
-export const SaleCategoriesModel = SaleCategories(sequelize, Sequelize.DataTypes);
-export const RentCategoriesModel = RentCategories(sequelize, Sequelize.DataTypes);
 export const ProductsModel = Products(sequelize, Sequelize.DataTypes);
 export const RentalProductsModel = RentalProducts(sequelize, Sequelize.DataTypes);
 export const SaleProductsModel = SaleProducts(sequelize, Sequelize.DataTypes);
 export const ProductsImagesModel = ProductsImages(sequelize, Sequelize.DataTypes);
 export const ProductPropsModel = ProductProps(sequelize, Sequelize.DataTypes);
 export const ProductPartsDiagramModel = ProductPartsDiagram(sequelize, Sequelize.DataTypes);
+export const ProductDiagramsListModel = ProductDiagramsList(sequelize, Sequelize.DataTypes);
 export const SparePartsModel = SpareParts(sequelize, Sequelize.DataTypes);
-export const ServiceBookModel = ServiceBook(sequelize, Sequelize.DataTypes);
 export const ServiceReportsModel = ServiceReports(sequelize, Sequelize.DataTypes);
 export const PartsChangedModel = PartsChanged(sequelize, Sequelize.DataTypes);
 export const RentalAgreementModel = RentalAgreement(sequelize, Sequelize.DataTypes);
@@ -50,47 +49,63 @@ export const UsersModel = Users(sequelize, Sequelize.DataTypes);
 export const BlogsModel = Blogs(sequelize, Sequelize.DataTypes);
 export const ProjectsModel = Projects(sequelize, Sequelize.DataTypes);
 export const ProjectsImagesModel = ProjectsImages(sequelize, Sequelize.DataTypes);
+export const CategoriesModel = Categories(sequelize, Sequelize.DataTypes);
+export const StaticPagesModel = StaticPages(sequelize, Sequelize.DataTypes);
+export const ScheduledServiceModel = ScheduledService(sequelize, Sequelize.DataTypes);
 
-SaleCategoriesModel.hasMany(SaleProductsModel);
-SaleProductsModel.belongsTo(SaleCategoriesModel);
+const relational_options = {
+  onDelete: 'cascade', 
+  foreignKey: { allowNull: false },
+  hooks: true
+};
 
-RentCategoriesModel.hasMany(RentalProductsModel);
-RentalProductsModel.belongsTo(RentCategoriesModel);
+CategoriesModel.hasMany(SaleProductsModel, relational_options);
+SaleProductsModel.belongsTo(CategoriesModel, relational_options);
 
-ProductsModel.hasOne(RentalProductsModel);
-RentalProductsModel.belongsTo(ProductsModel);
+CategoriesModel.hasMany(RentalProductsModel, relational_options);
+RentalProductsModel.belongsTo(CategoriesModel, relational_options);
 
-ProductsModel.hasOne(SaleProductsModel);
-SaleProductsModel.belongsTo(ProductsModel);
+ProductsModel.hasOne(RentalProductsModel, relational_options);
+RentalProductsModel.belongsTo(ProductsModel, relational_options);
 
-ProductsModel.hasMany(ProductsImagesModel);
-ProductsImagesModel.belongsTo(ProductsModel);
+ProductsModel.hasOne(SaleProductsModel, relational_options);
+SaleProductsModel.belongsTo(ProductsModel, relational_options);
 
-ProductsModel.hasMany(ProductPropsModel);
-ProductPropsModel.belongsTo(ProductsModel);
+ProductsModel.hasMany(ProductsImagesModel, relational_options);
+ProductsImagesModel.belongsTo(ProductsModel, relational_options);
 
-ProductsModel.hasMany(ProductPartsDiagramModel);
-ProductPartsDiagramModel.belongsTo(ProductsModel);
+ProductsModel.hasMany(ProductPropsModel, relational_options);
+ProductPropsModel.belongsTo(ProductsModel, relational_options);
 
-ProductPartsDiagramModel.hasMany(SparePartsModel);
-SparePartsModel.belongsTo(ProductPartsDiagramModel);
+ProductsModel.hasMany(ProductDiagramsListModel, relational_options);
+ProductPartsDiagramModel.hasMany(ProductDiagramsListModel, relational_options);
+ProductDiagramsListModel.belongsTo(ProductPartsDiagramModel, relational_options);
+ProductDiagramsListModel.belongsTo(ProductsModel, relational_options);
 
-ProjectsModel.hasMany(ProjectsImagesModel);
-ProjectsImagesModel.belongsTo(ProjectsModel);
+ProductPartsDiagramModel.hasMany(SparePartsModel, relational_options);
+SparePartsModel.belongsTo(ProductPartsDiagramModel, relational_options);
 
-CustomersModel.hasMany(RentalAgreementModel);
-RentalAgreementModel.belongsTo(CustomersModel);
+ProjectsModel.hasMany(ProjectsImagesModel, relational_options);
+ProjectsImagesModel.belongsTo(ProjectsModel, relational_options);
 
-RentalProductsModel.belongsToMany(RentalAgreementModel, {
-  through: RentalAgreementListModel
-});
+CustomersModel.hasMany(RentalAgreementModel, relational_options);
+RentalAgreementModel.belongsTo(CustomersModel, relational_options);
 
-RentalProductsModel.hasOne(ServiceBookModel);
-ServiceBookModel.belongsTo(RentalProductsModel);
+RentalAgreementModel.hasMany(RentalAgreementListModel, relational_options);
+RentalProductsModel.hasMany(RentalAgreementListModel, relational_options);
+RentalAgreementListModel.belongsTo(RentalProductsModel, relational_options);
+RentalAgreementListModel.belongsTo(RentalAgreementModel, relational_options);
 
-ServiceBookModel.hasMany(ServiceReportsModel);
-ServiceReportsModel.belongsTo(ServiceBookModel);
+RentalProductsModel.hasMany(ServiceReportsModel, relational_options);
+ServiceReportsModel.belongsTo(RentalProductsModel, relational_options);
 
-SparePartsModel.belongsToMany(ServiceReportsModel, {
-  through: PartsChangedModel
-});
+SparePartsModel.hasMany(PartsChangedModel, relational_options);
+PartsChangedModel.belongsTo(SparePartsModel, relational_options);
+
+ServiceReportsModel.hasMany(PartsChangedModel, relational_options);
+
+CategoriesModel.hasMany(StaticPagesModel, relational_options);
+StaticPagesModel.belongsTo(CategoriesModel, relational_options);
+
+RentalProductsModel.hasMany(ScheduledServiceModel, relational_options);
+ScheduledServiceModel.belongsTo(RentalProductsModel, relational_options);

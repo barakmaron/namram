@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 const Rent = () => {
   return (<>
-  <div className='flex justify-center bg-rent bg-fixed bg-cover py-16 shadow-inner bg-center'>
-    <h2 className='text-8xl text-white font-bold pt-60 pb-24 '>השכרת ציוד לבנייה</h2>
+  <div className='flex justify-center items-center bg-rent bg-fixed bg-cover py-16 shadow-inner bg-center'>
+    <h2 className='text-8xl text-white font-bold sm:pt-60 sm:pb-24 w-fit mx-auto text-center'>השכרת ציוד לבנייה</h2>
   </div>
   <div className='py-10 mx-auto flex flex-col items-center' dir='rtl'>
     <p className='w-3/4 text-center text-2xl'>

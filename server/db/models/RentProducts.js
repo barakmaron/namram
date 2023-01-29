@@ -15,9 +15,6 @@ const RentProducts = (sequelize, DataTypes) => {
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true
         },
-        SerialNumber: {
-            type: DataTypes.INTEGER
-        },
         DayPrice: {
             type: DataTypes.INTEGER
         },
@@ -26,9 +23,23 @@ const RentProducts = (sequelize, DataTypes) => {
         },
         MonthPrice: {
             type: DataTypes.INTEGER
+        },
+        HourClock: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+            allowNull: true
+        },
+        Display: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
+        Identifier: {
+            type: DataTypes.STRING,
+            defaultValue: ""
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "RentProducts"
     });
 

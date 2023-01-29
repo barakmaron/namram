@@ -27,6 +27,7 @@ const Users = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "Users"
     });
     return Users;
