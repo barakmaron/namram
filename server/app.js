@@ -29,18 +29,18 @@ Promise.resolve(CronJobsController.ScheduleCheckScheduledServices());
 
 const app = express();
 
-app.use(EnsureSecureMiddleware);
-app.use(favicon(path.join(__dirname, '../client/build/favicon.ico')));
+// app.use(EnsureSecureMiddleware);
+// app.use(favicon(path.join(__dirname, '../client/build/favicon.ico')));
 app.use(cookieParser());
 app.use([morgan("common"), cors({ origin:true, credentials: true }), express.json(), express.urlencoded()]);
 
 app.use('/', routes);
 app.use(ValidationErrorMiddleware);
 
-app.use(express.static(path.join(__dirname, '../client/build')));
-app.get('(/*)?', function(req, res) {
-  res.sendFile('index.html', {root: path.join(__dirname, '../client/build/')});
-});
+// app.use(express.static(path.join(__dirname, '../client/build')));
+// app.get('(/*)?', function(req, res) {
+//   res.sendFile('index.html', {root: path.join(__dirname, '../client/build/')});
+// });
 
 app.use(ErrorHandler);
 process.on('unhandledRejection', (reason, promise) => {
