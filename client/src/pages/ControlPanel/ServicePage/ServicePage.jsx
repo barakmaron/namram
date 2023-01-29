@@ -41,7 +41,7 @@ const ServicePage = ({
 
     useEffect(() => {
         const products = selected_category && selected_category.RentProducts.map(product => ({
-            label: product.Product.Name,
+            label: `${product.Product.Name} | מס ${product.Product.SerialNumber}`,
             value: product.id
         }));
         setProductsList(products);
@@ -75,14 +75,6 @@ const ServicePage = ({
     </h2>
     <div className='flex flex-row gap-5 flex-wrap w-fit mx-auto'>
     <ControlPanelBlock
-        number={service_reports.length}
-        actions={[{
-            label: "הוסף כלי לתיקון",
-            value: () => setOpenToolToService(true)
-        }]}>
-            כלים בתיקון
-        </ControlPanelBlock>
-        <ControlPanelBlock
         number={service_reports.length}
         actions={[{
             label: "הוסף כלי לתיקון",

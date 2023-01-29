@@ -8,12 +8,15 @@ const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
 
-async function ResizeAndStoreImage(path, filename){
+async function ResizeAndStoreImage(path, filename, type = null){
     try {
-        const ref = `${filename}.webp`;
-        await sharp(path).webp({ quality: 70 }).toFile(`./Images/${ref}`);
-        DeleteStoredImages(filename);
-        return ref;
+        if(type !== 'application/pdf') {
+            const ref = `${filename}.webp`;
+            await sharp(path).webp({ quality: 70 }).toFile(`./Images/${ref}`);
+            DeleteStoredImages(filename);
+            return ref;
+        }
+        return filename;
     } catch (err) {
         throw err;
     }
