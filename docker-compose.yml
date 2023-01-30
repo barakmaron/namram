@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  client:
+    container_name: docker-react
+    image: docker-react-image
+    build: ./client
+    ports: 
+      - 3000:3000
+    depends_on:
+      - server
+  db:
+    container_name: mysql_server
+    image: mysql
+    environment:
+      - USERNAME=root
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=namram
+    ports:
+      - 3306:3306
+  server:
+    container_name: docker-server
+    image: docker-express-image
+    build: ./server
+    network_mode: "host"
+    depends_on:
+      - db
+    volumes:
+      - /tmp/Images:/server/Images
+    user: "root"
+    restart: always

@@ -31,7 +31,7 @@ function UpdateCategory(state, payload) {
     const { filtered_array: filtered_categories } = reducerUtilities.destructorArray(state.categories);
     return {
         ...state,
-        categories: [ ...filtered_categories, payload.category ]
+        categories: payload.category ? [ ...filtered_categories, payload.category ] : [ ...filtered_categories ]
     };
 }
 
