@@ -49,7 +49,7 @@ export const AddProductAction = (category_id, form_data, temp_url, product_type)
             dispatch(AddProduct(category_id, form_data, temp_url, product_type));
             form_data.append("category_id", category_id);
             const product = await SendApiRequest(`/${product_type}/products`, Constants.API_METHODS.POST, form_data);
-            dispatch(UpdateProduct(product, category_id, product_type, product_type));
+            dispatch(UpdateProduct(product, category_id, product_type));
             dispatch(Successful(ApiMessagesConstants.product.addProduct.successful));
         } catch (err) {
             dispatch(UpdateProduct({}, category_id, product_type));
