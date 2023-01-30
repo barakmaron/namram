@@ -51,8 +51,8 @@ export const AddCategoryAction = (form_data, temp_url, product_type) => {
             dispatch(UpdateCategory(category));
             dispatch(Successful(ApiMessagesConstants.categories.addCategory.successful));
         } catch (err) {
-            dispatch(UpdateCategory());
             DispatchError(dispatch, err, ApiMessagesConstants.categories.addCategory.failed);
+            dispatch(UpdateCategory());            
         }
     };
 };
