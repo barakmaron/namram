@@ -27,6 +27,6 @@ httpsServer.listen(https_port, () => {
  	console.log('HTTPS Server running on port 443');
 });
 
-app.listen(process.env.PORT, (port) => {
-	console.log(`HTTP Server running on port ${port}`);
-});
+//app.listen(process.env.PORT, (port) => {
+//	console.log(`HTTP Server running on port ${port}`);
+//});
