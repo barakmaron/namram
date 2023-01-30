@@ -11,7 +11,7 @@ const certificate = fs.readFileSync('/etc/letsencrypt/live/namram.co.il/cert.pem
 const ca = fs.readFileSync('/etc/letsencrypt/live/namram.co.il/chain.pem', 'utf8');
 
 const credentials = {
-	key: privateKey,
+ 	key: privateKey,
 	cert: certificate,
 	ca: ca
 };
@@ -24,5 +24,9 @@ httpServer.listen(http_port, () => {
 });
 
 httpsServer.listen(https_port, () => {
-	console.log('HTTPS Server running on port 443');
+ 	console.log('HTTPS Server running on port 443');
+});
+
+app.listen(process.env.PORT, (port) => {
+	console.log(`HTTP Server running on port ${port}`);
 });
