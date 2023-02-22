@@ -144,7 +144,7 @@ const admin_routes = [{
     location: "/control_panel/rent",
     element: RentalControlPanelConnector,
     sub_nav: [{
-        label: "השכרות",
+        label: "השכרת ציוד",
         location: "/control_panel/rent",
         element: RentalControlPanelConnector
     }, {

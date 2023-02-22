@@ -39,7 +39,7 @@ const RentToolsSelector = ({
             value: category.id
         }))
         setParsedCategories([ default_category, ...temp_parsed_categories]);
-        setAllProducts(() => categories.flatMap(category => category.RentProducts.map(product => ({
+        setAllProducts(() => categories?.flatMap(category => category?.RentProducts?.map(product => ({
             label: `${product.Product.Name} | מס ${product.Product.SerialNumber} | ${product.Identifier}`,
             value: product.id
         }))));
@@ -48,7 +48,8 @@ const RentToolsSelector = ({
     useEffect(() => {
         const temp_products = selected_category ? selected_category.RentProducts.map(product => ({
             label: `${product.Product.Name} | מס ${product.Product.SerialNumber} | ${product.Identifier}`,
-            value: product.id
+            value: product.id,
+            Price: product.DayPrice
         })) : [];
         setParsedProducts([ default_product, ...temp_products ]);
     }, [selected_category, default_product]);
@@ -78,6 +79,10 @@ const RentToolsSelector = ({
         type: "singleSelect",
         valueOptions: parsed_products.map((product) => product.label)
     }, {
+        field: "Price",
+        headerName: "מחיר",
+        flex: 1
+    } ,{
         field: 'actions',
         headerName: 'פעולות',
         flex: 1,
@@ -94,7 +99,8 @@ const RentToolsSelector = ({
         setData(() => rows.map(row => ({
             id: row.id,
             category: parsed_categories.find(category => category.label === row.Category)?.value || null,
-            product: all_products.find(product => product.label === row.Product)?.value || null
+            product: all_products.find(product => product.label === row.Product)?.value || null,
+            price: all_products.find(product => product.label === row.Product)?.Price || null
         })))
     }, [rows, setData, parsed_categories, all_products]);
 
@@ -120,6 +126,7 @@ const RentToolsSelector = ({
             else {
                 const product = parsed_products.find(product => product.label === params.value);
                 find_row.Product = product.label;
+                find_row.Price = product.Price;
             }            
             return [ ...filter_rows, find_row ];
         })
