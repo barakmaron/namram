@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getCustomers } from "../../../redux/selectors/customersSelector";
 import CustomersPage from "./CustomersPage";
-import { GetAllCustomersAction, PatchCustomerAction, DeleteCustomerAction } from "../../../redux/actions/CustomersActions";
+import { GetAllCustomersAction, PatchCustomerAction, DeleteCustomerAction, AddCustomerAction } from "../../../redux/actions/CustomersActions";
 import { GetRentalForCustomerAgreementsAction } from '../../../redux/actions/RentActions/RentalAgreementsActions';
 import { getAgreements } from "../../../redux/selectors/rentalAgreementsSelector";
 
@@ -17,7 +17,8 @@ const mapActionsToProps = (dispatch) => {
         GetAllCustomersAction,
         PatchCustomerAction,
         DeleteCustomerAction,
-        GetRentalForCustomerAgreementsAction
+        GetRentalForCustomerAgreementsAction,
+        AddCustomerAction
     }, dispatch);
 };
 

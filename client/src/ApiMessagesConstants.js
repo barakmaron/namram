@@ -39,6 +39,10 @@ const ApiMessagesConstants = {
         deleteCustomer: {
             successful: "הלקוח נמחק בהצלחה",
             failed: "לא הצלחנו למחוק את הלקוח אנא נסה שוב"
+        },
+        addCustomer: {
+            successful: "הלקוח נוסף בהצלחה",
+            failed: "לא הצלחנו להוסיף את הלקוח אנא נסה שוב"
         }
     },
     static_page: {

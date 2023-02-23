@@ -4,9 +4,14 @@ import React from 'react';
 import { useCallback } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import ControlPanelBlock from '../../../components/ControlPanelBlock/ControlPanelBlock';
 import CustomerData from '../../../components/DataDisplay/CustomerData/CustomerData';
 import RentalAgreementsTableConnector from '../../../components/DataEditors/RentalAgreementsTable/RentalAgreementsTableConnector';
+import Form from '../../../components/Form/Form';
+import FormConnector from '../../../components/Form/FormConnector';
 import Modal from '../../../components/Modal/Modal';
+import AddCustomerForm from './FormConstants';
+
 
 const CustomersPage = ({
     customers,
@@ -14,13 +19,15 @@ const CustomersPage = ({
     GetAllCustomersAction,
     PatchCustomerAction,
     DeleteCustomerAction,
-    GetRentalForCustomerAgreementsAction
+    GetRentalForCustomerAgreementsAction,
+    AddCustomerAction
 }) => {
 
     const [rows, setRows] = useState([]);
     const [selected_customer, setSelectedCustomer] = useState({});
     const [open_print, setOpenPrint] = useState(false);
     const [open_rental_agreements, setOpenRentalAgreements] = useState(false);
+    const [open_customer_form, setCustomerForm] = useState(false);
 
     useEffect(() => {
         GetAllCustomersAction();
@@ -86,8 +93,9 @@ const CustomersPage = ({
     }];
     
     useEffect(() => {
-        const parse_rows = customers?.map(customer => {
-            return {
+        const parse_rows = customers?.reduce((aculeate, customer) => {
+          if(customer.id)  
+            aculeate.push({
                 id: customer.id,
                 FullName: customer.FullName,
                 CompanyName: customer.CompanyName,
@@ -96,8 +104,9 @@ const CustomersPage = ({
                 Address: customer.Address,
                 HomePhoneNumber: customer.HomePhoneNumber,
                 FaxNumber: customer.FaxNumber
-            }
-        });
+            });
+          return aculeate;
+        }, []);
         setRows(parse_rows);
     }, [customers]);
 
@@ -120,7 +129,21 @@ const CustomersPage = ({
         setOpenRentalAgreements(true);
     }, [GetRentalForCustomerAgreementsAction]);
 
-  return (<div className='flex-1'>
+    const submit_new_customer = useCallback((event, form) => {
+      event.preventDefault();
+      AddCustomerAction(form);
+    }, [AddCustomerAction]);
+
+  return (<div className='flex-1 pt-5'>
+    <div className='flex flex-row gap-5 flex-wrap w-fit mx-auto'>
+      <ControlPanelBlock 
+      actions={[{
+        label: "הוסף לקוח חדש",
+        value: () => setCustomerForm(true)
+      }]}>
+        ניהול לקוחות
+      </ControlPanelBlock>
+    </div>
    <h2 className="w-fit mx-auto my-4 text-4xl font-bold text-green-600">
       לקוחות
     </h2>
@@ -145,6 +168,14 @@ const CustomersPage = ({
         filter_fields={["Customer"]}
         agreements={customer_agreements}
         />
+    </Modal>}
+    {open_customer_form && <Modal
+    className="w-[75vw]"
+    setClose={() => setCustomerForm(false)}>
+        <FormConnector
+        inputs={AddCustomerForm}
+        className="flex flex-wrap justify-center gap-2"
+        action={submit_new_customer}/>
     </Modal>}
   </div>);
 };

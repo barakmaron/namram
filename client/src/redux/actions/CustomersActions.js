@@ -9,6 +9,11 @@ const GetAllCustomers = (customers) => ({
     payload: customers
 });
 
+const AddCustomer = (form) => ({
+    type: ACTIONS.ADD_CUSTOMER,
+    payload: form
+});
+
 const PatchCustomer = (customer_id, param_name, value) => ({
     type: ACTIONS.PATCH_CUSTOMER,
     payload: {
@@ -52,9 +57,23 @@ export const DeleteCustomerAction = (customer_id) => {
         try {
             dispatch(DeleteCustomer(customer_id));
             await SendApiRequest(`/customers/${customer_id}`, Constants.API_METHODS.DELETE);
-            dispatch(Successful(ApiMessagesConstants.customers.deleteCustomer.Successful));
+            dispatch(Successful(ApiMessagesConstants.customers.deleteCustomer.successful));
         } catch (err) {
             DispatchError(dispatch, err, ApiMessagesConstants.customers.deleteCustomer.failed);
+        }
+    }
+}
+
+
+export const AddCustomerAction = (form) => {
+    return async (dispatch) => {
+        try {
+            dispatch(AddCustomer(form));
+            const new_customer = await SendApiRequest(`/customers`, Constants.API_METHODS.POST, form);
+            dispatch(Successful(ApiMessagesConstants.customers.addCustomer.successful));
+            dispatch(AddCustomer(new_customer));
+        } catch (err) {
+            DispatchError(dispatch, err, ApiMessagesConstants.customers.addCustomer.failed);
         }
     }
 }
