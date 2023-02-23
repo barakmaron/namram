@@ -8,6 +8,10 @@ const router = express.Router();
 
 router.get('/', CustomersController.GetAllCustomers);
 
+router.post('/', 
+    validate(checkSchema(CustomersSchemas.AddCustomer)), 
+    CustomersController.AddCustomer);
+
 router.patch('/:id', 
     validate(checkSchema(CustomersSchemas.PatchCustomer)),
     CustomersController.PatchCustomer);
