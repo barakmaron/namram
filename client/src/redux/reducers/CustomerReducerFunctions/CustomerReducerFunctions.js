@@ -31,10 +31,23 @@ function DeleteCustomer (state, payload) {
     };
 }
 
+function AddCustomer (state, payload) {
+    const { filtered_array: filtered_customers }= reducerUtilities.destructorArray(state.customers, payload?.id);
+    return {
+        ...state,
+        customers: [
+            ...filtered_customers, {
+                ...payload
+            }
+        ]
+    }
+}
+
 const CustomerReducerFunctions = {
     [ACTIONS.GET_ALL_CUSTOMERS]: GetAllCustomers,
     [ACTIONS.PATCH_CUSTOMER]: PatchCustomer,
-    [ACTIONS.DELETE_CUSTOMER]: DeleteCustomer
+    [ACTIONS.DELETE_CUSTOMER]: DeleteCustomer,
+    [ACTIONS.ADD_CUSTOMER]: AddCustomer
 };
 
 export default CustomerReducerFunctions;
