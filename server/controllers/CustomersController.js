@@ -31,10 +31,21 @@ async function DeleteCustomer(req, res, next) {
     }
 }
 
+async function AddCustomer(req, res, next) {
+    try {
+        const { FullName, Address, CompanyName, Fax, HomePhoneNumber, IdNumber, PhoneNumber } = req.body;
+        const new_customer = await CustomerService.AddCustomer({FullName, Address, CompanyName,Fax, HomePhoneNumber, IdNumber, PhoneNumber});
+        return res.status(StatusCode.SuccessOK).json(new_customer);
+    } catch (err) {
+        next(err);
+    }
+}
+
 const CustomersController = {
     GetAllCustomers,
     PatchCustomer,
-    DeleteCustomer
+    DeleteCustomer,
+    AddCustomer
 };
 
 export default CustomersController;

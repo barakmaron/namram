@@ -25,7 +25,10 @@ const ErrorMessages = {
     location: "מיקום לא תקין",
     tools: "כלים נבחרים לא תקין",
     text: "אנא הכנס ערך תקין",
-    price: "מחיר לא תקין"
+    price: "מחיר לא תקין",
+    id_number: "תז לא תקין",
+    fax: "פקס לא תקין",
+    address: "כתובת לא תקינה"
 };
 
 export default ErrorMessages;
