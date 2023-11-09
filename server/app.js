@@ -29,7 +29,7 @@ Promise.resolve(CronJobsController.ScheduleCheckScheduledServices());
 
 const app = express();
 
-app.use(EnsureSecureMiddleware);
+// app.use(EnsureSecureMiddleware);
 app.use(favicon(path.join(__dirname, '../client/build/favicon.ico')));
 app.use(cookieParser());
 app.use([morgan("common"), cors({ origin:true, credentials: true }), express.json(), express.urlencoded()]);
