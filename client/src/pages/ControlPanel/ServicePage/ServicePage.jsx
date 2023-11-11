@@ -1,10 +1,14 @@
-import React from 'react';
-import { useCallback } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import ControlPanelBlock from '../../../components/ControlPanelBlock/ControlPanelBlock';
-import ServiceReportTableConnector from '../../../components/DataEditors/ServiceReportsTable/ServiceReportTableConnector';
-import FormConnector from '../../../components/Form/FormConnector';
+import React, { useCallback, useEffect, useState } from 'react';
+import { bindActionCreators } from "redux";
+import { connect } from 'react-redux';
+
+import { getServiceReports } from "../../../redux/selectors/serviceSelector";
+import { getCategories } from "../../../redux/selectors/categoriesSelector";
+import { GetServiceReportsAction, AddServiceReportsAction } from "../../../redux/actions/ServiceActions/ServiceActions";
+import { GetRentAction } from "../../../redux/actions/RentActions/RentActions";
+import ControlPanelBlock from '../../../components/ControlPanelBlock';
+import ServiceReportTable from '../../../components/DataEditors/ServiceReportTable';
+import Form from '../../../components/Form/Form';
 import Modal from '../../../components/Modal/Modal';
 import ServiceReportForms from './FormsConstants';
 
@@ -45,16 +49,16 @@ const ServicePage = ({
             value: product.id
         }));
         setProductsList(products);
-    }, [selected_category]); 
+    }, [selected_category]);
 
     useEffect(() => {
-        const controller = [{            
+        const controller = [{
             list: categories_list,
             onChange: (selected) => {
-                const category = categories.find(category => category.id === selected.value);                
+                const category = categories.find(category => category.id === selected.value);
                 setSelectedCategory(category);
             }
-        }, {            
+        }, {
             list: products_list,
             onChange: (selected) => {
                 const product = products_list.find(product => product.value === selected.value);
@@ -69,29 +73,47 @@ const ServicePage = ({
         AddServiceReportsAction(form, selected_product.value);
     }, [AddServiceReportsAction, selected_product]);
 
-  return (<div className='flex-1'>
-    <h2 className="w-fit mx-auto my-4 text-4xl font-bold text-green-600">
-        תיקונים
-    </h2>
-    <div className='flex flex-row gap-5 flex-wrap w-fit mx-auto'>
-    <ControlPanelBlock
-        number={service_reports.length}
-        actions={[{
-            label: "הוסף כלי לתיקון",
-            value: () => setOpenToolToService(true)
-        }]}>
-            כלים בתיקון
-        </ControlPanelBlock>
-    </div>
-    <ServiceReportTableConnector
-    service_reports={service_reports}/>
-    {open_add_tool_to_service && <Modal setClose={() => setOpenToolToService(false)}>
-        <FormConnector
-        inputs={ServiceReportForms.add_tool_to_service}
-        controller={add_form_controller}
-        action={add_tool_to_service}/>
-    </Modal>}
-  </div>);
+    return (<div className='flex-1'>
+        <h2 className="w-fit mx-auto my-4 text-4xl font-bold text-green-600">
+            תיקונים
+        </h2>
+        <div className='flex flex-row gap-5 flex-wrap w-fit mx-auto'>
+            <ControlPanelBlock
+                number={service_reports.length}
+                actions={[{
+                    label: "הוסף כלי לתיקון",
+                    value: () => setOpenToolToService(true)
+                }]}>
+                כלים בתיקון
+            </ControlPanelBlock>
+        </div>
+        <ServiceReportTable
+            service_reports={service_reports} />
+        {open_add_tool_to_service && <Modal setClose={() => setOpenToolToService(false)}>
+            <Form
+                inputs={ServiceReportForms.add_tool_to_service}
+                controller={add_form_controller}
+                action={add_tool_to_service} />
+        </Modal>}
+    </div>);
 };
 
-export default ServicePage;
+const mapStateToProps = (state, ownProps) => {
+    const categories = getCategories(state);
+    const service_reports = getServiceReports(state);
+    return {
+        ...ownProps,
+        categories,
+        service_reports
+    };
+};
+
+const mapActionToProps = (dispatch) => {
+    return bindActionCreators({
+        GetRentAction,
+        GetServiceReportsAction,
+        AddServiceReportsAction
+    }, dispatch);
+};
+
+export default connect(mapStateToProps, mapActionToProps)(ServicePage);

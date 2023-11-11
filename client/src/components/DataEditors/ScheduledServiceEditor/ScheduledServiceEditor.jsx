@@ -1,12 +1,18 @@
+import React, { useCallback, useEffect, useState } from 'react';
+
+import { bindActionCreators } from "redux";
+import { connect } from 'react-redux';
+
 import { Box, Button } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import React, { useCallback, useEffect, useState } from 'react';
-import FormConnector from '../../Form/FormConnector';
+
+import { AddScheduledServiceAction, PatchScheduledServiceAction, DeleteScheduledServiceAction } from "../../../redux/actions/ProductsActions/scheduledServiceAction";
+import Form from '../../Form/Form';
 import ScheduledForms from './FormConstants';
 import moment from 'moment';
 import Constants from '../../../Constants';
 import Modal from '../../Modal/Modal';
-import TextEditor from '../TextEditor/TextEditor';
+import TextEditor from '../TextEditor';
 
 const ScheduledServiceEditor = ({
   services,
@@ -22,8 +28,8 @@ const ScheduledServiceEditor = ({
   const [text, setText] = useState("");
   const [service_id, setServiceId] = useState("");
 
-  const columns = [{ 
-    field: 'id', 
+  const columns = [{
+    field: 'id',
     headerName: 'ID'
   }, {
     field: 'Name',
@@ -43,23 +49,23 @@ const ScheduledServiceEditor = ({
     flex: 1,
     type: "actions",
     renderCell: (params) => {
-        return <div className='flex gap-2 justify-center w-full'>
-          <Button 
+      return <div className='flex gap-2 justify-center w-full'>
+        <Button
           onClick={() => delete_service(params)}
           variant="outlined">מחק</Button>
-          <Button 
+        <Button
           onClick={() => open_text_edit(params)}
           variant="outlined">ערוך תיאור</Button>
-          <Button 
+        <Button
           onClick={() => set_service_done(params)}
           variant="outlined">סמן בוצע</Button>
-        </div>;
+      </div>;
     }
   }];
 
   useEffect(() => {
     const row_parsed = (services && services.reduce((services_array, service) => {
-      if(service.id){
+      if (service.id) {
         services_array.push({
           id: service.id,
           ProductId: product_id,
@@ -98,11 +104,11 @@ const ScheduledServiceEditor = ({
   }, []);
 
   return <div className='flex flex-col min-h-[20rem] w-[50vw] justify-center'>
-    <FormConnector
-    inputs={ScheduledForms.add_service}
-    action={add_service}/>
-    <Box sx={{width: '100%' }} className="h-screen mt-5">
-        <DataGrid
+    <Form
+      inputs={ScheduledForms.add_service}
+      action={add_service} />
+    <Box sx={{ width: '100%' }} className="h-screen mt-5">
+      <DataGrid
         components={{ Toolbar: GridToolbar }}
         rows={rows}
         columns={columns}
@@ -110,17 +116,31 @@ const ScheduledServiceEditor = ({
         rowsPerPageOptions={[10]}
         onCellEditCommit={edit_cell}></DataGrid>
     </Box>
-    { edit_text && <Modal setClose={() => setEditText(false)}>
+    {edit_text && <Modal setClose={() => setEditText(false)}>
       <TextEditor
-      text={text}
-      Action={PatchScheduledServiceAction}
-      meta_data={{
-        service_id: service_id,
-        product_id,
-        category_id
-      }}/>
+        text={text}
+        Action={PatchScheduledServiceAction}
+        meta_data={{
+          service_id: service_id,
+          product_id,
+          category_id
+        }} />
     </Modal>}
-    </div>;
+  </div>;
 }
 
-export default ScheduledServiceEditor
+const mapStateToProps = (state, ownProps) => {
+  return {
+    ...ownProps,
+  };
+};
+
+const mapActionToProps = (dispatch) => {
+  return bindActionCreators({
+    AddScheduledServiceAction,
+    PatchScheduledServiceAction,
+    DeleteScheduledServiceAction
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapActionToProps)(ScheduledServiceEditor);

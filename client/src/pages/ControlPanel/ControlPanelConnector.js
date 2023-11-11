@@ -5,7 +5,7 @@ import { GetSaleAction } from "../../redux/actions/SaleActions/saleActions";
 import { getCategories } from "../../redux/selectors/categoriesSelector";
 import { GetStaticPagesAction } from "../../redux/actions/StaticPageActions";
 
-const maStateToProps = (state, ownProps) => {
+const mapStateToProps = (state, ownProps) => {
     const categories = getCategories(state);
     return { 
         ...ownProps,
@@ -20,4 +20,4 @@ const mapActionToProps = (dispatch) => {
     }, dispatch);
 };
 
-export default connect(maStateToProps, mapActionToProps)(ControlPanel);
+export default connect(mapStateToProps, mapActionToProps)(ControlPanel);
