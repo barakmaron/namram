@@ -1,10 +1,18 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import ControlPanelBlock from '../../../components/ControlPanelBlock/ControlPanelBlock';
-import AgreementRentalToolsList from '../../../components/DataDisplay/AgreementRentalToolsList/AgreementRentalToolsList';
+
+import { bindActionCreators } from "redux";
+import { connect } from 'react-redux';
+
+import { GetRentalAgreementsAction, AddRentalAgreementAction } from '../../../redux/actions/RentActions/RentalAgreementsActions';
+import { getAgreements } from "../../../redux/selectors/rentalAgreementsSelector";
+import { GetAllCustomersAction } from '../../../redux/actions/CustomersActions';
+import { getCustomers } from "../../../redux/selectors/customersSelector";
+import ControlPanelBlock from '../../../components/ControlPanelBlock';
+import AgreementRentalToolsList from '../../../components/DataDisplay/AgreementRentalToolsList';
 import Modal from '../../../components/Modal/Modal';
-import RentalPageTableConnector from '../../../components/DataEditors/RentalAgreementsTable/RentalAgreementsTableConnector';
+import RentalPageTable from '../../../components/DataEditors/RentalAgreementsTable';
 import RentalAgreementsForms from './FormsConstants';
-import FormConnector from '../../../components/Form/FormConnector';
+import Form from '../../../components/Form/Form';
 
 const RentalControlPanel = ({
   open_agreements,
@@ -30,15 +38,15 @@ const RentalControlPanel = ({
   }, [customers]);
 
   useEffect(() => {
-    const controller = [{            
-        list: customers_list,
-        onChange: (selected) => {
-            const customer = customers.find(customer => customer.id === selected.value);
-            setSelectedCustomer(customer);
-        }
+    const controller = [{
+      list: customers_list,
+      onChange: (selected) => {
+        const customer = customers.find(customer => customer.id === selected.value);
+        setSelectedCustomer(customer);
+      }
     }];
     setNewAgreementFormController(controller);
-}, [customers_list, customers]);
+  }, [customers_list, customers]);
 
   useEffect(() => {
     GetRentalAgreementsAction();
@@ -55,56 +63,74 @@ const RentalControlPanel = ({
     AddRentalAgreementAction(form, selected_customer.id || null);
   }, [AddRentalAgreementAction, selected_customer]);
 
-  const open_new_agreement_old_customer = useCallback(() => {    
+  const open_new_agreement_old_customer = useCallback(() => {
     setNewAgreementOldCustomer(true);
   }, []);
 
   return (<div className='flex-1'>
-   <h2 className="w-fit mx-auto my-4 text-4xl font-bold text-green-600">
+    <h2 className="w-fit mx-auto my-4 text-4xl font-bold text-green-600">
       הסכמי שכירות
     </h2>
-    <div className='flex flex-row gap-5 flex-wrap w-fit mx-auto'>   
+    <div className='flex flex-row gap-5 flex-wrap w-fit mx-auto'>
       <ControlPanelBlock
-      number={open_agreements.length}
-      actions={[{
-        label: "הסכם עבור לקוח חדש",
-        value: () => setNewAgreement(true)
-      }, {
-        label: "הסכם עבור לקוח קיים",
-        value: open_new_agreement_old_customer
-      }]}      
+        number={open_agreements.length}
+        actions={[{
+          label: "הסכם עבור לקוח חדש",
+          value: () => setNewAgreement(true)
+        }, {
+          label: "הסכם עבור לקוח קיים",
+          value: open_new_agreement_old_customer
+        }]}
       >הסכמים שכירות פתוחים</ControlPanelBlock>
       <ControlPanelBlock
-      number={tools_in_rent.length}
-      actions={[{
-        label: "רשימת כלים",
-        value: () => setToolsListShow(true)
-      }]}>
+        number={tools_in_rent.length}
+        actions={[{
+          label: "רשימת כלים",
+          value: () => setToolsListShow(true)
+        }]}>
         כלים בהשכרה
       </ControlPanelBlock>
     </div>
-    <RentalPageTableConnector 
-    customers={customers}
-    agreements={open_agreements}
-    filter_fields={["EndDate"]}/>
+    <RentalPageTable
+      customers={customers}
+      agreements={open_agreements}
+      filter_fields={["EndDate"]} />
     {new_agreement && <Modal setClose={() => setNewAgreement(false)}>
-      <FormConnector
-      className={`w-3/4 mx-auto flex gap-5 flex-wrap justify-center`}
-      inputs={RentalAgreementsForms.add_rental_agreement}
-      action={add_agreement}/>
+      <Form
+        className={`w-3/4 mx-auto flex gap-5 flex-wrap justify-center`}
+        inputs={RentalAgreementsForms.add_rental_agreement}
+        action={add_agreement} />
     </Modal>}
     {new_agreement_old_customer && <Modal setClose={() => setNewAgreementOldCustomer(false)}>
-      <FormConnector
-      className={`w-3/4 mx-auto flex gap-5 flex-wrap justify-center`}
-      inputs={RentalAgreementsForms.add_rental_agreement_old_customer}
-      action={add_agreement}
-      controller={new_agreement_form_controller}/>
+      <Form
+        className={`w-3/4 mx-auto flex gap-5 flex-wrap justify-center`}
+        inputs={RentalAgreementsForms.add_rental_agreement_old_customer}
+        action={add_agreement}
+        controller={new_agreement_form_controller} />
     </Modal>}
     {tools_list_show && <Modal setClose={() => setToolsListShow(false)}>
-        <AgreementRentalToolsList
-        tools={tools_in_rent}/>
+      <AgreementRentalToolsList
+        tools={tools_in_rent} />
     </Modal>}
   </div>);
 };
 
-export default RentalControlPanel;
+const mapStateToProps = (state, ownProps) => {
+  const open_agreements = getAgreements(state);
+  const customers = getCustomers(state);
+  return { 
+      ...ownProps, 
+      open_agreements,
+      customers
+  };
+};
+
+const mapActionToProps = (dispatch) => {
+  return bindActionCreators({
+      GetRentalAgreementsAction,
+      AddRentalAgreementAction,
+      GetAllCustomersAction
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapActionToProps)(RentalControlPanel);

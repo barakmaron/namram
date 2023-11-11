@@ -1,30 +1,30 @@
 
 import Constants from "./Constants";
-import Page404 from "./pages/404/404";
-import AirHammers from "./pages/AirHammers/AirHammers";
-import BlogConnector from "./pages/BlogsPage/Blog/BlogConnector";
-import BlogsPageConnector from "./pages/BlogsPage/BlogsPageConnector";
-import CableCutting from "./pages/CableCuting/CableCuting";
-import CategoryPageConnector from "./pages/CategoryPage/CategoryPageConnector";
-import ContactConnector from "./pages/ContactPage/ContactConnector";
-import BlogEditorPageConnector from "./pages/ControlPanel/BlogEditorPage/BlogEditorPageConnector";
-import ControlPanelConnector from "./pages/ControlPanel/ControlPanelConnector";
-import CreateReportsPageConnector from "./pages/ControlPanel/CreateReportsPage/CreateReportsPageConnector";
-import CustomersPageConnector from "./pages/ControlPanel/CustomersPage/CustomersPageConnector";
-import LoginConnector from "./pages/ControlPanel/LoginPage/LoginConnector";
-import ProjectsEditorPageConnector from "./pages/ControlPanel/ProjectsEditorPage/ProjectsEditorPageConnector";
-import RentalControlPanelConnector from "./pages/ControlPanel/RentalPage/RentalControlPanelConnector";
-import ServicePageConnector from "./pages/ControlPanel/ServicePage/ServicePageConnector";
-import ToolsPageConnector from "./pages/ControlPanel/ToolsPage/ToolsPageConnector";
-import Cut from "./pages/CutPage/Cut";
-import Drill from "./pages/DrillPage/DrillPage";
-import Eilat from "./pages/EilatPage/Eilat";
-import Home from "./pages/HomePage/Home";
-import ProductPageConnector from "./pages/ProductPage/ProductPageConnector";
-import ProjectConnector from "./pages/ProjectsPage/Project/ProjectConnector";
-import ProjectsConnector from "./pages/ProjectsPage/ProjectsConnector";
-import Rent from "./pages/RentPage/Rent";
-import Shop from "./pages/ShopPage/Shop";
+import Page404 from "./pages/404";
+import AirHammers from "./pages/AirHammers";
+import Blog from "./pages/Blog";
+import BlogsPage from "./pages/BlogsPage";
+import CableCutting from "./pages/CableCuting";
+import CategoryPage from "./pages/CategoryPage";
+import Contact from "./pages/ContactPage/Contact";
+import BlogEditorPage from "./pages/ControlPanel/BlogEditorPage";
+import ControlPanel from "./pages/ControlPanel/ControlPanel";
+import CreateReportsPage from "./pages/ControlPanel/CreateReportsPage/CreateReportsPage";
+import CustomersPage from "./pages/ControlPanel/CustomersPage/CustomersPage";
+import Login from "./pages/ControlPanel/LoginPage/Login";
+import ProjectsEditorPage from "./pages/ControlPanel/ProjectsEditorPage";
+import RentalControlPanel from "./pages/ControlPanel/RentalPage/RentalControlPanel";
+import ServicePage from "./pages/ControlPanel/ServicePage/ServicePage";
+import ToolsPage from "./pages/ControlPanel/ToolsPage";
+import Cut from "./pages/Cut";
+import Drill from "./pages/DrillPage";
+import Eilat from "./pages/Eilat";
+import Home from "./pages/Home";
+import ProductPage from "./pages/ProductPage";
+import Project from "./pages/ProjectsPage/Project";
+import Projects from "./pages/ProjectsPage/Projects";
+import Rent from "./pages/Rent";
+import Shop from "./pages/Shop";
 
 const routes = [{
     label: "דף הבית",
@@ -65,11 +65,11 @@ const routes = [{
     }, {
         label: "פרוייקטים",
         location: "/Projects",
-        element: ProjectsConnector,
+        element: Projects,
         editable: false,
         show: true,
         child: [{
-            element: ProjectConnector,
+            element: Project,
             location: '/Project/:id'
         }] 
     }]
@@ -94,37 +94,37 @@ const routes = [{
 }, {
     label: "מאמרים",
     location: "/Blogs",
-    element: BlogsPageConnector,
+    element: BlogsPage,
     editable: false,
     show: true,
     child: [{
-        element: BlogConnector,
+        element: Blog,
         location: '/Blog/:id'
     }] 
 }, {
     label: "צור קשר",
     location: "/Contact",
-    element: ContactConnector,
+    element: Contact,
     editable: false,
     show: true,
 }, {
     label: "התחבר",
     location: "/login",
-    element: LoginConnector,
+    element: Login,
     editable: false,
     show: false
 }, {
     label: "קטגוריה",
     location: "/category",
-    element: CategoryPageConnector,
+    element: CategoryPage,
     editable: false,
     show: false,
     child: [{
-        element: CategoryPageConnector,
+        element: CategoryPage,
         location: '/category/:id',  
         show_dynamic: true      
     }, {
-        element: ProductPageConnector,
+        element: ProductPage,
         location: '/category/:category_id/product/:product_id',
     }]
 }, {
@@ -138,54 +138,54 @@ const routes = [{
 const admin_routes = [{
     label: "לוח בקרה",
     location: "/control_panel",
-    element: ControlPanelConnector
+    element: ControlPanel
 }, {
     label: "השכרת ציוד",
     location: "/control_panel/rent",
-    element: RentalControlPanelConnector,
+    element: RentalControlPanel,
     sub_nav: [{
         label: "השכרת ציוד",
         location: "/control_panel/rent",
-        element: RentalControlPanelConnector
+        element: RentalControlPanel
     }, {
         label: "כלים השכרה",
         location: "/control_panel/rent/tools",
-        element: ToolsPageConnector,
+        element: ToolsPage,
         props: { 
             product_type: Constants.API_PRODUCT_TYPE.RENT 
         }
     }, {
         label: "לקוחות השכרה",
         location: "/control_panel/rent/customers",
-        element: CustomersPageConnector,
+        element: CustomersPage,
     }, {
         label: "תיקונים",
         location: "/control_panel/rent/service",
-        element: ServicePageConnector,
+        element: ServicePage,
     }, {
         label: "הפקת דוחות",
         location: "/control_panel/rent/reports",
-        element: CreateReportsPageConnector,
+        element: CreateReportsPage,
     }]
 }, {
     label: "מכירת ציוד",
     location: "/control_panel/sale",
-    element: ToolsPageConnector,
+    element: ToolsPage,
     props: { 
         product_type: Constants.API_PRODUCT_TYPE.SALE 
     }
 }, {
     label: "בלוג",
     location: "/control_panel/blogs",
-    element: BlogEditorPageConnector
+    element: BlogEditorPage
 }, {
     label: "פרוייקטים",
     location: "/control_panel/projects",
-    element: ProjectsEditorPageConnector
+    element: ProjectsEditorPage
 }, {
     label: "התנתק",
     location: "/logout",
-    element: LoginConnector,
+    element: Login,
     props: {
         logout: true
     }

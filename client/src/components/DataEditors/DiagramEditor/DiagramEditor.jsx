@@ -1,11 +1,16 @@
+import React, { useEffect, useCallback, useState } from 'react';
+
+import { bindActionCreators } from "redux";
+import { connect } from 'react-redux';
+
 import { Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import React from 'react'
-import { useState } from 'react';
-import { useCallback } from 'react';
-import { useEffect } from 'react';
+
+import { AddDiagramAction, AddDiagramFromListAction, DeleteDiagramAction, DeleteDiagramFromProductAction, PatchDiagramAction, GetDiagramsAction } from "../../../redux/actions/ProductsActions/diagramActions";
+import { getDiagrams } from "../../../redux/selectors/categoriesSelector";
+
 import { GetImageUrl } from '../../../services/ApiService';
-import FormConnector from '../../Form/FormConnector';
+import Form from '../../Form/Form';
 import DiagramForms from './FormsConstants';
 
 const DiagramEditor = ({
@@ -25,8 +30,8 @@ const DiagramEditor = ({
     const [selected_diagram, setSelectedDiagram] = useState({});
     const [form_controller, setFormController] = useState([]);
 
-    const columns = [{ 
-        field: 'id', 
+    const columns = [{
+        field: 'id',
         headerName: 'ID'
     }, {
         field: 'ModelName',
@@ -40,21 +45,21 @@ const DiagramEditor = ({
         type: "actions",
         renderCell: (params) => {
             return < div className='flex gap-2'>
-                <Button 
-                onClick={() => {
-                    window.open(GetImageUrl(params.row.Image));
-                }}            
-                variant="outlined">הצג</Button>
-                <Button      
-                onClick={() => {
-                    remove_diagram_form_product(params.id);
-                }}       
-                variant="outlined">הסר ממוצר זה</Button>
-                <Button      
-                onClick={() => {
-                    delete_diagram(params.id);
-                }}       
-                variant="outlined">מחק</Button>
+                <Button
+                    onClick={() => {
+                        window.open(GetImageUrl(params.row.Image));
+                    }}
+                    variant="outlined">הצג</Button>
+                <Button
+                    onClick={() => {
+                        remove_diagram_form_product(params.id);
+                    }}
+                    variant="outlined">הסר ממוצר זה</Button>
+                <Button
+                    onClick={() => {
+                        delete_diagram(params.id);
+                    }}
+                    variant="outlined">מחק</Button>
             </div>;
         }
     }];
@@ -78,7 +83,7 @@ const DiagramEditor = ({
 
     useEffect(() => {
         const row_parsed = product_diagrams?.reduce((diagrams_array, diagram) => {
-            if(diagram.id){
+            if (diagram.id) {
                 diagrams_array.push({
                     id: diagram.ProductPartsDiagram.id,
                     ModelName: diagram.ProductPartsDiagram.ModelName,
@@ -107,37 +112,57 @@ const DiagramEditor = ({
 
     const remove_diagram_form_product = useCallback((diagram_id) => {
         DeleteDiagramFromProductAction(product_id, category_id, diagram_id, product_type);
-    },  [category_id, product_id, DeleteDiagramFromProductAction, product_type]);
+    }, [category_id, product_id, DeleteDiagramFromProductAction, product_type]);
 
     const edit_cell = useCallback((params) => {
         PatchDiagramAction(params.id, params.value, product_id, category_id, product_type);
     }, [PatchDiagramAction, product_id, category_id, product_type]);
 
-  return (<>  
-  <div className="w-[50vw] h-screen mt-5 flex flex-col">
-    <div className='flex gap-4 justify-center'>
-        <fieldset className='border-2 border-forest-green-500 px-4 py-4 w-fit'>
-            <legend className='text-forest-900 px-4 text-2xl'>הוסף דיאגרמה חדשה</legend>
-            <FormConnector 
-            inputs={DiagramForms.add_diagram}  
-            action={add_diagram} />
-        </fieldset>
-        <fieldset className='border-2 border-forest-green-500 px-4 py-4 w-fit'>
-            <legend className='text-forest-900 px-4 text-2xl'>חבר דיאגרמה</legend>
-            { form_controller.length !== 0 && <FormConnector 
-            controller={form_controller}
-            inputs={DiagramForms.connect_diagram}  
-            action={add_diagram_from_list} />}
-        </fieldset>
-    </div>
-    <DataGrid
-    rows={rows}
-    columns={columns}
-    pageSize={10}
-    rowsPerPageOptions={[10]}
-    onCellEditCommit={edit_cell}></DataGrid>
-</div>
+    return (<>
+        <div className="w-[50vw] h-screen mt-5 flex flex-col">
+            <div className='flex gap-4 justify-center'>
+                <fieldset className='border-2 border-forest-green-500 px-4 py-4 w-fit'>
+                    <legend className='text-forest-900 px-4 text-2xl'>הוסף דיאגרמה חדשה</legend>
+                    <Form
+                        inputs={DiagramForms.add_diagram}
+                        action={add_diagram} />
+                </fieldset>
+                <fieldset className='border-2 border-forest-green-500 px-4 py-4 w-fit'>
+                    <legend className='text-forest-900 px-4 text-2xl'>חבר דיאגרמה</legend>
+                    {form_controller.length !== 0 && <Form
+                        controller={form_controller}
+                        inputs={DiagramForms.connect_diagram}
+                        action={add_diagram_from_list} />}
+                </fieldset>
+            </div>
+            <DataGrid
+                rows={rows}
+                columns={columns}
+                pageSize={10}
+                rowsPerPageOptions={[10]}
+                onCellEditCommit={edit_cell}></DataGrid>
+        </div>
     </>);
 };
 
-export default DiagramEditor;
+
+const mapStateToProps = (state, ownProps) => {
+    const diagrams = getDiagrams(state);
+    return {
+        ...ownProps,
+        diagrams
+    };
+};
+
+const mapActionToProps = (dispatch) => {
+    return bindActionCreators({
+        AddDiagramAction,
+        AddDiagramFromListAction,
+        DeleteDiagramAction,
+        DeleteDiagramFromProductAction,
+        PatchDiagramAction,
+        GetDiagramsAction
+    }, dispatch);
+};
+
+export default connect(mapStateToProps, mapActionToProps)(DiagramEditor);

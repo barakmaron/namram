@@ -1,10 +1,16 @@
-import { Button } from '@mui/material';
+import React, { useState, useCallback, useEffect } from 'react';
+
+import { bindActionCreators } from "redux";
+import { connect } from 'react-redux';
+
+import { Button } from "@mui/material";
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import React, { useState } from 'react';
-import { useCallback } from 'react';
-import { useEffect } from 'react';
 import { FaShekelSign } from 'react-icons/fa';
-import FormConnector from '../../Form/FormConnector';
+
+import { AddChangedPartAction, DeleteChangedPartAction } from "../../../redux/actions/ServiceActions/ServiceChangedPartActions";
+import { getServiceReports } from "../../../redux/selectors/serviceSelector";
+
+import Form from '../../Form/Form';
 import ChangedPartForms from './FormConstants';
 
 const PartsChancedEditor = ({
@@ -121,7 +127,7 @@ const PartsChancedEditor = ({
 
   return (<>
     <div>
-        { change_part_form_controller.length && <FormConnector 
+        { change_part_form_controller.length && <Form 
         inputs={ChangedPartForms.add_changed_part}
         controller={change_part_form_controller}
         action={add_part}/>}
@@ -137,4 +143,20 @@ const PartsChancedEditor = ({
   </>);
 };
 
-export default PartsChancedEditor;
+const mapStateToProps = (state, ownProps) => {
+  const service_report = getServiceReports(state).find(report => report.id === ownProps.service_report_id);
+  return { 
+      ...ownProps,
+      parts: service_report.PartsChangeds,
+      diagrams: service_report.RentProduct.Product.ProductDiagramsLists
+  };
+};
+
+const mapActionToProps = (dispatch) => {
+  return bindActionCreators({
+      AddChangedPartAction,
+      DeleteChangedPartAction
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapActionToProps)(PartsChancedEditor);

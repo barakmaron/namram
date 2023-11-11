@@ -1,11 +1,16 @@
+import React, { useState, useCallback } from 'react';
+
+import { bindActionCreators } from "redux";
+import { connect } from 'react-redux';
+
 import { Button } from '@mui/material';
-import React from 'react';
-import { useCallback } from 'react';
-import { useState } from 'react';
+
+import { getBlogs } from "../../../redux/selectors/blogsSelector";
+import { GetBlogsAction, AddBlogAction, DeleteBlogAction, EditBlogAction } from "../../../redux/actions/BlogsActions";
 import { FaPlus } from 'react-icons/fa';
-import FormConnector from '../../Form/FormConnector';
+import Form from '../../Form/Form';
 import Modal from '../../Modal/Modal';
-import SingleAccordion from '../SingleAccordion/SingleAccordion';
+import SingleAccordion from '../SingleAccordion';
 import BlogsForms from './FormsConstants';
 
 const BlogsEditor = ({
@@ -32,27 +37,44 @@ const BlogsEditor = ({
         EditBlogAction(blog_id, title, text);
     }, [EditBlogAction]);
 
-  return <div className='flex fle-row min-h-[20rem] w-full justify-center'>
-    <Button
-    variant="outlined"
-    onClick={() => setShowNewBlogForm(true)}>
-        <FaPlus/>
-    </Button>
-    <div className='w-1/2'>
-        {blogs.map((blog, index) => {
-            return <SingleAccordion 
-            key={`blogs-editor-${index}`}
-            object={blog}
-            DeleteAction={delete_blog}
-            SaveEditAction={edit_blog}/>;
-        })}
-    </div>
-    { show_new_blog_form && <Modal setClose={() => setShowNewBlogForm(false)}>
-        <FormConnector
-        inputs={BlogsForms.add_blog}
-        action={add_blog}/>
-    </Modal>}
-  </div>;
+    return <div className='flex fle-row min-h-[20rem] w-full justify-center'>
+        <Button
+            variant="outlined"
+            onClick={() => setShowNewBlogForm(true)}>
+            <FaPlus />
+        </Button>
+        <div className='w-1/2'>
+            {blogs.map((blog, index) => {
+                return <SingleAccordion
+                    key={`blogs-editor-${index}`}
+                    object={blog}
+                    DeleteAction={delete_blog}
+                    SaveEditAction={edit_blog} />;
+            })}
+        </div>
+        {show_new_blog_form && <Modal setClose={() => setShowNewBlogForm(false)}>
+            <Form
+                inputs={BlogsForms.add_blog}
+                action={add_blog} />
+        </Modal>}
+    </div>;
 };
 
-export default BlogsEditor;
+const mapStateToProps = (state, ownProps) => {
+    const blogs = getBlogs(state);
+    return {
+        ...ownProps,
+        blogs
+    };
+};
+
+const mapActionToProps = (dispatch) => {
+    return bindActionCreators({
+        GetBlogsAction,
+        AddBlogAction,
+        DeleteBlogAction,
+        EditBlogAction
+    }, dispatch);
+};
+
+export default connect(mapStateToProps, mapActionToProps)(BlogsEditor);

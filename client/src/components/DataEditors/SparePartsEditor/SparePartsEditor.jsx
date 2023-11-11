@@ -1,11 +1,17 @@
+
+import React, { useCallback, useEffect, useState } from 'react';
+
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+
+import { FaShekelSign } from 'react-icons/fa';
 import { Button } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import React, { useCallback } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { FaShekelSign } from 'react-icons/fa';
+
+import { AddSparePartAction, DeleteSparePartAction, PatchSparePartAction } from "../../../redux/actions/ProductsActions/sparePartActions";
+
 import SparePartsForms from './FormsConstants';
-import FormConnector from '../../Form/FormConnector';
+import Form from '../../Form/Form';
 
 const SparePartsEditor = ({
   parts,
@@ -132,7 +138,7 @@ const SparePartsEditor = ({
   return (<>
     <div className='flex flex-col justify-center items-center'>
       <div>
-        { form_controller.length !== 0 && <FormConnector 
+        { form_controller.length !== 0 && <Form 
         inputs={SparePartsForms.add_part} 
         controller={form_controller}
         className='flex flex-row flex-wrap w-2/4 mx-auto gap-2 justify-center mb-4'
@@ -151,4 +157,17 @@ const SparePartsEditor = ({
   </>);
 };
 
-export default SparePartsEditor;
+
+const mapStateToProps = (state, ownProps) => {
+  return { ...ownProps };
+};
+
+const mapActionsToProps = (dispatch) => {
+  return bindActionCreators({
+      AddSparePartAction,
+      DeleteSparePartAction,
+      PatchSparePartAction
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(SparePartsEditor);
