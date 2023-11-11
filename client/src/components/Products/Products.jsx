@@ -11,6 +11,7 @@ import Constants from '../../Constants';
 import useProductType from '../../hooks/useProductType';
 import allProductForms from './FormConstants';
 import Form from '../Form/Form';
+import { addTitle, deleteTitle } from '../../strings';
 
 const Products = ({
   categories,
@@ -69,10 +70,10 @@ const Products = ({
       number={products?.length || 0}
       actions={[{
         value: () => setAddProduct(true),
-        label: "הוסף"
+        label: addTitle
       }, {
         value: () => setDeleteProduct(true),
-        label: "מחק"
+        label: deleteTitle
       }]}>
       מוצרים
     </ControlPanelBlock>

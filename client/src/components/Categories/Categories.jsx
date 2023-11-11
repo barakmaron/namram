@@ -10,6 +10,7 @@ import ControlPanelBlock from '../ControlPanelBlock';
 import Modal from '../../components/Modal/Modal';
 import Form from '../Form/Form';
 import CategoriesForms from './FormConstants';
+import { addCategoryTitle, addTitle, categoriesTitle, deleteCategoryTitle, deleteTitle, editCategoryTitle, editTitle } from '../../strings';
 
 const Categories = ({
   categories,
@@ -59,31 +60,31 @@ const Categories = ({
       number={categories_list.length}
       actions={[{
         value: () => setAddCategory(true),
-        label: "הוסף"
+        label: addTitle
       }, {
         value: () => setEditCategory(true),
-        label: "ערוך"
+        label: editTitle
       }, {
         value: () => setDeleteCategory(true),
-        label: "מחק"
+        label: deleteTitle
       }]}>
-      קטגוריות
+      {categoriesTitle}
     </ControlPanelBlock>
     {add_category && <Modal setClose={() => setAddCategory(false)}>
-      <h2 className='mx-auto text-3xl font-bold w-fit'>הוסף קטגוריה</h2>
+      <h2 className='mx-auto text-3xl font-bold w-fit'>{addCategoryTitle}</h2>
       <Form
         action={add_category_action}
         inputs={CategoriesForms.add_category} />
     </Modal>}
     {edit_category && <Modal setClose={() => setEditCategory(false)}>
-      <h2 className='mx-auto text-3xl font-bold w-fit'>ערוך קטגוריה</h2>
+      <h2 className='mx-auto text-3xl font-bold w-fit'>{editCategoryTitle}</h2>
       <Form
         action={edit_category_action}
         inputs={CategoriesForms.edit_category}
         controller={edit_form_controller} />
     </Modal>}
     {delete_category && <Modal setClose={() => setDeleteCategory(false)}>
-      <h2 className='mx-auto text-3xl font-bold w-fit'>מחק קטגוריה</h2>
+      <h2 className='mx-auto text-3xl font-bold w-fit'>{deleteCategoryTitle}</h2>
       <Form
         action={delete_category_action}
         inputs={CategoriesForms.delete_category}

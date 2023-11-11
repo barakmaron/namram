@@ -13,6 +13,7 @@ import moment from 'moment';
 import Constants from '../../../Constants';
 import Modal from '../../Modal/Modal';
 import TextEditor from '../TextEditor';
+import { deleteTitle } from '../../../strings';
 
 const ScheduledServiceEditor = ({
   services,
@@ -52,7 +53,7 @@ const ScheduledServiceEditor = ({
       return <div className='flex gap-2 justify-center w-full'>
         <Button
           onClick={() => delete_service(params)}
-          variant="outlined">מחק</Button>
+          variant="outlined">{deleteTitle}</Button>
         <Button
           onClick={() => open_text_edit(params)}
           variant="outlined">ערוך תיאור</Button>
@@ -112,8 +113,6 @@ const ScheduledServiceEditor = ({
         components={{ Toolbar: GridToolbar }}
         rows={rows}
         columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10]}
         onCellEditCommit={edit_cell}></DataGrid>
     </Box>
     {edit_text && <Modal setClose={() => setEditText(false)}>

@@ -15,6 +15,7 @@ import CustomerData from '../DataDisplay/CustomerData';
 import Modal from '../Modal/Modal';
 import RentalAgreementsForms from '../../pages/ControlPanel/RentalPage/FormsConstants';
 import Form from '../Form/Form';
+import { printTitle } from '../../strings';
 
 const RentalAgreementsTable = ({
   customers,
@@ -72,7 +73,7 @@ const RentalAgreementsTable = ({
           variant="outlined">כלים</Button>
         <Button
           onClick={() => get_pdf_agreement(params)}
-          variant="outlined">הדפס</Button>
+          variant="outlined">{printTitle}</Button>
         {!params.row.EndDate && <Button
           onClick={() => close_agreement_call_back(params)}
           variant="outlined">סגור הסכם</Button>}
@@ -142,9 +143,7 @@ const RentalAgreementsTable = ({
       <DataGrid
         components={{ Toolbar: GridToolbar }}
         rows={rows}
-        columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10]}></DataGrid>
+        columns={columns}></DataGrid>
     </Box>
     {open_tools_list && <Modal setClose={() => setOpenToolsList(false)}>
       <AgreementRentalToolsList

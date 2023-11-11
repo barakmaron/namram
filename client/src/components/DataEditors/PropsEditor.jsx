@@ -84,8 +84,6 @@ function PropsEditor({
             <DataGrid
                 rows={rows}
                 columns={columns}
-                pageSize={10}
-                rowsPerPageOptions={[10]}
                 onCellEditCommit={on_change_call}></DataGrid>
         </Box>
     </>);

@@ -1,5 +1,6 @@
 import React from 'react';
 import Constants from '../Constants';
+import { faxNumberTitle } from '../strings';
 
 const ContactInfo = () => {
   return (<ul className='flex flex-col gap-2 text-xl mr-4 w-fit'>
@@ -16,7 +17,7 @@ const ContactInfo = () => {
                 {Constants.contact_info.ashdod.phone}
             </div>
             <div>
-                <span className='font-bold text-2xl'>פקס: </span>
+                <span className='font-bold text-2xl'>{faxNumberTitle}: </span>
                 {Constants.contact_info.ashdod.fax}
             </div>
         </div>
@@ -30,7 +31,7 @@ const ContactInfo = () => {
                 {Constants.contact_info.eilat.phone}
             </div>
             <div>
-                <span className='font-bold text-2xl'>פקס: </span>
+                <span className='font-bold text-2xl'>{faxNumberTitle}: </span>
                 {Constants.contact_info.eilat.fax}
             </div>
         </div>

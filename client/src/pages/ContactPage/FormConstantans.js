@@ -1,17 +1,18 @@
 import FORMS from "../../components/Form/Forms";
+import { companyNameTitle, fullNameTitle, phoneNumberTitle } from "../../strings";
 
 const contact_inputs = [{
     type: FORMS.INPUTS_TYPES.TEXT,
     name: "full_name",
-    place_holder: "שם מלא"
+    place_holder: fullNameTitle
 }, {
     type: FORMS.INPUTS_TYPES.TEXT,
     name: "company_name",
-    place_holder: "שם החברה"
+    place_holder: companyNameTitle
 }, {
     type: FORMS.INPUTS_TYPES.TEL,
     name: "phone_number",
-    place_holder: "טלפון"
+    place_holder: phoneNumberTitle
 }, {
     type: FORMS.INPUTS_TYPES.EMAIL,
     name: "email",

@@ -17,6 +17,7 @@ import DiagramEditor from '../DataEditors/DiagramEditor/DiagramEditor';
 import SparePartsEditor from '../DataEditors/SparePartsEditor/SparePartsEditor';
 import Constants from '../../Constants';
 import ScheduledServiceEditor from '../DataEditors/ScheduledServiceEditor/ScheduledServiceEditor';
+import { serialNumberTitle } from '../../strings';
 
 const ProductsTable = ({
     categories,
@@ -89,7 +90,7 @@ const ProductsTable = ({
         headerName: 'קטגוריה'
     }, {
         field: 'SerialNumber',
-        headerName: 'מספר סידורי',
+        headerName: serialNumberTitle,
         editable: true
     },
     ...product_type_columns,
@@ -224,8 +225,6 @@ const ProductsTable = ({
                 components={{ Toolbar: GridToolbar }}
                 rows={rows}
                 columns={columns}
-                pageSize={10}
-                rowsPerPageOptions={[10]}
                 onCellEditCommit={edit_cell}></DataGrid>
         </Box>
         {edit_props && <Modal setClose={() => setEditProps(false)}>

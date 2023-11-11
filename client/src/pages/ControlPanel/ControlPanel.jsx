@@ -1,6 +1,14 @@
+import React, { useEffect } from 'react';
+
+import { bindActionCreators } from "redux";
+import { connect } from 'react-redux';
+
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
-import React from 'react';
-import { useEffect } from 'react';
+
+import { GetSaleAction } from "../../redux/actions/SaleActions/saleActions";
+import { getCategories } from "../../redux/selectors/categoriesSelector";
+import { GetStaticPagesAction } from "../../redux/actions/StaticPageActions";
+
 import AppRoutes from '../../AppRoutes';
 import StaticPageEditor from '../../components/DataEditors/StaticPageEditor/StaticPageEditor';
 
@@ -50,4 +58,19 @@ const StaticPageAccordion = ({
   </Accordion>;
 }
 
-export default ControlPanel;
+const mapStateToProps = (state, ownProps) => {
+  const categories = getCategories(state);
+  return {
+    ...ownProps,
+    categories
+  };
+};
+
+const mapActionToProps = (dispatch) => {
+  return bindActionCreators({
+    GetStaticPagesAction,
+    GetSaleAction
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapActionToProps)(ControlPanel);

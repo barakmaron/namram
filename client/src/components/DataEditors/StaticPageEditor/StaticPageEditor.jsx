@@ -12,6 +12,7 @@ import { getStaticPages } from "../../../redux/selectors/staticPagesSelector";
 
 import Form from '../../Form/Form';
 import StaticPageForms from './FormsConstants';
+import { addTitle, deleteTitle } from '../../../strings';
 
 const StaticPageEditor = ({
     categories,
@@ -67,7 +68,7 @@ const StaticPageEditor = ({
                         <Button
                             variant="outlined"
                             onClick={() => delete_static_page_data(data.id)}>
-                            מחק
+                            {deleteTitle}
                         </Button>
                     </div>
                 </div> :
@@ -82,7 +83,7 @@ const StaticPageEditor = ({
         <fieldset
             className="border-2 rounded-sm border-solid border-forest-green-600 w-fit">
             <legend
-                className='text-xl px-2 text-center'>הוסף</legend>
+                className='text-xl px-2 text-center'>{addTitle}</legend>
             {controller.length && <Form
                 inputs={StaticPageForms.add_static_page_data}
                 controller={controller}

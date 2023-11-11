@@ -12,6 +12,7 @@ import { getServiceReports } from "../../../redux/selectors/serviceSelector";
 
 import Form from '../../Form/Form';
 import ChangedPartForms from './FormConstants';
+import { deleteTitle, serialNumberTitle } from '../../../strings';
 
 const PartsChancedEditor = ({
     service_report_id,
@@ -33,7 +34,7 @@ const PartsChancedEditor = ({
         headerName: 'ID'
       }, {
         field: 'SerialNumber',
-        headerName: 'מספר סידורי',
+        headerName: serialNumberTitle,
         flex: 1
       }, {
         field: 'NameEnglish',
@@ -63,7 +64,7 @@ const PartsChancedEditor = ({
               return <>
                   <Button      
                   onClick={() => delete_changed_part(params)}       
-                  variant="outlined">מחק</Button>
+                  variant="outlined">{deleteTitle}</Button>
               </>;
           }
       }];
@@ -136,9 +137,7 @@ const PartsChancedEditor = ({
         <DataGrid
         components={{ Toolbar: GridToolbar }}
         rows={rows}
-        columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10]}></DataGrid>
+        columns={columns}></DataGrid>
       </div>
   </>);
 };

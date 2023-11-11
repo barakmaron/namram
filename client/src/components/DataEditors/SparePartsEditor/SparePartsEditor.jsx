@@ -12,6 +12,7 @@ import { AddSparePartAction, DeleteSparePartAction, PatchSparePartAction } from 
 
 import SparePartsForms from './FormsConstants';
 import Form from '../../Form/Form';
+import { deleteTitle, serialNumberTitle } from '../../../strings';
 
 const SparePartsEditor = ({
   parts,
@@ -52,7 +53,7 @@ const SparePartsEditor = ({
     headerName: 'ID'
   }, {
     field: 'SerialNumber',
-    headerName: 'מספר סידורי',
+    headerName: serialNumberTitle,
     editable: true,
     flex: 1
   }, {
@@ -94,7 +95,7 @@ const SparePartsEditor = ({
           return <>
               <Button      
               onClick={() => delete_spare_part(params)}       
-              variant="outlined">מחק</Button>
+              variant="outlined">{deleteTitle}</Button>
           </>;
       }
   }];
@@ -149,8 +150,6 @@ const SparePartsEditor = ({
         components={{ Toolbar: GridToolbar }}
         rows={rows}
         columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10]}
         onCellEditCommit={edit_cell}></DataGrid>
       </div>
     </div>

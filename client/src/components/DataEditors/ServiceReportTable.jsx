@@ -13,6 +13,7 @@ import { PatchServiceReportAction } from "../../redux/actions/ServiceActions/Ser
 import Constants from '../../Constants';
 import Modal from '../Modal/Modal';
 import PartsChancedEditor from './PartsChancedEditor/PartsChancedEditor';
+import { printTitle, serialNumberTitle, toolNameTitle } from '../../strings';
 
 const ServiceReportTable = ({
   service_reports,
@@ -28,11 +29,11 @@ const ServiceReportTable = ({
     headerName: 'ID'
   }, {
     field: 'ProductName',
-    headerName: 'שם הכלי',
+    headerName: toolNameTitle,
     flex: 1
   }, {
     field: 'SerialNumber',
-    headerName: 'מספר סידורי',
+    headerName: serialNumberTitle,
   }, {
     field: 'Problem',
     headerName: 'בעיה',
@@ -61,7 +62,7 @@ const ServiceReportTable = ({
       return <div className='flex gap-2 justify-center w-full'>
         <Button
           onClick={() => get_pdf_service_report(params)}
-          variant="outlined">הדפס</Button>
+          variant="outlined">{printTitle}</Button>
         <Button
           onClick={() => open_changed_parts(params)}
           variant="outlined">חלקים</Button>
@@ -121,8 +122,6 @@ const ServiceReportTable = ({
         components={{ Toolbar: GridToolbar }}
         rows={rows}
         columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10]}
         onCellEditCommit={edit_cell}></DataGrid>
     </Box>
     {open_changed_parts_list && <Modal setClose={() => setOpenChangedPartsList(false)}>

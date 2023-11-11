@@ -12,6 +12,7 @@ import { getDiagrams } from "../../../redux/selectors/categoriesSelector";
 import { GetImageUrl } from '../../../services/ApiService';
 import Form from '../../Form/Form';
 import DiagramForms from './FormsConstants';
+import { deleteTitle } from '../../../strings';
 
 const DiagramEditor = ({
     diagrams,
@@ -59,7 +60,7 @@ const DiagramEditor = ({
                     onClick={() => {
                         delete_diagram(params.id);
                     }}
-                    variant="outlined">מחק</Button>
+                    variant="outlined">{deleteTitle}</Button>
             </div>;
         }
     }];
@@ -138,8 +139,6 @@ const DiagramEditor = ({
             <DataGrid
                 rows={rows}
                 columns={columns}
-                pageSize={10}
-                rowsPerPageOptions={[10]}
                 onCellEditCommit={edit_cell}></DataGrid>
         </div>
     </>);
