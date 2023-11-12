@@ -12,7 +12,7 @@ import { getStaticPages } from "../../../redux/selectors/staticPagesSelector";
 
 import Form from '../../Form/Form';
 import StaticPageForms from './FormsConstants';
-import { addTitle, deleteTitle } from '../../../strings';
+import { addTitle, deleteTitle, loadsRequestTitle, productOrCategoriesDisplayedOnPageTitle, showAsTitle } from '../../../strings';
 
 const StaticPageEditor = ({
     categories,
@@ -54,7 +54,7 @@ const StaticPageEditor = ({
             className='flex justify-center flex-wrap gap-2 border-2 rounded-sm border-solid border-forest-green-600 w-full px-10 py-4'>
             <legend
                 className='text-xl px-2'>
-                מוצרים/קטגוריות מוצגות בדף
+                {productOrCategoriesDisplayedOnPageTitle}
             </legend>
             {static_page_data?.map(data => {
                 return data.id ? <div
@@ -64,7 +64,7 @@ const StaticPageEditor = ({
                         {data.Category.Name}
                     </p>
                     <div className='px-4 py-4 flex flex-col gap-2'>
-                        show as: {data.DisplayType}
+                        {showAsTitle}: {data.DisplayType}
                         <Button
                             variant="outlined"
                             onClick={() => delete_static_page_data(data.id)}>
@@ -75,7 +75,7 @@ const StaticPageEditor = ({
                     <div
                         key={`static-page-data-${data.PageRoute}-loading`}
                         className='flex justify-center items-center w-fit px-4 py-2 flex-col'>
-                        <p>טוען בקשה</p>
+                        <p>{loadsRequestTitle}</p>
                         <CircularProgress />
                     </div>
             })}

@@ -18,7 +18,7 @@ import RentalAgreementsTable from '../../../components/DataEditors/RentalAgreeme
 import Form from '../../../components/Form/Form';
 import Modal from '../../../components/Modal/Modal';
 import AddCustomerForm from './FormConstants';
-import { addTitle, addressTitle, companyNameTitle, faxNumberTitle, fullNameTitle, idNumberTitle, phoneNumberTitle, printTitle } from '../../../strings';
+import { actionTitle, addTitle, addressTitle, companyNameTitle, faxNumberTitle, fullNameTitle, idNumberTitle, phoneNumberTitle, printTitle } from '../../../strings';
 
 const CustomersPage = ({
   customers,
@@ -81,7 +81,7 @@ const CustomersPage = ({
     editable: true
   }, {
     field: 'Actions',
-    headerName: 'פעולות',
+    headerName: actionTitle,
     flex: 1,
     type: "actions",
     renderCell: (params) => {

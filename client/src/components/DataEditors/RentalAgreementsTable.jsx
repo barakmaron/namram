@@ -15,7 +15,7 @@ import CustomerData from '../DataDisplay/CustomerData';
 import Modal from '../Modal/Modal';
 import RentalAgreementsForms from '../../pages/ControlPanel/RentalPage/FormsConstants';
 import Form from '../Form/Form';
-import { printTitle } from '../../strings';
+import { actionTitle, clientNameTitle, closeRentalAgreementTitle, deleteRentalAgreementTitle, fromDateTitle, locationTitle, printTitle, rentalAgreementOpenTitle, rentalAgreementTitle, toolsTitle, untilDateTitle } from '../../strings';
 
 const RentalAgreementsTable = ({
   customers,
@@ -37,19 +37,19 @@ const RentalAgreementsTable = ({
     headerName: 'ID'
   }, {
     field: 'SerialNumber',
-    headerName: 'מספר הסכם',
+    headerName: rentalAgreementTitle,
     flex: 1
   }, {
     field: 'StartDate',
-    headerName: 'מתאריך',
+    headerName: fromDateTitle,
     renderCell: (params) => moment(params.value).format("DD/MM/YYYY")
   }, {
     field: 'EndDate',
-    headerName: 'עד תאריך',
-    renderCell: (params) => params.value ? moment(params.value).format("DD/MM/YYYY") : "הסכם פתוח"
+    headerName: untilDateTitle,
+    renderCell: (params) => params.value ? moment(params.value).format("DD/MM/YYYY") : rentalAgreementOpenTitle
   }, {
     field: 'Customer',
-    headerName: 'שם לקוח',
+    headerName: clientNameTitle,
     flex: 1,
     renderCell: (params) => {
       const customer = customers?.find(customer => customer.id === params.value);
@@ -59,27 +59,27 @@ const RentalAgreementsTable = ({
     }
   }, {
     field: 'Location',
-    headerName: 'מיקום',
+    headerName: locationTitle,
     flex: 1
   }, {
     field: 'Actions',
-    headerName: 'פעולות',
+    headerName: actionTitle,
     flex: 1,
     type: "actions",
     renderCell: (params) => {
       return <div className='flex gap-2 justify-center w-full'>
         <Button
           onClick={() => open_tools_list_call_back(params)}
-          variant="outlined">כלים</Button>
+          variant="outlined">{toolsTitle}</Button>
         <Button
           onClick={() => get_pdf_agreement(params)}
           variant="outlined">{printTitle}</Button>
         {!params.row.EndDate && <Button
           onClick={() => close_agreement_call_back(params)}
-          variant="outlined">סגור הסכם</Button>}
+          variant="outlined">{closeRentalAgreementTitle}</Button>}
         {!params.row.EndDate && <Button
           onClick={() => delete_agreement(params)}
-          variant="outlined">מחק הסכם</Button>}
+          variant="outlined">{deleteRentalAgreementTitle}</Button>}
       </div>;
     }
   }];

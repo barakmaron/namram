@@ -17,7 +17,7 @@ import DiagramEditor from '../DataEditors/DiagramEditor/DiagramEditor';
 import SparePartsEditor from '../DataEditors/SparePartsEditor/SparePartsEditor';
 import Constants from '../../Constants';
 import ScheduledServiceEditor from '../DataEditors/ScheduledServiceEditor/ScheduledServiceEditor';
-import { serialNumberTitle } from '../../strings';
+import { actionTitle, partsTitle, priceTitle, serialNumberTitle, serviceBookTitle } from '../../strings';
 
 const ProductsTable = ({
     categories,
@@ -39,7 +39,7 @@ const ProductsTable = ({
 
     const product_type_columns = is_sale ? [{
         field: 'Price',
-        headerName: 'מחיר',
+        headerName: priceTitle,
         editable: true,
         renderCell: (params) => {
             return <span className='text-forest-green-600 font-bold flex justify-end items-center gap-2 w-full'>{params.value}<FaShekelSign /></span>;
@@ -96,7 +96,7 @@ const ProductsTable = ({
     ...product_type_columns,
     {
         field: 'actions',
-        headerName: 'פעולות',
+        headerName: actionTitle,
         flex: 1,
         type: "actions",
         renderCell: (params) => {
@@ -115,11 +115,11 @@ const ProductsTable = ({
                     variant="outlined">דיאגרמות</Button>
                 <Button
                     onClick={() => edit_spare_parts_click(params)}
-                    variant="outlined">חלקים</Button>
+                    variant="outlined">{partsTitle}</Button>
                 {!is_sale && <>
                     <Button
                         onClick={() => get_pdf_service_book(params)}
-                        variant="outlined">ספר תחזוקה</Button>
+                        variant="outlined">{serviceBookTitle}</Button>
                     <Button
                         onClick={() => edit_scheduled_service_click(params)}
                         variant="outlined">טיפולים</Button>

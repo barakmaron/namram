@@ -13,7 +13,7 @@ import { PatchServiceReportAction } from "../../redux/actions/ServiceActions/Ser
 import Constants from '../../Constants';
 import Modal from '../Modal/Modal';
 import PartsChancedEditor from './PartsChancedEditor/PartsChancedEditor';
-import { printTitle, serialNumberTitle, toolNameTitle } from '../../strings';
+import { actionTitle, closeTitle, costTitle, fromDateTitle, partsTitle, printTitle, problemTitle, serialNumberTitle, serviceBookTitle, toolNameTitle, updateTitle } from '../../strings';
 
 const ServiceReportTable = ({
   service_reports,
@@ -36,26 +36,26 @@ const ServiceReportTable = ({
     headerName: serialNumberTitle,
   }, {
     field: 'Problem',
-    headerName: 'בעיה',
+    headerName: problemTitle,
     flex: 1,
     editable: true
   }, {
     field: 'Update',
-    headerName: 'עדכון',
+    headerName: updateTitle,
     editable: true
   }, {
     field: 'Cost',
-    headerName: 'עלות',
+    headerName: costTitle,
     renderCell: (params) => {
       return <span className='text-forest-green-600 font-bold flex justify-end items-center gap-2 w-full'>{params.value}<FaShekelSign /></span>;
     }
   }, {
     field: 'StartDate',
-    headerName: 'מתאריך',
+    headerName: fromDateTitle,
     renderCell: (params) => moment(params.value).format("DD/MM/YYYY")
   }, {
     field: 'Actions',
-    headerName: 'פעולות',
+    headerName: actionTitle,
     flex: 1,
     type: "actions",
     renderCell: (params) => {
@@ -65,17 +65,17 @@ const ServiceReportTable = ({
           variant="outlined">{printTitle}</Button>
         <Button
           onClick={() => open_changed_parts(params)}
-          variant="outlined">חלקים</Button>
+          variant="outlined">{partsTitle}</Button>
         <Button
           onClick={() => get_pdf_service_book(params)}
-          variant="outlined">ספר תחזוקה</Button>
+          variant="outlined">{serviceBookTitle}</Button>
         <Button
           onClick={() => edit_cell({
             id: params.id,
             field: "EndDate",
             value: moment().toString()
           })}
-          variant="outlined">סגור</Button>
+          variant="outlined">{closeTitle}</Button>
       </div>;
     }
   }];

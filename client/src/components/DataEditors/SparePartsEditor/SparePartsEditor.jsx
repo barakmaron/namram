@@ -12,7 +12,7 @@ import { AddSparePartAction, DeleteSparePartAction, PatchSparePartAction } from 
 
 import SparePartsForms from './FormsConstants';
 import Form from '../../Form/Form';
-import { deleteTitle, serialNumberTitle } from '../../../strings';
+import { actionTitle, amountInInventoryTitle, deleteTitle, diagramTitle, nameInEnglishTitle, nameInHebrewTitle, priceTitle, serialNumberTitle } from '../../../strings';
 
 const SparePartsEditor = ({
   parts,
@@ -36,20 +36,20 @@ const SparePartsEditor = ({
   }, [diagrams]);
 
   useEffect(() => {
-    const controller = [{            
+    const controller = [{
       list: parsed_diagrams_list,
       onChange: (selected) => {
-          const diagram = diagrams.find(diagram => diagram.ProductPartsDiagram.id === selected.value);
-          setSelectedDiagram(diagram.ProductPartsDiagram.id);
+        const diagram = diagrams.find(diagram => diagram.ProductPartsDiagram.id === selected.value);
+        setSelectedDiagram(diagram.ProductPartsDiagram.id);
       }
-  }];
+    }];
 
-  setFormController(controller);
+    setFormController(controller);
   }, [diagrams, parsed_diagrams_list]);
 
 
-  const columns = [{ 
-    field: 'id', 
+  const columns = [{
+    field: 'id',
     headerName: 'ID'
   }, {
     field: 'SerialNumber',
@@ -58,53 +58,53 @@ const SparePartsEditor = ({
     flex: 1
   }, {
     field: 'NameEnglish',
-    headerName: 'שם באנגלית',
+    headerName: nameInEnglishTitle,
     editable: true,
     flex: 1
   }, {
     field: 'NameHebrew',
-    headerName: 'שם עברית',
+    headerName: nameInHebrewTitle,
     editable: true,
     flex: 1
   }, {
     field: 'Price',
-    headerName: 'מחיר',
+    headerName: priceTitle,
     editable: true,
     flex: 1,
     renderCell: (params) => {
-      return <span className='text-forest-green-600 font-bold flex justify-end items-center gap-2 w-full'>{params.value}<FaShekelSign/></span>;
+      return <span className='text-forest-green-600 font-bold flex justify-end items-center gap-2 w-full'>{params.value}<FaShekelSign /></span>;
     }
   }, {
     field: 'Count',
-    headerName: 'כמות במלאי',
+    headerName: amountInInventoryTitle,
     editable: true,
     flex: 1
   }, {
     field: 'Diagram',
-    headerName: 'דיאגרמה',
+    headerName: diagramTitle,
     editable: true,
-    flex: 1,  
+    flex: 1,
     type: "singleSelect",
     valueOptions: parsed_diagrams_list.map((diagram) => diagram.label),
   }, {
-      field: 'actions',
-      headerName: 'פעולות',
-      flex: 1,
-      type: "actions",
-      renderCell: (params) => {
-          return <>
-              <Button      
-              onClick={() => delete_spare_part(params)}       
-              variant="outlined">{deleteTitle}</Button>
-          </>;
-      }
+    field: 'actions',
+    headerName: actionTitle,
+    flex: 1,
+    type: "actions",
+    renderCell: (params) => {
+      return <>
+        <Button
+          onClick={() => delete_spare_part(params)}
+          variant="outlined">{deleteTitle}</Button>
+      </>;
+    }
   }];
 
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
     const row_parsed = parts?.reduce((parts_array, part) => {
-      if(part.id){
+      if (part.id) {
         parts_array.push({
           id: part.id,
           SerialNumber: part.SerialNumber,
@@ -139,18 +139,18 @@ const SparePartsEditor = ({
   return (<>
     <div className='flex flex-col justify-center items-center'>
       <div>
-        { form_controller.length !== 0 && <Form 
-        inputs={SparePartsForms.add_part} 
-        controller={form_controller}
-        className='flex flex-row flex-wrap w-2/4 mx-auto gap-2 justify-center mb-4'
-        action={add_part} /> }
+        {form_controller.length !== 0 && <Form
+          inputs={SparePartsForms.add_part}
+          controller={form_controller}
+          className='flex flex-row flex-wrap w-2/4 mx-auto gap-2 justify-center mb-4'
+          action={add_part} />}
       </div>
       <div className='w-[75vw] h-screen'>
         <DataGrid
-        components={{ Toolbar: GridToolbar }}
-        rows={rows}
-        columns={columns}
-        onCellEditCommit={edit_cell}></DataGrid>
+          components={{ Toolbar: GridToolbar }}
+          rows={rows}
+          columns={columns}
+          onCellEditCommit={edit_cell}></DataGrid>
       </div>
     </div>
   </>);
@@ -163,9 +163,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapActionsToProps = (dispatch) => {
   return bindActionCreators({
-      AddSparePartAction,
-      DeleteSparePartAction,
-      PatchSparePartAction
+    AddSparePartAction,
+    DeleteSparePartAction,
+    PatchSparePartAction
   }, dispatch);
 };
 

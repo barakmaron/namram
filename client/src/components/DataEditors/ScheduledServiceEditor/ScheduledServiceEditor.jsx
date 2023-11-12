@@ -13,7 +13,7 @@ import moment from 'moment';
 import Constants from '../../../Constants';
 import Modal from '../../Modal/Modal';
 import TextEditor from '../TextEditor';
-import { deleteTitle } from '../../../strings';
+import { actionTitle, deleteTitle, doneDateTitle, editDescriptionTitle, markAsDoneTitle, nameOfTheServiceTitle, whenToServiceTitle } from '../../../strings';
 
 const ScheduledServiceEditor = ({
   services,
@@ -34,19 +34,19 @@ const ScheduledServiceEditor = ({
     headerName: 'ID'
   }, {
     field: 'Name',
-    headerName: 'שם הטיפול',
+    headerName: nameOfTheServiceTitle,
     flex: 1,
     editable: true
   }, {
     field: 'Scheduled',
-    headerName: 'מתי לטפל',
+    headerName: whenToServiceTitle,
     editable: true
   }, {
     field: 'LastServiceDate',
-    headerName: 'בוצע בתאריך'
+    headerName: doneDateTitle
   }, {
     field: 'Actions',
-    headerName: 'פעולות',
+    headerName: actionTitle,
     flex: 1,
     type: "actions",
     renderCell: (params) => {
@@ -56,10 +56,10 @@ const ScheduledServiceEditor = ({
           variant="outlined">{deleteTitle}</Button>
         <Button
           onClick={() => open_text_edit(params)}
-          variant="outlined">ערוך תיאור</Button>
+          variant="outlined">{editDescriptionTitle}</Button>
         <Button
           onClick={() => set_service_done(params)}
-          variant="outlined">סמן בוצע</Button>
+          variant="outlined">{markAsDoneTitle}</Button>
       </div>;
     }
   }];
