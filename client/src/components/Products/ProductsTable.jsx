@@ -17,7 +17,7 @@ import DiagramEditor from '../DataEditors/DiagramEditor/DiagramEditor';
 import SparePartsEditor from '../DataEditors/SparePartsEditor/SparePartsEditor';
 import Constants from '../../Constants';
 import ScheduledServiceEditor from '../DataEditors/ScheduledServiceEditor/ScheduledServiceEditor';
-import { actionTitle, partsTitle, priceTitle, serialNumberTitle, serviceBookTitle } from '../../strings';
+import { actionTitle, categoryTitle, descriptionTitle, diagramsTitle, imagesTitle, partsTitle, priceTitle, productNameTitle, propsTitle, serialNumberTitle, serviceBookTitle, serviceTitle } from '../../strings';
 
 const ProductsTable = ({
     categories,
@@ -82,12 +82,12 @@ const ProductsTable = ({
         headerName: 'ID'
     }, {
         field: 'Name',
-        headerName: 'שם המוצר',
+        headerName: productNameTitle,
         editable: true,
         flex: 1
     }, {
         field: 'category',
-        headerName: 'קטגוריה'
+        headerName: categoryTitle
     }, {
         field: 'SerialNumber',
         headerName: serialNumberTitle,
@@ -103,16 +103,16 @@ const ProductsTable = ({
             return <div className='flex gap-2 justify-center w-full'>
                 <Button
                     onClick={() => edit_images_click(params)}
-                    variant="outlined">תמונות</Button>
+                    variant="outlined">{imagesTitle}</Button>
                 <Button
                     onClick={() => edit_props_click(params)}
-                    variant="outlined">תכונות</Button>
+                    variant="outlined">{propsTitle}</Button>
                 <Button
                     onClick={() => edit_text_click(params)}
-                    variant="outlined" >תיאור</Button>
+                    variant="outlined" >{descriptionTitle}</Button>
                 <Button
                     onClick={() => edit_diagram_click(params)}
-                    variant="outlined">דיאגרמות</Button>
+                    variant="outlined">{diagramsTitle}</Button>
                 <Button
                     onClick={() => edit_spare_parts_click(params)}
                     variant="outlined">{partsTitle}</Button>
@@ -122,7 +122,7 @@ const ProductsTable = ({
                         variant="outlined">{serviceBookTitle}</Button>
                     <Button
                         onClick={() => edit_scheduled_service_click(params)}
-                        variant="outlined">טיפולים</Button>
+                        variant="outlined">{serviceTitle}</Button>
                 </>}
             </div>;
         }

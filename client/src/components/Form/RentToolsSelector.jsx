@@ -10,7 +10,7 @@ import { FaPlus, FaTrash } from 'react-icons/fa';
 
 import { GetRentOnlyAvailableAction } from "../../redux/actions/RentActions/RentActions";
 import { getCategories } from "../../redux/selectors/categoriesSelector";
-import { actionTitle, priceTitle } from '../../strings';
+import { actionTitle, categoryTitle, priceTitle, productNameTitle } from '../../strings';
 
 const RentToolsSelector = ({
     setData,
@@ -71,14 +71,14 @@ const RentToolsSelector = ({
         headerName: 'ID'
     }, {
         field: 'Category',
-        headerName: 'קטגוריה',
+        headerName: categoryTitle,
         editable: true,
         flex: 1,
         type: "singleSelect",
         valueOptions: parsed_categories.map((category) => category.label)
     }, {
         field: 'Product',
-        headerName: 'שם מוצר',
+        headerName: productNameTitle,
         editable: true,
         flex: 1,
         type: "singleSelect",
