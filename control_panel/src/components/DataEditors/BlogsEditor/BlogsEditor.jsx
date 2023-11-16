@@ -4,10 +4,10 @@ import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 
 import { Button } from '@mui/material';
+import { FaPlus } from 'react-icons/fa';
 
 import { getBlogs } from "../../../redux/selectors/blogsSelector";
 import { GetBlogsAction, AddBlogAction, DeleteBlogAction, EditBlogAction } from "../../../redux/actions/BlogsActions";
-import { FaPlus } from 'react-icons/fa';
 import Form from '../../Form/Form';
 import Modal from '../../Modal/Modal';
 import SingleAccordion from '../SingleAccordion';

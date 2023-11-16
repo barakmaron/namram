@@ -13,7 +13,7 @@ import { CloseRentalAgreementAction, DeleteRentalAgreementAction } from '../../r
 import AgreementRentalToolsList from '../DataDisplay/AgreementRentalToolsList';
 import CustomerData from '../DataDisplay/CustomerData';
 import Modal from '../Modal/Modal';
-import RentalAgreementsForms from '../../pages/ControlPanel/RentalPage/FormsConstants';
+import RentalAgreementsForms from '../../pages/RentalPage/FormsConstants';
 import Form from '../Form/Form';
 import { actionTitle, clientNameTitle, closeRentalAgreementTitle, deleteRentalAgreementTitle, fromDateTitle, locationTitle, printTitle, rentalAgreementOpenTitle, rentalAgreementTitle, toolsTitle, untilDateTitle } from '../../strings';
 
