@@ -41,7 +41,7 @@ const ProductPage = ({
 
     return product && <>
         <Helmet>
-            <title>נמרם | {category.Name} | {product.Product.name}</title>
+            <title>{`נמרם | ${category?.Name} | ${product.Product.name}`}</title>
         </Helmet>
         <div
             className='lg:w-[80vw] w-screen mx-auto pb-5'>

@@ -52,7 +52,7 @@ function App({
                 element={
                   <>
                     <Helmet>
-                      <title>נמרם | {route.label} | {parse_route?.label}</title>
+                      <title>{`נמרם | ${route.label} | ${parse_route?.label}`}</title>
                     </Helmet>
                     <parse_route.element {...(parse_route?.props || [])}></parse_route.element>
                     {!logged_in && <DynamicDataParser
@@ -63,7 +63,7 @@ function App({
                 path={child.location}
                 element={<>
                   <Helmet>
-                    <title>נמרם | {route.label}</title>
+                    <title>{`נמרם | ${route.label}`}</title>
                   </Helmet>
                   <child.element></child.element>
                   {!logged_in && <DynamicDataParser
