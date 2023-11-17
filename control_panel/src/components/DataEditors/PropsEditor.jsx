@@ -4,13 +4,14 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 
-import { FaPlus, FaTrash } from 'react-icons/fa';
+import { FaPlus } from 'react-icons/fa';
 import { Button } from '@mui/material';
 import { Box } from '@mui/system';
 import { DataGrid } from '@mui/x-data-grid';
 
 import { PatchProductPropsAction, NewProductPropAction, DeletePropAction } from "../../redux/actions/ProductsActions/propsActions";
-import { actionTitle, propNameTitle, valueTitle } from '../../strings';
+import { PropName, Value, propsEditorActions } from '../../strings';
+import { ACTIONS_COLUMNS, COLUMNS } from '../../utils/columns';
 
 
 function PropsEditor({
@@ -36,32 +37,11 @@ function PropsEditor({
         DeletePropAction(category_id, product_id, params.id, product_type);
     }, [DeletePropAction, category_id, product_id, product_type]);
 
-    const columns = [{
-        field: 'id',
-        headerName: 'ID'
-    }, {
-        field: 'PropName',
-        headerName: propNameTitle,
-        editable: true,
-        flex: 1
-    }, {
-        field: 'Value',
-        headerName: valueTitle,
-        editable: true,
-        flex: 1
-    }, {
-        field: 'actions',
-        headerName: actionTitle,
-        flex: 1,
-        type: "actions",
-        renderCell: (params) => {
-            return <Button
-                onClick={() => deleteCell(params)}
-                variant="outlined">
-                <FaTrash></FaTrash>
-            </Button>;
-        }
-    }];
+    const columns = [
+        COLUMNS[PropName],
+        COLUMNS[Value],
+        ACTIONS_COLUMNS[propsEditorActions](deleteCell)
+    ];
 
     useEffect(() => {
         const parsedRows = props.map((prop) => {

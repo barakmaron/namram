@@ -83,7 +83,7 @@ function Form({
         </div>;
 
     return <form className={`${className || style.container}`} ref={form_ref} key={`form`} dir="rtl">
-        {inputs.map(({ name, type, place_holder }, index) => {
+        {inputs.map(({ name, type, place_holder, ...props }, index) => {
             switch (type) {
                 case FORMS.INPUTS_TYPES.FILE: {
                     return <div className='w-full flex flex-col gap-5 justify-center items-center' key={`form-input-${name}-${index}`}>
@@ -218,7 +218,8 @@ function Form({
                         label={place_holder}
                         key={`form-input-${name}-${index}`}
                         error={errors?.[name] === undefined ? false : true}
-                        helperText={errors?.[name]} />;
+                        helperText={errors?.[name]} 
+                        {...props} />;
                 }
             }
         })}

@@ -3,9 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
-import { Button, Box } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { FaShekelSign } from 'react-icons/fa';
 
 import { getCategories } from "../../redux/selectors/categoriesSelector";
 import { PatchProductAction } from "../../redux/actions/ProductsActions/ProductsActions";
@@ -17,7 +15,9 @@ import DiagramEditor from '../DataEditors/DiagramEditor/DiagramEditor';
 import SparePartsEditor from '../DataEditors/SparePartsEditor/SparePartsEditor';
 import Constants from '../../Constants';
 import ScheduledServiceEditor from '../DataEditors/ScheduledServiceEditor/ScheduledServiceEditor';
-import { actionTitle, categoryTitle, descriptionTitle, diagramsTitle, imagesTitle, partsTitle, priceTitle, productNameTitle, propsTitle, serialNumberTitle, serviceBookTitle, serviceTitle } from '../../strings';
+import { DayPrice, Display, HourClock, MonthPrice, Name, Price, SerialNumber, WeekPrice, category, rentToolsTableActions, } from '../../strings';
+import { ACTIONS_COLUMNS, COLUMNS } from '../../utils/columns';
+import { Box } from '@mui/material';
 
 const ProductsTable = ({
     categories,
@@ -26,123 +26,31 @@ const ProductsTable = ({
     type,
 }) => {
     const [selected_product, setSelectedProduct] = useState(undefined);
-    const [edit_props, setEditProps] = useState(false);
-    const [edit_images, setEditImages] = useState(false);
-    const [edit_text, setEditText] = useState(false);
-    const [edit_diagram, setEditDiagram] = useState(false);
-    const [edit_spare_parts, setSpareParts] = useState(false);
-    const [edit_scheduled_service, setScheduledService] = useState(false);
-    const [selected_product_parts, setSelectedProductParts] = useState([]);
+    const [editProps, setEditProps] = useState(false);
+    const [editImages, setEditImages] = useState(false);
+    const [editText, setEditText] = useState(false);
+    const [editDiagram, setEditDiagram] = useState(false);
+    const [editSpareParts, setSpareParts] = useState(false);
+    const [editScheduledService, setScheduledService] = useState(false);
+    const [selectedProductParts, setSelectedProductParts] = useState([]);
     const [rows, setRows] = useState([]);
 
-    const is_sale = Constants.PRODUCT_TYPE.SaleProducts.toLowerCase().includes(type);
-
-    const product_type_columns = is_sale ? [{
-        field: 'Price',
-        headerName: priceTitle,
-        editable: true,
-        renderCell: (params) => {
-            return <span className='text-forest-green-600 font-bold flex justify-end items-center gap-2 w-full'>{params.value}<FaShekelSign /></span>;
-        }
-    }] : [{
-        field: 'Display',
-        headerName: 'הצגת כלי באתר',
-        editable: true,
-        type: "singleSelect",
-        valueOptions: ['true', 'false']
-    }, {
-        field: 'HourClock',
-        headerName: 'שעון שעות',
-        editable: true
-    }, {
-        field: 'DayPrice',
-        headerName: 'מחיר ליום',
-        editable: true,
-        renderCell: (params) => {
-            return <span className='text-forest-green-600 font-bold flex justify-end items-center gap-2 w-full'>{params.value}<FaShekelSign /></span>;
-        }
-    }, {
-        field: 'WeekPrice',
-        headerName: 'מחיר לשבוע',
-        editable: true,
-        renderCell: (params) => {
-            return <span className='text-forest-green-600 font-bold flex justify-end items-center gap-2 w-full'>{params.value}<FaShekelSign /></span>;
-        }
-    }, {
-        field: 'MonthPrice',
-        headerName: 'מחיר לחודש',
-        editable: true,
-        renderCell: (params) => {
-            return <span className='text-forest-green-600 font-bold flex justify-end items-center gap-2 w-full'>{params.value}<FaShekelSign /></span>;
-        }
-    }];
-
-    const columns = [{
-        field: 'id',
-        headerName: 'ID'
-    }, {
-        field: 'Name',
-        headerName: productNameTitle,
-        editable: true,
-        flex: 1
-    }, {
-        field: 'category',
-        headerName: categoryTitle
-    }, {
-        field: 'SerialNumber',
-        headerName: serialNumberTitle,
-        editable: true
-    },
-    ...product_type_columns,
-    {
-        field: 'actions',
-        headerName: actionTitle,
-        flex: 1,
-        type: "actions",
-        renderCell: (params) => {
-            return <div className='flex gap-2 justify-center w-full'>
-                <Button
-                    onClick={() => edit_images_click(params)}
-                    variant="outlined">{imagesTitle}</Button>
-                <Button
-                    onClick={() => edit_props_click(params)}
-                    variant="outlined">{propsTitle}</Button>
-                <Button
-                    onClick={() => edit_text_click(params)}
-                    variant="outlined" >{descriptionTitle}</Button>
-                <Button
-                    onClick={() => edit_diagram_click(params)}
-                    variant="outlined">{diagramsTitle}</Button>
-                <Button
-                    onClick={() => edit_spare_parts_click(params)}
-                    variant="outlined">{partsTitle}</Button>
-                {!is_sale && <>
-                    <Button
-                        onClick={() => get_pdf_service_book(params)}
-                        variant="outlined">{serviceBookTitle}</Button>
-                    <Button
-                        onClick={() => edit_scheduled_service_click(params)}
-                        variant="outlined">{serviceTitle}</Button>
-                </>}
-            </div>;
-        }
-    }];
-
+    const isSale = Constants.PRODUCT_TYPE.SaleProducts.toLowerCase().includes(type);
 
     useEffect(() => {
-        const row_parsed = (products && products.reduce((products_array, product) => {
+        const parsedRow = (products && products.reduce((accumulatedProducts, product) => {
             if (product.id) {
                 const category = categories.find(category => category.id === product.CategoryId);
                 if (category) {
                     const { Product } = product;
-                    const extra_rent_data = is_sale ? { Price: product.Price } : {
+                    const extra_rent_data = isSale ? { Price: product.Price } : {
                         DayPrice: product.DayPrice,
                         WeekPrice: product.WeekPrice,
                         MonthPrice: product.MonthPrice,
                         Display: product.Display,
                         HourClock: product.HourClock
                     }
-                    products_array.push({
+                    accumulatedProducts.push({
                         id: Product.id,
                         Name: Product.Name,
                         category: category.Name,
@@ -151,18 +59,18 @@ const ProductsTable = ({
                     });
                 }
             }
-            return products_array;
+            return accumulatedProducts;
         }, [])) || [];
-        setRows(row_parsed);
-    }, [categories, products, is_sale]);
+        setRows(parsedRow);
+    }, [categories, products, isSale]);
 
-    const edit_cell = useCallback((params) => {
+    const editCell = useCallback((params) => {
         const category_name = rows.find(row => row.id === params.id).category;
         const category = categories.find(category => category.Name === category_name);
         PatchProductAction(params.field, params.value, params.id, category.id, type);
     }, [PatchProductAction, categories, rows, type]);
 
-    const select_spare_parts = useCallback((product) => {
+    const selectSpareParts = useCallback((product) => {
         if (product !== undefined) {
             const parts = product.Product.ProductDiagramsLists?.flatMap((diagram) => diagram.ProductPartsDiagram.SpareParts?.map((part) => part));
             setSelectedProductParts(parts || []);
@@ -170,54 +78,72 @@ const ProductsTable = ({
     }, []);
 
     useEffect(() => {
-        select_spare_parts(selected_product);
-    }, [selected_product, select_spare_parts])
+        selectSpareParts(selected_product);
+    }, [selected_product, selectSpareParts])
 
     const select_product = useCallback((product_id) => {
         const product = products.find(product => product.ProductId === product_id);
         setSelectedProduct(product);
-        select_spare_parts(product);
-    }, [products, select_spare_parts]);
+        selectSpareParts(product);
+    }, [products, selectSpareParts]);
 
     useEffect(() => {
         if (selected_product !== undefined)
             select_product(selected_product.ProductId);
     }, [products]);
 
-    const edit_props_click = useCallback((params) => {
+    const editPropsClick = useCallback((params) => {
         select_product(params.id);
         setEditProps(true);
     }, [select_product]);
 
-    const edit_images_click = useCallback((params) => {
+    const editImagesClick = useCallback((params) => {
         select_product(params.id);
         setEditImages(true);
     }, [select_product]);
 
-    const edit_text_click = useCallback((params) => {
+    const editTextClick = useCallback((params) => {
         select_product(params.id);
         setEditText(true);
     }, [select_product]);
 
-    const edit_diagram_click = useCallback((params) => {
+    const editDiagramClick = useCallback((params) => {
         select_product(params.id);
         setEditDiagram(true);
     }, [select_product]);
 
-    const edit_spare_parts_click = useCallback((params) => {
+    const editSparePartsClick = useCallback((params) => {
         select_product(params.id);
-        select_spare_parts(selected_product);
+        selectSpareParts(selected_product);
         setSpareParts(true);
-    }, [select_product, selected_product, select_spare_parts]);
+    }, [select_product, selected_product, selectSpareParts]);
 
-    const get_pdf_service_book = useCallback((params) => {
+    const getPdfServiceBook = useCallback((params) => {
         window.open(`${process.env.REACT_APP_API_BASE_URL}/service_reports/product/${params.id}`);
     }, []);
 
-    const edit_scheduled_service_click = useCallback((params) => {
+    const editScheduledServiceClick = useCallback((params) => {
         select_product(params.id);
         setScheduledService(true);
     }, [select_product]);
+
+    const product_type_columns = isSale ? [
+        COLUMNS[Price]
+    ] : [
+        COLUMNS[Display],
+        COLUMNS[HourClock],
+        COLUMNS[DayPrice],
+        COLUMNS[WeekPrice],
+        COLUMNS[MonthPrice]
+    ];
+
+    const columns = [
+        COLUMNS[Name],
+        COLUMNS[category],
+        COLUMNS[SerialNumber],
+        ...product_type_columns,
+        ACTIONS_COLUMNS[rentToolsTableActions](isSale, editImagesClick, editPropsClick, editTextClick, editDiagramClick, editSparePartsClick, getPdfServiceBook, editScheduledServiceClick)
+    ];
 
     return <>
         <Box sx={{ width: '100%' }} className="h-screen mt-5">
@@ -225,16 +151,16 @@ const ProductsTable = ({
                 components={{ Toolbar: GridToolbar }}
                 rows={rows}
                 columns={columns}
-                onCellEditCommit={edit_cell}></DataGrid>
+                onCellEditCommit={editCell}></DataGrid>
         </Box>
-        {edit_props && <Modal setClose={() => setEditProps(false)}>
+        {editProps && <Modal setClose={() => setEditProps(false)}>
             <PropsEditor
                 props={selected_product.Product.ProductProps}
                 category_id={selected_product.CategoryId}
                 product_id={selected_product.Product.id}
                 product_type={type} />
         </Modal>}
-        {edit_images && <Modal setClose={() => setEditImages(false)}>
+        {editImages && <Modal setClose={() => setEditImages(false)}>
             <ImageEditor
                 images={selected_product.Product.ProductsImages}
                 meta_data={{
@@ -244,7 +170,7 @@ const ProductsTable = ({
                 }}
             />
         </Modal>}
-        {edit_text && <Modal setClose={() => setEditText(false)}>
+        {editText && <Modal setClose={() => setEditText(false)}>
             <TextEditor
                 text={selected_product.Product.Text}
                 Action={PatchProductAction}
@@ -255,22 +181,22 @@ const ProductsTable = ({
                 }}
             />
         </Modal>}
-        {edit_diagram && <Modal setClose={() => setEditDiagram(false)}>
+        {editDiagram && <Modal setClose={() => setEditDiagram(false)}>
             <DiagramEditor
                 product_diagrams={selected_product.Product.ProductDiagramsLists}
                 category_id={selected_product.CategoryId}
                 product_id={selected_product.Product.id}
                 product_type={type} />
         </Modal>}
-        {edit_spare_parts && <Modal setClose={() => setSpareParts(false)}>
+        {editSpareParts && <Modal setClose={() => setSpareParts(false)}>
             <SparePartsEditor
-                parts={selected_product_parts}
+                parts={selectedProductParts}
                 diagrams={selected_product.Product.ProductDiagramsLists}
                 category_id={selected_product.CategoryId}
                 product_id={selected_product.Product.id}
                 product_type={type} />
         </Modal>}
-        {edit_scheduled_service && <Modal setClose={() => setScheduledService(false)}>
+        {editScheduledService && <Modal setClose={() => setScheduledService(false)}>
             <ScheduledServiceEditor
                 services={selected_product.ScheduledServices}
                 product_id={selected_product.id}

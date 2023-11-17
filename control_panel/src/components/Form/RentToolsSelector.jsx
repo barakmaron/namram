@@ -6,11 +6,12 @@ import { connect } from "react-redux";
 
 import { Box, Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import { FaPlus, FaTrash } from 'react-icons/fa';
+import { FaPlus } from 'react-icons/fa';
 
 import { GetRentOnlyAvailableAction } from "../../redux/actions/RentActions/RentActions";
 import { getCategories } from "../../redux/selectors/categoriesSelector";
-import { actionTitle, categoryTitle, priceTitle, productNameTitle } from '../../strings';
+import { Category, Price, Product, addRentToolsSelectorActions } from '../../strings';
+import { ACTIONS_COLUMNS, COLUMNS } from '../../utils/columns';
 
 const RentToolsSelector = ({
     setData,
@@ -19,17 +20,17 @@ const RentToolsSelector = ({
 }) => {
 
     const [rows, setRows] = useState([]);
-    const [parsed_categories, setParsedCategories] = useState([]);
-    const [parsed_products, setParsedProducts] = useState([]);
-    const [selected_category, setSelectedCategory] = useState(null);
-    const [all_products, setAllProducts] = useState([]);
+    const [parsedCategories, setParsedCategories] = useState([]);
+    const [parsedProducts, setParsedProducts] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [allProducts, setAllProducts] = useState([]);
 
-    const default_category = useMemo(() => ({
+    const defaultCategory = useMemo(() => ({
         value: -1,
         label: "Chose Category"
     }), []);
 
-    const default_product = useMemo(() => ({
+    const defaultProduct = useMemo(() => ({
         value: -1,
         label: "Chose Product"
     }), []);
@@ -39,77 +40,50 @@ const RentToolsSelector = ({
     }, [GetRentOnlyAvailableAction]);
 
     useEffect(() => {
-        const temp_parsed_categories = categories.map(category => ({
+        const tempParsedCategories = categories.map(category => ({
             label: category.Name,
             value: category.id
         }))
-        setParsedCategories([default_category, ...temp_parsed_categories]);
+        setParsedCategories([defaultCategory, ...tempParsedCategories]);
         setAllProducts(() => categories?.flatMap(category => category?.RentProducts?.map(product => ({
             label: `${product.Product.Name} | מס ${product.Product.SerialNumber} | ${product.Identifier}`,
             value: product.id
         }))));
-    }, [categories, default_category]);
+    }, [categories, defaultCategory]);
 
     useEffect(() => {
-        const temp_products = selected_category ? selected_category.RentProducts.map(product => ({
+        const temp_products = selectedCategory ? selectedCategory.RentProducts.map(product => ({
             label: `${product.Product.Name} | מס ${product.Product.SerialNumber} | ${product.Identifier}`,
             value: product.id,
             Price: product.DayPrice
         })) : [];
-        setParsedProducts([default_product, ...temp_products]);
-    }, [selected_category, default_product]);
+        setParsedProducts([defaultProduct, ...temp_products]);
+    }, [selectedCategory, defaultProduct]);
 
-    const delete_cell = useCallback((params) => {
+    const deleteCell = useCallback((params) => {
         setRows(row => {
             const filter_data = row.filter(row => row.id !== params.id);
             return filter_data;
         });
     }, [setRows]);
 
-    const columns = [{
-        field: 'id',
-        headerName: 'ID'
-    }, {
-        field: 'Category',
-        headerName: categoryTitle,
-        editable: true,
-        flex: 1,
-        type: "singleSelect",
-        valueOptions: parsed_categories.map((category) => category.label)
-    }, {
-        field: 'Product',
-        headerName: productNameTitle,
-        editable: true,
-        flex: 1,
-        type: "singleSelect",
-        valueOptions: parsed_products.map((product) => product.label)
-    }, {
-        field: "Price",
-        headerName: priceTitle,
-        flex: 1
-    }, {
-        field: 'actions',
-        headerName: actionTitle,
-        flex: 1,
-        renderCell: (params) => {
-            return <Button
-                onClick={() => delete_cell(params)}
-                variant="outlined">
-                <FaTrash></FaTrash>
-            </Button>;
-        }
-    }];
+    const columns = [
+        COLUMNS[Category](parsedCategories),
+        COLUMNS[Product](parsedProducts),
+        COLUMNS[Price],
+        ACTIONS_COLUMNS[addRentToolsSelectorActions](deleteCell)
+    ];
 
     useEffect(() => {
         setData(() => rows.map(row => ({
             id: row.id,
-            category: parsed_categories.find(category => category.label === row.Category)?.value || null,
-            product: all_products.find(product => product.label === row.Product)?.value || null,
-            price: all_products.find(product => product.label === row.Product)?.Price || null
+            [Category]: parsedCategories.find(category => category.label === row.Category)?.value || null,
+            [Product]: allProducts.find(product => product.label === row.Product)?.value || null,
+            [Price]: allProducts.find(product => product.label === row.Product)?.Price || null
         })))
-    }, [rows, setData, parsed_categories, all_products]);
+    }, [rows, setData, parsedCategories, allProducts]);
 
-    const new_cell = useCallback(() => {
+    const newCell = useCallback(() => {
         setRows(rows => [...rows, {
             id: rows.length,
             Category: "Chose Category",
@@ -117,38 +91,38 @@ const RentToolsSelector = ({
         }]);
     }, [setRows]);
 
-    const edit_cell = useCallback((params) => {
+    const editCell = useCallback((params) => {
         setRows(rows => {
-            const find_row = rows.find(row => row.id === params.id);
+            const findRow = rows.find(row => row.id === params.id);
             const filter_rows = rows.filter(row => row.id !== params.id);
             if (params.field === "Category") {
-                const find_category = parsed_categories.find(category => category.label === params.value);
-                const get_category_from_list = categories.find(category => category.id === find_category.value);
-                setSelectedCategory(get_category_from_list);
-                const category = parsed_categories.find(category => category.label === params.value);
-                find_row.Category = category.label;
+                const findCategory = parsedCategories.find(category => category.label === params.value);
+                const getCategoryFromList = categories.find(category => category.id === findCategory.value);
+                setSelectedCategory(getCategoryFromList);
+                const category = parsedCategories.find(category => category.label === params.value);
+                findRow.Category = category.label;
             }
             else {
-                const product = parsed_products.find(product => product.label === params.value);
-                find_row.Product = product.label;
-                find_row.Price = product.Price;
+                const product = parsedProducts.find(product => product.label === params.value);
+                findRow.Product = product.label;
+                findRow.Price = product.Price;
             }
-            return [...filter_rows, find_row];
+            return [...filter_rows, findRow];
         })
-    }, [setRows, parsed_categories, categories, setSelectedCategory, parsed_products]);
+    }, [setRows, parsedCategories, categories, setSelectedCategory, parsedProducts]);
 
     return (<>
         <Box className="h-96 mt-5 w-full min-w-[33vw] flex ">
             <Button
                 className='mx-auto w-fit'
-                onClick={new_cell}
+                onClick={newCell}
                 variant="outlined">
                 <FaPlus></FaPlus>
             </Button>
             <DataGrid
                 rows={rows}
                 columns={columns}
-                onCellEditCommit={edit_cell}></DataGrid>
+                onCellEditCommit={editCell}></DataGrid>
         </Box>
     </>);
 };
