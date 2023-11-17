@@ -10,7 +10,7 @@ import RentalControlPanel from "./pages/RentalPage/RentalControlPanel";
 import ServicePage from "./pages/ServicePage/ServicePage";
 import ToolsPage from "./pages/ToolsPage";
 
-const loginRoute = {
+export const loginRoute = {
     label: "התחבר",
     location: "/",
     element: Login,
@@ -111,7 +111,7 @@ const routes = [{
 
 const adminRoutes = [{
     label: "לוח בקרה",
-    location: "/control_panel",
+    location: "/",
     element: ControlPanel
 }, {
     label: "השכרת ציוד",

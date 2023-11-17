@@ -7,11 +7,11 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { GetProjectsAction } from '../../redux/actions/ProjectsActions/ProjectsActions';
+import { GetProjectsAction } from '../../redux/actions/ProjectsActions';
 import { getProjects } from '../../redux/selectors/projectsSelector';
 
 import Button from '../../components/Button';
-import Image from '../../components/DataEditors/ImageEditor/Image';
+import Image from '../../components/Image';
 import Constants from '../../Constants';
 import hexStyle from '../../hexagons.module.css';
 

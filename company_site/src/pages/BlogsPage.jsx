@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { GetBlogsAction } from '../redux/actions/BlogsActions';
 import { getBlogs } from '../redux/selectors/blogsSelector';
 
-import Image from '../components/DataEditors/ImageEditor/Image';
+import Image from '../components/Image';
 import hexStyle from '../hexagons.module.css';
 
 const BlogsPage = ({

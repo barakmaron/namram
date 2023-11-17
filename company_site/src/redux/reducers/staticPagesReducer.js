@@ -1,5 +1,5 @@
 import ACTIONS from "../actions/actionConstants/StaticPageActionsConstants";
-import StaticPageReducerFunctions from "./StaticPageReducerFunctions/StaticPageReducerFunctions";
+import StaticPageReducerFunctions from "./ReducerFunctions/StaticPageReducerFunctions";
 
 const initState = {
     static_pages: []
@@ -11,10 +11,7 @@ const reducer = (state = initState, action) => {
         case ACTIONS.INIT_STATIC_PAGES: {
             return initState;
         }
-        case ACTIONS.GET_STATIC_PAGES: 
-        case ACTIONS.ADD_STATIC_PAGE: 
-        case ACTIONS.UPDATE_STATIC_PAGE: 
-        case ACTIONS.DELETE_STATIC_PAGE: {
+        case ACTIONS.GET_STATIC_PAGES:  {
            return StaticPageReducerFunctions[type](state, payload);
         }
         default: {

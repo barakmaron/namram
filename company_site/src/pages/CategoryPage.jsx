@@ -7,7 +7,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import Constants from '../Constants';
 import { getCategories } from "../redux/selectors/categoriesSelector";
-import { GetCategoryAction } from "../redux/actions/CategoriesActions/CategoriesActions";
+import { GetCategoryAction } from "../redux/actions/CategoriesActions";
 
 const CategoryPage = ({
     categories,

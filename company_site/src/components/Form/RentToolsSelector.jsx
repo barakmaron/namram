@@ -8,7 +8,7 @@ import { Box, Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { FaPlus, FaTrash } from 'react-icons/fa';
 
-import { GetRentOnlyAvailableAction } from "../../redux/actions/RentActions/RentActions";
+import { GetRentOnlyAvailableAction } from "../../redux/actions/RentActions";
 import { getCategories } from "../../redux/selectors/categoriesSelector";
 import { actionTitle, categoryTitle, priceTitle, productNameTitle } from '../../strings';
 

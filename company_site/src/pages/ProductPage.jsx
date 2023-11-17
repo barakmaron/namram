@@ -9,7 +9,7 @@ import { FaShekelSign } from 'react-icons/fa';
 import { TfiAnnouncement } from 'react-icons/tfi';
 
 import { getCategories } from "../redux/selectors/categoriesSelector";
-import { GetCategoryAction } from "../redux/actions/CategoriesActions/CategoriesActions";
+import { GetCategoryAction } from "../redux/actions/CategoriesActions";
 
 import StructureProductData from '../components/GoogleAnalytics/StructureProductData';
 import ImageSlider from '../components/ImageSlider/ImageSlider';

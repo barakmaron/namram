@@ -1,5 +1,5 @@
 import ACTIONS from "../actions/actionConstants/BlogsActionsConstants";
-import BlogsReducerFunctions from "./BlogsReducerFunctions/BlogsReducerFunctions";
+import BlogsReducerFunctions from "./ReducerFunctions/BlogsReducerFunctions";
 
 const initState = {
     blogs: []
@@ -8,11 +8,7 @@ const initState = {
 const reducer = (state = initState, action) => {
     const { type, payload } = action;
     switch(type) {
-        case ACTIONS.GET_BLOGS: 
-        case ACTIONS.ADD_BLOG: 
-        case ACTIONS.UPDATE_BLOG: 
-        case ACTIONS.PATCH_BLOG: 
-        case ACTIONS.DELETE_BLOG: {
+        case ACTIONS.GET_BLOGS: {
             return BlogsReducerFunctions[type](state, payload);
         }
         default: {

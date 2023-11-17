@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { useParams } from "react-router-dom";
 import { CircularProgress, ImageListItem } from '@mui/material';
 
-import { GetProjectsAction } from '../../redux/actions/ProjectsActions/ProjectsActions';
+import { GetProjectsAction } from '../../redux/actions/ProjectsActions';
 import { getProjects } from '../../redux/selectors/projectsSelector';
 import TextParser from '../../components/TextParser';
 import { GetImageUrl } from '../../services/ApiService';

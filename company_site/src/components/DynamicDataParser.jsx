@@ -8,11 +8,11 @@ import { useParams } from 'react-router-dom';
 import { getCategories } from "../redux/selectors/categoriesSelector";
 import { GetStaticPageDataPerPageAction, InitStaticPageDataAction } from "../redux/actions/StaticPageActions";
 import { getStaticPages } from "../redux/selectors/staticPagesSelector";
-import { GetRentAction } from "../redux/actions/RentActions/RentActions";
-import { GetSaleAction } from "../redux/actions/SaleActions/saleActions";
-import { GetCategoryAction } from "../redux/actions/CategoriesActions/CategoriesActions";
+import { GetRentAction } from "../redux/actions/RentActions";
+import { GetSaleAction } from "../redux/actions/saleActions";
+import { GetCategoryAction } from "../redux/actions/CategoriesActions";
 import Constants from '../Constants';
-import ItemsListDisplay from './DataDisplay/ItemsListDisplay';
+import ItemsListDisplay from './ItemsListDisplay';
 
 const DynamicDataParser = ({
     page_route,

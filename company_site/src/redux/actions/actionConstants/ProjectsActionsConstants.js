@@ -1,5 +1,5 @@
 const ACTIONS = {
-    GET_BLOGS: "GET_BLOGS"
+    GET_ALL_PROJECTS: "GET_ALL_PROJECTS"
 };
 
 export default ACTIONS;

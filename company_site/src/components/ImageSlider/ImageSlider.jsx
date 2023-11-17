@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './SliderStyle.css';
-import Image from '../DataEditors/ImageEditor/Image';
+import Image from '../Image';
 
 const ImageSlider = ({
   images

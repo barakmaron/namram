@@ -1,5 +1,5 @@
 const ACTIONS = {
-    GET_BLOGS: "GET_BLOGS"
+    GET_CATEGORY: "GET_CATEGORY"
 };
 
 export default ACTIONS;

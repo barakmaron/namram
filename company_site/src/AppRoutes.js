@@ -1,5 +1,4 @@
 
-import Constants from "./Constants";
 import Page404 from "./pages/404";
 import AirHammers from "./pages/AirHammers";
 import Blog from "./pages/Blog";
@@ -7,15 +6,6 @@ import BlogsPage from "./pages/BlogsPage";
 import CableCutting from "./pages/CableCuting";
 import CategoryPage from "./pages/CategoryPage";
 import Contact from "./pages/ContactPage/Contact";
-import BlogEditorPage from "./pages/ControlPanel/BlogEditorPage";
-import ControlPanel from "./pages/ControlPanel/ControlPanel";
-import CreateReportsPage from "./pages/ControlPanel/CreateReportsPage/CreateReportsPage";
-import CustomersPage from "./pages/ControlPanel/CustomersPage/CustomersPage";
-import Login from "./pages/ControlPanel/LoginPage/Login";
-import ProjectsEditorPage from "./pages/ControlPanel/ProjectsEditorPage";
-import RentalControlPanel from "./pages/ControlPanel/RentalPage/RentalControlPanel";
-import ServicePage from "./pages/ControlPanel/ServicePage/ServicePage";
-import ToolsPage from "./pages/ControlPanel/ToolsPage";
 import Cut from "./pages/Cut";
 import Drill from "./pages/DrillPage";
 import Eilat from "./pages/Eilat";
@@ -108,12 +98,6 @@ const routes = [{
     editable: false,
     show: true,
 }, {
-    label: "התחבר",
-    location: "/login",
-    element: Login,
-    editable: false,
-    show: false
-}, {
     label: "קטגוריה",
     location: "/category",
     element: CategoryPage,
@@ -135,65 +119,8 @@ const routes = [{
     editable: false
 }];
 
-const admin_routes = [{
-    label: "לוח בקרה",
-    location: "/control_panel",
-    element: ControlPanel
-}, {
-    label: "השכרת ציוד",
-    location: "/control_panel/rent",
-    element: RentalControlPanel,
-    sub_nav: [{
-        label: "השכרת ציוד",
-        location: "/control_panel/rent",
-        element: RentalControlPanel
-    }, {
-        label: "כלים השכרה",
-        location: "/control_panel/rent/tools",
-        element: ToolsPage,
-        props: { 
-            product_type: Constants.API_PRODUCT_TYPE.RENT 
-        }
-    }, {
-        label: "לקוחות השכרה",
-        location: "/control_panel/rent/customers",
-        element: CustomersPage,
-    }, {
-        label: "תיקונים",
-        location: "/control_panel/rent/service",
-        element: ServicePage,
-    }, {
-        label: "הפקת דוחות",
-        location: "/control_panel/rent/reports",
-        element: CreateReportsPage,
-    }]
-}, {
-    label: "מכירת ציוד",
-    location: "/control_panel/sale",
-    element: ToolsPage,
-    props: { 
-        product_type: Constants.API_PRODUCT_TYPE.SALE 
-    }
-}, {
-    label: "בלוג",
-    location: "/control_panel/blogs",
-    element: BlogEditorPage
-}, {
-    label: "פרוייקטים",
-    location: "/control_panel/projects",
-    element: ProjectsEditorPage
-}, {
-    label: "התנתק",
-    location: "/logout",
-    element: Login,
-    props: {
-        logout: true
-    }
-}];
-
 const AppRoutes = {
-    routes,
-    admin_routes
+    routes
 };
 
 export default AppRoutes;
