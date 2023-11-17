@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js",
+    "dev": "nodemon dev_index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
@@ -31,7 +31,8 @@
     "sequelize": "^6.25.0",
     "serve-favicon": "^2.5.0",
     "sharp": "^0.31.1",
-    "status-code-enum": "^1.0.0"
+    "status-code-enum": "^1.0.0",
+    "vhost": "^3.0.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
