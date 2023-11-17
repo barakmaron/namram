@@ -3,6 +3,7 @@ import React, { useState, useCallback } from 'react';
 import { Button } from '@mui/material';
 
 import RichTextArea from '../RichTextArea';
+import { saveTitle } from '../../strings';
 
 const TextEditor = ({
     text,
@@ -24,7 +25,7 @@ const TextEditor = ({
         <Button
             onClick={save_call_back}
             variant='outlined'>
-            שמור
+            {saveTitle}
         </Button>
     </div>);
 };

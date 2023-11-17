@@ -10,6 +10,7 @@ import { FaPlus, FaTrash } from 'react-icons/fa';
 
 import { GetRentOnlyAvailableAction } from "../../redux/actions/RentActions/RentActions";
 import { getCategories } from "../../redux/selectors/categoriesSelector";
+import { actionTitle, categoryTitle, priceTitle, productNameTitle } from '../../strings';
 
 const RentToolsSelector = ({
     setData,
@@ -70,25 +71,25 @@ const RentToolsSelector = ({
         headerName: 'ID'
     }, {
         field: 'Category',
-        headerName: 'קטגוריה',
+        headerName: categoryTitle,
         editable: true,
         flex: 1,
         type: "singleSelect",
         valueOptions: parsed_categories.map((category) => category.label)
     }, {
         field: 'Product',
-        headerName: 'שם מוצר',
+        headerName: productNameTitle,
         editable: true,
         flex: 1,
         type: "singleSelect",
         valueOptions: parsed_products.map((product) => product.label)
     }, {
         field: "Price",
-        headerName: "מחיר",
+        headerName: priceTitle,
         flex: 1
     }, {
         field: 'actions',
-        headerName: 'פעולות',
+        headerName: actionTitle,
         flex: 1,
         renderCell: (params) => {
             return <Button
@@ -147,8 +148,6 @@ const RentToolsSelector = ({
             <DataGrid
                 rows={rows}
                 columns={columns}
-                pageSize={10}
-                rowsPerPageOptions={[10]}
                 onCellEditCommit={edit_cell}></DataGrid>
         </Box>
     </>);

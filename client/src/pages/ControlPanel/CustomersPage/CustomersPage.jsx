@@ -18,6 +18,7 @@ import RentalAgreementsTable from '../../../components/DataEditors/RentalAgreeme
 import Form from '../../../components/Form/Form';
 import Modal from '../../../components/Modal/Modal';
 import AddCustomerForm from './FormConstants';
+import { actionTitle, addTitle, addressTitle, companyNameTitle, faxNumberTitle, fullNameTitle, idNumberTitle, phoneNumberTitle, printTitle } from '../../../strings';
 
 const CustomersPage = ({
   customers,
@@ -44,27 +45,27 @@ const CustomersPage = ({
     headerName: 'ID'
   }, {
     field: 'FullName',
-    headerName: 'שם מלא',
+    headerName: fullNameTitle,
     editable: true
   }, {
     field: 'CompanyName',
-    headerName: 'שם חברה',
+    headerName: companyNameTitle,
     flex: 1,
     editable: true
   }, {
     field: 'PhoneNumber',
-    headerName: 'מספר טלפון',
+    headerName: phoneNumberTitle,
     editable: true,
     renderCell: (params) => {
       return <a href={`tel:${params.value}`} className='text-forest-green-500 font-bold'>{params.value}</a>;
     }
   }, {
     field: 'IdNumber',
-    headerName: 'מספר זהות',
+    headerName: idNumberTitle,
     editable: true
   }, {
     field: 'Address',
-    headerName: 'כתובת',
+    headerName: addressTitle,
     flex: 1,
     editable: true
   }, {
@@ -76,18 +77,18 @@ const CustomersPage = ({
     }
   }, {
     field: 'FaxNumber',
-    headerName: 'מספר פקס',
+    headerName: faxNumberTitle,
     editable: true
   }, {
     field: 'Actions',
-    headerName: 'פעולות',
+    headerName: actionTitle,
     flex: 1,
     type: "actions",
     renderCell: (params) => {
       return <div className='flex gap-2 justify-center w-full flex-wrap'>
         <Button
           onClick={() => open_print_call_back(params)}
-          variant="outlined">הדפס</Button>
+          variant="outlined">{printTitle}</Button>
         <Button
           onClick={() => open_rental_agreements_call_back(params)}
           variant="outlined">הסכמים</Button>
@@ -144,7 +145,7 @@ const CustomersPage = ({
     <div className='flex flex-row gap-5 flex-wrap w-fit mx-auto'>
       <ControlPanelBlock
         actions={[{
-          label: "הוסף לקוח חדש",
+          label: `${addTitle} לקוח חדש`,
           value: () => setCustomerForm(true)
         }]}>
         ניהול לקוחות
@@ -158,9 +159,7 @@ const CustomersPage = ({
         onCellEditCommit={edit_cell}
         components={{ Toolbar: GridToolbar }}
         rows={rows}
-        columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10]}></DataGrid>
+        columns={columns}></DataGrid>
     </Box>
     {open_print && <Modal setClose={() => setOpenPrint(false)}>
       <CustomerData

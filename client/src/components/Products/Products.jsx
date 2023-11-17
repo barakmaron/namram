@@ -11,6 +11,7 @@ import Constants from '../../Constants';
 import useProductType from '../../hooks/useProductType';
 import allProductForms from './FormConstants';
 import Form from '../Form/Form';
+import { addProductTitle, addTitle, deleteProductTitle, deleteTitle } from '../../strings';
 
 const Products = ({
   categories,
@@ -69,15 +70,15 @@ const Products = ({
       number={products?.length || 0}
       actions={[{
         value: () => setAddProduct(true),
-        label: "הוסף"
+        label: addTitle
       }, {
         value: () => setDeleteProduct(true),
-        label: "מחק"
+        label: deleteTitle
       }]}>
       מוצרים
     </ControlPanelBlock>
     {add_product && <Modal setClose={() => setAddProduct(false)}>
-      <h2 className='mx-auto text-3xl font-bold w-fit'>הוסף מוצר</h2>
+      <h2 className='mx-auto text-3xl font-bold w-fit'>{addProductTitle}</h2>
       <Form
         action={add_product_action}
         inputs={type === Constants.API_PRODUCT_TYPE.SALE ?
@@ -86,7 +87,7 @@ const Products = ({
         controller={add_form_controller} />
     </Modal>}
     {delete_product && <Modal setClose={() => setDeleteProduct(false)}>
-      <h2 className='mx-auto text-3xl font-bold w-fit'>מחק מוצר</h2>
+      <h2 className='mx-auto text-3xl font-bold w-fit'>{deleteProductTitle}</h2>
       <Form
         action={delete_product_action}
         inputs={allProductForms.delete_product}

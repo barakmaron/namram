@@ -3,6 +3,7 @@ import React from 'react'
 import { useRef } from 'react';
 import { FaShekelSign } from 'react-icons/fa';
 import { useReactToPrint } from 'react-to-print';
+import { agreementNumberTitle, costPerDayTitle, costPerMonth, costPerWeek, printTitle, serialNumberTitle, toolNameTitle } from '../../strings';
 
 const AgreementRentalToolsList = ({
     tools,
@@ -17,17 +18,17 @@ const AgreementRentalToolsList = ({
   return <>
     <div  ref={table_ref}>
         {agreement_number && <h2 className=' w-fit mx-auto text-3xl my-4'>
-            הסכם מספר {agreement_number}
+            {agreementNumberTitle} {agreement_number}
         </h2>}    
         <TableContainer dir="rtl">
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell>שם הכלי</TableCell>
-                        <TableCell>מספר סידורי</TableCell>
-                        <TableCell>עלות ליום</TableCell>
-                        <TableCell>עלות לשבוע</TableCell>
-                        <TableCell>עלות לחודש</TableCell>
+                        <TableCell>{toolNameTitle}</TableCell>
+                        <TableCell>{serialNumberTitle}</TableCell>
+                        <TableCell>{costPerDayTitle}</TableCell>
+                        <TableCell>{costPerWeek}</TableCell>
+                        <TableCell>{costPerMonth}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -63,7 +64,7 @@ const AgreementRentalToolsList = ({
         <Button
         variant="outlined"
         onClick={handle_print}>
-            הדפס
+            {printTitle}
         </Button>
     </div>
   </>

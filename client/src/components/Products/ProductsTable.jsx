@@ -17,6 +17,7 @@ import DiagramEditor from '../DataEditors/DiagramEditor/DiagramEditor';
 import SparePartsEditor from '../DataEditors/SparePartsEditor/SparePartsEditor';
 import Constants from '../../Constants';
 import ScheduledServiceEditor from '../DataEditors/ScheduledServiceEditor/ScheduledServiceEditor';
+import { actionTitle, categoryTitle, descriptionTitle, diagramsTitle, imagesTitle, partsTitle, priceTitle, productNameTitle, propsTitle, serialNumberTitle, serviceBookTitle, serviceTitle } from '../../strings';
 
 const ProductsTable = ({
     categories,
@@ -38,7 +39,7 @@ const ProductsTable = ({
 
     const product_type_columns = is_sale ? [{
         field: 'Price',
-        headerName: 'מחיר',
+        headerName: priceTitle,
         editable: true,
         renderCell: (params) => {
             return <span className='text-forest-green-600 font-bold flex justify-end items-center gap-2 w-full'>{params.value}<FaShekelSign /></span>;
@@ -81,47 +82,47 @@ const ProductsTable = ({
         headerName: 'ID'
     }, {
         field: 'Name',
-        headerName: 'שם המוצר',
+        headerName: productNameTitle,
         editable: true,
         flex: 1
     }, {
         field: 'category',
-        headerName: 'קטגוריה'
+        headerName: categoryTitle
     }, {
         field: 'SerialNumber',
-        headerName: 'מספר סידורי',
+        headerName: serialNumberTitle,
         editable: true
     },
     ...product_type_columns,
     {
         field: 'actions',
-        headerName: 'פעולות',
+        headerName: actionTitle,
         flex: 1,
         type: "actions",
         renderCell: (params) => {
             return <div className='flex gap-2 justify-center w-full'>
                 <Button
                     onClick={() => edit_images_click(params)}
-                    variant="outlined">תמונות</Button>
+                    variant="outlined">{imagesTitle}</Button>
                 <Button
                     onClick={() => edit_props_click(params)}
-                    variant="outlined">תכונות</Button>
+                    variant="outlined">{propsTitle}</Button>
                 <Button
                     onClick={() => edit_text_click(params)}
-                    variant="outlined" >תיאור</Button>
+                    variant="outlined" >{descriptionTitle}</Button>
                 <Button
                     onClick={() => edit_diagram_click(params)}
-                    variant="outlined">דיאגרמות</Button>
+                    variant="outlined">{diagramsTitle}</Button>
                 <Button
                     onClick={() => edit_spare_parts_click(params)}
-                    variant="outlined">חלקים</Button>
+                    variant="outlined">{partsTitle}</Button>
                 {!is_sale && <>
                     <Button
                         onClick={() => get_pdf_service_book(params)}
-                        variant="outlined">ספר תחזוקה</Button>
+                        variant="outlined">{serviceBookTitle}</Button>
                     <Button
                         onClick={() => edit_scheduled_service_click(params)}
-                        variant="outlined">טיפולים</Button>
+                        variant="outlined">{serviceTitle}</Button>
                 </>}
             </div>;
         }
@@ -224,8 +225,6 @@ const ProductsTable = ({
                 components={{ Toolbar: GridToolbar }}
                 rows={rows}
                 columns={columns}
-                pageSize={10}
-                rowsPerPageOptions={[10]}
                 onCellEditCommit={edit_cell}></DataGrid>
         </Box>
         {edit_props && <Modal setClose={() => setEditProps(false)}>

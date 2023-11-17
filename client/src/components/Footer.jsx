@@ -5,6 +5,7 @@ import Constants from '../Constants';
 import { FaFacebookSquare, FaYoutube } from 'react-icons/fa';
 import ContactInfo from './ContactInfo';
 import AppRoutes from '../AppRoutes';
+import { contactAsTitle, newsAndUpdatesTitle } from '../strings';
 
 const Footer = () => {
     return (<footer dir='rtl'>
@@ -31,11 +32,11 @@ const Footer = () => {
                 </nav>
             </li>
             <li className='w-full sm:w-1/3 flex flex-col justify-center items-center'>
-                <h2 className='text-3xl text-green-600 py-2 font-bold'>צור קשר</h2>
+                <h2 className='text-3xl text-green-600 py-2 font-bold'>{contactAsTitle}</h2>
                 <ContactInfo />
             </li>
             <li >
-                <h2 className='text-3xl text-green-600 py-2 font-bold'>עדכונים וחדשות</h2>
+                <h2 className='text-3xl text-green-600 py-2 font-bold'>{newsAndUpdatesTitle}</h2>
                 <div className='flex gap-4 text-8xl justify-center'>
                     <Link
                         to={Constants.contact_nav.facebook}>

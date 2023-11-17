@@ -12,6 +12,7 @@ import { getDiagrams } from "../../../redux/selectors/categoriesSelector";
 import { GetImageUrl } from '../../../services/ApiService';
 import Form from '../../Form/Form';
 import DiagramForms from './FormsConstants';
+import { actionTitle, addNewDiagramTitle, connectDiagramTitle, deleteTitle, modelTitle, removeThisProductTitle, showTitle } from '../../../strings';
 
 const DiagramEditor = ({
     diagrams,
@@ -35,12 +36,12 @@ const DiagramEditor = ({
         headerName: 'ID'
     }, {
         field: 'ModelName',
-        headerName: 'מודל',
+        headerName: modelTitle,
         editable: true,
         flex: 1
     }, {
         field: 'actions',
-        headerName: 'פעולות',
+        headerName: actionTitle,
         flex: 1,
         type: "actions",
         renderCell: (params) => {
@@ -49,17 +50,17 @@ const DiagramEditor = ({
                     onClick={() => {
                         window.open(GetImageUrl(params.row.Image));
                     }}
-                    variant="outlined">הצג</Button>
+                    variant="outlined">{showTitle}</Button>
                 <Button
                     onClick={() => {
                         remove_diagram_form_product(params.id);
                     }}
-                    variant="outlined">הסר ממוצר זה</Button>
+                    variant="outlined">{removeThisProductTitle}</Button>
                 <Button
                     onClick={() => {
                         delete_diagram(params.id);
                     }}
-                    variant="outlined">מחק</Button>
+                    variant="outlined">{deleteTitle}</Button>
             </div>;
         }
     }];
@@ -122,13 +123,13 @@ const DiagramEditor = ({
         <div className="w-[50vw] h-screen mt-5 flex flex-col">
             <div className='flex gap-4 justify-center'>
                 <fieldset className='border-2 border-forest-green-500 px-4 py-4 w-fit'>
-                    <legend className='text-forest-900 px-4 text-2xl'>הוסף דיאגרמה חדשה</legend>
+                    <legend className='text-forest-900 px-4 text-2xl'>{addNewDiagramTitle}</legend>
                     <Form
                         inputs={DiagramForms.add_diagram}
                         action={add_diagram} />
                 </fieldset>
                 <fieldset className='border-2 border-forest-green-500 px-4 py-4 w-fit'>
-                    <legend className='text-forest-900 px-4 text-2xl'>חבר דיאגרמה</legend>
+                    <legend className='text-forest-900 px-4 text-2xl'>{connectDiagramTitle}</legend>
                     {form_controller.length !== 0 && <Form
                         controller={form_controller}
                         inputs={DiagramForms.connect_diagram}
@@ -138,8 +139,6 @@ const DiagramEditor = ({
             <DataGrid
                 rows={rows}
                 columns={columns}
-                pageSize={10}
-                rowsPerPageOptions={[10]}
                 onCellEditCommit={edit_cell}></DataGrid>
         </div>
     </>);

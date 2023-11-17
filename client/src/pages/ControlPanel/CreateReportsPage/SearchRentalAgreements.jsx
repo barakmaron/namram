@@ -5,6 +5,7 @@ import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useCallback } from 'react';
 import CreateReportsForms from './FormsConstants';
+import { fromDateTitle, rentalAgreementTitle, untilDateTitle } from '../../../strings';
 
 const SearchRentalAgreements = () => {
 
@@ -66,7 +67,7 @@ const SearchRentalAgreements = () => {
         dateAdapter={AdapterDayjs}>
         <div className='flex gap-10'>
             <MobileDatePicker
-            label="מתאריך"
+            label={fromDateTitle}
             inputFormat="DD/MM/YYYY"
             value={start_date}
             onChange={(value) => handleChange(value, setStartDate)}
@@ -76,7 +77,7 @@ const SearchRentalAgreements = () => {
             disabled={agreement_serial_number !== undefined}                
             />
             <MobileDatePicker
-            label="עד תאריך"
+            label={untilDateTitle}
             inputFormat="DD/MM/YYYY"
             value={end_date}
             onChange={(value) => handleChange(value, setEndDate)}
@@ -91,7 +92,7 @@ const SearchRentalAgreements = () => {
         type="number"
         value={agreement_serial_number}
         onChange={(event) => handleChange(event.currentTarget.value, setAgreementSerialNumber)}
-        placeholder="מספר הסכם"
+        placeholder={rentalAgreementTitle}
         disabled={start_date !== undefined || end_date !== undefined}
         error={error.fields.includes("SerialNumber")} 
         />
