@@ -15,7 +15,7 @@ import DiagramEditor from '../DataEditors/DiagramEditor/DiagramEditor';
 import SparePartsEditor from '../DataEditors/SparePartsEditor/SparePartsEditor';
 import Constants from '../../Constants';
 import ScheduledServiceEditor from '../DataEditors/ScheduledServiceEditor/ScheduledServiceEditor';
-import { DayPrice, Display, HourClock, MonthPrice, Name, Price, SerialNumber, WeekPrice, category, rentToolsTableActions, } from '../../strings';
+import { DayPrice, Display, HourClock, MonthPrice, Name, Price, SerialNumber, WeekPrice, category, rentToolsTableActions, serialNumberTitle, } from '../../strings';
 import { ACTIONS_COLUMNS, COLUMNS } from '../../utils/columns';
 import { Box } from '@mui/material';
 
@@ -138,9 +138,9 @@ const ProductsTable = ({
     ];
 
     const columns = [
-        COLUMNS[Name],
+        COLUMNS[Name](),
         COLUMNS[category],
-        COLUMNS[SerialNumber],
+        COLUMNS[SerialNumber](serialNumberTitle),
         ...product_type_columns,
         ACTIONS_COLUMNS[rentToolsTableActions](isSale, editImagesClick, editPropsClick, editTextClick, editDiagramClick, editSparePartsClick, getPdfServiceBook, editScheduledServiceClick)
     ];

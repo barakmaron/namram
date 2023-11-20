@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
 import { AddScheduledServiceAction, PatchScheduledServiceAction, DeleteScheduledServiceAction } from "../../../redux/actions/ProductsActions/scheduledServiceAction";
@@ -13,7 +13,8 @@ import moment from 'moment';
 import Constants from '../../../Constants';
 import Modal from '../../Modal/Modal';
 import TextEditor from '../TextEditor';
-import { actionTitle, deleteTitle, doneDateTitle, editDescriptionTitle, markAsDoneTitle, nameOfTheServiceTitle, whenToServiceTitle } from '../../../strings';
+import { LastServiceDate, Name, Scheduled, nameOfTheServiceTitle, scheduledServiceActions } from '../../../strings';
+import { ACTIONS_COLUMNS, COLUMNS } from '../../../utils/columns';
 
 const ScheduledServiceEditor = ({
   services,
@@ -28,41 +29,6 @@ const ScheduledServiceEditor = ({
   const [edit_text, setEditText] = useState(false);
   const [text, setText] = useState("");
   const [service_id, setServiceId] = useState("");
-
-  const columns = [{
-    field: 'id',
-    headerName: 'ID'
-  }, {
-    field: 'Name',
-    headerName: nameOfTheServiceTitle,
-    flex: 1,
-    editable: true
-  }, {
-    field: 'Scheduled',
-    headerName: whenToServiceTitle,
-    editable: true
-  }, {
-    field: 'LastServiceDate',
-    headerName: doneDateTitle
-  }, {
-    field: 'Actions',
-    headerName: actionTitle,
-    flex: 1,
-    type: "actions",
-    renderCell: (params) => {
-      return <div className='flex gap-2 justify-center w-full'>
-        <Button
-          onClick={() => delete_service(params)}
-          variant="outlined">{deleteTitle}</Button>
-        <Button
-          onClick={() => open_text_edit(params)}
-          variant="outlined">{editDescriptionTitle}</Button>
-        <Button
-          onClick={() => set_service_done(params)}
-          variant="outlined">{markAsDoneTitle}</Button>
-      </div>;
-    }
-  }];
 
   useEffect(() => {
     const row_parsed = (services && services.reduce((services_array, service) => {
@@ -81,39 +47,46 @@ const ScheduledServiceEditor = ({
     setRows(row_parsed);
   }, [services, product_id]);
 
-  const edit_cell = useCallback((params) => {
+  const editCell = useCallback((params) => {
     PatchScheduledServiceAction(params.field, params.value, params.id, product_id, category_id);
   }, [PatchScheduledServiceAction, product_id, category_id]);
 
-  const add_service = useCallback((event, form) => {
+  const addService = useCallback((event, form) => {
     event.preventDefault();
     AddScheduledServiceAction(product_id, category_id, form)
   }, [product_id, AddScheduledServiceAction, category_id]);
 
-  const delete_service = useCallback((params) => {
+  const deleteService = useCallback((params) => {
     DeleteScheduledServiceAction(params.id, product_id, category_id);
   }, [DeleteScheduledServiceAction, product_id, category_id]);
 
-  const set_service_done = useCallback((params) => {
-    PatchScheduledServiceAction("LastServiceDate", new Date(), params.id, product_id, category_id);
+  const setServiceDone = useCallback((params) => {
+    PatchScheduledServiceAction(LastServiceDate, new Date(), params.id, product_id, category_id);
   }, [PatchScheduledServiceAction, product_id, category_id]);
 
-  const open_text_edit = useCallback((params) => {
+  const openTextEdit = useCallback((params) => {
     setText(params.row.Text);
     setEditText(true);
     setServiceId(params.id);
   }, []);
 
+  const columns = [
+    COLUMNS[Name](nameOfTheServiceTitle),
+    COLUMNS[Scheduled],
+    COLUMNS[LastServiceDate],
+    ACTIONS_COLUMNS[scheduledServiceActions](deleteService, openTextEdit, setServiceDone)
+  ];
+
   return <div className='flex flex-col min-h-[20rem] w-[50vw] justify-center'>
     <Form
       inputs={ScheduledForms.add_service}
-      action={add_service} />
+      action={addService} />
     <Box sx={{ width: '100%' }} className="h-screen mt-5">
       <DataGrid
         components={{ Toolbar: GridToolbar }}
         rows={rows}
         columns={columns}
-        onCellEditCommit={edit_cell}></DataGrid>
+        onCellEditCommit={editCell}></DataGrid>
     </Box>
     {edit_text && <Modal setClose={() => setEditText(false)}>
       <TextEditor

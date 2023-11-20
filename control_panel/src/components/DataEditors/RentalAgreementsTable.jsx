@@ -84,7 +84,7 @@ const RentalAgreementsTable = ({
     }, [CloseRentalAgreementAction, selectedAgreement]);
 
     const temp_columns = [
-        COLUMNS[SerialNumber],
+        COLUMNS[SerialNumber](),
         COLUMNS[StartDate],
         COLUMNS[EndDate],
         COLUMNS[Customer](customers, openCustomerData),

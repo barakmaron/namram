@@ -1,27 +1,32 @@
 import { Button } from "@mui/material";
 import {
-    Category, Customer, DayPrice, Display, EndDate, HourClock, LocationTitle, ModelName, MonthPrice, Name, Price, Product, PropName, SerialNumber, StartDate, Value, WeekPrice, actionTitle,
-    addRentToolsSelectorActions, category, categoryTitle,
-    clientNameTitle, closeRentalAgreementTitle, deleteRentalAgreementTitle,
+    Address,
+    Category, CompanyName, Count, Customer, DayPrice, Diagram, Display, EndDate, FaxNumber, FullName, HomePhoneNumber, HourClock, IdNumber, LastServiceDate, LocationTitle, ModelName, MonthPrice, Name, NameEnglish, NameHebrew, PhoneNumber, Price, Product, PropName, Scheduled, SerialNumber, StartDate, Value, WeekPrice, actionTitle,
+    addRentToolsSelectorActions, addressTitle, agreementsTitle, amountInInventoryTitle, category, categoryTitle,
+    clientNameTitle, closeRentalAgreementTitle, companyNameTitle, customersActions, deleteClientTitle, deleteRentalAgreementTitle,
     deleteTitle,
-    descriptionTitle, diagramEditorTableActions, diagramsTitle, displayToolOnSite,
-    fromDateTitle, hourClockTitle, imagesTitle, locationTitle, modelTitle, partsTitle, pricePerDayTitle, pricePerMonthTitle, pricePerWeekTitle, priceTitle, printTitle,
+    descriptionTitle, diagramEditorTableActions, diagramTitle, diagramsTitle, displayToolOnSite,
+    doneDateTitle,
+    editDescriptionTitle,
+    faxNumberTitle,
+    fromDateTitle, fullNameTitle, hourClockTitle, idNumberTitle, imagesTitle, locationTitle, markAsDoneTitle, modelTitle, nameInEnglishTitle, nameInHebrewTitle, partsTitle, phoneNumberTitle, pricePerDayTitle, pricePerMonthTitle, pricePerWeekTitle, priceTitle, printTitle,
     productNameTitle, propNameTitle, propsEditorActions, propsTitle,
     removeThisProductTitle,
     rentToolsTableActions, rentalAgreementOpenTitle, rentalAgreementTitle,
-    rentalAgreementsActions, serviceBookTitle, serviceTitle,
+    rentalAgreementsActions, scheduledServiceActions, serviceBookTitle, serviceTitle,
     showTitle,
-    toolsTitle, untilDateTitle, valueTitle
+    sparePartsActions,
+    toolsTitle, untilDateTitle, valueTitle, whenToServiceTitle
 } from "../strings";
 import moment from "moment";
 import { FaCheck, FaShekelSign, FaTimes, FaTrash } from "react-icons/fa";
 
 export const COLUMNS = {
-    [SerialNumber]: {
+    [SerialNumber]: (title = rentalAgreementTitle) => ({
         field: SerialNumber,
-        headerName: rentalAgreementTitle,
+        headerName: title,
         flex: 1
-    },
+    }),
     [StartDate]: {
         field: StartDate,
         headerName: fromDateTitle,
@@ -56,12 +61,12 @@ export const COLUMNS = {
         type: "singleSelect",
         valueOptions: parsedCategories.map((category) => category.label)
     }),
-    [Name]: {
+    [Name]: (title = productNameTitle) => ({
         field: Name,
-        headerName: productNameTitle,
+        headerName: title,
         editable: true,
         flex: 1
-    },
+    }),
     [category]: {
         field: category,
         headerName: categoryTitle
@@ -80,7 +85,8 @@ export const COLUMNS = {
         flex: 1,
         renderCell: (params) => {
             return <span className='text-forest-green-600 font-bold flex justify-end items-center gap-2 w-full'>{params.value}<FaShekelSign /></span>;
-        }
+        },
+        editable: true
     },
     [Display]: {
         field: Display,
@@ -136,7 +142,85 @@ export const COLUMNS = {
         headerName: modelTitle,
         editable: true,
         flex: 1
-    }
+    },
+    [NameHebrew]: {
+        field: NameHebrew,
+        headerName: nameInHebrewTitle,
+        editable: true,
+        flex: 1
+    },
+    [NameEnglish]: {
+        field: NameEnglish,
+        headerName: nameInEnglishTitle,
+        editable: true,
+        flex: 1
+    },
+    [Count]: {
+        field: Count,
+        headerName: amountInInventoryTitle,
+        editable: true,
+        flex: 1
+    },
+    [Diagram]: (parsedDiagramsList) => ({
+        field: Diagram,
+        headerName: diagramTitle,
+        editable: true,
+        flex: 1,
+        type: "singleSelect",
+        valueOptions: parsedDiagramsList.map((diagram) => diagram.label),
+    }),
+    [Scheduled]: {
+        field: Scheduled,
+        headerName: whenToServiceTitle,
+        editable: true
+    },
+    [LastServiceDate]: {
+        field: LastServiceDate,
+        headerName: doneDateTitle
+    },
+    [FullName]: {
+        field: FullName,
+        headerName: fullNameTitle,
+        editable: true
+    },
+    [CompanyName]: {
+        field: CompanyName,
+        headerName: companyNameTitle,
+        flex: 1,
+        editable: true
+    },
+    [PhoneNumber]: {
+        field: PhoneNumber,
+        headerName: phoneNumberTitle,
+        editable: true,
+        renderCell: (params) => {
+            return <a href={`tel:${params.value}`} className='text-forest-green-500 font-bold'>{params.value}</a>;
+        }
+    },
+    [IdNumber]: {
+        field: IdNumber,
+        headerName: idNumberTitle,
+        editable: true
+    },
+    [Address]: {
+        field: Address,
+        headerName: addressTitle,
+        flex: 1,
+        editable: true
+    },
+    [HomePhoneNumber]: {
+        field: HomePhoneNumber,
+        headerName: phoneNumberTitle,
+        editable: true,
+        renderCell: (params) => {
+            return <a href={`tel:${params.value}`} className='text-forest-green-500 font-bold'>{params.value}</a>;
+        }
+    },
+    [FaxNumber]: {
+        field: FaxNumber,
+        headerName: faxNumberTitle,
+        editable: true
+    },
 };
 
 export const ACTIONS_COLUMNS = {
@@ -244,5 +328,56 @@ export const ACTIONS_COLUMNS = {
                     variant="outlined">{deleteTitle}</Button>
             </div>;
         }
-    })
+    }),
+    [sparePartsActions]: (deleteSparePart) => ({
+        field: sparePartsActions,
+        headerName: actionTitle,
+        flex: 1,
+        type: "actions",
+        renderCell: (params) => {
+            return <>
+                <Button
+                    onClick={() => deleteSparePart(params)}
+                    variant="outlined">{deleteTitle}</Button>
+            </>;
+        }
+    }),
+    [scheduledServiceActions]: (deleteService, openTextEdit, setServiceDone) => ({
+        field: scheduledServiceActions,
+        headerName: actionTitle,
+        flex: 1,
+        type: "actions",
+        renderCell: (params) => {
+            return <div className='flex gap-2 justify-center w-full'>
+                <Button
+                    onClick={() => deleteService(params)}
+                    variant="outlined">{deleteTitle}</Button>
+                <Button
+                    onClick={() => openTextEdit(params)}
+                    variant="outlined">{editDescriptionTitle}</Button>
+                <Button
+                    onClick={() => setServiceDone(params)}
+                    variant="outlined">{markAsDoneTitle}</Button>
+            </div>;
+        }
+    }),
+    [customersActions]: (openPrintCallback, openRentalAgreementsCallback, deleteCustomer) => ({
+        field: customersActions,
+        headerName: actionTitle,
+        flex: 1,
+        type: "actions",
+        renderCell: (params) => {
+            return <div className='flex gap-2 justify-center w-full flex-wrap'>
+                <Button
+                    onClick={() => openPrintCallback(params)}
+                    variant="outlined">{printTitle}</Button>
+                <Button
+                    onClick={() => openRentalAgreementsCallback(params)}
+                    variant="outlined">{agreementsTitle}</Button>
+                <Button
+                    onClick={() => deleteCustomer(params)}
+                    variant="outlined">{deleteClientTitle}</Button>
+            </div>;
+        }
+      })
 }
