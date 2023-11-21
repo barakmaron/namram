@@ -37,7 +37,7 @@ const DeleteSparePart = (product_id, category_id, diagram_id, part_id, product_t
     }
 });
 
-const PatchSparePart = (part_id, product_id, category_id, diagram_id, field_name, value, product_type) => ({
+const PatchSparePart = (part_id, product_id, category_id, diagram_id, field_name, value, newDiagramId, product_type) => ({
     type: ACTIONS.PATCH_SPARE_PART_PROP,
     payload: {
         part_id,
@@ -46,6 +46,7 @@ const PatchSparePart = (part_id, product_id, category_id, diagram_id, field_name
         diagram_id,
         field_name,
         value,
+        newDiagramId,
         product_type
     }
 });
@@ -81,12 +82,12 @@ export const DeleteSparePartAction = (product_id, category_id, diagram_id, part_
 
 export const PatchSparePartAction = (part_id, product_id, category_id, diagram_id, field_name, value, product_type) => {
     return async (dispatch) => {
-        try {
-            dispatch(PatchSparePart(part_id, product_id, category_id, diagram_id, field_name, value, product_type));
-            await SendApiRequest(`/products/spare_parts/${part_id}`, Constants.API_METHODS.PATCH, {
+        try {            
+            const newDiagramId = await SendApiRequest(`/products/spare_parts/${part_id}`, Constants.API_METHODS.PATCH, {
                 field_name,
                 value
             });
+            dispatch(PatchSparePart(part_id, product_id, category_id, diagram_id, field_name, value, newDiagramId, product_type));
             dispatch(Successful(ApiMessagesConstants.product.sparePart.patchPart.successful));
         } catch (err) {
             DispatchError(dispatch, err, ApiMessagesConstants.product.sparePart.patchPart.failed);

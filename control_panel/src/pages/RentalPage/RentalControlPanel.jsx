@@ -13,6 +13,7 @@ import Modal from '../../components/Modal/Modal';
 import RentalPageTable from '../../components/DataEditors/RentalAgreementsTable';
 import RentalAgreementsForms from './FormsConstants';
 import Form from '../../components/Form/Form';
+import { EndDate } from '../../strings';
 
 const RentalControlPanel = ({
   open_agreements,
@@ -94,17 +95,17 @@ const RentalControlPanel = ({
     <RentalPageTable
       customers={customers}
       agreements={open_agreements}
-      filter_fields={["EndDate"]} />
+      filter_fields={[EndDate]} />
     {new_agreement && <Modal setClose={() => setNewAgreement(false)}>
       <Form
         className={`w-3/4 mx-auto flex gap-5 flex-wrap justify-center`}
-        inputs={RentalAgreementsForms.add_rental_agreement}
+        inputs={RentalAgreementsForms.addRentalAgreement}
         action={add_agreement} />
     </Modal>}
     {new_agreement_old_customer && <Modal setClose={() => setNewAgreementOldCustomer(false)}>
       <Form
         className={`w-3/4 mx-auto flex gap-5 flex-wrap justify-center`}
-        inputs={RentalAgreementsForms.add_rental_agreement_old_customer}
+        inputs={RentalAgreementsForms.addRentalAgreementOldCustomer}
         action={add_agreement}
         controller={new_agreement_form_controller} />
     </Modal>}
