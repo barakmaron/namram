@@ -1,22 +1,25 @@
 import { Button } from "@mui/material";
 import {
     Address,
-    Category, CompanyName, Count, Customer, DayPrice, Diagram, Display, EndDate, FaxNumber, FullName, HomePhoneNumber, HourClock, IdNumber, LastServiceDate, LocationTitle, ModelName, MonthPrice, Name, NameEnglish, NameHebrew, PhoneNumber, Price, Product, PropName, Scheduled, SerialNumber, StartDate, Value, WeekPrice, actionTitle,
+    Category, CompanyName, Cost, Count, Customer, DayPrice, Diagram, Display, EndDate, FaxNumber, FullName, HomePhoneNumber, HourClock, IdNumber, LastServiceDate, LocationTitle, ModelName, MonthPrice, Name, NameEnglish, NameHebrew, PhoneNumber, Price, Problem, Product, ProductName, PropName, Scheduled, SerialNumber, StartDate, Update, Value, WeekPrice, actionTitle,
+    addPartsToRepairActions,
     addRentToolsSelectorActions, addressTitle, agreementsTitle, amountInInventoryTitle, category, categoryTitle,
-    clientNameTitle, closeRentalAgreementTitle, companyNameTitle, customersActions, deleteClientTitle, deleteRentalAgreementTitle,
+    clientNameTitle, closeRentalAgreementTitle, closeTitle, companyNameTitle, costTitle, customersActions, deleteClientTitle, deleteRentalAgreementTitle,
     deleteTitle,
     descriptionTitle, diagramEditorTableActions, diagramTitle, diagramsTitle, displayToolOnSite,
     doneDateTitle,
     editDescriptionTitle,
     faxNumberTitle,
     fromDateTitle, fullNameTitle, hourClockTitle, idNumberTitle, imagesTitle, locationTitle, markAsDoneTitle, modelTitle, nameInEnglishTitle, nameInHebrewTitle, partsTitle, phoneNumberTitle, pricePerDayTitle, pricePerMonthTitle, pricePerWeekTitle, priceTitle, printTitle,
+    problemTitle,
     productNameTitle, propNameTitle, propsEditorActions, propsTitle,
     removeThisProductTitle,
     rentToolsTableActions, rentalAgreementOpenTitle, rentalAgreementTitle,
-    rentalAgreementsActions, scheduledServiceActions, serviceBookTitle, serviceTitle,
+    rentalAgreementsActions, repairServiceReportActions, scheduledServiceActions, serviceBookTitle, serviceTitle,
     showTitle,
     sparePartsActions,
-    toolsTitle, untilDateTitle, valueTitle, whenToServiceTitle
+    toolNameTitle,
+    toolsTitle, untilDateTitle, updateTitle, valueTitle, whenToServiceTitle
 } from "../strings";
 import moment from "moment";
 import { FaCheck, FaShekelSign, FaTimes, FaTrash } from "react-icons/fa";
@@ -221,6 +224,29 @@ export const COLUMNS = {
         headerName: faxNumberTitle,
         editable: true
     },
+    [Problem]: {
+        field: Problem,
+        headerName: problemTitle,
+        flex: 1,
+        editable: true
+    },
+    [Update]: {
+        field: Update,
+        headerName: updateTitle,
+        editable: true
+    },
+    [Cost]: {
+        field: Cost,
+        headerName: costTitle,
+        renderCell: (params) => {
+            return <span className='text-forest-green-600 font-bold flex justify-end items-center gap-2 w-full'>{params.value}<FaShekelSign /></span>;
+        }
+    },
+    [ProductName]: {
+        field: ProductName,
+        headerName: toolNameTitle,
+        flex: 1
+    }
 };
 
 export const ACTIONS_COLUMNS = {
@@ -379,5 +405,44 @@ export const ACTIONS_COLUMNS = {
                     variant="outlined">{deleteClientTitle}</Button>
             </div>;
         }
-      })
+    }),
+    [repairServiceReportActions]: (getPdfServiceReport, openChangedParts, getPdfServiceBook, editCell) => ({
+        field: repairServiceReportActions,
+        headerName: actionTitle,
+        flex: 1,
+        type: "actions",
+        renderCell: (params) => {
+            return <div className='flex gap-2 justify-center w-full'>
+                <Button
+                    onClick={() => getPdfServiceReport(params)}
+                    variant="outlined">{printTitle}</Button>
+                <Button
+                    onClick={() => openChangedParts(params)}
+                    variant="outlined">{partsTitle}</Button>
+                <Button
+                    onClick={() => getPdfServiceBook(params)}
+                    variant="outlined">{serviceBookTitle}</Button>
+                <Button
+                    onClick={() => editCell({
+                        id: params.id,
+                        field: "EndDate",
+                        value: moment().toString()
+                    })}
+                    variant="outlined">{closeTitle}</Button>
+            </div>;
+        }
+    }),
+    [addPartsToRepairActions]: (deleteChangedPart) => ({
+        field: addPartsToRepairActions,
+        headerName: actionTitle,
+        flex: 1,
+        type: "actions",
+        renderCell: (params) => {
+            return <>
+                <Button
+                    onClick={() => deleteChangedPart(params)}
+                    variant="outlined">{deleteTitle}</Button>
+            </>;
+        }
+    })
 }

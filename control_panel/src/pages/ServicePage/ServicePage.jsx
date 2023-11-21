@@ -11,6 +11,7 @@ import ServiceReportTable from '../../components/DataEditors/ServiceReportTable'
 import Form from '../../components/Form/Form';
 import Modal from '../../components/Modal/Modal';
 import ServiceReportForms from './FormsConstants';
+import { addToolToRepairTitle, repairTitle, toolsInRepairTitle } from '../../strings';
 
 const ServicePage = ({
     categories,
@@ -20,12 +21,12 @@ const ServicePage = ({
     AddServiceReportsAction
 }) => {
 
-    const [open_add_tool_to_service, setOpenToolToService] = useState(false);
-    const [categories_list, setCategoriesList] = useState([]);
-    const [products_list, setProductsList] = useState([]);
-    const [selected_category, setSelectedCategory] = useState(null);
-    const [selected_product, setSelectedProduct] = useState(null);
-    const [add_form_controller, setAddFormController] = useState([]);
+    const [openAddToolToService, setOpenToolToService] = useState(false);
+    const [categoriesList, setCategoriesList] = useState([]);
+    const [productsList, setProductsList] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [addFormController, setAddFormController] = useState([]);
 
     useEffect(() => {
         GetServiceReportsAction();
@@ -36,64 +37,64 @@ const ServicePage = ({
     }, [GetRentAction]);
 
     useEffect(() => {
-        const parsed_categories_list = categories.map(category => ({
+        const parsedCategoriesList = categories.map(category => ({
             label: category.Name,
             value: category.id
         }));
-        setCategoriesList(parsed_categories_list);
+        setCategoriesList(parsedCategoriesList);
     }, [categories]);
 
     useEffect(() => {
-        const products = selected_category && selected_category.RentProducts.map(product => ({
+        const products = selectedCategory && selectedCategory.RentProducts.map(product => ({
             label: `${product.Product.Name} | מס ${product.Product.SerialNumber}`,
             value: product.id
         }));
         setProductsList(products);
-    }, [selected_category]);
+    }, [selectedCategory]);
 
     useEffect(() => {
         const controller = [{
-            list: categories_list,
+            list: categoriesList,
             onChange: (selected) => {
                 const category = categories.find(category => category.id === selected.value);
                 setSelectedCategory(category);
             }
         }, {
-            list: products_list,
+            list: productsList,
             onChange: (selected) => {
-                const product = products_list.find(product => product.value === selected.value);
+                const product = productsList.find(product => product.value === selected.value);
                 setSelectedProduct(product);
             }
         }];
         setAddFormController(controller);
-    }, [categories_list, categories, products_list]);
+    }, [categoriesList, categories, productsList]);
 
-    const add_tool_to_service = useCallback((event, form) => {
+    const addToolToService = useCallback((event, form) => {
         event.preventDefault();
-        AddServiceReportsAction(form, selected_product.value);
-    }, [AddServiceReportsAction, selected_product]);
+        AddServiceReportsAction(form, selectedProduct.value);
+    }, [AddServiceReportsAction, selectedProduct]);
 
     return (<div className='flex-1'>
         <h2 className="w-fit mx-auto my-4 text-4xl font-bold text-green-600">
-            תיקונים
+            {repairTitle}
         </h2>
         <div className='flex flex-row gap-5 flex-wrap w-fit mx-auto'>
             <ControlPanelBlock
                 number={service_reports.length}
                 actions={[{
-                    label: "הוסף כלי לתיקון",
+                    label: addToolToRepairTitle,
                     value: () => setOpenToolToService(true)
                 }]}>
-                כלים בתיקון
+                {toolsInRepairTitle}
             </ControlPanelBlock>
         </div>
         <ServiceReportTable
             service_reports={service_reports} />
-        {open_add_tool_to_service && <Modal setClose={() => setOpenToolToService(false)}>
+        {openAddToolToService && <Modal setClose={() => setOpenToolToService(false)}>
             <Form
                 inputs={ServiceReportForms.add_tool_to_service}
-                controller={add_form_controller}
-                action={add_tool_to_service} />
+                controller={addFormController}
+                action={addToolToService} />
         </Modal>}
     </div>);
 };

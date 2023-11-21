@@ -90,6 +90,9 @@ export const agreementsTitle = 'הסכמים';
 export const deleteClientTitle = 'מחק לקוח';
 export const manageCustomersTitle = 'ניהול לקוחות';
 export const customersTitle = 'לקוחות';
+export const repairTitle = 'תיקונים';
+export const addToolToRepairTitle = "הוסף כלי לתיקון";
+export const toolsInRepairTitle = 'כלים בתיקון';
 
 // columns
 export const SerialNumber = 'SerialNumber';
@@ -132,3 +135,9 @@ export const PhoneNumber = 'PhoneNumber';
 export const CompanyName = 'CompanyName';
 export const FullName = 'FullName';
 export const customersActions = 'customersActions';
+export const Problem = 'Problem';
+export const Update = 'Update';
+export const Cost = 'Cost';
+export const ProductName = 'ProductName';
+export const repairServiceReportActions = 'repairServiceReportActions';
+export const addPartsToRepairActions = 'addPartsToRepairActions';
