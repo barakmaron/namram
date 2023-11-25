@@ -55,7 +55,7 @@ const routes = [{
         show: true,
         child: [{
             location: '/Project/:id'
-        }] 
+        }]
     }]
 }, {
     label: "פטישי חציבה אוויר",
@@ -79,7 +79,7 @@ const routes = [{
     show: true,
     child: [{
         location: '/Blog/:id'
-    }] 
+    }]
 }, {
     label: "צור קשר",
     location: "/Contact",
@@ -97,8 +97,8 @@ const routes = [{
     editable: true,
     show: false,
     child: [{
-        location: '/category/:id',  
-        show_dynamic: true      
+        location: '/category/:id',
+        show_dynamic: true
     }, {
         location: '/category/:category_id/product/:product_id',
     }]
@@ -117,37 +117,33 @@ const adminRoutes = [{
     label: "השכרת ציוד",
     location: "/control_panel/rent",
     element: RentalControlPanel,
-    sub_nav: [{
-        label: "השכרת ציוד",
-        location: "/control_panel/rent",
-        element: RentalControlPanel
-    }, {
-        label: "כלים השכרה",
-        location: "/control_panel/rent/tools",
-        element: ToolsPage,
-        props: { 
-            product_type: Constants.API_PRODUCT_TYPE.RENT 
-        }
-    }, {
-        label: "לקוחות השכרה",
-        location: "/control_panel/rent/customers",
-        element: CustomersPage,
-    }, {
-        label: "תיקונים",
-        location: "/control_panel/rent/service",
-        element: ServicePage,
-    }, {
-        label: "הפקת דוחות",
-        location: "/control_panel/rent/reports",
-        element: CreateReportsPage,
-    }]
 }, {
     label: "מכירת ציוד",
     location: "/control_panel/sale",
     element: ToolsPage,
-    props: { 
-        product_type: Constants.API_PRODUCT_TYPE.SALE 
+    props: {
+        product_type: Constants.API_PRODUCT_TYPE.SALE
     }
+}, {
+    label: "כלים השכרה",
+    location: "/control_panel/rent/tools",
+    element: ToolsPage,
+    props: {
+        product_type: Constants.API_PRODUCT_TYPE.RENT
+    }
+}, {
+    label: "לקוחות השכרה",
+    location: "/control_panel/rent/customers",
+    element: CustomersPage,
+}, {
+    label: "תיקונים",
+    location: "/control_panel/rent/service",
+    element: ServicePage,
+}, {
+    label: "הפקת דוחות",
+    location: "/control_panel/rent/reports",
+    element: CreateReportsPage,
+
 }, {
     label: "בלוג",
     location: "/control_panel/blogs",

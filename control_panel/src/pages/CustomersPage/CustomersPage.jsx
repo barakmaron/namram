@@ -122,8 +122,7 @@ const CustomersPage = ({
             <CustomerData
                 customer={selected_customer} />
         </Modal>}
-        {openRentalAgreements && <Modal
-            className="w-[75vw]"
+        {openRentalAgreements && <Modal        
             setClose={() => setOpenRentalAgreements(false)}>
             <RentalAgreementsTable
                 customers={customers}
@@ -132,7 +131,6 @@ const CustomersPage = ({
             />
         </Modal>}
         {openCustomerForm && <Modal
-            className="w-[75vw]"
             setClose={() => setCustomerForm(false)}>
             <Form
                 inputs={AddCustomerForm}

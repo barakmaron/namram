@@ -59,9 +59,9 @@ const SingleAccordion = ({
           AddImagesAction={ImagesActions.AddImagesAction}
           DeleteImageAction={ImagesActions.DeleteImageAction}
           meta_data={{
-            id: object.id
+            id: object?.id
           }} /> :
-        (object.Image.length || object.TempUrl) && <Image
+        (object?.Image?.length || object.TempUrl) && <Image
           image={object}
         />}
       <RichTextArea

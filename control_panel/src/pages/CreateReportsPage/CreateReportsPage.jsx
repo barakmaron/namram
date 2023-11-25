@@ -12,10 +12,10 @@ import IncomeReport from './IncomeReport';
 const CreateReportsPage = () => {
 
   return <>
-    <div className='flex mx-auto flex-col flex-wrap gap-12 justify-center w-fit'>
-      <h2 className="w-fit mx-auto my-4 text-4xl font-bold text-green-600">
-        הפקת דוחות
-      </h2>
+    <h2 className="w-fit mx-auto my-4 text-4xl font-bold text-green-600">
+      הפקת דוחות
+    </h2>
+    <div className='flex mx-auto flex-row flex-wrap gap-12 justify-center w-fit'>
       <SearchRentalAgreements />
       <IncomeReport />
     </div>
@@ -24,15 +24,15 @@ const CreateReportsPage = () => {
 
 const mapStateToProps = (state, ownProps) => {
   const rent_categories = getCategories(state);
-  return { 
-      ...ownProps, 
-      rent_categories
+  return {
+    ...ownProps,
+    rent_categories
   };
 };
 
 const mapActionToProps = (dispatch) => {
   return bindActionCreators({
-      GetRentAction
+    GetRentAction
   }, dispatch);
 };
 

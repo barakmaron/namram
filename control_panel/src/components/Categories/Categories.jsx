@@ -70,21 +70,18 @@ const Categories = ({
       }]}>
       {categoriesTitle}
     </ControlPanelBlock>
-    {add_category && <Modal setClose={() => setAddCategory(false)}>
-      <h2 className='mx-auto text-3xl font-bold w-fit'>{addCategoryTitle}</h2>
+    {add_category && <Modal header={addCategoryTitle} setClose={() => setAddCategory(false)}>
       <Form
         action={add_category_action}
         inputs={CategoriesForms.add_category} />
     </Modal>}
-    {edit_category && <Modal setClose={() => setEditCategory(false)}>
-      <h2 className='mx-auto text-3xl font-bold w-fit'>{editCategoryTitle}</h2>
+    {edit_category && <Modal header={editCategoryTitle} setClose={() => setEditCategory(false)}>
       <Form
         action={edit_category_action}
         inputs={CategoriesForms.edit_category}
         controller={edit_form_controller} />
     </Modal>}
-    {delete_category && <Modal setClose={() => setDeleteCategory(false)}>
-      <h2 className='mx-auto text-3xl font-bold w-fit'>{deleteCategoryTitle}</h2>
+    {delete_category && <Modal header={deleteCategoryTitle} setClose={() => setDeleteCategory(false)}>
       <Form
         action={delete_category_action}
         inputs={CategoriesForms.delete_category}

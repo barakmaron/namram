@@ -55,7 +55,7 @@ export const AddDiagramAction = (product_id, category_id, diagram_form, temp_ima
     return async (dispatch) => {
         try {
             dispatch(AddDiagram(product_id, category_id, diagram_form, temp_image_url, product_type));
-            diagram_form.append('product_id', product_id);
+            diagram_form.product_id = product_id;
             const diagram = await SendApiRequest(`/products/diagrams`, Constants.API_METHODS.POST, diagram_form);
             dispatch(UpdateDiagram(product_id, category_id, diagram, product_type));
             dispatch(Successful(ApiMessagesConstants.product.diagram.addDiagram.successful));

@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 
 import { Button, CircularProgress } from '@mui/material';
+import { Divider } from 'primereact/divider';
 
 import { getCategories } from "../../../redux/selectors/categoriesSelector";
 import { AddStaticPageAction, DeleteStaticPageAction } from "../../../redux/actions/StaticPageActions";
@@ -12,7 +13,7 @@ import { getStaticPages } from "../../../redux/selectors/staticPagesSelector";
 
 import Form from '../../Form/Form';
 import StaticPageForms from './FormsConstants';
-import { addTitle, deleteTitle, loadsRequestTitle, productOrCategoriesDisplayedOnPageTitle, showAsTitle } from '../../../strings';
+import { deleteTitle, loadsRequestTitle, showAsTitle } from '../../../strings';
 
 const StaticPageEditor = ({
     categories,
@@ -49,15 +50,11 @@ const StaticPageEditor = ({
     }, [DeleteStaticPageAction]);
 
     return <div
-        className='flex flex-col items-center'>
-        {static_page_data.length !== 0 && <fieldset
-            className='flex justify-center flex-wrap gap-2 border-2 rounded-sm border-solid border-forest-green-600 w-full px-10 py-4'>
-            <legend
-                className='text-xl px-2'>
-                {productOrCategoriesDisplayedOnPageTitle}
-            </legend>
+        className='flex flex-col'>
+        {static_page_data.length !== 0 && <div className='flex flex-row gap-1'>
             {static_page_data?.map(data => {
                 return data.id ? <div
+                    className='w-fit'
                     key={`static-page-data-${data.id}`}>
                     <p
                         className='text-xl px-2 text-center'>
@@ -79,16 +76,12 @@ const StaticPageEditor = ({
                         <CircularProgress />
                     </div>
             })}
-        </fieldset>}
-        <fieldset
-            className="border-2 rounded-sm border-solid border-forest-green-600 w-fit">
-            <legend
-                className='text-xl px-2 text-center'>{addTitle}</legend>
-            {controller.length && <Form
-                inputs={StaticPageForms.add_static_page_data}
-                controller={controller}
-                action={add_static_page_data} />}
-        </fieldset>
+        </div>} 
+        {static_page_data.length !== 0 && <Divider />}
+        {controller.length && <Form
+            inputs={StaticPageForms.add_static_page_data}
+            controller={controller}
+            action={add_static_page_data} />}
     </div>;
 };
 

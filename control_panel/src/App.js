@@ -35,24 +35,18 @@ function App({
         </Routes>}
         {logged_in && <div className='flex flex-column'>
             <header>
-                <SideNavBar routes={AppRoutes.adminRoutes} />
+                <SideNavBar />
             </header>
             <Routes>
-                {AppRoutes?.adminRoutes?.map((route, index) => {
-                    return <React.Fragment key={`route-fragment-${index}`}>
-                        {(route?.sub_nav || [route]).map((parse_route, sub_index) => {
-                            return <React.Fragment key={`route-${parse_route.location}-${index}-sub-${sub_index}`} >
-                                <Route
-                                    path={parse_route.location}
-                                    element={<parse_route.element {...(parse_route?.props || [])}></parse_route.element>} />
-                                {parse_route.child && parse_route.child.map(child => <Route
-                                    key={`route-sub-child-${child.location}-${index}`}
-                                    path={child.location}
-                                    element={<child.element></child.element>} />)}
-                            </React.Fragment >;
-                        })}
-                    </React.Fragment>;
-                })}
+                {AppRoutes?.adminRoutes?.map((route, index) => <Route
+                    key={`route-${route.location}-${index}`}
+                    path={route.location}
+                    element={
+                        <div className='py-5'>
+                            <route.element {...(route?.props || [])}></route.element>
+                        </div>
+                    } />
+                )}
             </Routes>
         </div>}
     </div>;

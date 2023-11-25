@@ -93,6 +93,7 @@ export const customersTitle = 'לקוחות';
 export const repairTitle = 'תיקונים';
 export const addToolToRepairTitle = "הוסף כלי לתיקון";
 export const toolsInRepairTitle = 'כלים בתיקון';
+export const editStaticPagesTitle = 'עריכת דפים סטטים';
 
 // columns
 export const SerialNumber = 'SerialNumber';

@@ -28,10 +28,10 @@ const DeleteImage = (project_id, image_id) => ({
     }
 });
 
-export const AddImagesAction = (project_id, images, temp_url) => {
+export const AddImagesAction = (project_id, images) => {
     return async (dispatch) => {
         try {
-            dispatch(AddImages(project_id, temp_url));
+            dispatch(AddImages(project_id, images.images));
             const added_images = await SendApiRequest(`/projects/${project_id}/images`, Constants.API_METHODS.POST, images);
             dispatch(UpdateImages(project_id, added_images));
             dispatch(Successful(ApiMessagesConstants.projects.images.addImage.successful));

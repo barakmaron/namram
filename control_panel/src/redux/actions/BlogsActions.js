@@ -50,7 +50,7 @@ export const GetBlogsAction = () => {
 export const AddBlogAction = (form, temp_image) => {
     return async(dispatch) => {        
         try {
-            dispatch(AddBlog(Object.fromEntries(form), temp_image));
+            dispatch(AddBlog(form, temp_image));
             const blog = await SendApiRequest('/blogs', Constants.API_METHODS.POST, form);
             dispatch(Successful(ApiMessagesConstants.blogs.addBlog.successful));
             dispatch(UpdateBlog(blog));

@@ -4,10 +4,12 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Dropdown } from 'monday-ui-react-core';
-import { Button, FormHelperText, TextField } from '@mui/material';
+import { Button } from 'primereact/button';
+import { FormHelperText, TextField } from '@mui/material';
 import { MobileDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { BsCheck2Circle } from 'react-icons/bs';
+import { FileUpload } from 'primereact/fileupload';
 
 import { getErrors, getFailed, getMessage, getSuccessful } from "../../redux/selectors/ApiHandlerSelector"
 import { InitApiHandlerAction } from "../../redux/actions/ApiHandlerActions";
@@ -18,6 +20,7 @@ import Checkbox from './CheckBox';
 import FORMS from './Forms';
 
 import style from './Form.module.css';
+import { fileToObjectUrl, objectUrlToBase64 } from '../../services/ImagesService';
 
 function Form({
     inputs,
@@ -31,7 +34,7 @@ function Form({
     errors
 }) {
     const form_ref = useRef(null);
-    const has_Images = inputs.find(input => input.type === FORMS.INPUTS_TYPES.FILE) ? true : false;
+    const hasImages = inputs.find(input => input.type === FORMS.INPUTS_TYPES.FILE) ? true : false;
     const [images, setObjectUrl] = useState([]);
     const [dynamic_inputs, setDynamicInputs] = useState([]);
     const [tools, setTools] = useState([]);
@@ -39,23 +42,39 @@ function Form({
     const [date, setDate] = useState();
     const [text, setText] = useState("");
 
-    const uploadToClient = useCallback(event => {
-        if (event.target.files) {
-            const images = [];
-            const { files } = event.target;
-            for (let file of files)
-                images.push(URL.createObjectURL(file));
-            setObjectUrl(images);
+    const fileUploadRef = useRef(null);
+
+    useEffect(() => {
+        if (fileUploadRef.current) {
+            fileUploadRef.current.clear()
+            fileUploadRef.current.setUploadedFiles(images.map(file => file.file));
         }
+    }, [images]);
+
+    const uploadToClient = useCallback(async (event) => {
+        const images = await Promise.all(event.files.map(async (file) => ({
+            name: file.name,
+            base64Value: await objectUrlToBase64(file.objectURL),
+            file: file
+        })));
+        setObjectUrl(images);
     }, []);
 
-    const submit_action = useCallback((event) => {
+    const submit_action = useCallback(async (event) => {
         event.preventDefault();
+        event.stopPropagation()
         const form_data = new FormData(form_ref?.current);
-        const formatted_form = has_Images || signature ? form_data : Object.fromEntries(form_data);
-        signature && formatted_form.append("Signature", signature);
+        if (hasImages) {
+            form_data.append("filesNames", images.map(file => file.name));
+            images.forEach((file, index) => form_data.append(`file${index}`, file.base64Value));
+        } else if (signature) {
+            form_data.append("filesNames", "sig");
+            const sigAsBase64 = await objectUrlToBase64(fileToObjectUrl(signature));
+            form_data.append("file0", sigAsBase64);
+        }
+        const formatted_form = Object.fromEntries(form_data);
         action(event, formatted_form, images);
-    }, [form_ref, action, has_Images, signature, images]);
+    }, [form_ref, action, hasImages, signature, images]);
 
     useEffect(() => {
         if (reset)
@@ -87,31 +106,20 @@ function Form({
             switch (type) {
                 case FORMS.INPUTS_TYPES.FILE: {
                     return <div className='w-full flex flex-col gap-5 justify-center items-center' key={`form-input-${name}-${index}`}>
-                        <Button
-                            variant="outlined"
-                            component="label"
-                            onChange={uploadToClient}
-                            color={errors?.[name] === undefined ? "primary" : "error"}>
-                            {place_holder}
-                            <input
-                                type={type}
-                                name={name}
-                                multiple
-                                hidden
-                                required />
-                        </Button>
+                        <FileUpload
+                            ref={fileUploadRef}
+                            customUpload
+                            uploadHandler={uploadToClient}
+                            color={errors?.[name] === undefined ? "primary" : "error"}
+                            chooseLabel={place_holder}
+                            accept="image/*"
+                            emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>}
+                            multiple
+                            previewWidth={100} />
                         {errors?.[name] && <FormHelperText
                             error={true}>
                             {errors[name]}
                         </FormHelperText>}
-                        <div className="group w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
-                            {images.map((img, index) => <img
-                                src={img}
-                                key={`image-uploaded-client-${index}`}
-                                className="object-cover"
-                                alt="" />
-                            )}
-                        </div>
                     </div>;
                 }
                 case FORMS.INPUTS_TYPES.TEXT_AREA: {
@@ -218,13 +226,13 @@ function Form({
                         label={place_holder}
                         key={`form-input-${name}-${index}`}
                         error={errors?.[name] === undefined ? false : true}
-                        helperText={errors?.[name]} 
+                        helperText={errors?.[name]}
                         {...props} />;
                 }
             }
         })}
         <div>
-            <Button variant="contained" id="submit" type="submit" onClick={submit_action}>Submit</Button>
+            <Button variant="contained" id="submit" type="submit" onClick={submit_action}>שלח</Button>
         </div>
         {failed && <div className='bg-red-400 text-white border-red-500 py-2 px-4 text-lg rounded-xl'>{message}</div>}
     </form>

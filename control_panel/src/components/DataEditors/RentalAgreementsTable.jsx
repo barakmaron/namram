@@ -13,7 +13,7 @@ import CustomerData from '../DataDisplay/CustomerData';
 import Modal from '../Modal/Modal';
 import RentalAgreementsForms from '../../pages/RentalPage/FormsConstants';
 import Form from '../Form/Form';
-import { Customer, EndDate, LocationTitle, SerialNumber, StartDate, rentalAgreementsActions } from '../../strings';
+import { Customer, EndDate, LocationTitle, SerialNumber, StartDate, agreementNumberTitle, closeRentalAgreementTitle, rentalAgreementsActions } from '../../strings';
 import { ACTIONS_COLUMNS, COLUMNS } from '../../utils/columns';
 
 const RentalAgreementsTable = ({
@@ -101,7 +101,7 @@ const RentalAgreementsTable = ({
                 rows={rows}
                 columns={columns}></DataGrid>
         </Box>
-        {openToolsList && <Modal setClose={() => setOpenToolsList(false)}>
+        {openToolsList && <Modal header={agreementNumberTitle} setClose={() => setOpenToolsList(false)}>
             <AgreementRentalToolsList
                 {...toolsListProps}
             />
@@ -111,7 +111,7 @@ const RentalAgreementsTable = ({
                 customer={selectedCustomer}
             />
         </Modal>}
-        {closeAgreement && <Modal setClose={() => setCloseAgreement(false)}>
+        {closeAgreement && <Modal header={closeRentalAgreementTitle} setClose={() => setCloseAgreement(false)}>
             <Form
                 className={`w-3/4 mx-auto flex gap-5 flex-wrap justify-center`}
                 inputs={RentalAgreementsForms.closeRentalAgreement}

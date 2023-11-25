@@ -6,8 +6,7 @@ import { useReactToPrint } from 'react-to-print';
 import { agreementNumberTitle, costPerDayTitle, costPerMonth, costPerWeek, printTitle, serialNumberTitle, toolNameTitle } from '../../strings';
 
 const AgreementRentalToolsList = ({
-    tools,
-    agreement_number
+    tools
 }) => {
 
     const table_ref = useRef();
@@ -17,9 +16,6 @@ const AgreementRentalToolsList = ({
 
   return <>
     <div  ref={table_ref}>
-        {agreement_number && <h2 className=' w-fit mx-auto text-3xl my-4'>
-            {agreementNumberTitle} {agreement_number}
-        </h2>}    
         <TableContainer dir="rtl">
             <Table>
                 <TableHead>

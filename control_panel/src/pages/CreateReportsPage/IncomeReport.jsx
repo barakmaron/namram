@@ -6,6 +6,7 @@ import { getCategories } from "../../redux/selectors/categoriesSelector";
 import { GetRentAction } from "../../redux/actions/RentActions/RentActions";
 import Form from '../../components/Form/Form';
 import CreateReportsForms from './FormsConstants';
+import { Fieldset } from 'primereact/fieldset';
 
 const IncomeReport = ({
   rent_categories,
@@ -61,20 +62,18 @@ const IncomeReport = ({
   }, [selected_category]);
 
   return <div className='flex gap-5 justify-center'>
-    <fieldset className='border-2 border-forest-green-500 px-4 py-4 w-fit'>
-      <legend className='text-forest-900 px-4 text-2xl'>דוח רוח/הפסד עבור כלי השכרה</legend>
+    <Fieldset legend="דוח רוח/הפסד עבור כלי השכרה">
       {form_controller.length !== 0 && <Form
         inputs={CreateReportsForms.product_gain_loss_form}
         controller={form_controller}
         action={open_rent_product_report} />}
-    </fieldset>
-    <fieldset className='border-2 border-forest-green-500 px-4 py-4 w-fit'>
-      <legend className='text-forest-900 px-4 text-2xl'>דוח רוח/הפסד עבור קטגוריה השכרה</legend>
+    </Fieldset>
+    <Fieldset legend="דוח רוח/הפסד עבור קטגוריה השכרה">
       {form_controller.length !== 0 && <Form
         inputs={CreateReportsForms.category_gain_loss_form}
         controller={form_controller}
         action={open_rent_category_report} />}
-    </fieldset>
+    </Fieldset>
   </div>;
 };
 

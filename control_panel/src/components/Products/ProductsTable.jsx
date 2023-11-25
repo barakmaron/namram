@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
+import { DeleteImageAction, AddImagesAction } from "../../redux/actions/ProductsActions/imagesActions";
 import { getCategories } from "../../redux/selectors/categoriesSelector";
 import { PatchProductAction } from "../../redux/actions/ProductsActions/ProductsActions";
 import Modal from '../Modal/Modal';
@@ -23,6 +24,8 @@ const ProductsTable = ({
     categories,
     products,
     PatchProductAction,
+    DeleteImageAction, 
+    AddImagesAction,
     type,
 }) => {
     const [selected_product, setSelectedProduct] = useState(undefined);
@@ -162,6 +165,8 @@ const ProductsTable = ({
         </Modal>}
         {editImages && <Modal setClose={() => setEditImages(false)}>
             <ImageEditor
+                AddImagesAction={AddImagesAction}
+                DeleteImageAction={DeleteImageAction}
                 images={selected_product.Product.ProductsImages}
                 meta_data={{
                     category_id: selected_product.CategoryId,
@@ -212,7 +217,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapActionToProps = (dispatch) => {
     return bindActionCreators({
-        PatchProductAction
+        PatchProductAction,
+        DeleteImageAction, 
+        AddImagesAction
     }, dispatch);
 };
 

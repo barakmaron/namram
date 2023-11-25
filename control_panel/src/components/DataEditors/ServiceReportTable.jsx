@@ -11,7 +11,7 @@ import { PatchServiceReportAction } from "../../redux/actions/ServiceActions/Ser
 import Constants from '../../Constants';
 import Modal from '../Modal/Modal';
 import PartsChancedEditor from './PartsChancedEditor/PartsChancedEditor';
-import { Cost, Problem, ProductName, SerialNumber, Update, repairServiceReportActions, serialNumberTitle } from '../../strings';
+import { Cost, Problem, ProductName, SerialNumber, Update, partsTitle, repairServiceReportActions, serialNumberTitle } from '../../strings';
 import { ACTIONS_COLUMNS, COLUMNS } from '../../utils/columns';
 
 const ServiceReportTable = ({
@@ -76,7 +76,7 @@ const ServiceReportTable = ({
                 columns={columns}
                 onCellEditCommit={editCell}></DataGrid>
         </Box>
-        {openChangedPartsList && <Modal setClose={() => setOpenChangedPartsList(false)}>
+        {openChangedPartsList && <Modal header={partsTitle} setClose={() => setOpenChangedPartsList(false)}>
             <PartsChancedEditor
                 service_report_id={selectedServiceReport.id}
             />

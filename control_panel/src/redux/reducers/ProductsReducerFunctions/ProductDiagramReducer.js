@@ -5,7 +5,7 @@ function AddDiagram(state, payload, product_type) {
     const { product_id, category_id, diagram_form, temp_image_url } = payload;            
     const { object: category, filtered_array: filtered_categories } = reducerUtilities.destructorArray(state.categories, category_id);
     const { object: product, filtered_array: filtered_products } = reducerUtilities.destructorArray(category[product_type], product_id, "ProductId");
-    const parsed_diagram_form = Object.fromEntries(diagram_form);
+    const parsed_diagram_form = diagram_form;
     const diagram = {
         id: "temp-diagram",
         ProductPartsDiagram: {

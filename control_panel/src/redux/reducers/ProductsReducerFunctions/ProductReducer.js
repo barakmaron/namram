@@ -2,7 +2,7 @@ import ProductsActions from '../../actions/actionConstants/Products/ProductsActi
 import reducerUtilities from '../reducerUtilities';
 
 function AddProduct(state, payload, product_type) {
-    const new_product = Object.fromEntries(payload.form);
+    const new_product = payload.form;
     const { object: category, filtered_array: filtered_categories } = reducerUtilities.destructorArray(state.categories, payload.category_id);
     const { filtered_array: filtered_products } = reducerUtilities.destructorArray(category[product_type]);
     const new_products_arr = [ new_product, ...filtered_products ];

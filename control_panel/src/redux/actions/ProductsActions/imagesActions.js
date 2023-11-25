@@ -46,12 +46,12 @@ export const DeleteImageAction = (category_id, product_id, product_type, image_i
     }
 };
 
-export const AddImagesAction = (category_id, product_id, product_type, images, temp_urls) => {
+export const AddImagesAction = (category_id, product_id, product_type, form) => {
     return async (dispatch) => {
         try {
-            dispatch(AddImages(category_id, product_id, temp_urls, product_type));
-            images.append('product_id', product_id);
-            const new_images = await SendApiRequest(`/products/images`, Constants.API_METHODS.POST, images);
+            dispatch(AddImages(category_id, product_id, form, product_type));
+            form.product_id = product_id;
+            const new_images = await SendApiRequest(`/products/images`, Constants.API_METHODS.POST, form);
             dispatch(UpdatedImages(category_id, product_id, new_images));
             dispatch(Successful(ApiMessagesConstants.product.images.addImage.successful));
         } catch (err) {

@@ -5,7 +5,7 @@ function AddImages(state, payload, product_type) {
     const { product_id, category_id, images } = payload;
     const { object: category, filtered_array: filtered_categories } = reducerUtilities.destructorArray(state.categories, category_id);
     const { object: product, filtered_array: filtered_products } = reducerUtilities.destructorArray(category[product_type], product_id, "ProductId");
-    const images_parsed = images.map((image) => ({
+    const images_parsed = images.images.map((image) => ({
         id: `temp-image`,
         TempUrl: image
     }));

@@ -77,8 +77,7 @@ const Products = ({
       }]}>
       מוצרים
     </ControlPanelBlock>
-    {add_product && <Modal setClose={() => setAddProduct(false)}>
-      <h2 className='mx-auto text-3xl font-bold w-fit'>{addProductTitle}</h2>
+    {add_product && <Modal header={addProductTitle}  setClose={() => setAddProduct(false)}>
       <Form
         action={add_product_action}
         inputs={type === Constants.API_PRODUCT_TYPE.SALE ?
@@ -86,8 +85,7 @@ const Products = ({
           allProductForms.add_rent_product}
         controller={add_form_controller} />
     </Modal>}
-    {delete_product && <Modal setClose={() => setDeleteProduct(false)}>
-      <h2 className='mx-auto text-3xl font-bold w-fit'>{deleteProductTitle}</h2>
+    {delete_product && <Modal header={deleteProductTitle} setClose={() => setDeleteProduct(false)}>
       <Form
         action={delete_product_action}
         inputs={allProductForms.delete_product}

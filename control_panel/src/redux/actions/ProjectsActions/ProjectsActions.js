@@ -51,7 +51,7 @@ export const GetProjectsAction = () => {
 export const AddProjectAction = (form, temp_url) => {
     return async (dispatch) => {
         try {
-            dispatch(AddProject(Object.fromEntries(form), temp_url));
+            dispatch(AddProject(form, temp_url));
             const project = await SendApiRequest(`/projects`, Constants.API_METHODS.POST, form);
             dispatch(UpdateProject(project));
             dispatch(Successful(ApiMessagesConstants.projects.addProject.successful));

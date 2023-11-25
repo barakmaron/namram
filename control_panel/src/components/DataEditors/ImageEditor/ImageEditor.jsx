@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 import { FaPlus } from 'react-icons/fa';
 import { Button } from '@mui/material';
 
-import { DeleteImageAction, AddImagesAction } from "../../../redux/actions/ProductsActions/imagesActions";
 import FORMS from '../../Form/Forms';
 import Image from './Image';
+import { objectUrlToBase64 } from '../../../services/ImagesService';
 
 const ImageEditor = ({
     images,
@@ -18,10 +18,18 @@ const ImageEditor = ({
 }) => {
     const form_ref = useRef(null);
 
-    const UploadToServer = useCallback((event, images) => {
+    const UploadToServer = useCallback(async (event, images) => {
         event.preventDefault();
-        const images_form = new FormData(form_ref?.current);
-        AddImagesAction(...Object.values(meta_data), images_form, images);
+        const imagesForm = {
+            filesNames: '',
+            images: []
+        };
+        await Promise.all(images.map(async (file, index) => {
+            imagesForm.filesNames = imagesForm.filesNames.length ? `${imagesForm.filesNames},new${index}` : `new${index}`;
+            imagesForm.images.push(file);
+            imagesForm[`file${index}`] = await objectUrlToBase64(file);
+        }));
+        AddImagesAction(...Object.values(meta_data), imagesForm);
     }, [AddImagesAction, meta_data]);
 
     const uploadToClient = useCallback(event => {
@@ -74,8 +82,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapActionToProps = (dispatch) => {
     return bindActionCreators({
-        DeleteImageAction,
-        AddImagesAction
+        
     }, dispatch);
 };
 

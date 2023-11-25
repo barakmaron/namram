@@ -1,75 +1,69 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 
-import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
+import { Fieldset } from 'primereact/fieldset';
 
 import { GetSaleAction } from "../redux/actions/SaleActions/saleActions";
-import { getCategories } from "../redux/selectors/categoriesSelector";
 import { GetStaticPagesAction } from "../redux/actions/StaticPageActions";
 
 import AppRoutes from '../AppRoutes';
 import StaticPageEditor from '../components/DataEditors/StaticPageEditor/StaticPageEditor';
+import { Card } from 'primereact/card';
+import { editStaticPagesTitle } from '../strings';
+import { TabPanel, TabView } from 'primereact/tabview';
 
 const ControlPanel = ({
-  categories,
-  GetSaleAction,
-  GetStaticPagesAction
+    GetSaleAction,
+    GetStaticPagesAction
 }) => {
 
-  useEffect(() => {
-    GetSaleAction();
-  }, [GetSaleAction]);
+    const routes = useMemo(() => AppRoutes.routes.filter(route => route.editable), []);
 
-  useEffect(() => {
-    GetStaticPagesAction();
-  }, [GetStaticPagesAction]);
+    useEffect(() => {
+        GetSaleAction();
+    }, [GetSaleAction]);
 
-  return (<div className='mx-auto w-1/2'>
-    <h2
-      className='w-fit mx-auto my-4 text-4xl font-bold text-green-600'>עריכת דפים סטטים</h2>
-    {AppRoutes.routes.map(route => {
-      return <React.Fragment key={`static-page-${route.location}`}>
-        {!route.sub_nav && <StaticPageAccordion route={route} />}
-        {route.sub_nav?.map(sub_route => {
-          return <StaticPageAccordion
-            key={`static-page-data-${sub_route.location}`}
-            route={sub_route} />;
+    useEffect(() => {
+        GetStaticPagesAction();
+    }, [GetStaticPagesAction]);
+
+    return (<Card className='mx-auto w-2/3'>
+        <h2 className='w-fit mx-auto my-4 text-4xl font-bold text-green-600'>{editStaticPagesTitle}</h2>
+        <TabView>
+        {routes.map((route, index) => {
+            return <TabPanel header={`${route.label} | ${route.location.slice(1)}`} key={`static-page-${route.location}`}>
+                {(route.sub_nav || [route])?.map(sub_route => <StaticPageAccordion
+                    key={`static-page-data-${sub_route.location}`}
+                    route={sub_route} />
+                )}
+            </TabPanel>;
         })}
-      </React.Fragment>;
-    })}
-  </div>);
+        </TabView>
+    </Card>);
 };
 
 const StaticPageAccordion = ({
-  route
+    route
 }) => {
-  return <Accordion
-    hidden={!route.editable}>
-    <AccordionSummary >
-      {route.label} | {route.location.slice(1)}
-    </AccordionSummary>
-    <AccordionDetails>
-      <StaticPageEditor
-        page_route={route.location} />
-    </AccordionDetails>
-  </Accordion>;
+    return <Fieldset legend={`${route.label} | ${route.location.slice(1)}`}>
+        <StaticPageEditor
+            page_route={route.location} />
+    </Fieldset>;
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const categories = getCategories(state);
-  return {
-    ...ownProps,
-    categories
-  };
+    return {
+        ...ownProps
+    };
 };
 
 const mapActionToProps = (dispatch) => {
-  return bindActionCreators({
-    GetStaticPagesAction,
-    GetSaleAction
-  }, dispatch);
+    return bindActionCreators({
+        GetStaticPagesAction,
+        GetSaleAction
+    }, dispatch);
 };
 
 export default connect(mapStateToProps, mapActionToProps)(ControlPanel);
