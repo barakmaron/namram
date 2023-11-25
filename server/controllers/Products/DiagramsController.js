@@ -3,8 +3,8 @@ import { StatusCode } from 'status-code-enum';
 
 async function AddDiagram(req, res, next) {
     try {
-        const { product_id, model_name } = req.body;
-        const diagram = await ProductsService.Diagrams.AddDiagram(product_id, model_name, req.file);
+        const { product_id, model_name, filesNames } = req.body;
+        const diagram = await ProductsService.Diagrams.AddDiagram(product_id, model_name, filesNames);
         return res.status(StatusCode.SuccessOK).json(diagram);
     } catch (err) {
         next(err);

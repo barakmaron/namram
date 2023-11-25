@@ -12,8 +12,8 @@ async function GetRentCategory(id) {
 }
 
 async function AddCategory(name, image, product_type){
-    const image_resized = await ImageService.ResizeAndStoreImage(image.path, image.filename);
-    return await CategoriesDB.AddCategory(name, image_resized, product_type);
+    const [categoryImage] = image;
+    return await CategoriesDB.AddCategory(name, categoryImage, product_type);
 }
 
 async function DeleteCategory(id) {

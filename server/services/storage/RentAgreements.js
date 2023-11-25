@@ -63,7 +63,7 @@ async function AddAgreement(tools, location, fuel_amount, fuel_price, transport_
     const tools_array = await JSON.parse(tools);
     const tools_db_promises = tools_array.map(tool => RentalAgreementListModel.create({
         RentalAgreementId: rental_agreement.id,
-        RentProductId: tool.product
+        RentProductId: tool.Product
     }));
     await Promise.all(tools_db_promises);
     return await GetRentalAgreementById(rental_agreement.id);

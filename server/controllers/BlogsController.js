@@ -12,12 +12,8 @@ async function GetAllBlogs(req, res, next) {
 
 async function AddBlog(req, res, next) {
     try {
-        const { Title, Text } = req.body;
-        const { path, filename } = req.file;
-        const blog = await BlogsService.AddBlog(Title, Text, {
-            path,
-            filename
-        });
+        const { Title, Text, filesNames } = req.body;
+        const blog = await BlogsService.AddBlog(Title, Text, filesNames);
         return res.status(StatusCode.SuccessOK).json(blog);
     } catch (err) {
         next(err);

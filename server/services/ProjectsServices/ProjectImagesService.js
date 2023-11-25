@@ -2,8 +2,7 @@ import ImageService from "../ImageService.js";
 import ProjectsImagesDB from "../storage/Projects/ProjectsImages.js";
 
 async function AddImages(images, project_id) {
-    const images_upload = await Promise.all(images.map(image => ImageService.ResizeAndStoreImage(image.path, image.filename)));
-    return await Promise.all(images_upload.map(image => ProjectsImagesDB.AddImage(image, project_id)));
+    return await Promise.all(images.map(image => ProjectsImagesDB.AddImage(image, project_id)));
 }
 
 async function DeleteImages(images, project_id) {

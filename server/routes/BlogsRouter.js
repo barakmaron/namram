@@ -11,8 +11,8 @@ const router = express.Router();
 router.get('/', BlogsController.GetAllBlogs);
 
 router.post('/', 
-    AuthenticateToken, 
-    makeMulterUploadMiddleware(UploadMiddleware.single('Image')), 
+    AuthenticateToken,     
+    UploadMiddleware,
     validate(checkSchema(BlogsSchemas.AddBlog)),
     BlogsController.AddBlog);
 

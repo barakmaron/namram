@@ -13,17 +13,17 @@ async function GetAllAgreements(close, customer) {
 
 async function AddAgreement(tools, location, fuel_amount, fuel_price, transport_amount, transport_price, start_signature, customer) {
     const customer_from_db = await CustomerService.AddCustomer(customer);
-    const signature = await ImageService.ResizeAndStoreImage(start_signature.path, start_signature.filename);
+    const [signature] = start_signature; 
     return await RentAgreementsDb.AddAgreement(tools, location, fuel_amount, fuel_price, transport_amount, transport_price, signature, customer_from_db.id);
 }
 
 async function AddAgreementOldCustomer(tools, location, fuel_amount, fuel_price, transport_amount, transport_price, start_signature, customer_id) {
-    const signature = await ImageService.ResizeAndStoreImage(start_signature.path, start_signature.filename);
+    const [signature] = start_signature;
     return await RentAgreementsDb.AddAgreement(tools, location, fuel_amount, fuel_price, transport_amount, transport_price, signature, customer_id);
 }
 
 async function CloseAgreement(id, fuel_amount, fuel_price, transport_amount, transport_price, end_signature) {
-    const signature = await ImageService.ResizeAndStoreImage(end_signature.path, end_signature.filename);
+    const [signature] = end_signature;
     return await RentAgreementsDb.CloseAgreement(id, fuel_amount, fuel_price, transport_amount, transport_price, signature);
 }
 
