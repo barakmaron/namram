@@ -8,7 +8,7 @@ async function DeleteImage(id) {
 }
 
 async function AddImages(product_id, files) {         
-    return await ProductsDB.Images.AddImages(product_id, images);
+    return await ProductsDB.Images.AddImages(product_id, files);
 }
 
 const ImagesService = {

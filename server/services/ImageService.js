@@ -11,11 +11,10 @@ const __dirname = path.dirname(__filename);
 
 async function ResizeAndStoreImage(filename, base64Image, type) {
     try {
-        if (type !== 'application/pdf') {
+        if (type !== 'application/pdf' && base64Image) {
             const buffer = Buffer.from(base64Image, 'base64');
             const ref = `${uuid()}.webp`;
             await sharp(buffer).webp({ quality: 70 }).toFile(`./Images/${ref}`);
-            // DeleteStoredImages(filename);
             return ref;
         }
         return filename;
