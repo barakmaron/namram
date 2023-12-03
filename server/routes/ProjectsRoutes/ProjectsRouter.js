@@ -13,7 +13,7 @@ router.get('/', ProjectsController.GetAllProjects);
 
 router.post('/', 
     AuthenticateToken, 
-    makeMulterUploadMiddleware(UploadMiddleware.array('Image')),
+    UploadMiddleware,
     validate(checkSchema(ProjectsSchemas.AddProject)), 
     ProjectsController.AddProject);
 

@@ -25,7 +25,17 @@ async function PatchPart(req, res, next) {
     try {
         const { id } = req.params;
         const { field_name, value } = req.body;
-        await ProductsService.SpareParts.PatchPart(id, field_name, value);
+        switch (field_name) {
+            case 'Diagram': {
+                const diagrams = await ProductsService.Diagrams.GetDiagrams();
+                const findDiagram = diagrams.find(diagram => diagram.ModelName === value);
+                await ProductsService.SpareParts.PatchPart(id, 'ProductPartsDiagramId', findDiagram.id);
+                return res.status(StatusCode.SuccessOK).json(findDiagram.id);
+            }
+            default: {
+                await ProductsService.SpareParts.PatchPart(id, field_name, value);
+            }
+        }
         return res.status(StatusCode.SuccessOK).json();
     } catch (err) {
         next(err);

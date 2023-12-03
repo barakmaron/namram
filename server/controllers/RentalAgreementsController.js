@@ -5,12 +5,12 @@ async function GetAgreements(req, res, next) {
     try {
         const { customer, close, SerialNumber, StartDate, EndDate, pdf } = req.query;
         let agreements;
-        if(SerialNumber || (StartDate && EndDate))
+        if (SerialNumber || (StartDate && EndDate))
             agreements = await RentalAgreementsService.SearchAgreements(SerialNumber, StartDate, EndDate);
         else
             agreements = await RentalAgreementsService.GetAllAgreements(close, customer);
         agreements = pdf ? await RentalAgreementsService.GetAgreementPdf(agreements, "חיפוש הסכמים") : agreements;
-        if(pdf) {
+        if (pdf) {
             res.set('Content-Type', 'text/html');
             return res.send(agreements);
         }
@@ -26,7 +26,7 @@ async function GetRentalAgreement(req, res, next) {
         const { pdf } = req.query;
         let agreement = await RentalAgreementsService.GetAgreement(id);
         agreement = pdf ? await RentalAgreementsService.GetAgreementPdf([agreement], agreement.SerialNumber) : agreement;
-        if(pdf) {
+        if (pdf) {
             res.set('Content-Type', 'text/html');
             return res.send(agreement);
         }
@@ -38,12 +38,11 @@ async function GetRentalAgreement(req, res, next) {
 
 async function AddAgreement(req, res, next) {
     try {
-        const { Tools, Location, FuelAmount, FuelPrice, TransportAmount, TransportPrice, ...customer } = req.body;
+        const { Tools, Location, FuelAmount, FuelPrice, TransportAmount, TransportPrice, filesNames, ...customer } = req.body;
         const { id } = req.params;
-        const file = req.file;
-        const new_agreement = id ?  
-            await RentalAgreementsService.AddAgreementOldCustomer(Tools, Location, FuelAmount, FuelPrice, TransportAmount, TransportPrice, file, id) :
-            await RentalAgreementsService.AddAgreement(Tools, Location, FuelAmount, FuelPrice, TransportAmount, TransportPrice, file, customer);
+        const new_agreement = id ?
+            await RentalAgreementsService.AddAgreementOldCustomer(Tools, Location, FuelAmount, FuelPrice, TransportAmount, TransportPrice, filesNames, id) :
+            await RentalAgreementsService.AddAgreement(Tools, Location, FuelAmount, FuelPrice, TransportAmount, TransportPrice, filesNames, customer);
         return res.status(StatusCode.SuccessOK).json(new_agreement);
     } catch (err) {
         console.log(err)
@@ -52,10 +51,9 @@ async function AddAgreement(req, res, next) {
 
 async function CloseAgreement(req, res, next) {
     try {
-        const { FuelAmount, FuelPrice, TransportAmount, TransportPrice } = req.body;
+        const { FuelAmount, FuelPrice, TransportAmount, TransportPrice, filesNames } = req.body;
         const { id } = req.params;
-        const file = req.file;
-        await RentalAgreementsService.CloseAgreement(id, FuelAmount, FuelPrice, TransportAmount, TransportPrice, file);
+        await RentalAgreementsService.CloseAgreement(id, FuelAmount, FuelPrice, TransportAmount, TransportPrice, filesNames);
         return res.status(StatusCode.SuccessOK).json();
     } catch (err) {
         next(err);

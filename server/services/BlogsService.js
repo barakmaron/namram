@@ -10,8 +10,7 @@ async function GetBlogById(id) {
 }
 
 async function AddBlog(title, text, image) {
-    const image_resized = await ImageService.ResizeAndStoreImage(image.path, image.filename);
-    return await BlogsDB.AddBlog(title, text, image_resized);
+    return await BlogsDB.AddBlog(title, text, image[0]);
 }
 
 async function DeleteBlog(id) {
