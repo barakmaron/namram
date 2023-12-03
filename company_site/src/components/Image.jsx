@@ -42,7 +42,7 @@ const InnerHtmlImage = ({
             src={image_obj}
             loading="lazy"
             className={cn(
-                'group-hover:opacity-75 duration-700 ease-in-out object-cover',
+                'group-hover:opacity-75 group-hover:object-cover duration-700 ease-in-out object-contain shadow h-[275px]',
                 isLoading
                     ? 'grayscale blur-2xl scale-110'
                     : 'grayscale-0 blur-0 scale-100'

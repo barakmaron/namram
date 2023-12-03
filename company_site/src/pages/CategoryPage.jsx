@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-import Constants from '../Constants';
 import { getCategories } from "../redux/selectors/categoriesSelector";
 import { GetCategoryAction } from "../redux/actions/CategoriesActions";
+import BreadCrumb from '../components/BreadCrumb';
 
 const CategoryPage = ({
     categories,
@@ -30,21 +30,10 @@ const CategoryPage = ({
         <Helmet>
             <title>נמרם | {category.Name}</title>
         </Helmet>
-        <div
-            dir='rtl'
-            className='bg-forest-green-600 text-white rounded-b-xl sm:w-1/2 mx-auto flex justify-start items-center sm:px-4 px-2'>
-            <Link
-                to={`/${Constants.CATEGORY_TYPE[category.Type]}`}
-                className='sm:text-2xl text-xl py-5 hover:underline hover:text-amber-400 hover:font-bold'>
-                {category.Type.toLowerCase().includes(Constants.API_PRODUCT_TYPE.SALE) ? `מכירת ציוד` : `השכרת ציוד`}
-            </Link>
-            <span className='sm:text-3xl text-2xl px-2'> / </span>
-            <Link
-                to={`/category/${category_id}`}
-                className='sm:text-2xl text-xl py-5 hover:underline hover:text-amber-400 hover:font-bold'>
-                {category.Name}
-            </Link>
-        </div></>;
+        <div className='lg:w-[70vw] w-screen mx-auto pb-5'>
+            <BreadCrumb category={category} />
+        </div>
+    </>;
 }
 
 const mapStateToProps = (state, ownProps) => {

@@ -17,6 +17,9 @@ module.exports = {
           '700': '#187223',
           '800': '#1a6123',
           '900': '#175020',
+        },
+        'light-green': {
+          'base': '#22C55E'
         }
       },
       backgroundImage: {

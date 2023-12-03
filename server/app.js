@@ -30,7 +30,7 @@ Promise.resolve(CronJobsController.ScheduleCheckScheduledServices());
 const app = express();
 
 app.use(cookieParser());
-app.use([morgan("common"), cors({ origin:true, credentials: true }), express.json({ limit: '50mb' }), express.urlencoded({ extended: false, limit: '50mb' })]);
+app.use([morgan("common"), cors({ origin:true, credentials: true }), express.json({ limit: '100mb' }), express.urlencoded({ extended: false, limit: '100mb' })]);
 
 app.use(vhost("login.*", express.static(path.join(__dirname, '../control_panel/build'))))
 

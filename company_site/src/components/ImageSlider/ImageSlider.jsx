@@ -1,34 +1,74 @@
-import React from 'react';
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import React, { useState, useEffect, useCallback } from 'react';
+import { CircularProgress } from '@mui/material';
+
+import { StaticFileLoader } from '../../services/ApiService';
 import './SliderStyle.css';
-import Image from '../Image';
 
-const ImageSlider = ({
-  images
-}) => {
+const ImageGallery = ({ images }) => {
+    const [currentImage, setCurrentImage] = useState(0);
+    const [loadedImages, setLoadedImages] = useState([]);
+    const [loadedThumbImages, setLoadedThumbImages] = useState([]);
 
-  return <div
-    dir='ltr'
-    className='sm:w-96 w-[98vw]'>
-    <Slider
-      dir="ltr"
-      lazyLoad={true}
-      arrows={true}
-      dots={true}
-      dotsClass="dot"
-    >
-      {images?.map((image, i) => {
-        return <Image
-          key={`image-slider-image-${i}`}
-          id={image}
-          image={image}
-          no_style={true}
-          alt={image.alt} />
-      })}
-    </Slider>
-  </div>;
-}
+    const getThumbImages = useCallback(async () => {
+        setLoadedThumbImages(await Promise.all(images?.map(async image => {
+            const [imageName] = image.Image.split('.');
+            return URL.createObjectURL(await StaticFileLoader(`${imageName}_thumb.webp`, 'images'));
+        })));
+    }, [images]);
 
-export default ImageSlider
+    const getImages = useCallback(async () => {
+        setLoadedImages(await Promise.all(images?.map(async image => {
+            const imageUrl = await StaticFileLoader(image.Image, 'images');
+            return imageUrl ? URL.createObjectURL(imageUrl) : null;
+        })));
+    }, [images]);
+
+    useEffect(() => {
+        getThumbImages();
+    }, [getThumbImages]);
+
+    useEffect(() => {
+        getImages();
+    }, [getImages]);
+
+    const handleImageClick = useCallback((index) => {
+        setCurrentImage(index);
+    }, []);
+
+    return (
+        <div className="pt-2 flex flex-col items-center ">
+            <div className="whitespace-no-wrap mb-2">
+                {loadedImages.map((image, index) => (
+                    <React.Fragment key={index}>
+                        {image ? index === currentImage && (
+                            <img
+                                src={image}
+                                alt={`Product ${index + 1}`}
+                                className="max-w-full mx-auto h-[24rem] object-contain"
+                            />
+                        ) : (
+                            <div className="max-w-full h-auto flex items-center justify-center">
+                                <CircularProgress />
+                            </div>
+                        )}
+                    </React.Fragment>
+                ))}
+            </div>
+            <div className="flex justify-start">
+                {loadedThumbImages.map((image, index) => (
+                    <img
+                        key={index}
+                        src={image}
+                        alt={`Product Thumbnail ${index + 1}`}
+                        onClick={() => handleImageClick(index)}
+                        className={`w-[56px] h-[56px] mx-2 cursor-pointer border-2 rounded ${index === currentImage ? 'border-blue-500' : 'border-gray-300'
+                            }`}
+                        loading="lazy"
+                    />
+                ))}
+            </div>
+        </div >
+    );
+};
+
+export default ImageGallery;

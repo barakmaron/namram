@@ -9,8 +9,8 @@ import { contactAsTitle, newsAndUpdatesTitle } from '../strings';
 
 const Footer = () => {
     return (<footer dir='rtl'>
-        <ul className='flex flex-col sm:flex-row gap-2 bg-zinc-300 border-t-8 border-b-8 border-solid border-green-600 justify-center sm:items-start items-center'>
-            <li className='w-full sm:w-1/3 flex flex-col justify-center items-center'>
+        <ul className='flex flex-col sm:flex-row gap-2 bg-zinc-200 bg-opacity-40  justify-center sm:items-start items-center'>
+            <li className='w-fit sm:w-1/3 flex flex-col justify-center items-center'>
                 <h2 className='text-3xl text-green-600 py-2 font-bold'>קישורים</h2>
                 <nav className='flex flex-col justify-center items-center text-xl'>
                     {AppRoutes.routes.map((route, index) => {
@@ -31,7 +31,7 @@ const Footer = () => {
                     })}
                 </nav>
             </li>
-            <li className='w-full sm:w-1/3 flex flex-col justify-center items-center'>
+            <li className='w-fit sm:w-1/3 flex flex-col justify-center items-center'>
                 <h2 className='text-3xl text-green-600 py-2 font-bold'>{contactAsTitle}</h2>
                 <ContactInfo />
             </li>

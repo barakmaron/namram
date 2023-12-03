@@ -28,7 +28,7 @@ const DynamicDataParser = ({
     const [data_to_show, setDataToShow] = useState([]);
     const url_query = useParams();
     const category_id = url_query.id || url_query.category_id;
-
+    const productId = url_query?.product_id;
 
     useEffect(() => {
         if (page_route.includes('/category') && category_id !== undefined) {
@@ -49,12 +49,16 @@ const DynamicDataParser = ({
         if (page_route.includes('/category') && categories.length) { // show category as products
             const category = categories.find(category => category.id === category_id);
             const temp_data = category?.[Constants.PRODUCT_TYPE[category.Type]]?.reduce((products, product) => {
-                (product?.Display === true || product.Display === undefined) && products.push({
-                    id: product.id,
-                    name: product.Product.Name,
-                    Image: product.Product.ProductsImages[0].Image,
-                    base_url: `/category/${category.id}/product`
-                });
+                if (productId !== product.id) {
+                    (product?.Display === true || product.Display === undefined) && products.push({
+                        id: product.id,
+                        name: product.Product.Name,
+                        Image: product.Product.ProductsImages[0].Image,
+                        baseUrl: `/category/${category.id}/product/${product.id}`,
+                        categoryUrl: `/category/${category.id}`,
+                        categoryName: category.Name
+                    });
+                }
                 return products;
             }, []);
             setDataToShow(temp_data || []);
@@ -66,13 +70,17 @@ const DynamicDataParser = ({
                         id: product.id,
                         name: product.Product.Name,
                         Image: product.Product.ProductsImages[0].Image,
-                        base_url: `/category/${category.id}/product`
+                        baseUrl: `/category/${category.id}/product`,
+                        categoryBaseUrl: `/category/${category.id}`,
+                        categoryName: category.Name
                     }));
                 return {
                     id: category.id,
                     name: category.Name,
                     Image: category.Image,
-                    base_url: '/category'
+                    baseUrl: `/category/${category.id}`,
+                    categoryBaseUrl: `/category/${category.id}`,
+                    categoryName: category.Name
                 };
             });
             setDataToShow(filtered_data);
@@ -81,11 +89,13 @@ const DynamicDataParser = ({
                 id: category.id,
                 name: category.Name,
                 Image: category.Image,
-                base_url: '/category'
+                baseUrl: `/category/${category.id}`,
+                categoryUrl: `/category/${category.id}`,
+                categoryName: category.Name
             })));
         else
             setDataToShow([]);
-    }, [categories, page_route, static_page_data, url_query, category_id]);
+    }, [categories, page_route, static_page_data, url_query, category_id, productId]);
 
 
     return <>

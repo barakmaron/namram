@@ -13,9 +13,11 @@ async function ResizeAndStoreImage(filename, base64Image, type) {
     try {
         if (type !== 'application/pdf' && base64Image) {
             const buffer = Buffer.from(base64Image, 'base64');
-            const ref = `${uuid()}.webp`;
-            await sharp(buffer).webp({ quality: 70 }).toFile(`./Images/${ref}`);
-            return ref;
+            const parsedUuid = uuid();
+            const ref = (parsedUuid, fileExtension='') => `${parsedUuid}${fileExtension}.webp`;
+            await sharp(buffer).webp({ quality: 70 }).toFile(`./Images/${ref(parsedUuid)}`);
+            await sharp(buffer).webp({ quality: 70 }).resize({ width: 56, height: 56 }).toFile(`./Images/${ref(parsedUuid, '_thumb')}`);
+            return ref(parsedUuid);
         }
         return filename;
     } catch (err) {
