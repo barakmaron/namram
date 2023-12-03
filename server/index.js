@@ -13,20 +13,20 @@ const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename); 
 
-const http_port = 80;
+const http_port = 8008;
 const https_port = 443;
 
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/namram.co.il/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/namram.co.il/cert.pem', 'utf8');
-const ca = fs.readFileSync('/etc/letsencrypt/live/namram.co.il/chain.pem', 'utf8');
+// const privateKey = fs.readFileSync('/etc/letsencrypt/live/namram.co.il/privkey.pem', 'utf8');
+// const certificate = fs.readFileSync('/etc/letsencrypt/live/namram.co.il/cert.pem', 'utf8');
+// const ca = fs.readFileSync('/etc/letsencrypt/live/namram.co.il/chain.pem', 'utf8');
 
-const credentials = {
-	key: privateKey,
-	cert: certificate,
-	ca: ca
-};
+// const credentials = {
+// 	key: privateKey,
+// 	cert: certificate,
+// 	ca: ca
+// };
 
-app.use(EnsureSecureMiddleware);
+//app.use(EnsureSecureMiddleware);
 app.use(favicon(path.join(__dirname, '../company_site/build/favicon.ico')));
 
 app.use(ErrorHandler);
@@ -41,12 +41,12 @@ process.on('uncaughtException', (error) => {
 });
 
 const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
+// const httpsServer = https.createServer(credentials, app);
 
 httpServer.listen(http_port, () => {
 	console.log('HTTP Server running on port 80');
 });
 
-httpsServer.listen(https_port, () => {
-	console.log('HTTPS Server running on port 443');
-});
+// httpsServer.listen(https_port, () => {
+// 	console.log('HTTPS Server running on port 443');
+// });

@@ -3,7 +3,6 @@ import morgan from 'morgan';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
-import vhost from 'vhost';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -32,14 +31,14 @@ const app = express();
 app.use(cookieParser());
 app.use([morgan("common"), cors({ origin:true, credentials: true }), express.json({ limit: '100mb' }), express.urlencoded({ extended: false, limit: '100mb' })]);
 
-app.use(vhost("login.*", express.static(path.join(__dirname, '../control_panel/build'))))
+app.use("login.*", express.static(path.join(__dirname, '../control_panel/build/')))
 
 app.use('/', routes);
 app.use(ValidationErrorMiddleware);
 
-app.use(vhost("*", express.static(path.join(__dirname, '../company_site/build'))));
+app.use("*", express.static(path.join(__dirname, '../company_site/build/')));
 app.get('(/*)?', function(req, res) {
-   res.sendFile('index.html', {root: path.join(__dirname, '../company_site/build/')});
+  res.sendFile('index.html', {root: path.join(__dirname, '../company_site/build/')});
 });
 
 
