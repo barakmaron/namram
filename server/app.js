@@ -36,9 +36,9 @@ app.use("/login_control_panel", express.static(path.join(__dirname, '../control_
 app.use('/', routes);
 app.use(ValidationErrorMiddleware);
 
-app.use(express.static(path.resolve(__dirname, '../company_site/build')));
+app.use(express.static(path.join(__dirname, '../company_site/build')));
 app.get('(/*)?', function(req, res) {
-  res.sendFile(path.resolve(__dirname, '../company_site/build', 'index.html'));
+  res.sendFile(path.join(__dirname, '../company_site/build', 'index.html'));
 });
 
 
