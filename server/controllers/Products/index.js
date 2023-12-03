@@ -9,12 +9,8 @@ import { StatusCode } from 'status-code-enum';
 
 async function AddProduct(req, res, next) {
     try {
-        const { category_id, Name, SerialNumber, Text, Price, ...props } = req.body;
-        const files = req.files.map((file) => ({
-            path: file.path, 
-            filename: file.filename 
-        }));  
-        const product = await ProductsService.AddProduct(category_id, Name, SerialNumber, Text, Price, files, props, req.baseUrl);
+        const { category_id, Name, SerialNumber, Text, Price, filesNames, ...props } = req.body;
+        const product = await ProductsService.AddProduct(category_id, Name, SerialNumber, Text, Price, filesNames, props, req.baseUrl);
         return res.status(StatusCode.SuccessOK).json(product);
     } catch (err) {
         next(err);

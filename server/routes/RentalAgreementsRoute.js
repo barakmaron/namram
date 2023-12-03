@@ -15,17 +15,17 @@ router.get('/',
     RentalAgreementsController.GetAgreements);
 
 router.post('/customer/:id',
-    makeMulterUploadMiddleware(UploadMiddleware.single('Signature'), "Signature"), 
+    UploadMiddleware,
     validate(checkSchema(RentalAgreementsSchemas.AddRentalAgreement)),  
     RentalAgreementsController.AddAgreement);
 
 router.post('/:id',
-    makeMulterUploadMiddleware(UploadMiddleware.single('Signature'), "Signature"), 
+    UploadMiddleware,
     validate(checkSchema(RentalAgreementsSchemas.CloseRentalAgreement)),  
     RentalAgreementsController.CloseAgreement);
 
 router.post('/', 
-    makeMulterUploadMiddleware(UploadMiddleware.single('Signature'), "Signature"), 
+    UploadMiddleware,
     validate(checkSchema(RentalAgreementsSchemas.AddRentalAgreement)), 
     RentalAgreementsController.AddAgreement);
 

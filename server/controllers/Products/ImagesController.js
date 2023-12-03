@@ -13,12 +13,8 @@ async function DeleteImage(req, res, next) {
 
 async function AddImages(req, res, next) {
     try {
-        const { product_id } = req.body;
-        const files = req.files.map((file) => ({
-            path: file.path, 
-            filename: file.filename 
-        }));   
-        const images_db = await ProductsService.Images.AddImages(product_id, files);
+        const { product_id, filesNames } = req.body;
+        const images_db = await ProductsService.Images.AddImages(product_id, filesNames);
         return res.status(StatusCode.SuccessOK).json(images_db);
     } catch (err) {
         next(err);

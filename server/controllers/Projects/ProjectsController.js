@@ -12,12 +12,8 @@ async function GetAllProjects(req, res, next) {
 
 async function AddProject(req, res, next) {
     try {
-        const { Title, Text, Date } = req.body;
-        const images = req.files.map((file) => ({
-            path: file.path, 
-            filename: file.filename 
-        }));  
-        const project = await ProjectsService.AddProject(Title, Text, Date, images);
+        const { Title, Text, Date, filesNames } = req.body;        
+        const project = await ProjectsService.AddProject(Title, Text, Date, filesNames);
         return res.status(StatusCode.SuccessOK).json(project);
     } catch (err) {
         next(err);

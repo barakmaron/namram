@@ -16,7 +16,7 @@ import AuthenticateToken from '../middleware/AuthMiddleware.js';
 import BackupRouter from './BackupRoute.js';
 
 const routes = express.Router();
-routes.use('/categories', CategoriesRouter)
+routes.use('/categories', CategoriesRouter);
 routes.use('/sale', SaleRouter);
 routes.use('/rent', RentRouter);
 routes.use('/products', ProductsRouter);

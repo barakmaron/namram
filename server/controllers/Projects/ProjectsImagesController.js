@@ -4,11 +4,8 @@ import { StatusCode } from 'status-code-enum';
 async function AddImages(req, res, next) { 
     try {
         const { id } = req.params;
-        const images = req.files.map((file) => ({
-            path: file.path, 
-            filename: file.filename 
-        }));  
-        const added_images = await ProjectsImagesService.AddImages(images, id);
+        const {filesNames} = req.body;
+        const added_images = await ProjectsImagesService.AddImages(filesNames, id);
         return res.status(StatusCode.SuccessOK).json(added_images);
     } catch (err) {
         next(err);

@@ -8,9 +8,7 @@ async function DeleteImage(id) {
 }
 
 async function AddImages(product_id, files) {         
-    const image_resized = files.map(file => ImageService.ResizeAndStoreImage(file.path, file.filename));
-    const images = await Promise.all(image_resized);
-    return await ProductsDB.Images.AddImages(product_id, images);
+    return await ProductsDB.Images.AddImages(product_id, files);
 }
 
 const ImagesService = {

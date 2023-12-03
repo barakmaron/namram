@@ -3,12 +3,8 @@ import { StatusCode } from 'status-code-enum';
 
 async function AddCategory(req, res, next) {
     try {
-        const { name } = req.body;
-        const { path, filename } = req.file;
-        const category = await CategoriesService.AddCategory(name, { 
-            path, 
-            filename 
-        }, req.baseUrl);
+        const { name, filesNames } = req.body;
+        const category = await CategoriesService.AddCategory(name, filesNames, req.baseUrl);
         return res.status(StatusCode.SuccessOK).json(category);
     } catch (err) {
         next(err);

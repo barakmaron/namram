@@ -1,0 +1,6 @@
+.imagesContainer img {
+    max-width: unset !important;
+    height: 375px;
+    width: auto !important;
+    object-fit: contain;
+}
