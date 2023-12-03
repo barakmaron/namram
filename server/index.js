@@ -2,10 +2,16 @@ import http from 'http';
 import https from 'https';
 import fs from 'fs';
 import favicon from "serve-favicon";
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 import ErrorHandler from './middleware/ErrorHandler.js';
 import app from "./app.js";
 import EnsureSecureMiddleware from './middleware/EnsureSecureMiddleware.js';
+
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename); 
 
 const http_port = 80;
 const https_port = 443;
