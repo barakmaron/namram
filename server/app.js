@@ -31,7 +31,7 @@ const app = express();
 app.use(cookieParser());
 app.use([morgan("common"), cors({ origin:true, credentials: true }), express.json({ limit: '100mb' }), express.urlencoded({ extended: false, limit: '100mb' })]);
 
-app.use("/login_control_panel", express.static(path.join(__dirname, '../control_panel/build/')))
+app.use("/login_control_panel", express.static(path.join(__dirname, '../control_panel/build')))
 
 app.use('/', routes);
 app.use(ValidationErrorMiddleware);
