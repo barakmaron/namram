@@ -21,7 +21,7 @@ function App({
 
     useEffect(() => {
         if (!logged_in) {
-            navigate('/');
+            navigate(AppRoutes.loginRoute);
         }
     }, [location.pathname, logged_in, navigate]);
 

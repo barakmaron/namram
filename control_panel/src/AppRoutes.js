@@ -12,7 +12,7 @@ import ToolsPage from "./pages/ToolsPage";
 
 export const loginRoute = {
     label: "התחבר",
-    location: "/",
+    location: "/login_control_panel",
     element: Login,
     editable: false,
     show: false
@@ -111,50 +111,50 @@ const routes = [{
 
 const adminRoutes = [{
     label: "לוח בקרה",
-    location: "/",
+    location: "/login_control_panel",
     element: ControlPanel
 }, {
     label: "השכרת ציוד",
-    location: "/control_panel/rent",
+    location: "/login_control_panel/control_panel/rent",
     element: RentalControlPanel,
 }, {
     label: "מכירת ציוד",
-    location: "/control_panel/sale",
+    location: "/login_control_panel/control_panel/sale",
     element: ToolsPage,
     props: {
         product_type: Constants.API_PRODUCT_TYPE.SALE
     }
 }, {
     label: "כלים השכרה",
-    location: "/control_panel/rent/tools",
+    location: "/login_control_panel/control_panel/rent/tools",
     element: ToolsPage,
     props: {
         product_type: Constants.API_PRODUCT_TYPE.RENT
     }
 }, {
     label: "לקוחות השכרה",
-    location: "/control_panel/rent/customers",
+    location: "/login_control_panel/control_panel/rent/customers",
     element: CustomersPage,
 }, {
     label: "תיקונים",
-    location: "/control_panel/rent/service",
+    location: "/login_control_panel/control_panel/rent/service",
     element: ServicePage,
 }, {
     label: "הפקת דוחות",
-    location: "/control_panel/rent/reports",
+    location: "/login_control_panel/control_panel/rent/reports",
     element: CreateReportsPage,
 
 }, {
     label: "בלוג",
-    location: "/control_panel/blogs",
+    location: "/login_control_panel/control_panel/blogs",
     element: BlogEditorPage
 }, {
     label: "פרוייקטים",
-    location: "/control_panel/projects",
+    location: "/login_control_panel/control_panel/projects",
     element: ProjectsEditorPage
 }, {
     label: "התנתק",
-    location: "/logout",
+    location: "/login_control_panel/logout",
     element: Login,
     props: {
         logout: true

@@ -46,7 +46,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "CI=false && react-scripts build",
+    "build": "PUBLIC_URL=/login_control_panel && CI=false && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -68,6 +68,7 @@
       "last 1 safari version"
     ]
   },
+  "homepage": "/login_control_panel",
   "devDependencies": {
     "typescript": "^4.9.3"
   }
