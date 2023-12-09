@@ -46,7 +46,7 @@ app.get('/login_control_panel', (req, res) => {
   res.sendFile(path.join(__dirname, '../control_panel/build', 'index.html'));
 });
 
-app.get('/', function(req, res) {
+app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, '../company_site/build', 'index.html'));
 });
 
