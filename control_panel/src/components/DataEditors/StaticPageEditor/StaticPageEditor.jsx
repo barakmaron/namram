@@ -51,7 +51,7 @@ const StaticPageEditor = ({
 
     return <div
         className='flex flex-col'>
-        {static_page_data.length !== 0 && <div className='flex flex-row gap-1'>
+        {static_page_data.length !== 0 && <div className='flex flex-row gap-1 flex-wrap'>
             {static_page_data?.map(data => {
                 return data.id ? <div
                     className='w-fit'
