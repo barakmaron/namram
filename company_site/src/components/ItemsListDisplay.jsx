@@ -10,14 +10,14 @@ const ItemsListDisplay = ({
     return <div className='w-full mb-8 mt-2 p-2 sm:p-0'>
         <div className='flex flex-row flex-wrap sm:w-full lg:w-4/6 mx-auto gap-2 md:gap-0 lg:gap-3'>
             {list?.map(item => <React.Fragment key={`list-item-${item?.id}`}>
-                <Card className='w-full md:w-2/6 lg:w-1/6 no-underline cursor-pointer h-[405px] border-[0.1px] border-opacity-20 border-blue-500 shadow-none'>
-                    <CardContent className='relative flex flex-col items-end gap-2'>
+                <Card className='w-full md:w-2/6 lg:w-1/6 no-underline cursor-pointer border-[0.1px] border-opacity-20 border-blue-500 shadow-none'>
+                    <CardContent className='relative flex flex-col items-end gap-1 pb-[2px!important]'>
                         <Link className='hover:underline' to={`${item?.categoryUrl}`}>
                             <div className='flex flex-row gap-2 justify-start w-fit items-center rounded pr-[2px] pl-2 font-bold text-white bg-light-green-base text-end'>
                                 {item?.categoryName} <FaTags />
                             </div>
                         </Link>
-                        <Link className='group flex flex-col gap-2 justify-between h-[350px] mx-auto' to={`${item?.baseUrl}`}>
+                        <Link className='group flex flex-col gap-1 justify-evenly justify-items-center h-[350px] mx-auto' to={`${item?.baseUrl}`}>
                             <Image
                                 alt={item?.name}
                                 no_style={true}
