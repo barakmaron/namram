@@ -27,6 +27,17 @@ async function DeleteSaleProduct(req, res, next) {
     }
 }
 
+async function ChangeProductCategory(req, res, next) {
+    try {
+        const { id } = req.params;
+        const { newCategory } = req.body;
+        await ProductsService.ChangeProductCategory(id, newCategory, req.baseUrl);
+        return res.status(StatusCode.SuccessOK).json();
+    } catch (err) {
+        next(err);
+    }
+}
+
 async function PatchProduct(req, res, next) {
     try {
         const { id } = req.params;
@@ -58,6 +69,7 @@ async function GetProduct(req, res, next) {
 const ProductsController = {
     AddProduct,
     DeleteSaleProduct,
+    ChangeProductCategory,
     PatchProduct,
     GetProduct,
     Props,

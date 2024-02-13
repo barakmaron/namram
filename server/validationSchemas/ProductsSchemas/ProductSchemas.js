@@ -77,10 +77,32 @@ const PatchProduct = {
     }
 }
 
+const ChangeProductCategory = {
+    id: {
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
+        in: ['params']
+    },
+    newCategory: {
+        isLength: {
+            options: { 
+                min: 36
+            }
+        },
+        errorMessage: ErrorMessages.id,
+        in: ['body']
+    }
+}
+
 const ProductSchemas = {
     AddProduct,
     DeleteProduct,
-    PatchProduct
+    PatchProduct,
+    ChangeProductCategory
 };
 
 export default ProductSchemas;

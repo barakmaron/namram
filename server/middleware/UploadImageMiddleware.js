@@ -1,4 +1,3 @@
-import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import ErrorMessages from '../validationSchemas/ErrorMessages.js';
@@ -12,8 +11,13 @@ const UploadMiddleware = async (req, res, next) => {
     const { filesNames } = req.body;
     if (filesNames) {
         const parsedFilesNames = filesNames.split(',');
-        const image_resized = parsedFilesNames.map((fileName, index) => ImageService.ResizeAndStoreImage(fileName, req.body[`file${index}`]));
-        const images = await Promise.all(image_resized);
+        const imageResized = parsedFilesNames.map((fileName, index) => {
+            if(!fileName.endsWith('.pdf'))
+                ImageService.ResizeAndStoreImage(fileName, req.body[`file${index}`]);
+            // TODO: Add pdf support 
+                
+        });
+        const images = await Promise.all(imageResized);
         parsedFilesNames.map((fileName, index) => delete req.body[`file${index}`]);
         req.body.filesNames = images;
     } else {

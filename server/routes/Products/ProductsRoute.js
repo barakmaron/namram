@@ -4,7 +4,6 @@ import ImagesRouter from './ProductsImagesRoute.js';
 import ProductsController from '../../controllers/Products/index.js';
 import DiagramRouter from './ProductsDiagramRouter.js';
 import SparePartsRouter from './ProductsSparePartsRouter.js';
-import UploadImageMiddleware from '../../middleware/UploadImageMiddleware.js';
 import AuthenticateToken from '../../middleware/AuthMiddleware.js';
 import ScheduledServiceRouter from './ScheduledServiceRoute.js';
 import { checkSchema } from 'express-validator';
@@ -24,6 +23,11 @@ router.delete('/:id',
     AuthenticateToken, 
     validate(checkSchema(ProductSchemas.DeleteProduct)), 
     ProductsController.DeleteSaleProduct);
+
+router.post('/:id', 
+    AuthenticateToken, 
+    validate(checkSchema(ProductSchemas.ChangeProductCategory)), 
+    ProductsController.ChangeProductCategory);
     
 router.patch('/:id', 
     AuthenticateToken, 

@@ -191,6 +191,16 @@ async function GetRentProductWithRentalAgreements(rent_product_id, date){
     });
 }
 
+async function ChangeProductCategory(id, newCategory) {
+    return await SaleProductsModel.update({
+        CategoryId: newCategory
+    }, {
+        where: {
+            ProductId: id
+        }
+    });
+}
+
 const ProductsDB = {
     Props,
     Images,
@@ -199,6 +209,7 @@ const ProductsDB = {
     ScheduledService,
     AddProduct,
     DeleteProduct,
+    ChangeProductCategory,
     PatchName,
     PatchPrice,
     PatchText,

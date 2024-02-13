@@ -49,6 +49,10 @@ async function DeleteProduct(id, product_type) {
     return [await Promise.all([ProductsDB.DeleteProduct(id, product_type), ...delete_images])];
 }
 
+async function ChangeProductCategory(id, newCategory) {
+    return await ProductsDB.ChangeProductCategory(id, newCategory);
+}
+
 async function PatchProduct(id, param_name, value) {
     switch (param_name) {
         case "Name": {
@@ -81,7 +85,8 @@ const ProductsService = {
     ScheduledService,
     AddProduct,
     DeleteProduct, 
-    PatchProduct
+    PatchProduct,
+    ChangeProductCategory
 };
 
 export default ProductsService;

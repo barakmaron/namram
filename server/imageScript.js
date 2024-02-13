@@ -6,16 +6,10 @@ const readdir = promisify(fs.readdir);
 
 async function processWebPImages(folderPath) {
     try {
-        // Read the list of files in the folder
         const files = await readdir(folderPath);
-
-        // Iterate over each file
         for (const file of files) {
-            if (file.split('_').length <= 1 && file.split('.')[1] === 'webp') {
-                // Read the image file
+            if (file.endsWith('.webp') && !file.includes('_')) {
                 const buffer = fs.readFileSync(`${folderPath}/${file}`);
-
-                // Process the image using sharp
                 await sharp(buffer)
                     .webp({ quality: 100 })
                     .resize({ width: 56, height: 56 })
@@ -29,5 +23,4 @@ async function processWebPImages(folderPath) {
     }
 }
 
-// Replace 'path/to/your/webp/images/folder' with the actual path to your WebP image folder
 processWebPImages('Images');
