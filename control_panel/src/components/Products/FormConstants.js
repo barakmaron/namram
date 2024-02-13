@@ -34,6 +34,19 @@ const ProductForms = {
         type: FORMS.INPUTS_TYPES.DATA_LIST,
         name: "product",
         place_holder: "Choose product"
+    }],
+    changeCategoryForProduct: [{
+        type: FORMS.INPUTS_TYPES.DATA_LIST,
+        name: "oldCategory",
+        place_holder: "Choose Old Category"
+    }, {
+        type: FORMS.INPUTS_TYPES.DATA_LIST,
+        name: "product",
+        place_holder: "Choose product"
+    },{
+        type: FORMS.INPUTS_TYPES.DATA_LIST,
+        name: "newCategory",
+        place_holder: "Choose New Category"
     }]
 };
 

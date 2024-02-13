@@ -11,7 +11,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { BsCheck2Circle } from 'react-icons/bs';
 import { FileUpload } from 'primereact/fileupload';
 
-import { getErrors, getFailed, getMessage, getSuccessful } from "../../redux/selectors/ApiHandlerSelector"
+import { getErrors, getFailed, getMessage, getSuccessful } from "../../redux/selectors/ApiHandlerSelector";
 import { InitApiHandlerAction } from "../../redux/actions/ApiHandlerActions";
 import RichTextArea from '../RichTextArea';
 import RentalToolsSelector from './RentToolsSelector';
@@ -20,7 +20,7 @@ import Checkbox from './CheckBox';
 import FORMS from './Forms';
 
 import style from './Form.module.css';
-import { fileToObjectUrl, objectUrlToBase64 } from '../../services/ImagesService';
+import { fileToObjectUrl, objectUrlToBase64, pdfFileUploader } from '../../services/ImagesService';
 
 function Form({
     inputs,
@@ -52,11 +52,17 @@ function Form({
     }, [images]);
 
     const uploadToClient = useCallback(async (event) => {
-        const images = await Promise.all(event.files.map(async (file) => ({
-            name: file.name,
-            base64Value: await objectUrlToBase64(file.objectURL),
-            file: file
-        })));
+        const images = await Promise.all(event.files.map(async (file) => {
+            console.log(file, await pdfFileUploader(file));
+            return ({
+                name: file.name,
+                base64Value: !file.name.endsWith('.pdf') ? await objectUrlToBase64(file.objectURL) : await pdfFileUploader(file),
+                file: file,
+                headers: !file.name.endsWith('.pdf') ? null : {
+                    'Content-Type': 'application/octet-stream'
+                }
+            })
+        }));
         setObjectUrl(images);
     }, []);
 

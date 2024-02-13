@@ -3,7 +3,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 
-import { AddProductAction, DeleteProductAction } from "../../redux/actions/ProductsActions/ProductsActions";
+import { AddProductAction, DeleteProductAction, ChangeProductCategoryAction } from "../../redux/actions/ProductsActions/ProductsActions";
 import { getCategories } from "../../redux/selectors/categoriesSelector";
 import ControlPanelBlock from '../ControlPanelBlock';
 import Modal from '../Modal/Modal';
@@ -11,7 +11,7 @@ import Constants from '../../Constants';
 import useProductType from '../../hooks/useProductType';
 import allProductForms from './FormConstants';
 import Form from '../Form/Form';
-import { addProductTitle, addTitle, deleteProductTitle, deleteTitle } from '../../strings';
+import { addProductTitle, addTitle, deleteProductTitle, deleteTitle, changeCategoryForProductLabel, changeCategoryForProductTitle } from '../../strings';
 
 const Products = ({
   categories,
@@ -19,14 +19,18 @@ const Products = ({
   categories_list,
   AddProductAction,
   DeleteProductAction,
+  ChangeProductCategoryAction,
   type
 }) => {
   const [add_product, setAddProduct] = useState(false);
+  const [changeCategoryForProduct, setChangeCategoryForProduct] = useState(false);
   const [add_form_controller, setAddFormController] = useState([]);
   const [delete_product, setDeleteProduct] = useState(false);
   const [delete_form_controller, setDeleteFormController] = useState([]);
+  const [changeCategoryFormController, setChangeCategoryFormController] = useState([]);
   const [selected_category, setSelectedCategory] = useState(null);
   const [selected_product, setSelectedProduct] = useState(null);
+  const [selectedNewCategory, setSelectedNewCategory] = useState(null);
   const [array_type] = useProductType(type);
 
   useEffect(() => {
@@ -50,8 +54,18 @@ const Products = ({
         setSelectedProduct(product);
       }
     }];
+
+    const changeCategoryController = [...delete_controller, {
+      list: categories_list,
+      onChange: (selected) => {
+        const category = categories.find(category => category.id === selected.value);
+        setSelectedNewCategory(category);
+      }
+    }];
+
     setAddFormController(controller);
     setDeleteFormController(delete_controller);
+    setChangeCategoryFormController(changeCategoryController);
   }, [categories_list, categories, selected_category, array_type]);
 
 
@@ -65,12 +79,20 @@ const Products = ({
     DeleteProductAction(selected_category.id, selected_product.ProductId, type);
   }, [DeleteProductAction, selected_category, selected_product, type]);
 
+  const changeProductCategoryAction = useCallback((event) => {
+    event.preventDefault();
+    ChangeProductCategoryAction(selected_category.id, selected_product.ProductId, selectedNewCategory.id, type);
+  }, [ChangeProductCategoryAction, selectedNewCategory, selected_category, selected_product, type]);
+
   return (<>
     <ControlPanelBlock
       number={products?.length || 0}
       actions={[{
         value: () => setAddProduct(true),
         label: addTitle
+      }, {
+        value: () => setChangeCategoryForProduct(true),
+        label: changeCategoryForProductLabel
       }, {
         value: () => setDeleteProduct(true),
         label: deleteTitle
@@ -91,6 +113,12 @@ const Products = ({
         inputs={allProductForms.delete_product}
         controller={delete_form_controller} />
     </Modal>}
+    {changeCategoryForProduct && <Modal header={changeCategoryForProductTitle} setClose={() => setChangeCategoryForProduct(false)}>
+      <Form
+        action={changeProductCategoryAction}
+        inputs={allProductForms.changeCategoryForProduct}
+        controller={changeCategoryFormController} />
+    </Modal>}
   </>)
 }
 
@@ -102,7 +130,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapActionToProps = (dispatch) => {
   return bindActionCreators({
     AddProductAction,
-    DeleteProductAction
+    DeleteProductAction,
+    ChangeProductCategoryAction
   }, dispatch);
 };
 

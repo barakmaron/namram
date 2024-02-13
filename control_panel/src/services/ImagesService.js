@@ -22,3 +22,14 @@ export async function objectUrlToBase64(objectUrl) {
 export function fileToObjectUrl(file) {
     return URL.createObjectURL(file);
 }
+
+export async function pdfFileUploader(file) {
+    const base64data = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = (event) => resolve(event.target.result);
+        reader.onerror = reject;
+        reader.readAsArrayBuffer(file);
+    });
+
+    return base64data;
+}

@@ -32,6 +32,17 @@ const DeleteProduct = (category, product, product_type) => ({
     }
 });
 
+
+const changeProductCategory = (category, product, newCategory, product_type) => ({
+    type: ACTIONS.CHANGE_PRODUCT_CATEGORY,
+    payload: {
+        product_id: product,
+        category_id: category,
+        newCategory,
+        product_type
+    }
+});
+
 const PatchProduct = (product_id, category_id, param_name, value, product_type) => ({
     type: ACTIONS.PATCH_PRODUCT,
     payload: {
@@ -64,6 +75,18 @@ export const DeleteProductAction = (category_id, product_id, product_type) => {
         try {
             dispatch(DeleteProduct(category_id, product_id, product_type));
             await SendApiRequest(`/${product_type}/products/${product_id}`, Constants.API_METHODS.DELETE);
+            dispatch(Successful(ApiMessagesConstants.product.deleteProduct.successful));
+        } catch (err) {
+            DispatchError(dispatch, err, ApiMessagesConstants.product.deleteProduct.failed);
+        }
+    };
+};
+
+export const ChangeProductCategoryAction = (category_id, product_id, newCategory, product_type) => {
+    return async (dispatch) => {
+        try {
+            dispatch(changeProductCategory(category_id, product_id, newCategory, product_type));
+            await SendApiRequest(`/${product_type}/products/${product_id}`, Constants.API_METHODS.POST, { newCategory });
             dispatch(Successful(ApiMessagesConstants.product.deleteProduct.successful));
         } catch (err) {
             DispatchError(dispatch, err, ApiMessagesConstants.product.deleteProduct.failed);

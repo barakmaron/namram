@@ -7,6 +7,7 @@ export const addCategoryTitle = "הוסף קטגוריה";
 export const editCategoryTitle = "ערוך קטגוריה";
 export const deleteCategoryTitle = "מחק קטגוריה";
 export const categoriesTitle = "קטגוריות";
+export const changeCategoryForProductLabel = "החלף קטגוריה למוצר";
 
 export const agreementNumberTitle = "הסכם מספר";
 export const toolNameTitle = "שם הכלי";
@@ -70,6 +71,7 @@ export const productNameTitle = "שם המוצר";
 export const clearTitle = "clear";
 export const addProductTitle = "הוסף מוצר";
 export const deleteProductTitle = "מחק מוצר";
+export const changeCategoryForProductTitle = "החלף קטגוריה עבור מוצר";
 export const imagesTitle = "תמונות";
 export const propsTitle = "תכונות";
 export const descriptionTitle = "תיאור";
